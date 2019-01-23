@@ -20,9 +20,9 @@ struct Subject: Codable {
     let information, englishClass, originalClass, onlineClass: String
     let limitPersonal, remark: String
     
-    var informations: [Information] {
+    lazy var informations: [Information] = {
         return createInformations()
-    }
+    }()
     
     enum CodingKeys: String, CodingKey {
         case academicNumber = "academic_number"
