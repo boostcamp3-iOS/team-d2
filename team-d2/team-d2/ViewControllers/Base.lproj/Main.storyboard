@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RHf-SF-UEh">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Recommandation-->
+        <scene sceneID="F17-q3-rkK">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Recommandation" referencedIdentifier="Recommandation" id="eRu-sR-qTM" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="zeW-ho-hbn"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UKo-5x-vJM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1716" y="-106"/>
+        </scene>
+        <!--TimeTable-->
+        <scene sceneID="duf-70-PD7">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="TimeTable" storyboardName="TimeTable" referencedIdentifier="TimeTable" id="52P-EC-yVe" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="elw-TX-Egs"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fYr-qI-WyW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1681" y="-393"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="yUW-CT-daG">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="RHf-SF-UEh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GYm-g7-z3l">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="52P-EC-yVe" kind="relationship" relationship="viewControllers" id="Oli-Ry-IKO"/>
+                        <segue destination="eRu-sR-qTM" kind="relationship" relationship="viewControllers" id="Q6X-gb-7Ac"/>
+                        <segue destination="hf4-4v-t5D" kind="relationship" relationship="viewControllers" id="fcE-Nu-xqj"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7iI-M6-wqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1026.4000000000001" y="-105.69715142428787"/>
+        </scene>
+        <!--MyProfile-->
+        <scene sceneID="hBa-im-g7h">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="MyProfile" storyboardName="MyProfile" referencedIdentifier="MyProfile" id="hf4-4v-t5D" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="0XZ-VY-wTZ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TdS-gH-7x6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1716" y="198"/>
+        </scene>
+    </scenes>
+</document>
