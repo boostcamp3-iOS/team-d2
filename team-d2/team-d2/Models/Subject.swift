@@ -39,26 +39,30 @@ struct Subject: Codable {
         case remark
     }
     
-    func createInformations() -> [Information] {
-        var list: [Information] = []
+    private func splitInformation() -> [String] {
         let regex = try? NSRegularExpression(pattern: "\\(.*\\)", options: [])
-        let informationString = regex?.stringByReplacingMatches(in: information,
+        let replacedInformation = regex?.stringByReplacingMatches(in: information,
                                                                 options: [],
                                                                 range: NSRange(location: 0, length: information.count),
                                                                 withTemplate: "")
-        guard let splittedInformation = informationString?.split(separator: " ").map(String.init),
-            splittedInformation.count > 1 else { return [] }
+        guard let splittedInformation = replacedInformation?.split(separator: " ").map(String.init) else { return [] }
         
+        return splittedInformation
+    }
+    
+    private func createInformations() -> [Information] {
+        var informations: [Information] = []
+        let splittedInformation = splitInformation()
         var index = 0
-        while index < splittedInformation.count {
+        while index + 2 < splittedInformation.count {
             let information = Information(day: splittedInformation[index],
                                           time: splittedInformation[index + 1],
                                           building: splittedInformation[index + 2])
             
-            list.append(information)
+            informations.append(information)
             index += 3
         }
         
-        return list
+        return informations
     }
 }
