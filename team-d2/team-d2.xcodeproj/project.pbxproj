@@ -13,7 +13,6 @@
 		3BBAA5DF21F7F55A00861707 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5DD21F7F55A00861707 /* LaunchScreen.storyboard */; };
 		3BBAA5ED21F7FC2B00861707 /* TimeTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5EC21F7FC2B00861707 /* TimeTable.storyboard */; };
 		3BBAA5EF21F7FC6200861707 /* TimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA5EE21F7FC6200861707 /* TimeTableViewController.swift */; };
-		3BBAA5F121F808F500861707 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5F021F808F500861707 /* GoogleService-Info.plist */; };
 		3BBAA5F321F82A1200861707 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA5F221F82A1200861707 /* MainViewController.swift */; };
 		3BBAA5F721F835C500861707 /* RecommandationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA5F621F835C500861707 /* RecommandationViewController.swift */; };
 		3BBAA5F921F835D300861707 /* Recommandation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5F821F835D300861707 /* Recommandation.storyboard */; };
@@ -30,7 +29,6 @@
 		3BBAA5E021F7F55A00861707 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BBAA5EC21F7FC2B00861707 /* TimeTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TimeTable.storyboard; sourceTree = "<group>"; };
 		3BBAA5EE21F7FC6200861707 /* TimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeTableViewController.swift; sourceTree = "<group>"; };
-		3BBAA5F021F808F500861707 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3BBAA5F221F82A1200861707 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		3BBAA5F621F835C500861707 /* RecommandationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommandationViewController.swift; sourceTree = "<group>"; };
 		3BBAA5F821F835D300861707 /* Recommandation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recommandation.storyboard; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 			children = (
 				3BBAA5EA21F7FBAB00861707 /* Support */,
 				3BBAA5E921F7FBA200861707 /* Resources */,
-				3BBAA5E821F7FB9800861707 /* Views */,
 				3BBAA5E721F7FB7100861707 /* ViewControllers */,
 				3BBAA5D421F7F55900861707 /* AppDelegate.swift */,
 			);
@@ -89,13 +86,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		3BBAA5E821F7FB9800861707 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		3BBAA5E921F7FBA200861707 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				3BBAA5E021F7F55A00861707 /* Info.plist */,
-				3BBAA5F021F808F500861707 /* GoogleService-Info.plist */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -201,7 +190,6 @@
 			files = (
 				3BBAA5DF21F7F55A00861707 /* LaunchScreen.storyboard in Resources */,
 				3BBAA5DC21F7F55A00861707 /* Assets.xcassets in Resources */,
-				3BBAA5F121F808F500861707 /* GoogleService-Info.plist in Resources */,
 				3BBAA5F921F835D300861707 /* Recommandation.storyboard in Resources */,
 				3BBAA5FF21F839FA00861707 /* MyProfile.storyboard in Resources */,
 				3BBAA5DA21F7F55900861707 /* Main.storyboard in Resources */,
