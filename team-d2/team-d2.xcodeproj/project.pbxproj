@@ -18,6 +18,7 @@
 		3BBAA5F921F835D300861707 /* Recommandation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5F821F835D300861707 /* Recommandation.storyboard */; };
 		3BBAA5FD21F839EF00861707 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA5FC21F839EF00861707 /* MyProfileViewController.swift */; };
 		3BBAA5FF21F839FA00861707 /* MyProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5FE21F839FA00861707 /* MyProfile.storyboard */; };
+		47B4FE4221F854AC009A0E39 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4FE4121F854AC009A0E39 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		3BBAA5F821F835D300861707 /* Recommandation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Recommandation.storyboard; sourceTree = "<group>"; };
 		3BBAA5FC21F839EF00861707 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		3BBAA5FE21F839FA00861707 /* MyProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
+		47B4FE4121F854AC009A0E39 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		3BBAA5D321F7F55900861707 /* team-d2 */ = {
 			isa = PBXGroup;
 			children = (
+				47B4FE4021F85238009A0E39 /* Network */,
 				3BBAA5EA21F7FBAB00861707 /* Support */,
 				3BBAA5E921F7FBA200861707 /* Resources */,
 				3BBAA5E721F7FB7100861707 /* ViewControllers */,
@@ -128,6 +131,14 @@
 				3BBAA5FE21F839FA00861707 /* MyProfile.storyboard */,
 			);
 			path = MyProfileViewController;
+			sourceTree = "<group>";
+		};
+		47B4FE4021F85238009A0E39 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				47B4FE4121F854AC009A0E39 /* NetworkManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47B4FE4221F854AC009A0E39 /* NetworkManager.swift in Sources */,
 				3BBAA5FD21F839EF00861707 /* MyProfileViewController.swift in Sources */,
 				3BBAA5F321F82A1200861707 /* MainViewController.swift in Sources */,
 				3BBAA5F721F835C500861707 /* RecommandationViewController.swift in Sources */,
