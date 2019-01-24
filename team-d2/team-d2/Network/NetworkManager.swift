@@ -12,15 +12,18 @@ struct NetworkManager {
     
     // MARK: 사용방법
     /*
-     guard let firebase = PlistManager.configure(Firebase.self, resoureName: "firebase") else { return }
+     let plistManager = PlistManager()
+     guard let firebase = plistManager.configure(Firebase.self, resoureName: "firebase") else { return }
      let id = firebase.accountId
      let url = firebase.url
      let firebaseUrl = "\(url)?serviceAccountId=\(id)"
-     NetworkManager.request(with: firebaseUrl) { (data) in
+     let networkManager = NetworkManager()
+     networkManager.request(with: firebaseUrl) { (data) in
         print(data)
      }
      */
-    static func request(with url: String, handler: @escaping (Data?) -> Void ) {
+    
+    func request(with url: String, handler: @escaping (Data?) -> Void ) {
         guard let url = URL(string: url) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
             if error != nil { return }

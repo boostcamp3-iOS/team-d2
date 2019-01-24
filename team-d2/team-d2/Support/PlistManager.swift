@@ -9,15 +9,15 @@
 import Foundation
 
 struct PlistManager {
-    static let fileType = "plist"
+    private let fileType = "plist"
     
-    static func configure<T:Decodable>(_ typeClass: T.Type, resoureName: String) -> T? {
+    func configure<T:Decodable>(_ typeClass: T.Type, resoureName: String) -> T? {
         guard let url = Bundle.main.url(forResource: resoureName, withExtension: fileType) else { return nil }
         guard let data = data(with: url) else { return nil }
         return decode(typeClass, from: data)
     }
     
-    static func data(with url: URL) -> Data? {
+    private func data(with url: URL) -> Data? {
         var data: Data? = nil
         do {
             data = try Data(contentsOf: url)
@@ -27,7 +27,7 @@ struct PlistManager {
         return data
     }
     
-    static func decode<T:Decodable>(_ typeClass: T.Type, from data: Data) -> T? {
+    private func decode<T:Decodable>(_ typeClass: T.Type, from data: Data) -> T? {
         let decoder = PropertyListDecoder()
         var object: T? = nil
         do {
