@@ -13,9 +13,9 @@ struct NetworkManager {
     // MARK: 사용방법
     /*
      let plistManager = PlistManager()
-     guard let firebase = plistManager.configure(Firebase.self, resoureName: "firebase") else { return }
-     let id = firebase.accountId
-     let url = firebase.url
+     guard let firebaseKey = plistManager.configure(FirebaseKey.self, resoureName: "firebase") else { return }
+     let id = firebaseKey.accountId
+     let url = firebaseKey.url
      let firebaseUrl = "\(url)?serviceAccountId=\(id)"
      let networkManager = NetworkManager()
      networkManager.request(with: firebaseUrl) { (data, error) in

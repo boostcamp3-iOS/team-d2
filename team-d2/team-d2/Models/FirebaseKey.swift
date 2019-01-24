@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Firebase: Decodable {
+struct FirebaseKey: Decodable {
     private enum CodingKeys: String, CodingKey {
         case url = "Url", accountId = "AccountId"
     }
