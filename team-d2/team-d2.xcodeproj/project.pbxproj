@@ -21,6 +21,7 @@
 		47B4FE4221F854AC009A0E39 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4FE4121F854AC009A0E39 /* NetworkManager.swift */; };
 		47B4FE4421F85E73009A0E39 /* firebase.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47B4FE4321F85E73009A0E39 /* firebase.plist */; };
 		47B4FE4621F8649F009A0E39 /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4FE4521F8649F009A0E39 /* PlistManager.swift */; };
+		47B4FE4D21F947D2009A0E39 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4FE4C21F947D2009A0E39 /* Firebase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		47B4FE4121F854AC009A0E39 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		47B4FE4321F85E73009A0E39 /* firebase.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = firebase.plist; sourceTree = "<group>"; };
 		47B4FE4521F8649F009A0E39 /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
+		47B4FE4C21F947D2009A0E39 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		3BBAA5D321F7F55900861707 /* team-d2 */ = {
 			isa = PBXGroup;
 			children = (
+				47B4FE4B21F947BD009A0E39 /* Models */,
 				47B4FE4021F85238009A0E39 /* Network */,
 				3BBAA5EA21F7FBAB00861707 /* Support */,
 				3BBAA5E921F7FBA200861707 /* Resources */,
@@ -145,6 +148,14 @@
 				47B4FE4121F854AC009A0E39 /* NetworkManager.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		47B4FE4B21F947BD009A0E39 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				47B4FE4C21F947D2009A0E39 /* Firebase.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +235,7 @@
 			files = (
 				47B4FE4221F854AC009A0E39 /* NetworkManager.swift in Sources */,
 				47B4FE4621F8649F009A0E39 /* PlistManager.swift in Sources */,
+				47B4FE4D21F947D2009A0E39 /* Firebase.swift in Sources */,
 				3BBAA5FD21F839EF00861707 /* MyProfileViewController.swift in Sources */,
 				3BBAA5F321F82A1200861707 /* MainViewController.swift in Sources */,
 				3BBAA5F721F835C500861707 /* RecommandationViewController.swift in Sources */,
