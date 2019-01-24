@@ -12,8 +12,9 @@ struct PlistManager {
     private let fileType = "plist"
     
     func configure<T:Decodable>(_ typeClass: T.Type, resoureName: String) -> T? {
-        guard let url = Bundle.main.url(forResource: resoureName, withExtension: fileType) else { return nil }
-        guard let data = data(with: url) else { return nil }
+        guard
+            let url = Bundle.main.url(forResource: resoureName, withExtension: fileType),
+            let data = data(with: url) else { return nil }        
         return decode(typeClass, from: data)
     }
     

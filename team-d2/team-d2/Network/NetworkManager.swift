@@ -26,7 +26,7 @@ struct NetworkManager {
     func request(with url: String, handler: @escaping (Data?, Error?) -> Void ) {
         guard let url = URL(string: url) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if error != nil { return }
+            guard error == nil else { return }
             handler(data, error)
         }
         task.resume()
