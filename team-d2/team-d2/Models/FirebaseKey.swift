@@ -10,9 +10,10 @@ import Foundation
 
 struct FirebaseKey: Decodable {
     private enum CodingKeys: String, CodingKey {
-        case url = "Url", accountId = "AccountId"
+        case url = "Url", uploadDate = "UploadDate", schedules = "Schedules"
     }
     
     let url: String
-    let accountId: String
+    let uploadDate: String
+    let schedules: String
 }
