@@ -3,8 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Url</key>
-	<string>https://boostcamp-d2.firebaseio.com/.json</string>
-	<key>AccountId</key>
-	<string>firebase-adminsdk-kg2s4@boostcamp-d2.iam.gserviceaccount.com</string>
+	<string>https://boostcamp-d2.firebaseio.com/.json?</string>
+	<key>Schedules</key>
+	<string>orderBy=&quot;$key&quot;&amp;startAt=&quot;schedules&quot;</string>
+	<key>UploadDate</key>
+	<string>orderBy=&quot;$key&quot;&amp;startAt=&quot;update_date&quot;</string>
 </dict>
 </plist>
