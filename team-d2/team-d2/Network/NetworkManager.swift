@@ -14,9 +14,11 @@ struct NetworkManager {
     /*
      let plistManager = PlistManager()
      guard let firebaseKey = plistManager.configure(FirebaseKey.self, resoureName: "firebase") else { return }
-     let id = firebaseKey.accountId
      let url = firebaseKey.url
-     let firebaseUrl = "\(url)?serviceAccountId=\(id)"
+     let uploadDate = firebaseKey.uploadDate
+     let schedules = firebaseKey.schedules
+     let firebaseUrl = "\(url)\(uploadDate)"
+     let firebaseUrl = "\(url)\(schedules)"
      let networkManager = NetworkManager()
      networkManager.request(with: firebaseUrl) { (data, error) in
         print(data)
@@ -24,8 +26,10 @@ struct NetworkManager {
      */
     
     func request(with url: String, handler: @escaping (Data?, Error?) -> Void ) {
-        guard let url = URL(string: url) else { return }
-        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+        guard
+            let encode = url.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
+            let encodedUrl = URL(string: encode) else { return }
+        let task = URLSession.shared.dataTask(with: encodedUrl) { (data, _, error) in
             guard error == nil else { return }
             handler(data, error)
         }
