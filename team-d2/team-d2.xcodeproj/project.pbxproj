@@ -19,6 +19,10 @@
 		3BBAA5FD21F839EF00861707 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA5FC21F839EF00861707 /* MyProfileViewController.swift */; };
 		3BBAA5FF21F839FA00861707 /* MyProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5FE21F839FA00861707 /* MyProfile.storyboard */; };
 		B8DACC7521F85278006B6AE2 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DACC7421F85278006B6AE2 /* Subject.swift */; };
+		47B4FE4221F854AC009A0E39 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4FE4121F854AC009A0E39 /* NetworkManager.swift */; };
+		47B4FE4421F85E73009A0E39 /* firebase.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47B4FE4321F85E73009A0E39 /* firebase.plist */; };
+		47B4FE4621F8649F009A0E39 /* PlistManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4FE4521F8649F009A0E39 /* PlistManager.swift */; };
+		47B4FE4D21F947D2009A0E39 /* FirebaseKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4FE4C21F947D2009A0E39 /* FirebaseKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +40,10 @@
 		3BBAA5FC21F839EF00861707 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		3BBAA5FE21F839FA00861707 /* MyProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
 		B8DACC7421F85278006B6AE2 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		47B4FE4121F854AC009A0E39 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		47B4FE4321F85E73009A0E39 /* firebase.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = firebase.plist; sourceTree = "<group>"; };
+		47B4FE4521F8649F009A0E39 /* PlistManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistManager.swift; sourceTree = "<group>"; };
+		47B4FE4C21F947D2009A0E39 /* FirebaseKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +76,8 @@
 		3BBAA5D321F7F55900861707 /* team-d2 */ = {
 			isa = PBXGroup;
 			children = (
-				B8DACC7221F8525F006B6AE2 /* Models */,
+				47B4FE4B21F947BD009A0E39 /* Models */,
+				47B4FE4021F85238009A0E39 /* Network */,
 				3BBAA5EA21F7FBAB00861707 /* Support */,
 				3BBAA5E921F7FBA200861707 /* Resources */,
 				3BBAA5E721F7FB7100861707 /* ViewControllers */,
@@ -102,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				3BBAA5E021F7F55A00861707 /* Info.plist */,
+				47B4FE4321F85E73009A0E39 /* firebase.plist */,
+				47B4FE4521F8649F009A0E39 /* PlistManager.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -133,10 +144,22 @@
 			path = MyProfileViewController;
 			sourceTree = "<group>";
 		};
-		B8DACC7221F8525F006B6AE2 /* Models */ = {
+
+		47B4FE4021F85238009A0E39 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				47B4FE4121F854AC009A0E39 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		47B4FE4B21F947BD009A0E39 /* Models */ = {
+    	isa = PBXGroup;
+			children = (
 				B8DACC7421F85278006B6AE2 /* Subject.swift */,
+			isa = PBXGroup;
+			children = (
+				47B4FE4C21F947D2009A0E39 /* FirebaseKey.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,6 +228,7 @@
 				3BBAA5FF21F839FA00861707 /* MyProfile.storyboard in Resources */,
 				3BBAA5DA21F7F55900861707 /* Main.storyboard in Resources */,
 				3BBAA5ED21F7FC2B00861707 /* TimeTable.storyboard in Resources */,
+				47B4FE4421F85E73009A0E39 /* firebase.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +239,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47B4FE4221F854AC009A0E39 /* NetworkManager.swift in Sources */,
+				47B4FE4621F8649F009A0E39 /* PlistManager.swift in Sources */,
+				47B4FE4D21F947D2009A0E39 /* FirebaseKey.swift in Sources */,
 				3BBAA5FD21F839EF00861707 /* MyProfileViewController.swift in Sources */,
 				3BBAA5F321F82A1200861707 /* MainViewController.swift in Sources */,
 				3BBAA5F721F835C500861707 /* RecommandationViewController.swift in Sources */,
