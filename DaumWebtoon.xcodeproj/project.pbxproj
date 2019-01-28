@@ -7,25 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BBAA5D521F7F55900861707 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA5D421F7F55900861707 /* AppDelegate.swift */; };
-		3BBAA5D721F7F55900861707 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA5D621F7F55900861707 /* ViewController.swift */; };
-		3BBAA5DA21F7F55900861707 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5D821F7F55900861707 /* Main.storyboard */; };
-		3BBAA5DC21F7F55A00861707 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5DB21F7F55A00861707 /* Assets.xcassets */; };
-		3BBAA5DF21F7F55A00861707 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA5DD21F7F55A00861707 /* LaunchScreen.storyboard */; };
+		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
+		B8ABD49F21FEACD800454AF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49E21FEACD800454AF3 /* ViewController.swift */; };
+		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
+		B8ABD4A421FEACD900454AF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A321FEACD900454AF3 /* Assets.xcassets */; };
+		B8ABD4A721FEACDA00454AF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3BBAA5D121F7F55900861707 /* team-d2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "team-d2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BBAA5D421F7F55900861707 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3BBAA5D621F7F55900861707 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3BBAA5D921F7F55900861707 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3BBAA5DB21F7F55A00861707 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3BBAA5DE21F7F55A00861707 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3BBAA5E021F7F55A00861707 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B8ABD49E21FEACD800454AF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B8ABD4A121FEACD800454AF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B8ABD4A321FEACD900454AF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B8ABD4A621FEACDA00454AF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B8ABD4A821FEACDA00454AF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3BBAA5CE21F7F55900861707 /* Frameworks */ = {
+		B8ABD49621FEACD800454AF3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -35,71 +35,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3BBAA5C821F7F55800861707 = {
+		B8ABD49021FEACD800454AF3 = {
 			isa = PBXGroup;
 			children = (
-				3BBAA5D321F7F55900861707 /* team-d2 */,
-				3BBAA5D221F7F55900861707 /* Products */,
+				B8ABD49B21FEACD800454AF3 /* DaumWebtoon */,
+				B8ABD49A21FEACD800454AF3 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		3BBAA5D221F7F55900861707 /* Products */ = {
+		B8ABD49A21FEACD800454AF3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3BBAA5D121F7F55900861707 /* team-d2.app */,
+				B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3BBAA5D321F7F55900861707 /* team-d2 */ = {
+		B8ABD49B21FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXGroup;
 			children = (
-				3BBAA5D421F7F55900861707 /* AppDelegate.swift */,
-				3BBAA5D621F7F55900861707 /* ViewController.swift */,
-				3BBAA5D821F7F55900861707 /* Main.storyboard */,
-				3BBAA5DB21F7F55A00861707 /* Assets.xcassets */,
-				3BBAA5DD21F7F55A00861707 /* LaunchScreen.storyboard */,
-				3BBAA5E021F7F55A00861707 /* Info.plist */,
+				B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */,
+				B8ABD49E21FEACD800454AF3 /* ViewController.swift */,
+				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
+				B8ABD4A321FEACD900454AF3 /* Assets.xcassets */,
+				B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */,
+				B8ABD4A821FEACDA00454AF3 /* Info.plist */,
 			);
-			path = "team-d2";
+			path = DaumWebtoon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3BBAA5D021F7F55900861707 /* team-d2 */ = {
+		B8ABD49821FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3BBAA5E321F7F55A00861707 /* Build configuration list for PBXNativeTarget "team-d2" */;
+			buildConfigurationList = B8ABD4AB21FEACDA00454AF3 /* Build configuration list for PBXNativeTarget "DaumWebtoon" */;
 			buildPhases = (
-				3BBAA5CD21F7F55900861707 /* Sources */,
-				3BBAA5CE21F7F55900861707 /* Frameworks */,
-				3BBAA5CF21F7F55900861707 /* Resources */,
+				B8ABD49521FEACD800454AF3 /* Sources */,
+				B8ABD49621FEACD800454AF3 /* Frameworks */,
+				B8ABD49721FEACD800454AF3 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "team-d2";
-			productName = "team-d2";
-			productReference = 3BBAA5D121F7F55900861707 /* team-d2.app */;
+			name = DaumWebtoon;
+			productName = DaumWebtoon;
+			productReference = B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		3BBAA5C921F7F55800861707 /* Project object */ = {
+		B8ABD49121FEACD800454AF3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1010;
-				ORGANIZATIONNAME = boostcamp;
+				ORGANIZATIONNAME = "Gaon Kim";
 				TargetAttributes = {
-					3BBAA5D021F7F55900861707 = {
+					B8ABD49821FEACD800454AF3 = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
 			};
-			buildConfigurationList = 3BBAA5CC21F7F55800861707 /* Build configuration list for PBXProject "team-d2" */;
+			buildConfigurationList = B8ABD49421FEACD800454AF3 /* Build configuration list for PBXProject "DaumWebtoon" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -107,54 +107,54 @@
 				en,
 				Base,
 			);
-			mainGroup = 3BBAA5C821F7F55800861707;
-			productRefGroup = 3BBAA5D221F7F55900861707 /* Products */;
+			mainGroup = B8ABD49021FEACD800454AF3;
+			productRefGroup = B8ABD49A21FEACD800454AF3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3BBAA5D021F7F55900861707 /* team-d2 */,
+				B8ABD49821FEACD800454AF3 /* DaumWebtoon */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3BBAA5CF21F7F55900861707 /* Resources */ = {
+		B8ABD49721FEACD800454AF3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BBAA5DF21F7F55A00861707 /* LaunchScreen.storyboard in Resources */,
-				3BBAA5DC21F7F55A00861707 /* Assets.xcassets in Resources */,
-				3BBAA5DA21F7F55900861707 /* Main.storyboard in Resources */,
+				B8ABD4A721FEACDA00454AF3 /* LaunchScreen.storyboard in Resources */,
+				B8ABD4A421FEACD900454AF3 /* Assets.xcassets in Resources */,
+				B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3BBAA5CD21F7F55900861707 /* Sources */ = {
+		B8ABD49521FEACD800454AF3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BBAA5D721F7F55900861707 /* ViewController.swift in Sources */,
-				3BBAA5D521F7F55900861707 /* AppDelegate.swift in Sources */,
+				B8ABD49F21FEACD800454AF3 /* ViewController.swift in Sources */,
+				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3BBAA5D821F7F55900861707 /* Main.storyboard */ = {
+		B8ABD4A021FEACD800454AF3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				3BBAA5D921F7F55900861707 /* Base */,
+				B8ABD4A121FEACD800454AF3 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		3BBAA5DD21F7F55A00861707 /* LaunchScreen.storyboard */ = {
+		B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				3BBAA5DE21F7F55A00861707 /* Base */,
+				B8ABD4A621FEACDA00454AF3 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3BBAA5E121F7F55A00861707 /* Debug */ = {
+		B8ABD4A921FEACDA00454AF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -223,7 +223,7 @@
 			};
 			name = Debug;
 		};
-		3BBAA5E221F7F55A00861707 /* Release */ = {
+		B8ABD4AA21FEACDA00454AF3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -278,34 +278,34 @@
 			};
 			name = Release;
 		};
-		3BBAA5E421F7F55A00861707 /* Debug */ = {
+		B8ABD4AC21FEACDA00454AF3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "team-d2/Info.plist";
+				INFOPLIST_FILE = DaumWebtoon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "co.kr.connect.boostcamp.team-d2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaonk.DaumWebtoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		3BBAA5E521F7F55A00861707 /* Release */ = {
+		B8ABD4AD21FEACDA00454AF3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "team-d2/Info.plist";
+				INFOPLIST_FILE = DaumWebtoon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "co.kr.connect.boostcamp.team-d2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaonk.DaumWebtoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -315,25 +315,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3BBAA5CC21F7F55800861707 /* Build configuration list for PBXProject "team-d2" */ = {
+		B8ABD49421FEACD800454AF3 /* Build configuration list for PBXProject "DaumWebtoon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3BBAA5E121F7F55A00861707 /* Debug */,
-				3BBAA5E221F7F55A00861707 /* Release */,
+				B8ABD4A921FEACDA00454AF3 /* Debug */,
+				B8ABD4AA21FEACDA00454AF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3BBAA5E321F7F55A00861707 /* Build configuration list for PBXNativeTarget "team-d2" */ = {
+		B8ABD4AB21FEACDA00454AF3 /* Build configuration list for PBXNativeTarget "DaumWebtoon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3BBAA5E421F7F55A00861707 /* Debug */,
-				3BBAA5E521F7F55A00861707 /* Release */,
+				B8ABD4AC21FEACDA00454AF3 /* Debug */,
+				B8ABD4AD21FEACDA00454AF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 3BBAA5C921F7F55800861707 /* Project object */;
+	rootObject = B8ABD49121FEACD800454AF3 /* Project object */;
 }

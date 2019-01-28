@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  team-d2
+//  DaumWebtoon
 //
-//  Created by Tak on 23/01/2019.
-//  Copyright © 2019 boostcamp. All rights reserved.
+//  Created by Gaon Kim on 28/01/2019.
+//  Copyright © 2019 Gaon Kim. All rights reserved.
 //
 
 import UIKit
