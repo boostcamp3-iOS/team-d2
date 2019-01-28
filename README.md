@@ -14,9 +14,9 @@
  - 리스트 페이지 : 계단형태로 데이터 뿌려주기
 
 ### 참고 이미지
-![mainPage1](./Images/mainPage1.png)
-![mainPage2](./Images/mainPage2.png)
-![splashPage](./Images/splashPage.png)
+![mainPage1](./Images/mainPage1.jpg)
+![mainPage2](./Images/mainPage2.jpg)
+![splashPage](./Images/splashPage.jpg)
 
 ### 사용 예정 기능들
  - 날씨 API
