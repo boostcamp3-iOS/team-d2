@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */; };
+		3BBAA6D621FFE5BA00861707 /* CacheViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D521FFE5BA00861707 /* CacheViewController.swift */; };
+		3BBAA6D821FFE5EF00861707 /* SeriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D721FFE5EF00861707 /* SeriesViewController.swift */; };
+		3BBAA6DA21FFE67000861707 /* ComingSoonFreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D921FFE67000861707 /* ComingSoonFreeViewController.swift */; };
+		3BBAA6DC21FFE67900861707 /* PickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6DB21FFE67900861707 /* PickViewController.swift */; };
+		3BBAA6DE21FFE68E00861707 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
 		B8ABD49F21FEACD800454AF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49E21FEACD800454AF3 /* ViewController.swift */; };
 		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
@@ -15,6 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		3BBAA6D521FFE5BA00861707 /* CacheViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheViewController.swift; sourceTree = "<group>"; };
+		3BBAA6D721FFE5EF00861707 /* SeriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesViewController.swift; sourceTree = "<group>"; };
+		3BBAA6D921FFE67000861707 /* ComingSoonFreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonFreeViewController.swift; sourceTree = "<group>"; };
+		3BBAA6DB21FFE67900861707 /* PickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickViewController.swift; sourceTree = "<group>"; };
+		3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8ABD49E21FEACD800454AF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +47,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3BBAA6D121FFE07500861707 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3BBAA6D421FFE59B00861707 /* TabBar */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3BBAA6D421FFE59B00861707 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */,
+				3BBAA6D521FFE5BA00861707 /* CacheViewController.swift */,
+				3BBAA6D721FFE5EF00861707 /* SeriesViewController.swift */,
+				3BBAA6D921FFE67000861707 /* ComingSoonFreeViewController.swift */,
+				3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */,
+				3BBAA6DB21FFE67900861707 /* PickViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		B8ABD49021FEACD800454AF3 = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +87,7 @@
 		B8ABD49B21FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXGroup;
 			children = (
+				3BBAA6D121FFE07500861707 /* ViewControllers */,
 				B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */,
 				B8ABD49E21FEACD800454AF3 /* ViewController.swift */,
 				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
@@ -136,7 +170,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8ABD49F21FEACD800454AF3 /* ViewController.swift in Sources */,
+				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
+				3BBAA6DE21FFE68E00861707 /* CompletionViewController.swift in Sources */,
+				3BBAA6DC21FFE67900861707 /* PickViewController.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
+				3BBAA6D821FFE5EF00861707 /* SeriesViewController.swift in Sources */,
+				3BBAA6DA21FFE67000861707 /* ComingSoonFreeViewController.swift in Sources */,
+				3BBAA6D621FFE5BA00861707 /* CacheViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +323,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U38RWYJ536;
 				INFOPLIST_FILE = DaumWebtoon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -300,6 +341,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U38RWYJ536;
 				INFOPLIST_FILE = DaumWebtoon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
