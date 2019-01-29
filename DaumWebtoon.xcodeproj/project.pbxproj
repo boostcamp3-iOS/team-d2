@@ -56,15 +56,55 @@
 		B8ABD49B21FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXGroup;
 			children = (
-				B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */,
-				B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */,
-				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
-				B8ABD4A321FEACD900454AF3 /* Assets.xcassets */,
-				B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */,
-				B8ABD4A821FEACDA00454AF3 /* Info.plist */,
-				B8ABD4F721FFE50B00454AF3 /* RectangleView.swift */,
+				B8ABD4FD2200143100454AF3 /* AppDelegate */,
+				B8ABD4FE2200143F00454AF3 /* Controllers */,
+				B8ABD5002200146200454AF3 /* Models */,
+				B8ABD5012200146800454AF3 /* Resources */,
+				B8ABD4FF2200144B00454AF3 /* Views */,
 			);
 			path = DaumWebtoon;
+			sourceTree = "<group>";
+		};
+		B8ABD4FD2200143100454AF3 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		B8ABD4FE2200143F00454AF3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B8ABD4FF2200144B00454AF3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */,
+				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
+				B8ABD4F721FFE50B00454AF3 /* RectangleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B8ABD5002200146200454AF3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B8ABD5012200146800454AF3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B8ABD4A821FEACDA00454AF3 /* Info.plist */,
+				B8ABD4A321FEACD900454AF3 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,7 +327,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = DaumWebtoon/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/DaumWebtoon/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,7 +344,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = DaumWebtoon/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/DaumWebtoon/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
