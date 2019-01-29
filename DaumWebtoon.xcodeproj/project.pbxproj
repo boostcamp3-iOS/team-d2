@@ -51,14 +51,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3BBAA6D121FFE07500861707 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				3BBAA6D421FFE59B00861707 /* TabBar */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
 		3BBAA6D421FFE59B00861707 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -68,7 +60,6 @@
 				3BBAA6D921FFE67000861707 /* ComingSoonFreeViewController.swift */,
 				3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */,
 				3BBAA6DB21FFE67900861707 /* PickViewController.swift */,
-				3BBAA6E12200207800861707 /* TabBar.storyboard */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -92,7 +83,6 @@
 		B8ABD49B21FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXGroup;
 			children = (
-				3BBAA6D121FFE07500861707 /* ViewControllers */,
 				B8ABD4FD2200143100454AF3 /* AppDelegate */,
 				B8ABD4FE2200143F00454AF3 /* Controllers */,
 				B8ABD5002200146200454AF3 /* Models */,
@@ -113,6 +103,7 @@
 		B8ABD4FE2200143F00454AF3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3BBAA6D421FFE59B00861707 /* TabBar */,
 				B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */,
 			);
 			path = Controllers;
@@ -123,6 +114,7 @@
 			children = (
 				B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */,
 				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
+				3BBAA6E12200207800861707 /* TabBar.storyboard */,
 				B8ABD4F721FFE50B00454AF3 /* RectangleView.swift */,
 			);
 			path = Views;
@@ -216,7 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8ABD49F21FEACD800454AF3 /* ViewController.swift in Sources */,
+				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
 				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
 				3BBAA6DE21FFE68E00861707 /* CompletionViewController.swift in Sources */,
 				3BBAA6DC21FFE67900861707 /* PickViewController.swift in Sources */,
