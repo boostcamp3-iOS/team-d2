@@ -13,6 +13,7 @@
 		3BBAA6DA21FFE67000861707 /* ComingSoonFreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D921FFE67000861707 /* ComingSoonFreeViewController.swift */; };
 		3BBAA6DC21FFE67900861707 /* PickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6DB21FFE67900861707 /* PickViewController.swift */; };
 		3BBAA6DE21FFE68E00861707 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */; };
+		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
 		B8ABD49F21FEACD800454AF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49E21FEACD800454AF3 /* ViewController.swift */; };
 		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		3BBAA6D921FFE67000861707 /* ComingSoonFreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComingSoonFreeViewController.swift; sourceTree = "<group>"; };
 		3BBAA6DB21FFE67900861707 /* PickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickViewController.swift; sourceTree = "<group>"; };
 		3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
+		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8ABD49E21FEACD800454AF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				3BBAA6D921FFE67000861707 /* ComingSoonFreeViewController.swift */,
 				3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */,
 				3BBAA6DB21FFE67900861707 /* PickViewController.swift */,
+				3BBAA6E12200207800861707 /* TabBar.storyboard */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */,
 				B8ABD4A721FEACDA00454AF3 /* LaunchScreen.storyboard in Resources */,
 				B8ABD4A421FEACD900454AF3 /* Assets.xcassets in Resources */,
 				B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */,

@@ -235,7 +235,7 @@ class TabBarViewController: UIViewController {
     }
     
     private func tabViewController(tabName: String) -> UIViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: tabName)
+        return UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: tabName)
     }
 
 }
