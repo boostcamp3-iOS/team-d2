@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SplashViewController.swift
 //  DaumWebtoon
 //
 //  Created by Gaon Kim on 28/01/2019.
@@ -9,32 +9,17 @@
 import UIKit
 
 class SplashViewController: UIViewController {
-    lazy var redSquare: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
-        return view
-    }()
-    lazy var whiteRectangle1: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        return view
-    }()
-    lazy var whiteRectangle2: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        return view
-    }()
+    lazy var redSquare = RectangleView(backgroundColor: .red)
+    lazy var whiteRectangle1 = RectangleView(backgroundColor: .white)
+    lazy var whiteRectangle2 = RectangleView(backgroundColor: .white)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,7 +62,7 @@ extension SplashViewController {
             self.redSquare.heightAnchor.constraint(equalToConstant: 30).isActive = true
             self.view.layoutIfNeeded()
         }, completion: nil)
-        UIView.animate(withDuration: 0.3, delay: 1, options: [], animations: {
+        UIView.animate(withDuration: 0.3, delay: 1.3, options: [], animations: {
             self.redSquare.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
             self.redSquare.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
             self.view.layoutIfNeeded()
