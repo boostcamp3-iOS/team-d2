@@ -9,32 +9,31 @@
 import UIKit
 
 class SplashViewController: UIViewController {
-    lazy var redSquare = RectangleView(backgroundColor: .red)
-    lazy var whiteRectangle1 = RectangleView(backgroundColor: .white)
-    lazy var whiteRectangle2 = RectangleView(backgroundColor: .white)
+    lazy var redSquare = SplashRectangleView(type: .redSquare)
+    lazy var topWhiteRectanlge = SplashRectangleView(type: .topWhiteRectangle)
+    lazy var bottomWhiteRectangle = SplashRectangleView(type: .bottomWhiteRectangle)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setViews()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        redSquare.delegate = self as SplashRectangleAnimationDelegate
+        topWhiteRectanlge.delegate = self as SplashRectangleAnimationDelegate
+        bottomWhiteRectangle.delegate = self as SplashRectangleAnimationDelegate
+        
+        redSquare.setLayout()
+        topWhiteRectanlge.setLayout()
+        bottomWhiteRectangle.setLayout()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateRedSquare()
-        animateWhiteRectangles()
+        redSquare.animate()
+        topWhiteRectanlge.animate()
+        bottomWhiteRectangle.animate()
     }
 }
 
-extension SplashViewController {
-    func setViews() {
-        setRedSquareLayout()
-        setWhiteRectanglesLayout()
-    }
-    
+// MARK: - Splash Rectangle Animation Delegate
+extension SplashViewController: SplashRectangleAnimationDelegate {
     func setRedSquareLayout() {
         view.addSubview(redSquare)
         redSquare.heightAnchor.constraint(equalToConstant: 200).isActive = true
@@ -43,18 +42,20 @@ extension SplashViewController {
         redSquare.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
-    func setWhiteRectanglesLayout() {
-        view.addSubview(whiteRectangle1)
-        whiteRectangle1.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        whiteRectangle1.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        whiteRectangle1.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        whiteRectangle1.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
-        
-        view.addSubview(whiteRectangle2)
-        whiteRectangle2.heightAnchor.constraint(equalToConstant: 10).isActive = true
-        whiteRectangle2.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        whiteRectangle2.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        whiteRectangle2.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
+    func setTopWhiteRectangleLayout() {
+        view.addSubview(topWhiteRectanlge)
+        topWhiteRectanlge.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        topWhiteRectanlge.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        topWhiteRectanlge.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        topWhiteRectanlge.bottomAnchor.constraint(equalTo: view.centerYAnchor, constant: -30).isActive = true
+    }
+    
+    func setBottomWhiteRectangleLayout() {
+        view.addSubview(bottomWhiteRectangle)
+        bottomWhiteRectangle.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        bottomWhiteRectangle.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        bottomWhiteRectangle.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        bottomWhiteRectangle.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 30).isActive = true
     }
     
     func animateRedSquare() {
@@ -69,10 +70,16 @@ extension SplashViewController {
         }, completion: nil)
     }
     
-    func animateWhiteRectangles() {
+    func animateTopWhiteRectangle() {
         UIView.animate(withDuration: 0.1, delay: 0.5, options: [], animations: {
-            self.whiteRectangle1.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            self.whiteRectangle2.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            self.topWhiteRectanlge.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func animateBottomWhiteRectangle() {
+        UIView.animate(withDuration: 0.1, delay: 0.5, options: [], animations: {
+            self.bottomWhiteRectangle.heightAnchor.constraint(equalToConstant: 0).isActive = true
             self.view.layoutIfNeeded()
         }, completion: nil)
     }
