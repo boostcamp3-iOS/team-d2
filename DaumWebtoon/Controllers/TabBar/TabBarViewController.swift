@@ -223,7 +223,6 @@ extension TabBarViewController {
         var previousIndex = previousIndex
         
         showCurrentTab(currentIndex: currentIndex)
-        loadTabViews(currentIndex: currentIndex)
         
         if currentIndex > tabTitles.count - 2 {
             currentIndex = 1
@@ -233,6 +232,7 @@ extension TabBarViewController {
             previousIndex = 1
         }
         
+        loadTabViews(currentIndex: currentIndex)
         showIndicator(currentIndex: currentIndex, previousIndex: previousIndex)
         
         if currentIndex - 1 >= 0 && currentIndex + 1 < tabTitles.count {
@@ -244,9 +244,14 @@ extension TabBarViewController {
         }
         
         if contentOffsetX == 0.0 ||
-            tabScrollView.frame.width * CGFloat(tabViewControllers.count - 1) == contentOffsetX {
-            
-            showCurrentTab(currentIndex: currentIndex)
+            tabScrollView.frame.width * CGFloat(tabViewControllers.count-1) == contentOffsetX {
+
+            let iframe = CGRect(
+                x: tabScrollView.frame.width * CGFloat(currentIndex),
+                y: 0,
+                width: tabScrollView.frame.width,
+                height: tabScrollView.frame.height)
+            tabScrollView.setContentOffset(iframe.origin, animated: false)
         }
     }
 }
@@ -305,7 +310,6 @@ extension TabBarViewController: UIScrollViewDelegate {
                 drawTabBarColorRightToLeftWhileScrolling(x: tabBarAnimationProgress)
             }
         }
-        
     }
 }
 
