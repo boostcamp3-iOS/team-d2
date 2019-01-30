@@ -8,21 +8,21 @@
 
 import UIKit
 
+protocol SymbolDatasource: class {
+    func shapeRhombus() -> [UIBezierPath]
+    func shapeN() -> [UIBezierPath]
+}
+
 class SymbolController: UIViewController {
-    private var pieces = [PieceLayer]()
+    
+    var symbolView: SymbolView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let beforePieces = shapeRhombus()
-        let afterPieces = shapeN()
-        
-        for index in 0..<beforePieces.count {
-            let piece = PieceLayer(color: .red, path: beforePieces[index])
-            piece.configureAnimation(to: afterPieces[index])
-            pieces.append(piece)
-            view.layer.addSublayer(piece)
-        }
+        symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 87, y: 233), size: CGSize(width: 200, height: 200)))
+        symbolView.backgroundColor = .green
+        symbolView.dataSource = self
+        self.view.addSubview(symbolView)
     }
     
     private func coordinate(_ x1: CGFloat, _ y1: CGFloat,
@@ -53,40 +53,29 @@ class SymbolController: UIViewController {
     }
     
     @IBAction func doSlider(_ sender: UISlider) {
-        for piece in pieces {
-            piece.timeOffset = Double(sender.value)
-        }
+        symbolView.timeOffset(value: Double(sender.value))
     }
 }
 
-// MARK: Shapes
-extension SymbolController {
-    // MARK: Rhombus(마름모)
-    private func shapeRhombus() -> [UIBezierPath] {
+extension SymbolController: SymbolDatasource {
+    public func shapeRhombus() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
-        coordinates.append(coordinate(100, 0, 0, 100, 20, 120, 120, 20))
-        coordinates.append(coordinate(0, 100, 100, 200, 120, 180, 20, 80))
-        coordinates.append(coordinate(80, 20, 180, 120, 200, 100, 100, 0))
-        coordinates.append(coordinate(180, 80, 80, 180, 100, 200, 200, 100))
-        
+        coordinates.append(coordinate(0, 0, 28.2, 0, 28.2, 200, 0, 200))
+        coordinates.append(coordinate(0, 200, 0, 171.8, 200, 171.8, 200, 200))
+        coordinates.append(coordinate(0, 28.2, 0, 0, 200, 0, 200, 28.2))
+        coordinates.append(coordinate(171.8, 0, 200, 0, 200, 200, 171.8, 200))
         let paths = convertPath(from: coordinates)
         return paths
     }
     
-    // MARK: N
-    private func shapeN() -> [UIBezierPath] {
+    public func shapeN() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
-        coordinates.append(coordinate(20, 20, 20, 180, 48.2, 180, 48.2, 20))
-        coordinates.append(coordinate(27, 38.6, 151.8, 180, 173, 161.4, 48.2, 20))
-        coordinates.append(coordinate(27, 38.6, 151.8, 180, 173, 161.4, 48.2, 20))
-        coordinates.append(coordinate(151.8, 20, 151.8, 180, 180, 180, 180, 20))
+        coordinates.append(coordinate(20, 20, 48.2, 20, 48.2, 180, 20, 180))
+        coordinates.append(coordinate(27, 38.6, 48.2, 20, 173, 161.4, 151.8, 180))
+        coordinates.append(coordinate(27, 38.6, 48.2, 20, 173, 161.4, 151.8, 180))
+        coordinates.append(coordinate(151.8, 20, 180, 20, 180, 180, 151.8, 180))
         
         let paths = convertPath(from: coordinates)
         return paths
     }
-    
-    // MARK: C
-    // MARK: Sandglass(모래시계
-    // MARK: O
-    // MARK: Asterisk(별모양)
 }
