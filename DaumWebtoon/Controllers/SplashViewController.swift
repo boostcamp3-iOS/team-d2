@@ -66,7 +66,9 @@ extension SplashViewController {
             self.redSquare.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
             self.redSquare.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
             self.view.layoutIfNeeded()
-        }, completion: nil)
+        }, completion: { _ in
+            self.presentTabBarViewController()
+        })
     }
     
     func animateWhiteRectangles() {
@@ -75,5 +77,10 @@ extension SplashViewController {
             self.whiteRectangle2.heightAnchor.constraint(equalToConstant: 0).isActive = true
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+
+    func presentTabBarViewController() {
+        let tabBarViewController = TabBarViewController()
+        present(tabBarViewController, animated: false, completion: nil)
     }
 }
