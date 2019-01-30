@@ -25,10 +25,10 @@ class SymbolController: UIViewController {
         self.view.addSubview(symbolView)
     }
     
-    private func coordinate(_ x1: CGFloat, _ y1: CGFloat,
-                            _ x2: CGFloat, _ y2: CGFloat,
-                            _ x3: CGFloat, _ y3: CGFloat,
-                            _ x4: CGFloat, _ y4: CGFloat) -> [CGPoint] {
+    private func coordinate(x1: CGFloat, y1: CGFloat,
+                            x2: CGFloat, y2: CGFloat,
+                            x3: CGFloat, y3: CGFloat,
+                            x4: CGFloat, y4: CGFloat) -> [CGPoint] {
         var points = [CGPoint]()
         points.append(CGPoint(x: x1, y: y1))
         points.append(CGPoint(x: x2, y: y2))
@@ -60,21 +60,20 @@ class SymbolController: UIViewController {
 extension SymbolController: SymbolDatasource {
     public func shapeRhombus() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
-        coordinates.append(coordinate(0, 0, 28.2, 0, 28.2, 200, 0, 200))
-        coordinates.append(coordinate(0, 200, 0, 171.8, 200, 171.8, 200, 200))
-        coordinates.append(coordinate(0, 28.2, 0, 0, 200, 0, 200, 28.2))
-        coordinates.append(coordinate(171.8, 0, 200, 0, 200, 200, 171.8, 200))
+        coordinates.append(coordinate(x1: 0, y1: 0, x2: 28.2, y2: 0, x3: 28.2, y3: 200, x4: 0, y4: 200))
+        coordinates.append(coordinate(x1: 0, y1: 200, x2: 0, y2: 171.8, x3: 200, y3: 171.8, x4: 200, y4: 200))
+        coordinates.append(coordinate(x1: 0, y1: 28.2, x2: 0, y2: 0, x3: 200, y3: 0, x4: 200, y4: 28.2))
+        coordinates.append(coordinate(x1: 171.8, y1: 0, x2: 200, y2: 0, x3: 200, y3: 200, x4: 171.8, y4: 200))
         let paths = convertPath(from: coordinates)
         return paths
     }
     
     public func shapeN() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
-        coordinates.append(coordinate(20, 20, 48.2, 20, 48.2, 180, 20, 180))
-        coordinates.append(coordinate(27, 38.6, 48.2, 20, 173, 161.4, 151.8, 180))
-        coordinates.append(coordinate(27, 38.6, 48.2, 20, 173, 161.4, 151.8, 180))
-        coordinates.append(coordinate(151.8, 20, 180, 20, 180, 180, 151.8, 180))
-        
+        coordinates.append(coordinate(x1: 20, y1: 20, x2: 48.2, y2: 20, x3: 48.2, y3: 180, x4: 20, y4: 180))
+        coordinates.append(coordinate(x1: 27, y1: 38.6, x2: 48.2, y2: 20, x3: 173, y3: 161.4, x4: 151.8, y4: 180))
+        coordinates.append(coordinate(x1: 27, y1: 38.6, x2: 48.2, y2: 20, x3: 173, y3: 161.4, x4: 151.8, y4: 180))
+        coordinates.append(coordinate(x1: 151.8, y1: 20, x2: 180, y2: 20, x3: 180, y3: 180, x4: 151.8, y4: 180))
         let paths = convertPath(from: coordinates)
         return paths
     }
