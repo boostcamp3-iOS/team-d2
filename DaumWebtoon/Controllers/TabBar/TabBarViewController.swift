@@ -11,36 +11,36 @@ import UIKit
 class TabBarViewController: UIViewController {
     
     private lazy var tabViewControllers: [UIViewController] = {
-        return [tabViewController(tabName: "Cache"),
+        return [tabViewController(tabName: "Pick"),
+                tabViewController(tabName: "Cache"),
                 tabViewController(tabName: "Series"),
                 tabViewController(tabName: "ComingSoonFree"),
                 tabViewController(tabName: "Completion"),
-                tabViewController(tabName: "Pick")]
+                tabViewController(tabName: "Pick"),
+                tabViewController(tabName: "Cache")]
     } ()
     
     private let tabColors: [UIColor] = [
+        UIColor.green,
         UIColor.brown,
         UIColor.red,
         UIColor.purple,
         UIColor.blue,
-        UIColor.green]
+        UIColor.green,
+        UIColor.brown]
     
-    private let tabTitles = ["캐시", "연재", "기다무", "완결", "PICK"]
-    private let initialIndex = 2
-    private let tabHeight: CGFloat = 35.0
+    private let tabTitles = ["", "캐시", "연재", "기다무", "완결", "PICK", ""]
+    private let initialPage = 3
+    private let tabHeight: CGFloat = 30.0
     
     private var pageContainerScrollView: UIScrollView!
     private var tabContainer: UIView!
+    private var leftToRightAnimationTabBar: UIView!
+    private var rightToLeftAnimationTabBar: UIView!
     private var tabViews: [UILabel] = []
     private var itemViews: Dictionary<Int, UIViewController> = [:]
     private var lastContentOffset: CGFloat = 0
-    private var contentOffset: CGFloat = 0
-    private var currentPosition = 0
-    private var isFirst = true
-    private var limit: CGFloat!
     private var currentIndex = 0
-    private var leftToRightAnimationTabBar: UIView!
-    private var rightToLeftAnimationTabBar: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +51,9 @@ class TabBarViewController: UIViewController {
         setupTabs()
         setupTabViews()
         
-        scrollToPage(currentPage: initialIndex, previousIndex: 0)
+        scrollToPage(currentPage: initialPage, previousIndex: 0)
     }
-    
+    var scrollViewBounds: CGRect!
     private func setupScrollView() {
         pageContainerScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         pageContainerScrollView.isPagingEnabled = true
@@ -66,8 +66,7 @@ class TabBarViewController: UIViewController {
     }
     
     private func setupTabContainer() {
-        tabContainer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 32, height: tabHeight))
-        
+        tabContainer = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20, height: tabHeight))
         tabContainer.clipsToBounds = true
         
         view.addSubview(tabContainer)
@@ -79,7 +78,7 @@ class TabBarViewController: UIViewController {
             toItem: nil,
             attribute: .notAnAttribute,
             multiplier: 1.0,
-            constant: UIScreen.main.bounds.width - 32)
+            constant: UIScreen.main.bounds.width - 20)
         
         let height = NSLayoutConstraint(
             item: tabContainer,
@@ -114,10 +113,10 @@ class TabBarViewController: UIViewController {
     }
     
     private func setupTabs() {
-        let tabWidth = (UIScreen.main.bounds.width - 32) / CGFloat(tabTitles.count)
+        let tabWidth = (UIScreen.main.bounds.width - 20) / CGFloat(tabTitles.count - 2)
         
         for (index, tabTitle) in tabTitles.enumerated() {
-            let x = CGFloat(index) * tabWidth
+            let x = CGFloat(index - 1) * tabWidth
             
             let tabLabel = UILabel()
             tabLabel.frame = CGRect(x: x, y: 0, width: tabWidth, height: tabHeight)
@@ -128,7 +127,7 @@ class TabBarViewController: UIViewController {
             tabLabel.font = UIFont.systemFont(ofSize: 16)
             tabLabel.alpha = 0.6
             tabLabel.text = tabTitle
-            
+        
             tabViews.append(tabLabel)
             tabContainer.addSubview(tabLabel)
         }
@@ -136,14 +135,14 @@ class TabBarViewController: UIViewController {
     
     private func setupTabViews() {
         pageContainerScrollView.contentSize = CGSize(
-            width: pageContainerScrollView.frame.width * CGFloat(tabTitles.count),
+            width: pageContainerScrollView.frame.width * CGFloat(tabViewControllers.count),
             height: pageContainerScrollView.frame.height)
         loadTabViews(index: 1)
     }
     
-    private func loadTabViews(index: Int){
+    private func loadTabViews(index: Int) {
         for i in (index - 1)...(index + 1) {
-            if(i >= 0 && i < tabTitles.count){
+            if(i >= 0 && i < tabViewControllers.count) {
                 loadTabViewAtIndex(index: i)
             }
         }
@@ -168,39 +167,56 @@ class TabBarViewController: UIViewController {
         }
     }
     
-    private func scrollToPage(currentPage: Int, previousIndex: Int) {
-        if(currentPage <= tabTitles.count && currentPage > 0) {
-            let index = currentPage - 1
+    private func scrollToPage(currentPage: Int, previousIndex: Int, contentOffsetX: CGFloat = 0.01) {
+        var index = currentPage - 1
+        var previousIndex = previousIndex
+        
+        let iframe = CGRect(
+            x: pageContainerScrollView.frame.width * CGFloat(index),
+            y: 0,
+            width: pageContainerScrollView.frame.width,
+            height: pageContainerScrollView.frame.height)
+        pageContainerScrollView.setContentOffset(iframe.origin, animated: true)
+        
+        loadTabViews(index: index)
+        
+        if index > tabTitles.count - 2 {
+            index = 1
+            previousIndex = 5
+        } else if index < 1 {
+            index = tabTitles.count - 2
+            previousIndex = 1
+        }
+        
+        setupCurrentIndicator(currentIndex: index, previousIndex: previousIndex)
+        
+        if index - 1 >= 0 && index + 1 < tabTitles.count {
+            leftToRightAnimationTabBar = UIView(frame: CGRect(x: -pageContainerScrollView.frame.width, y: 0, width: UIScreen.main.bounds.width, height: tabHeight))
+            leftToRightAnimationTabBar.backgroundColor = tabColors[index - 1]
+            
+            rightToLeftAnimationTabBar = UIView(frame: CGRect(x: tabContainer.frame.width, y: 0, width: UIScreen.main.bounds.width, height: tabHeight))
+            rightToLeftAnimationTabBar.backgroundColor = tabColors[index + 1]
+            
+            tabContainer.addSubview(leftToRightAnimationTabBar)
+            tabContainer.addSubview(rightToLeftAnimationTabBar)
+        }
+        
+        tabViews.forEach { (label) in
+            tabContainer.addSubview(label)
+        }
+        
+        if contentOffsetX == 0.0 ||
+            pageContainerScrollView.frame.width * CGFloat(tabViewControllers.count - 1) == contentOffsetX {
+            
             let iframe = CGRect(
                 x: pageContainerScrollView.frame.width * CGFloat(index),
                 y: 0,
                 width: pageContainerScrollView.frame.width,
                 height: pageContainerScrollView.frame.height)
-            pageContainerScrollView.setContentOffset(iframe.origin, animated: true)
-            
-            loadTabViews(index: index)
-            
-            setupCurrentIndicator(currentIndex: index, previousIndex: previousIndex)
-            
-            if index - 1 >= 0 && index + 1 < 5 {
-                leftToRightAnimationTabBar = UIView(frame: CGRect(x: -pageContainerScrollView.frame.width, y: 0, width: UIScreen.main.bounds.width, height: tabHeight))
-                leftToRightAnimationTabBar.backgroundColor = tabColors[index - 1]
-                
-                rightToLeftAnimationTabBar = UIView(frame: CGRect(x: tabContainer.frame.width, y: 0, width: UIScreen.main.bounds.width, height: tabHeight))
-                rightToLeftAnimationTabBar.backgroundColor = tabColors[index + 1]
-                
-                tabContainer.addSubview(leftToRightAnimationTabBar)
-                tabContainer.addSubview(rightToLeftAnimationTabBar)
-            }
-            
-            tabContainer.backgroundColor = tabColors[index]
-            
-            tabViews.forEach { (label) in
-                tabContainer.addSubview(label)
-            }
+            pageContainerScrollView.setContentOffset(iframe.origin, animated: false)
         }
     }
-    
+    private var isPageEnding = false
     private func setupAnimationTabBar() {
         leftToRightAnimationTabBar = UIView(frame: CGRect(x: -pageContainerScrollView.frame.width, y: 0, width: UIScreen.main.bounds.width, height: tabHeight))
         leftToRightAnimationTabBar.backgroundColor = tabColors[0]
@@ -237,55 +253,57 @@ class TabBarViewController: UIViewController {
     private func tabViewController(tabName: String) -> UIViewController {
         return UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: tabName)
     }
-
 }
 
 extension TabBarViewController: UIScrollViewDelegate {
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
+        if (lastContentOffset <= scrollView.contentOffset.x) {
+            drawTabBarColorRightToLeftWhileScrolling(x: pageContainerScrollView.frame.width)
+        }
+        
         var pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageNumber = pageNumber + 1
         
-        scrollToPage(currentPage: Int(pageNumber), previousIndex: Int(currentIndex))
+        scrollToPage(currentPage: Int(pageNumber), previousIndex: Int(currentIndex), contentOffsetX: scrollView.contentOffset.x)
         
         lastContentOffset = scrollView.contentOffset.x
     }
-    
+
     //http://stackoverflow.com/a/1857162
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if isFirst {
-            isFirst = false
-            return
-        }
-        
-        NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
-        perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.0)
-        
-        let width = pageContainerScrollView.frame.width
-        
-        contentOffset = scrollView.contentOffset.x
-        
-        var tabBarAnimationProgress: CGFloat
-        switch contentOffset {
-        case 0..<width:
-            tabBarAnimationProgress = contentOffset
-        case width..<width * 2:
-            tabBarAnimationProgress = contentOffset - width
-        case width * 2..<width * 3:
-            tabBarAnimationProgress = contentOffset - width * 2
-        case width * 3..<width * 4:
-            tabBarAnimationProgress = contentOffset - width * 3
-        case width * 4..<width * 5:
-            tabBarAnimationProgress = contentOffset - width * 4
-        default: tabBarAnimationProgress = 0.0
-        }
-        
-        if (lastContentOffset > scrollView.contentOffset.x) {
-            drawTabBarColorLeftToRightWhileScrolling(x: abs(tabBarAnimationProgress - width))
-        }
-        else if (lastContentOffset < scrollView.contentOffset.x) {
-            drawTabBarColorRightToLeftWhileScrolling(x: tabBarAnimationProgress)
+        if(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) {
+            NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
+            perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.0)
+            
+            let width = pageContainerScrollView.frame.width
+            let contentOffset = scrollView.contentOffset.x
+            
+            var tabBarAnimationProgress: CGFloat
+            switch contentOffset {
+            case 0..<width:
+                tabBarAnimationProgress = contentOffset
+            case width..<width * 2:
+                tabBarAnimationProgress = contentOffset - width
+            case width * 2..<width * 3:
+                tabBarAnimationProgress = contentOffset - width * 2
+            case width * 3..<width * 4:
+                tabBarAnimationProgress = contentOffset - width * 3
+            case width * 4..<width * 5:
+                tabBarAnimationProgress = contentOffset - width * 4
+            case width * 5..<width * 6:
+                tabBarAnimationProgress = contentOffset - width * 5
+            case width * 6..<width * 7:
+                tabBarAnimationProgress = contentOffset - width * 6
+            default: tabBarAnimationProgress = 0.0
+            }
+            
+            if (lastContentOffset > scrollView.contentOffset.x) {
+                drawTabBarColorLeftToRightWhileScrolling(x: abs(tabBarAnimationProgress - width))
+            } else if (lastContentOffset <= scrollView.contentOffset.x && tabBarAnimationProgress != 0.0) {
+                drawTabBarColorRightToLeftWhileScrolling(x: tabBarAnimationProgress)
+            }
         }
         
     }

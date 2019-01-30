@@ -14,6 +14,7 @@
 		3BBAA6DC21FFE67900861707 /* PickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6DB21FFE67900861707 /* PickViewController.swift */; };
 		3BBAA6DE21FFE68E00861707 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
+		3BBAA6E6220039F300861707 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E5220039F300861707 /* Direction.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
 		B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */; };
 		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 		3BBAA6DB21FFE67900861707 /* PickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickViewController.swift; sourceTree = "<group>"; };
 		3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		3BBAA6E5220039F300861707 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
+		3BBAA6E4220039E000861707 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3BBAA6E5220039F300861707 /* Direction.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		B8ABD49021FEACD800454AF3 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +93,7 @@
 		B8ABD49B21FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXGroup;
 			children = (
+				3BBAA6E4220039E000861707 /* Utils */,
 				B8ABD4FD2200143100454AF3 /* AppDelegate */,
 				B8ABD4FE2200143F00454AF3 /* Controllers */,
 				B8ABD5002200146200454AF3 /* Models */,
@@ -219,6 +230,7 @@
 				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				B8ABD4F821FFE50B00454AF3 /* RectangleView.swift in Sources */,
+				3BBAA6E6220039F300861707 /* Direction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
