@@ -17,13 +17,13 @@ protocol SplashRectangleAnimationDelegate {
     func animateBottomWhiteRectangle()
 }
 
-enum SplashRectangleType {
-    case redSquare
-    case topWhiteRectangle
-    case bottomWhiteRectangle
-}
-
 class SplashRectangleView: UIView {
+    enum SplashRectangleType {
+        case redSquare
+        case topWhiteRectangle
+        case bottomWhiteRectangle
+    }
+    
     var delegate: SplashRectangleAnimationDelegate?
     private var type: SplashRectangleType?
     
