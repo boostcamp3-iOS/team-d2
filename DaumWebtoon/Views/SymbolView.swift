@@ -29,11 +29,12 @@ class SymbolView: UIView {
     
     private func configureShapes(with dataSource: SymbolDatasource) {
         let beforePieces = dataSource.shapeN()
-        let afterPieces = dataSource.shapeRhombus()
+        let passPieces = dataSource.shapeRhombus()
+        let afterPieces = dataSource.shapeN()
         
         for index in 0..<beforePieces.count {
             let piece = PieceLayer(color: .red, path: beforePieces[index])
-            piece.configureAnimation(to: afterPieces[index])
+            piece.configureAnimation(passPath: passPieces[index], toPath: afterPieces[index])
             pieces.append(piece)
             self.layer.addSublayer(piece)
         }
@@ -43,7 +44,7 @@ class SymbolView: UIView {
         let animation = CABasicAnimation(keyPath: animationKey)
         animation.duration = 1
         animation.fromValue = 0
-        animation.toValue = CGFloat(-Double.pi / 4)
+        animation.toValue = CGFloat(-Double.pi / 2)
         self.layer.speed = 0
         self.layer.timeOffset = 0
         self.layer.add(animation, forKey: animationKey)
