@@ -30,7 +30,7 @@ class SymbolView: UIView {
     private func configureShapes(with dataSource: SymbolDatasource) {
         let beforePieces = dataSource.shapeN()
         let passPieces = dataSource.shapeRhombus()
-        let afterPieces = dataSource.shapeN()
+        let afterPieces = dataSource.shapeC()
         
         for index in 0..<beforePieces.count {
             let piece = PieceLayer(color: .red, path: beforePieces[index])

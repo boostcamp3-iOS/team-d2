@@ -11,6 +11,7 @@ import UIKit
 protocol SymbolDatasource: class {
     func shapeRhombus() -> [UIBezierPath]
     func shapeN() -> [UIBezierPath]
+    func shapeC() -> [UIBezierPath]
 }
 
 class SymbolController: UIViewController {
@@ -60,20 +61,36 @@ class SymbolController: UIViewController {
 extension SymbolController: SymbolDatasource {
     public func shapeRhombus() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
-        coordinates.append(coordinate(x1: 0, y1: 0, x2: 28.2, y2: 0, x3: 28.2, y3: 200, x4: 0, y4: 200))
-        coordinates.append(coordinate(x1: 0, y1: 200, x2: 0, y2: 171.8, x3: 200, y3: 171.8, x4: 200, y4: 200))
-        coordinates.append(coordinate(x1: 0, y1: 28.2, x2: 0, y2: 0, x3: 200, y3: 0, x4: 200, y4: 28.2))
-        coordinates.append(coordinate(x1: 171.8, y1: 0, x2: 200, y2: 0, x3: 200, y3: 200, x4: 171.8, y4: 200))
+        coordinates.append(coordinate(x1: 0, y1: 0, x2: 0, y2: 100, x3: 40, y3: 100, x4: 40, y4: 0))
+        coordinates.append(coordinate(x1: 0, y1: 100, x2: 0, y2: 200, x3: 40, y3: 200, x4: 40, y4: 100))
+        coordinates.append(coordinate(x1: 0, y1: 40, x2: 200, y2: 40, x3: 200, y3: 0, x4: 0, y4: 0))
+        coordinates.append(coordinate(x1: 0, y1: 200, x2: 200, y2: 200, x3: 200, y3: 160, x4: 0, y4: 160))
+        coordinates.append(coordinate(x1: 160, y1: 0, x2: 160, y2: 100, x3: 200, y3: 100, x4: 200, y4: 0))
+        coordinates.append(coordinate(x1: 160, y1: 100, x2: 160, y2: 200, x3: 200, y3: 200, x4: 200, y4: 100))
         let paths = convertPath(from: coordinates)
         return paths
     }
     
     public func shapeN() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
-        coordinates.append(coordinate(x1: 20, y1: 20, x2: 48.2, y2: 20, x3: 48.2, y3: 180, x4: 20, y4: 180))
-        coordinates.append(coordinate(x1: 27, y1: 38.6, x2: 48.2, y2: 20, x3: 173, y3: 161.4, x4: 151.8, y4: 180))
-        coordinates.append(coordinate(x1: 27, y1: 38.6, x2: 48.2, y2: 20, x3: 173, y3: 161.4, x4: 151.8, y4: 180))
-        coordinates.append(coordinate(x1: 151.8, y1: 20, x2: 180, y2: 20, x3: 180, y3: 180, x4: 151.8, y4: 180))
+        coordinates.append(coordinate(x1: 0, y1: 0, x2: 0, y2: 100, x3: 40, y3: 100, x4: 40, y4: 0))
+        coordinates.append(coordinate(x1: 0, y1: 100, x2: 0, y2: 200, x3: 40, y3: 200, x4: 40, y4: 100))
+        coordinates.append(coordinate(x1: 9.8, y1: 26, x2: 160, y2: 200, x3: 190.2, y3: 173.8, x4: 40, y4: 0))
+        coordinates.append(coordinate(x1: 9.8, y1: 26, x2: 160, y2: 200, x3: 190.2, y3: 173.8, x4: 40, y4: 0))
+        coordinates.append(coordinate(x1: 160, y1: 0, x2: 160, y2: 100, x3: 200, y3: 100, x4: 200, y4: 0))
+        coordinates.append(coordinate(x1: 160, y1: 100, x2: 160, y2: 200, x3: 200, y3: 200, x4: 200, y4: 100))
+        let paths = convertPath(from: coordinates)
+        return paths
+    }
+    
+    public func shapeC() -> [UIBezierPath] {
+        var coordinates = [[CGPoint]]()
+        coordinates.append(coordinate(x1: 50, y1: 13.4, x2: 0, y2: 100, x3: 46.2, y3: 100, x4: 73.2, y4: 53.4))
+        coordinates.append(coordinate(x1: 0, y1: 100, x2: 50, y2: 186.6, x3: 73, y3: 146.6, x4: 46.2, y4: 100))
+        coordinates.append(coordinate(x1: 73.2, y1: 53.4, x2: 127, y2: 53.4, x3: 150, y3: 13.4, x4: 50, y4: 13.4))
+        coordinates.append(coordinate(x1: 50, y1: 186.6, x2: 150, y2: 186.6, x3: 126.8, y3: 146.6, x4: 73, y4: 146.6))
+        coordinates.append(coordinate(x1: 127, y1: 53.4, x2: 153.8, y2: 100, x3: 200, y3: 100, x4: 150, y4: 13.4))
+        coordinates.append(coordinate(x1: 153.8, y1: 100, x2: 126.8, y2: 146.6, x3: 150, y3: 186.6, x4: 200, y4: 100))
         let paths = convertPath(from: coordinates)
         return paths
     }
