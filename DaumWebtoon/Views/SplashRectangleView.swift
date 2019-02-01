@@ -8,35 +8,11 @@
 
 import UIKit
 
-protocol SplashRectangleAnimationDelegate {
-    func setRedSquareLayout()
-    func setTopWhiteRectangleLayout()
-    func setBottomWhiteRectangleLayout()
-    func animateRedSquare()
-    func animateTopWhiteRectangle()
-    func animateBottomWhiteRectangle()
-}
-
 class SplashRectangleView: UIView {
-    enum SplashRectangleType {
-        case redSquare
-        case topWhiteRectangle
-        case bottomWhiteRectangle
-    }
-    
-    var delegate: SplashRectangleAnimationDelegate?
-    private var type: SplashRectangleType?
-    
-    convenience init(type: SplashRectangleType) {
+    convenience init(backgroundColor: UIColor) {
         self.init(frame: CGRect.zero)
         translatesAutoresizingMaskIntoConstraints = false
-        
-        switch type {
-        case .redSquare: backgroundColor = .red
-        case .topWhiteRectangle, .bottomWhiteRectangle: backgroundColor = .white
-        }
-        
-        self.type = type
+        self.backgroundColor = backgroundColor
     }
     
     override init(frame: CGRect) {
@@ -45,29 +21,5 @@ class SplashRectangleView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    func setLayout() {
-        guard let type = type else { return }
-        switch type {
-        case .redSquare:
-            delegate?.setRedSquareLayout()
-        case .topWhiteRectangle:
-            delegate?.setTopWhiteRectangleLayout()
-        case .bottomWhiteRectangle:
-            delegate?.setBottomWhiteRectangleLayout()
-        }
-    }
-    
-    func animate() {
-        guard let type = type else { return }
-        switch type {
-        case .redSquare:
-            delegate?.animateRedSquare()
-        case .topWhiteRectangle:
-            delegate?.animateTopWhiteRectangle()
-        case .bottomWhiteRectangle:
-            delegate?.animateBottomWhiteRectangle()
-        }
     }
 }
