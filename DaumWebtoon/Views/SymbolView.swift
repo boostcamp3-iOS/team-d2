@@ -34,8 +34,12 @@ class SymbolView: UIView {
         
         for index in 0..<beforePieces.count {
             let piece = PieceLayer(color: .red, path: beforePieces[index])
-            piece.configureAnimation(passPath: passPieces[index], toPath: afterPieces[index])
+            piece.pathAnimation(passPath: passPieces[index], toPath: afterPieces[index])
+            piece.colorAnimation()
             pieces.append(piece)
+            if index == 3 {
+                piece.opacityAnimation()
+            }
             self.layer.addSublayer(piece)
         }
     }

@@ -10,6 +10,8 @@ import UIKit
 
 class PieceLayer: CAShapeLayer {
     private let animationKey = "path"
+    private let colorKey = "fillColor"
+    private let opacityKey = "opacity"
     
     override init() {
         super.init()
@@ -29,12 +31,25 @@ class PieceLayer: CAShapeLayer {
         self.path = path.cgPath
     }
     
-    func configureAnimation(passPath: UIBezierPath, toPath: UIBezierPath) {
+    func pathAnimation(passPath: UIBezierPath, toPath: UIBezierPath) {
         guard let fromPath = self.path else { return }
         let animation = CAKeyframeAnimation(keyPath: animationKey)
         animation.duration = 1
         animation.values = [fromPath, passPath.cgPath, toPath.cgPath]
-        animation.keyTimes = [0, 0.5, 1]
         self.add(animation, forKey: animationKey)
+    }
+    
+    func colorAnimation() {
+        let animation = CABasicAnimation(keyPath: colorKey)
+        animation.duration = 1
+        animation.toValue = UIColor.yellow.cgColor
+        self.add(animation, forKey: colorKey)
+    }
+    
+    func opacityAnimation() {
+        let animation = CAKeyframeAnimation(keyPath: opacityKey)
+        animation.duration = 1
+        animation.values = [1, 1, 0]
+        self.add(animation, forKey: opacityKey)
     }
 }
