@@ -63,17 +63,12 @@ class TabBarView: UIStackView {
     }
     
     func loadAnimationTabBar(leftAnimationTabBarColorIndex: Int, rightAnimationTabBarColorIndex: Int) {
-        if let _ = leftToRightAnimationTabBar,
-            let _ = rightToLeftAnimationTabBar {
-            leftToRightAnimationTabBar?.backgroundColor = tabContents[leftAnimationTabBarColorIndex].tabColor
-            rightToLeftAnimationTabBar?.backgroundColor = tabContents[rightAnimationTabBarColorIndex].tabColor
-            return
-        }
-        
         leftToRightAnimationTabBar = UIView(frame: CGRect(x: -Double(UIScreen.main.bounds.width), y: 0,
                                                           width: Double(UIScreen.main.bounds.width), height: tabBarHeight))
         rightToLeftAnimationTabBar = UIView(frame: CGRect(x: tabBarWidth, y: 0,
                                                           width: Double(UIScreen.main.bounds.width), height: tabBarHeight))
+        leftToRightAnimationTabBar?.backgroundColor = tabContents[leftAnimationTabBarColorIndex].tabColor
+        rightToLeftAnimationTabBar?.backgroundColor = tabContents[rightAnimationTabBarColorIndex].tabColor
         addSubview(leftToRightAnimationTabBar!)
         addSubview(rightToLeftAnimationTabBar!)
     }
