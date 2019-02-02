@@ -81,7 +81,7 @@ class TabBarView: UIStackView {
         rightToLeftAnimationTabBar?.transform = CGAffineTransform(translationX: -x, y: 0)
     }
     
-    func showEachTabs(currentIndex: Int = 2, status: Status = .inInit) {
+    func showEachTabs(currentIndex: Int = 2) {
         guard let tabContents = dataSource?.tabContents(self) else { return }
         
         self.tabContents = tabContents
