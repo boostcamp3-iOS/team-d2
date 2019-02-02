@@ -1,5 +1,5 @@
 //
-//  CompletionViewController.swift
+//  CacheViewController.swift
 //  DaumWebtoon
 //
 //  Created by Tak on 29/01/2019.
@@ -8,25 +8,25 @@
 
 import UIKit
 
-class CompletionViewController: UIViewController {
+class CacheViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let tabLabel = UILabel()
-        tabLabel.frame = CGRect(x: 100, y: 300, width: 200, height: 40)
+        tabLabel.frame = CGRect(x: 100, y: 300, width: 200, height: 50)
         tabLabel.textAlignment = .center
         tabLabel.textColor = UIColor.black
         tabLabel.numberOfLines = 0
         tabLabel.adjustsFontSizeToFitWidth = true
         tabLabel.font = UIFont.systemFont(ofSize: 14)
         tabLabel.alpha = 0.6
-        tabLabel.text = "완결"
+        tabLabel.text = "캐시"
         
         self.view.addSubview(tabLabel)
+        
         // Do any additional setup after loading the view.
     }
-    
 
     /*
     // MARK: - Navigation

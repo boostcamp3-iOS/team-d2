@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Cache View Controller-->
+        <!--Tab View Controller-->
         <scene sceneID="oU4-AS-bDl">
             <objects>
-                <viewController storyboardIdentifier="Cache" id="6fQ-4z-dbg" customClass="CacheViewController" customModule="DaumWebtoon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Cache" id="6fQ-4z-dbg" customClass="TabViewController" customModule="DaumWebtoon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KW3-sa-Mxc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,22 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="518-0N-ayp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-585" y="828"/>
-        </scene>
-        <!--Series View Controller-->
-        <scene sceneID="Wtq-Q6-Fl7">
-            <objects>
-                <viewController storyboardIdentifier="Series" id="rE3-bp-cTb" customClass="SeriesViewController" customModule="DaumWebtoon" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Sas-wS-2pi">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="VBU-KF-tic"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YOQ-S2-idf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="230" y="821"/>
+            <point key="canvasLocation" x="753" y="649"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="vG2-Vp-pPm">
@@ -54,50 +39,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B2b-mJ-Bp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="754" y="-53"/>
-        </scene>
-        <!--Coming Soon Free View Controller-->
-        <scene sceneID="as2-eg-01q">
-            <objects>
-                <viewController storyboardIdentifier="ComingSoonFree" id="dT5-X4-xqu" customClass="ComingSoonFreeViewController" customModule="DaumWebtoon" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qgr-aP-oYW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="xhp-VQ-rpy"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uOD-c7-9Cf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="998" y="820"/>
-        </scene>
-        <!--Completion View Controller-->
-        <scene sceneID="693-Gw-YFz">
-            <objects>
-                <viewController storyboardIdentifier="Completion" id="0BY-Ch-opj" customClass="CompletionViewController" customModule="DaumWebtoon" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qQj-6T-1Rd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="Coh-yM-eU6"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FdO-Bx-9Bo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1733" y="819"/>
-        </scene>
-        <!--Pick View Controller-->
-        <scene sceneID="ciD-Tt-SB8">
-            <objects>
-                <viewController storyboardIdentifier="Pick" id="5gX-i7-4Zb" customClass="PickViewController" customModule="DaumWebtoon" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0gj-Qp-x9Y">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="VrC-ot-mKO"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wEi-VB-66e" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2468" y="810"/>
         </scene>
     </scenes>
 </document>

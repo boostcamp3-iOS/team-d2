@@ -9,17 +9,7 @@
 import UIKit
 
 class TabBarViewController: UIViewController {
-    
-    private lazy var tabViewControllers: [UIViewController] = {
-        return [tabViewController(tabName: "Pick"),
-                tabViewController(tabName: "Cache"),
-                tabViewController(tabName: "Series"),
-                tabViewController(tabName: "ComingSoonFree"),
-                tabViewController(tabName: "Completion"),
-                tabViewController(tabName: "Pick"),
-                tabViewController(tabName: "Cache")]
-    } ()
-    
+ 
     private let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.green, tabTitle: ""),
         TabContent(tabColor: UIColor.brown, tabTitle: "캐시"),
@@ -33,12 +23,8 @@ class TabBarViewController: UIViewController {
     private let initialIndex = 2
     private let tabWidth = UIScreen.main.bounds.width - 20
     private let tabHeight: CGFloat = 30.0
-    
-    private var tabScrollView = UIScrollView()
     private let tabBarView = TabBarView()
-    
-    private var isFirst = true
-    private var tabViewControllerDictionaries: Dictionary<Int, UIViewController> = [:]
+    private var tabScrollView = UIScrollView()
     private var lastContentOffset: CGFloat = 0
     private var currentIndex = 0
     
@@ -48,6 +34,7 @@ class TabBarViewController: UIViewController {
         initializeTabScrollView()
         initializeTabContainer()
         initializeTabViewControllersContentSize()
+        initializeTabViewControllers()
         
         scrollToTab(currentIndex: initialIndex)
     }
@@ -60,7 +47,6 @@ class TabBarViewController: UIViewController {
         tabScrollView.isPagingEnabled = true
         tabScrollView.showsHorizontalScrollIndicator = false
         tabScrollView.showsVerticalScrollIndicator = false
-        tabScrollView.backgroundColor = UIColor.white
         tabScrollView.delegate = self
         
         view.addSubview(tabScrollView)
@@ -87,12 +73,22 @@ class TabBarViewController: UIViewController {
     
     private func initializeTabViewControllersContentSize() {
         tabScrollView.contentSize = CGSize(
-            width: tabScrollView.frame.width * CGFloat(tabViewControllers.count),
+            width: tabScrollView.frame.width * CGFloat(tabContents.count),
             height: tabScrollView.frame.height)
     }
     
-    private func tabViewController(tabName: String) -> UIViewController {
-        return UIStoryboard(name: "TabBar", bundle: nil).instantiateViewController(withIdentifier: tabName)
+    private func initializeTabViewControllers() {
+        for index in 0..<tabContents.count {
+            let tabViewController = TabViewController()
+            
+            addChild(tabViewController)
+            tabScrollView.addSubview(tabViewController.view)
+            tabViewController.didMove(toParent: self)
+            tabViewController.view.frame = CGRect(x: tabScrollView.frame.width * CGFloat(index),
+                                                  y: 0,
+                                                  width: tabScrollView.frame.width,
+                                                  height: tabScrollView.frame.height)
+        }
     }
     
     // MARK :- event
@@ -116,27 +112,6 @@ extension TabBarViewController {
             height: tabScrollView.frame.height)
         tabScrollView.setContentOffset(iframe.origin, animated: false)
     }
-    
-    func loadTabViews(currentIndex: Int) {
-        for i in max(0, currentIndex - 1)...min(currentIndex + 1, tabViewControllers.count) {
-            loadTabViewAtIndex(index: i)
-        }
-    }
-    
-    func loadTabViewAtIndex(index: Int) {
-        let tabViewController = tabViewControllers[index]
-        tabViewController.view.frame = CGRect(x: tabScrollView.frame.width * CGFloat(index),
-                                              y: 0,
-                                              width: tabScrollView.frame.width,
-                                              height: tabScrollView.frame.height)
-
-        if tabViewControllerDictionaries[index] == nil {
-            tabViewControllerDictionaries[index] = tabViewController
-            tabScrollView.addSubview(tabViewController.view)
-        } else {
-            tabViewControllerDictionaries[index] = tabViewController
-        }
-    }
 }
 
 extension TabBarViewController {
@@ -154,8 +129,6 @@ extension TabBarViewController {
             previousIndex = 1
         }
         
-        loadTabViews(currentIndex: currentIndex)
-        
         if currentIndex - 1 >= 0 && currentIndex + 1 < tabContents.count {
             tabBarView.loadAnimationTabBar(leftAnimationTabBarColorIndex: currentIndex - 1, rightAnimationTabBarColorIndex: currentIndex + 1)
         }
@@ -164,7 +137,7 @@ extension TabBarViewController {
         tabBarView.showCurrentTabIndicator(currentIndex: currentIndex, previousIndex: previousIndex)
         
         if contentOffsetX == 0.0 ||
-            tabScrollView.frame.width * CGFloat(tabViewControllers.count - 1) == contentOffsetX {
+            tabScrollView.frame.width * CGFloat(tabContents.count - 1) == contentOffsetX {
             showCurrentTab(currentIndex: currentIndex)
         }
         
@@ -174,11 +147,6 @@ extension TabBarViewController {
 
 extension TabBarViewController: UIScrollViewDelegate {
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        if isFirst == true {
-            isFirst = false
-            return
-        }
-        
         NSObject.cancelPreviousPerformRequests(withTarget: self)
         
         if lastContentOffset <= scrollView.contentOffset.x {
