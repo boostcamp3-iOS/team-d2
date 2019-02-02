@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD1220312CD00077751 /* TabBarView.swift */; };
+		3B1C0FD42204201300077751 /* TabContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD32204201300077751 /* TabContent.swift */; };
+		3B1C0FD62204292300077751 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD52204292300077751 /* TabView.swift */; };
+		3B1C0FD82204319900077751 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD72204319900077751 /* Status.swift */; };
 		3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */; };
 		3BBAA6D621FFE5BA00861707 /* CacheViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D521FFE5BA00861707 /* CacheViewController.swift */; };
 		3BBAA6D821FFE5EF00861707 /* SeriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D721FFE5EF00861707 /* SeriesViewController.swift */; };
@@ -14,7 +18,6 @@
 		3BBAA6DC21FFE67900861707 /* PickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6DB21FFE67900861707 /* PickViewController.swift */; };
 		3BBAA6DE21FFE68E00861707 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
-		3BBAA6E6220039F300861707 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E5220039F300861707 /* Direction.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
 		B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */; };
 		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
@@ -24,6 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B1C0FD1220312CD00077751 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		3B1C0FD32204201300077751 /* TabContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContent.swift; sourceTree = "<group>"; };
+		3B1C0FD52204292300077751 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		3B1C0FD72204319900077751 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3BBAA6D521FFE5BA00861707 /* CacheViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheViewController.swift; sourceTree = "<group>"; };
 		3BBAA6D721FFE5EF00861707 /* SeriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesViewController.swift; sourceTree = "<group>"; };
@@ -31,7 +38,6 @@
 		3BBAA6DB21FFE67900861707 /* PickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickViewController.swift; sourceTree = "<group>"; };
 		3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
-		3BBAA6E5220039F300861707 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +68,9 @@
 				3BBAA6D921FFE67000861707 /* ComingSoonFreeViewController.swift */,
 				3BBAA6DD21FFE68E00861707 /* CompletionViewController.swift */,
 				3BBAA6DB21FFE67900861707 /* PickViewController.swift */,
+				3B1C0FD32204201300077751 /* TabContent.swift */,
+				3B1C0FD52204292300077751 /* TabView.swift */,
+				3B1C0FD72204319900077751 /* Status.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -69,7 +78,6 @@
 		3BBAA6E4220039E000861707 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3BBAA6E5220039F300861707 /* Direction.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -127,6 +135,7 @@
 				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
 				3BBAA6E12200207800861707 /* TabBar.storyboard */,
 				B8ABD4F721FFE50B00454AF3 /* RectangleView.swift */,
+				3B1C0FD1220312CD00077751 /* TabBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -223,14 +232,17 @@
 				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
 				3BBAA6DE21FFE68E00861707 /* CompletionViewController.swift in Sources */,
 				3BBAA6DC21FFE67900861707 /* PickViewController.swift in Sources */,
+				3B1C0FD62204292300077751 /* TabView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
+				3B1C0FD82204319900077751 /* Status.swift in Sources */,
 				3BBAA6D821FFE5EF00861707 /* SeriesViewController.swift in Sources */,
 				3BBAA6DA21FFE67000861707 /* ComingSoonFreeViewController.swift in Sources */,
 				3BBAA6D621FFE5BA00861707 /* CacheViewController.swift in Sources */,
 				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
+				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
+				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
 				B8ABD4F821FFE50B00454AF3 /* RectangleView.swift in Sources */,
-				3BBAA6E6220039F300861707 /* Direction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
