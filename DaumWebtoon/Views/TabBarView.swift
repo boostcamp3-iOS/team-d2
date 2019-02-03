@@ -94,16 +94,18 @@ class TabBarView: UIStackView {
         
         tabContents.forEach { (tabContent) in
             let view = UIView()
-
+            
             let tabLabel = UILabel()
             tabLabel.textAlignment = .center
-            tabLabel.autoresizingMask =  [.flexibleWidth, .flexibleHeight]
             tabLabel.textColor = UIColor.white
             tabLabel.numberOfLines = 0
             tabLabel.adjustsFontSizeToFitWidth = true
             tabLabel.font = UIFont.systemFont(ofSize: 16)
             tabLabel.alpha = 0.6
             tabLabel.text = tabContent.tabTitle
+            let tap = UIGestureRecognizer(target: self, action: #selector(didTabTapped(_:)))
+            tabLabel.isUserInteractionEnabled = true
+            tabLabel.addGestureRecognizer(tap)
             
             view.addSubview(tabLabel)
             
@@ -123,13 +125,20 @@ class TabBarView: UIStackView {
         axis = .horizontal
         distribution = .fillEqually
         spacing = 0
+        isUserInteractionEnabled = true
         setNeedsUpdateConstraints()
-        
+        clipsToBounds = true
+    
         showEachTabs()
     }
     
     private func reloadData() {
         showEachTabs()
+    }
+    
+    // MARK :- event
+    @objc func didTabTapped(_ recognizer: UITapGestureRecognizer) {
+        print("tapped")
     }
     
 }

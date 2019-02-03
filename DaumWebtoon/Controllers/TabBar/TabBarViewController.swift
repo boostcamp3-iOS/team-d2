@@ -48,8 +48,10 @@ class TabBarViewController: UIViewController {
         tabScrollView.isPagingEnabled = true
         tabScrollView.showsHorizontalScrollIndicator = false
         tabScrollView.showsVerticalScrollIndicator = false
+        tabScrollView.canCancelContentTouches = false
+        tabScrollView.isUserInteractionEnabled = true
         tabScrollView.delegate = self
-        
+
         view.addSubview(tabScrollView)
     }
     
@@ -66,7 +68,6 @@ class TabBarViewController: UIViewController {
         tabContainerView.widthAnchor.constraint(equalToConstant: tabWidth).isActive = true
         tabContainerView.heightAnchor.constraint(equalToConstant: tabHeight).isActive = true
         
-        tabBarView.clipsToBounds = true
         tabBarView.dataSource = self
         
         tabContainerView.addSubview(tabBarView)
@@ -90,11 +91,6 @@ class TabBarViewController: UIViewController {
                                                   width: tabScrollView.frame.width,
                                                   height: tabScrollView.frame.height)
         }
-    }
-    
-    // MARK :- event
-    @objc func didTabTapped(_ recognizer: UITapGestureRecognizer) {
-        
     }
 }
 
@@ -130,10 +126,8 @@ extension TabBarViewController {
             previousIndex = 1
         }
         
-        if currentIndex - 1 >= 0 && currentIndex + 1 < tabContents.count {
-            tabBarView.loadAnimationTabBar(leftAnimationTabBarColorIndex: currentIndex - 1, rightAnimationTabBarColorIndex: currentIndex + 1)
-        }
-        
+        tabBarView.loadAnimationTabBar(leftAnimationTabBarColorIndex: currentIndex - 1,
+                                       rightAnimationTabBarColorIndex: currentIndex + 1)
         tabBarView.showEachTabs(currentIndex: currentIndex)
         tabBarView.showCurrentTabIndicator(currentIndex: currentIndex, previousIndex: previousIndex)
         
@@ -145,6 +139,7 @@ extension TabBarViewController {
 }
 
 extension TabBarViewController: UIScrollViewDelegate {
+    
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         if contentOffsetInPage < UIScreen.main.bounds.width / 2 { return }
         
