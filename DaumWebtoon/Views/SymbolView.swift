@@ -11,7 +11,13 @@ import UIKit
 class SymbolView: UIView {
     private let animationKey = "transform.rotation"
     private var pieces = [PieceLayer]()
-    var dataSource: SymbolDatasource?
+    var dataSource: SymbolDatasource? {
+        didSet {
+            guard let dataSource = self.dataSource else { return }
+            configureShapes(with: dataSource)
+            configureRotateAnimation()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,12 +25,6 @@ class SymbolView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    override func draw(_ rect: CGRect) {
-        guard let dataSource = self.dataSource else { return }
-        configureShapes(with: dataSource)
-        configureRotateAnimation()
     }
     
     private func configureShapes(with dataSource: SymbolDatasource) {
