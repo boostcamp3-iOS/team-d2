@@ -11,4 +11,5 @@ import UIKit
 struct TabContent {
     let tabColor: UIColor
     let tabTitle: String
+    let tabIndex: Int
 }

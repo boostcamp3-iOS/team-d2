@@ -13,7 +13,7 @@ protocol TabBarDataSource {
 }
 
 protocol TabBarDelegate {
-    
+    func tabBarView(_ tabBarView: TabBarView, viewControllerAtIndex index: Int?, previousIndex: Int)
 }
 
 class TabBarView: UIStackView {
@@ -29,6 +29,7 @@ class TabBarView: UIStackView {
     private var leftToRightAnimationTabBar: UIView?
     private var rightToLeftAnimationTabBar: UIView?
     private var tabContents: [TabContent] = []
+    private var previousIndex = 0
     
     private let tabBarWidth = Double(UIScreen.main.bounds.width - 20)
     private let tabBarHeight = 30.0
@@ -60,6 +61,8 @@ class TabBarView: UIStackView {
         
         tabViews[currentIndex].tabLabel.alpha = 1
         tabViews[currentIndex].tabLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+        
+        self.previousIndex = previousIndex
     }
     
     func loadAnimationTabBar(leftAnimationTabBarColorIndex: Int, rightAnimationTabBarColorIndex: Int) {
@@ -94,6 +97,9 @@ class TabBarView: UIStackView {
         
         tabContents.forEach { (tabContent) in
             let view = UIView()
+            view.isUserInteractionEnabled = true
+            view.tag = tabContent.tabIndex
+            view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTabTapped(_:))))
             
             let tabLabel = UILabel()
             tabLabel.textAlignment = .center
@@ -103,9 +109,6 @@ class TabBarView: UIStackView {
             tabLabel.font = UIFont.systemFont(ofSize: 16)
             tabLabel.alpha = 0.6
             tabLabel.text = tabContent.tabTitle
-            let tap = UIGestureRecognizer(target: self, action: #selector(didTabTapped(_:)))
-            tabLabel.isUserInteractionEnabled = true
-            tabLabel.addGestureRecognizer(tap)
             
             view.addSubview(tabLabel)
             
@@ -116,6 +119,7 @@ class TabBarView: UIStackView {
             tabViews.append(TabView(containerView: view, tabLabel: tabLabel))
             
             if tabContent.tabTitle == "" { return }
+            
             addArrangedSubview(view)
         }
     }
@@ -126,8 +130,8 @@ class TabBarView: UIStackView {
         distribution = .fillEqually
         spacing = 0
         isUserInteractionEnabled = true
-        setNeedsUpdateConstraints()
         clipsToBounds = true
+        setNeedsUpdateConstraints()
     
         showEachTabs()
     }
@@ -136,9 +140,12 @@ class TabBarView: UIStackView {
         showEachTabs()
     }
     
-    // MARK :- event
+    // MARK :- tap event
     @objc func didTabTapped(_ recognizer: UITapGestureRecognizer) {
-        print("tapped")
+        let view = recognizer.view
+        let index = view?.tag
+        
+        delegate?.tabBarView(self, viewControllerAtIndex: index, previousIndex: previousIndex)
     }
     
 }
