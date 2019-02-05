@@ -24,8 +24,10 @@ class TabBarViewController: UIViewController {
     private let tabWidth = UIScreen.main.bounds.width - 20
     private let tabHeight: CGFloat = 30.0
     private let tabBarView = TabBarView()
-    
-    private var tabScrollView = UIScrollView()
+    private let tabContainerView = UIView()
+    private let tabScrollView = UIScrollView(frame: CGRect(x: 0, y: 0,
+                                                           width: UIScreen.main.bounds.width,
+                                                           height: UIScreen.main.bounds.height))
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
     private var currentIndex = 0
@@ -38,14 +40,12 @@ class TabBarViewController: UIViewController {
         initializeTabViewControllersContentSize()
         initializeTabViewControllers()
         
+        showCurrentTab(currentIndex: initialIndex)
         scrollToTab(currentIndex: initialIndex)
     }
     
     // MARK :- initialize views
     private func initializeTabScrollView() {
-        tabScrollView = UIScrollView(frame: CGRect(x: 0, y: 0,
-                                                   width: UIScreen.main.bounds.width,
-                                                   height: UIScreen.main.bounds.height))
         tabScrollView.isPagingEnabled = true
         tabScrollView.showsHorizontalScrollIndicator = false
         tabScrollView.showsVerticalScrollIndicator = false
@@ -55,7 +55,6 @@ class TabBarViewController: UIViewController {
     }
     
     private func initializeTabContainer() {
-        let tabContainerView = UIView()
         tabContainerView.clipsToBounds = true
         tabContainerView.backgroundColor = UIColor.red
         tabContainerView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,6 +91,23 @@ class TabBarViewController: UIViewController {
                                                   height: tabScrollView.frame.height)
         }
     }
+    
+    // MARK :- private methods
+    private func adjustIndexForIndex(currentIndex: Int, previousIndex: Int) -> (Int, Int) {
+        if currentIndex > tabContents.count - 2 {
+            return (1, 5)
+        } else if currentIndex < 1 {
+            return (tabContents.count - 2, 1)
+        } else {
+            return (currentIndex, previousIndex)
+        }
+    }
+    
+    private func isInvisibleTabForIndex(contentOffset: CGFloat) -> Bool {
+        return contentOffset <= 0.0 ||
+            contentOffset >= tabScrollView.frame.width * CGFloat(tabContents.count - 1)
+            ? true : false
+    }
 }
 
 extension TabBarViewController: TabBarDataSource {
@@ -101,7 +117,7 @@ extension TabBarViewController: TabBarDataSource {
 }
 
 extension TabBarViewController: TabBarDelegate {
-    func tabBarView(_ tabBarView: TabBarView, viewControllerAtIndex index: Int?, previousIndex: Int) {
+    func tabBarView(_ tabBarView: TabBarView, viewControllerAtIndex index: Int?) {
         guard let index = index else { return }
         
         showCurrentTab(currentIndex: index)
@@ -116,74 +132,66 @@ extension TabBarViewController {
             width: tabScrollView.frame.width,
             height: tabScrollView.frame.height)
         tabScrollView.setContentOffset(frame.origin, animated: animated)
+        
+        lastContentOffset = tabScrollView.frame.width * CGFloat(currentIndex)
     }
     
     func scrollToTab(currentIndex: Int, previousIndex: Int = 0, contentOffsetX: CGFloat = 0.01) {
-        var currentIndex = currentIndex
-        var previousIndex = previousIndex
-        
-        showCurrentTab(currentIndex: currentIndex)
-        
-        if currentIndex > tabContents.count - 2 {
-            currentIndex = 1
-            previousIndex = 5
-        } else if currentIndex < 1 {
-            currentIndex = tabContents.count - 2
-            previousIndex = 1
-        }
-      
-        tabBarView.loadAnimationTabBar(leftAnimationTabBarColorIndex: currentIndex - 1,
-                                       rightAnimationTabBarColorIndex: currentIndex + 1)
-        tabBarView.showEachTabs(currentIndex: currentIndex)
-        tabBarView.showCurrentTabIndicator(currentIndex: currentIndex, previousIndex: previousIndex)
-        
-        if contentOffsetX == 0.0 ||
-            tabScrollView.frame.width * CGFloat(tabContents.count - 1) == contentOffsetX {
-            showCurrentTab(currentIndex: currentIndex, animated: false)
-        }
+        let index = adjustIndexForIndex(currentIndex: currentIndex, previousIndex: previousIndex)
+        tabBarView.showEachTabs(currentIndex: index.0)
+        tabBarView.showCurrentTabIndicator(currentIndex: index.0, previousIndex: index.1)
     }
 }
 
 extension TabBarViewController: UIScrollViewDelegate {
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        if contentOffsetInPage < UIScreen.main.bounds.width / 2 { return }
+        guard contentOffsetInPage >= UIScreen.main.bounds.width / 2 else { return }
         
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-
+        
         if lastContentOffset <= scrollView.contentOffset.x {
-            tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: tabScrollView.frame.width)
+            tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: tabScrollView.frame.width, currentIndex: currentIndex - 1)
         }
         
-        let nextTabIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
-        
-        scrollToTab(currentIndex: Int(nextTabIndex), previousIndex: Int(currentIndex), contentOffsetX: scrollView.contentOffset.x)
-        
-        lastContentOffset = scrollView.contentOffset.x
+        let nextTabIndex = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
+        showCurrentTab(currentIndex: nextTabIndex)
+        scrollToTab(currentIndex: nextTabIndex, previousIndex: currentIndex, contentOffsetX: scrollView.contentOffset.x)
     }
-
-    //http://stackoverflow.com/a/1857162
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) {
             NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
             perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.0)
+            
+            let scrollWidth = tabScrollView.frame.width
+            let contentOffset = scrollView.contentOffset.x
+            var nextTabIndex = Int(round(contentOffset / scrollWidth))
+            if nextTabIndex == 0 {
+                nextTabIndex = 5
+            } else if nextTabIndex == tabContents.count - 1 {
+                nextTabIndex = 1
+            }
+            
+            let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
+            if lastContentOffset > contentOffset {
+                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
+                tabBarView.drawTabBarColorLeftToRightWhileScrolling(x: abs(contentOffsetInPage - scrollWidth), currentIndex: index)
+                self.contentOffsetInPage = abs(contentOffsetInPage - scrollWidth)
+            } else if lastContentOffset <= contentOffset && contentOffsetInPage != 0.0 {
+                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
+                tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: contentOffsetInPage, currentIndex: index)
+                self.contentOffsetInPage = contentOffsetInPage
+            }
+            
+            tabBarView.showEachTabs(currentIndex: currentIndex)
+            tabBarView.showCurrentTabIndicator(currentIndex: nextTabIndex, previousIndex: currentIndex)
+            
+            currentIndex = Int(nextTabIndex)
+            
+            if isInvisibleTabForIndex(contentOffset: contentOffset) {
+                showCurrentTab(currentIndex: nextTabIndex, animated: false)
+            }
         }
-        
-        let scrollWidth = self.tabScrollView.frame.width
-        let contentOffset = scrollView.contentOffset.x
-        let nextTabIndex = round(contentOffset / scrollWidth)
-        
-        let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
-        if self.lastContentOffset > contentOffset {
-            self.tabBarView.drawTabBarColorLeftToRightWhileScrolling(x: abs(contentOffsetInPage - scrollWidth))
-            self.contentOffsetInPage = abs(contentOffsetInPage - scrollWidth)
-        } else if self.lastContentOffset <= contentOffset && contentOffsetInPage != 0.0 {
-            self.tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: contentOffsetInPage)
-            self.contentOffsetInPage = contentOffsetInPage
-        }
-        
-        self.tabBarView.showCurrentTabIndicator(currentIndex: Int(nextTabIndex), previousIndex: self.currentIndex)
-        
-        self.currentIndex = Int(nextTabIndex)
     }
 }
 

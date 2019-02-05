@@ -13,7 +13,7 @@ protocol TabBarDataSource {
 }
 
 protocol TabBarDelegate {
-    func tabBarView(_ tabBarView: TabBarView, viewControllerAtIndex index: Int?, previousIndex: Int)
+    func tabBarView(_ tabBarView: TabBarView, viewControllerAtIndex index: Int?)
 }
 
 class TabBarView: UIStackView {
@@ -25,14 +25,31 @@ class TabBarView: UIStackView {
     }
     var delegate: TabBarDelegate?
     
-    private var tabViews: [TabView] = []
-    private var leftToRightAnimationTabBar: UIView?
-    private var rightToLeftAnimationTabBar: UIView?
-    private var tabContents: [TabContent] = []
-    private var previousIndex = 0
+    private lazy var leftToRightAnimationTabBars = [
+        UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight))]
     
-    private let tabBarWidth = Double(UIScreen.main.bounds.width - 20)
-    private let tabBarHeight = 30.0
+    private lazy var rightToLeftAnimationTabBars = [
+        UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
+        UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight))]
+    
+    private var tabViews = [TabView]()
+    private var tabContents = [TabContent]()
+    
+    private let screenWidth = Int(UIScreen.main.bounds.width)
+    private let tabBarWidth = Int(UIScreen.main.bounds.width - 20)
+    private let tabBarHeight = 30
+    private let tabBarMargin = 20
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,27 +78,16 @@ class TabBarView: UIStackView {
         
         tabViews[currentIndex].tabLabel.alpha = 1
         tabViews[currentIndex].tabLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-        
-        self.previousIndex = previousIndex
     }
     
-    func loadAnimationTabBar(leftAnimationTabBarColorIndex: Int, rightAnimationTabBarColorIndex: Int) {
-        leftToRightAnimationTabBar = UIView(frame: CGRect(x: -Double(UIScreen.main.bounds.width), y: 0,
-                                                          width: Double(UIScreen.main.bounds.width), height: tabBarHeight))
-        rightToLeftAnimationTabBar = UIView(frame: CGRect(x: tabBarWidth, y: 0,
-                                                          width: Double(UIScreen.main.bounds.width), height: tabBarHeight))
-        leftToRightAnimationTabBar?.backgroundColor = tabContents[leftAnimationTabBarColorIndex].tabColor
-        rightToLeftAnimationTabBar?.backgroundColor = tabContents[rightAnimationTabBarColorIndex].tabColor
-        addSubview(leftToRightAnimationTabBar!)
-        addSubview(rightToLeftAnimationTabBar!)
-    }
-    
-    func drawTabBarColorLeftToRightWhileScrolling(x: CGFloat) {
-        leftToRightAnimationTabBar?.transform = CGAffineTransform(translationX: x, y: 0)
+    func drawTabBarColorLeftToRightWhileScrolling(x: CGFloat, currentIndex: Int) {
+        bringSubviewToFront(leftToRightAnimationTabBars[currentIndex - 1])
+        leftToRightAnimationTabBars[currentIndex - 1].transform = CGAffineTransform(translationX: x, y: 0)
     }
 
-    func drawTabBarColorRightToLeftWhileScrolling(x: CGFloat) {
-        rightToLeftAnimationTabBar?.transform = CGAffineTransform(translationX: -x, y: 0)
+    func drawTabBarColorRightToLeftWhileScrolling(x: CGFloat, currentIndex: Int) {
+        bringSubviewToFront(rightToLeftAnimationTabBars[currentIndex + 1])
+        rightToLeftAnimationTabBars[currentIndex + 1].transform = CGAffineTransform(translationX: -x, y: 0)
     }
     
     func showEachTabs(currentIndex: Int = 2) {
@@ -124,6 +130,12 @@ class TabBarView: UIStackView {
         }
     }
     
+    // MARK :- private methods
+    private func reloadData() {
+        showEachTabs()
+        setupAnimationTabBar()
+    }
+    
     private func setupTabBar() {
         translatesAutoresizingMaskIntoConstraints = false
         axis = .horizontal
@@ -134,10 +146,24 @@ class TabBarView: UIStackView {
         setNeedsUpdateConstraints()
     
         showEachTabs()
+        setupAnimationTabBar()
     }
-    
-    private func reloadData() {
-        showEachTabs()
+
+    private func setupAnimationTabBar() {
+        guard let tabContents = dataSource?.tabContents(self) else { return }
+        
+        for index in 0..<leftToRightAnimationTabBars.count {
+            leftToRightAnimationTabBars[index].removeFromSuperview()
+            rightToLeftAnimationTabBars[index].removeFromSuperview()
+        }
+        
+        for index in 0..<tabContents.count {
+            leftToRightAnimationTabBars[index].backgroundColor = tabContents[index].tabColor
+            rightToLeftAnimationTabBars[index].backgroundColor = tabContents[index].tabColor
+            
+            addSubview(leftToRightAnimationTabBars[index])
+            addSubview(rightToLeftAnimationTabBars[index])
+        }
     }
     
     // MARK :- tap event
@@ -145,7 +171,7 @@ class TabBarView: UIStackView {
         let view = recognizer.view
         let index = view?.tag
         
-        delegate?.tabBarView(self, viewControllerAtIndex: index, previousIndex: previousIndex)
+        delegate?.tabBarView(self, viewControllerAtIndex: index)
     }
     
 }
