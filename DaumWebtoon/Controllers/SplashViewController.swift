@@ -30,6 +30,7 @@ class SplashViewController: UIViewController {
         view.addSubview(splashView)
         splashView.frame = view.bounds
     }
+
 }
 
 // MARK: - Splash View Delegate
@@ -39,5 +40,10 @@ extension SplashViewController: SplashViewDelegate {
             guard let self = self else { return }
             self.splashView.alpha = 0
         }
+    }
+
+    func presentTabBarViewController() {
+        let tabBarViewController = TabBarViewController()
+        present(tabBarViewController, animated: false, completion: nil)
     }
 }
