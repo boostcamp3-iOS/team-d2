@@ -191,6 +191,24 @@ extension TabBarViewController: UIScrollViewDelegate {
             if isInvisibleTabForIndex(contentOffset: contentOffset) {
                 showCurrentTab(currentIndex: nextTabIndex, animated: false)
             }
+        } else {
+            let scrollWidth = tabScrollView.frame.width
+            let contentOffset = scrollView.contentOffset.x
+            var nextTabIndex = Int(round(contentOffset / scrollWidth))
+            if nextTabIndex == 0 {
+                nextTabIndex = 5
+            } else if nextTabIndex == tabContents.count - 1 {
+                nextTabIndex = 1
+            }
+            
+            tabBarView.showEachTabs(currentIndex: currentIndex)
+            tabBarView.showCurrentTabIndicator(currentIndex: nextTabIndex, previousIndex: currentIndex)
+            
+            currentIndex = nextTabIndex
+            
+            if isInvisibleTabForIndex(contentOffset: contentOffset) {
+                showCurrentTab(currentIndex: nextTabIndex, animated: false)
+            }
         }
     }
 }
