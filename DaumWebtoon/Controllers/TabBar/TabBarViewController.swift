@@ -155,7 +155,7 @@ extension TabBarViewController: UIScrollViewDelegate {
         
         let nextTabIndex = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
         showCurrentTab(currentIndex: nextTabIndex)
-        scrollToTab(currentIndex: nextTabIndex, previousIndex: currentIndex, contentOffsetX: scrollView.contentOffset.x)
+        scrollToTab(currentIndex: nextTabIndex, previousIndex: currentIndex)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
