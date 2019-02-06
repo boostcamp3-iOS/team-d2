@@ -28,7 +28,7 @@ class SplashViewController: UIViewController {
     
     func setSplashViewLayout() {
         view.addSubview(splashView)
-        splashView.frame = UIScreen.main.bounds
+        splashView.frame = view.bounds
     }
 }
 

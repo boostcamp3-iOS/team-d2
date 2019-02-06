@@ -13,7 +13,6 @@
 		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
 		B8ABD4A421FEACD900454AF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A321FEACD900454AF3 /* Assets.xcassets */; };
 		B8ABD4A721FEACDA00454AF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */; };
-		B8ABD4F821FFE50B00454AF3 /* SplashRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD4F721FFE50B00454AF3 /* SplashRectangleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		B8ABD4A321FEACD900454AF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8ABD4A621FEACDA00454AF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8ABD4A821FEACDA00454AF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B8ABD4F721FFE50B00454AF3 /* SplashRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRectangleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +86,6 @@
 			children = (
 				B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */,
 				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
-				B8ABD4F721FFE50B00454AF3 /* SplashRectangleView.swift */,
 				B85187552203DBCD0081F72D /* SplashView.swift */,
 			);
 			path = Views;
@@ -184,7 +181,6 @@
 				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
-				B8ABD4F821FFE50B00454AF3 /* SplashRectangleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

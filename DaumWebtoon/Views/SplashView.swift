@@ -13,9 +13,9 @@ protocol SplashViewDelegate: class {
 }
 
 class SplashView: UIView {
-    private lazy var redSquare = SplashRectangleView(backgroundColor: .red)
-    private lazy var topWhiteRectangle = SplashRectangleView(backgroundColor: .white)
-    private lazy var bottomWhiteRectangle = SplashRectangleView(backgroundColor: .white)
+    private lazy var redSquare = UIView()
+    private lazy var topWhiteRectangle = UIView()
+    private lazy var bottomWhiteRectangle = UIView()
     
     var delegate: SplashViewDelegate?
     
@@ -23,6 +23,7 @@ class SplashView: UIView {
         super.init(frame: frame)
         
         backgroundColor = .white
+        setRectanglesBackgroundColor()
         setLayout()
     }
     
@@ -36,8 +37,15 @@ class SplashView: UIView {
         setBottomWhiteRectangleLayout()
     }
     
+    private func setRectanglesBackgroundColor() {
+        redSquare.backgroundColor = .red
+        topWhiteRectangle.backgroundColor = .white
+        bottomWhiteRectangle.backgroundColor = .white
+    }
+    
     private func setRedSquareLayout() {
         addSubview(redSquare)
+        redSquare.translatesAutoresizingMaskIntoConstraints = false
         redSquare.widthAnchor.constraint(equalToConstant: 200).isActive = true
         redSquare.heightAnchor.constraint(equalToConstant: 200).isActive = true
         redSquare.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -46,6 +54,7 @@ class SplashView: UIView {
     
     private func setTopWhiteRectangleLayout() {
         addSubview(topWhiteRectangle)
+        topWhiteRectangle.translatesAutoresizingMaskIntoConstraints = false
         topWhiteRectangle.heightAnchor.constraint(equalToConstant: 10).isActive = true
         topWhiteRectangle.widthAnchor.constraint(equalToConstant: 200).isActive = true
         topWhiteRectangle.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -54,6 +63,7 @@ class SplashView: UIView {
     
     private func setBottomWhiteRectangleLayout() {
         addSubview(bottomWhiteRectangle)
+        bottomWhiteRectangle.translatesAutoresizingMaskIntoConstraints = false
         bottomWhiteRectangle.heightAnchor.constraint(equalToConstant: 10).isActive = true
         bottomWhiteRectangle.widthAnchor.constraint(equalToConstant: 200).isActive = true
         bottomWhiteRectangle.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
