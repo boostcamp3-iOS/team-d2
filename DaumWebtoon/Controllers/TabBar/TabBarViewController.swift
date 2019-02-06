@@ -136,7 +136,7 @@ extension TabBarViewController {
         lastContentOffset = tabScrollView.frame.width * CGFloat(currentIndex)
     }
     
-    func scrollToTab(currentIndex: Int, previousIndex: Int = 0, contentOffsetX: CGFloat = 0.01) {
+    func scrollToTab(currentIndex: Int, previousIndex: Int = 0) {
         let index = adjustIndexForIndex(currentIndex: currentIndex, previousIndex: previousIndex)
         tabBarView.showEachTabs(currentIndex: index.0)
         tabBarView.showCurrentTabIndicator(currentIndex: index.0, previousIndex: index.1)
