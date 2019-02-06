@@ -10,6 +10,10 @@
 		3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD1220312CD00077751 /* TabBarView.swift */; };
 		3B1C0FD42204201300077751 /* TabContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD32204201300077751 /* TabContent.swift */; };
 		3B1C0FD62204292300077751 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD52204292300077751 /* TabView.swift */; };
+		3B8FAC68220AD11F002CEEEF /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC67220AD11F002CEEEF /* RequestType.swift */; };
+		3B8FAC6A220AD145002CEEEF /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC69220AD145002CEEEF /* RequestData.swift */; };
+		3B8FAC6C220AD16A002CEEEF /* NetworkEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC6B220AD16A002CEEEF /* NetworkEnum.swift */; };
+		3B8FAC6E220AD187002CEEEF /* NetworkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC6D220AD187002CEEEF /* NetworkDispatcher.swift */; };
 		3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */; };
 		3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D521FFE5BA00861707 /* TabViewController.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
@@ -25,6 +29,10 @@
 		3B1C0FD1220312CD00077751 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		3B1C0FD32204201300077751 /* TabContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContent.swift; sourceTree = "<group>"; };
 		3B1C0FD52204292300077751 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		3B8FAC67220AD11F002CEEEF /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		3B8FAC69220AD145002CEEEF /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
+		3B8FAC6B220AD16A002CEEEF /* NetworkEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEnum.swift; sourceTree = "<group>"; };
+		3B8FAC6D220AD187002CEEEF /* NetworkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDispatcher.swift; sourceTree = "<group>"; };
 		3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3BBAA6D521FFE5BA00861707 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
@@ -49,6 +57,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B8FAC66220AD106002CEEEF /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				3B8FAC67220AD11F002CEEEF /* RequestType.swift */,
+				3B8FAC69220AD145002CEEEF /* RequestData.swift */,
+				3B8FAC6B220AD16A002CEEEF /* NetworkEnum.swift */,
+				3B8FAC6D220AD187002CEEEF /* NetworkDispatcher.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		3BBAA6D421FFE59B00861707 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +105,7 @@
 		B8ABD49B21FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXGroup;
 			children = (
+				3B8FAC66220AD106002CEEEF /* Network */,
 				3BBAA6E4220039E000861707 /* Utils */,
 				B8ABD4FD2200143100454AF3 /* AppDelegate */,
 				B8ABD4FE2200143F00454AF3 /* Controllers */,
@@ -119,7 +139,6 @@
 				B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */,
 				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
 				3BBAA6E12200207800861707 /* TabBar.storyboard */,
-				B8ABD4F721FFE50B00454AF3 /* RectangleView.swift */,
 				3B1C0FD1220312CD00077751 /* TabBarView.swift */,
 				B85187552203DBCD0081F72D /* SplashView.swift */,
 			);
@@ -217,15 +236,18 @@
 				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
 				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
 				3B1C0FD62204292300077751 /* TabView.swift in Sources */,
+				3B8FAC6E220AD187002CEEEF /* NetworkDispatcher.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */,
 				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
+				3B8FAC6A220AD145002CEEEF /* RequestData.swift in Sources */,
 				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
-				B8ABD4F821FFE50B00454AF3 /* RectangleView.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
+				3B8FAC68220AD11F002CEEEF /* RequestType.swift in Sources */,
+				3B8FAC6C220AD16A002CEEEF /* NetworkEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
