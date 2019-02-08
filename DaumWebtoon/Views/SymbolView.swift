@@ -37,9 +37,9 @@ class SymbolView: UIView {
             piece.pathAnimation(passPath: passPieces[index], toPath: afterPieces[index])
             piece.colorAnimation()
             pieces.append(piece)
-            if index == 3 {
-                piece.opacityAnimation()
-            }
+//            if index == 3 {
+//                piece.opacityAnimation()
+//            }
             self.layer.addSublayer(piece)
         }
     }
