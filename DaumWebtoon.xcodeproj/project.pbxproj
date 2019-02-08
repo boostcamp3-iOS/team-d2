@@ -18,6 +18,7 @@
 		47449B41220D96B000B99773 /* ShapeN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B40220D96B000B99773 /* ShapeN.swift */; };
 		47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B42220D974500B99773 /* ShapeHourglass.swift */; };
 		47449B45220D97A600B99773 /* ShapeSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B44220D97A600B99773 /* ShapeSquare.swift */; };
+		47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B46220DA26300B99773 /* ShapeProtocol.swift */; };
 		47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154B22002A8E0011544A /* PieceLayer.swift */; };
 		47BF154E22002B220011544A /* SymbolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154D22002B220011544A /* SymbolController.swift */; };
 		47BF157622017C3C0011544A /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF157522017C3C0011544A /* SymbolView.swift */; };
@@ -41,6 +42,7 @@
 		47449B40220D96B000B99773 /* ShapeN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeN.swift; sourceTree = "<group>"; };
 		47449B42220D974500B99773 /* ShapeHourglass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeHourglass.swift; sourceTree = "<group>"; };
 		47449B44220D97A600B99773 /* ShapeSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSquare.swift; sourceTree = "<group>"; };
+		47449B46220DA26300B99773 /* ShapeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeProtocol.swift; sourceTree = "<group>"; };
 		47BF154B22002A8E0011544A /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
 		47BF154D22002B220011544A /* SymbolController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolController.swift; sourceTree = "<group>"; };
 		47BF157522017C3C0011544A /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				47449B42220D974500B99773 /* ShapeHourglass.swift */,
 				47449B3E220D956500B99773 /* ShapeIce.swift */,
 				47449B44220D97A600B99773 /* ShapeSquare.swift */,
+				47449B46220DA26300B99773 /* ShapeProtocol.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,
 				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
+				47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 			);

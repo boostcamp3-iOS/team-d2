@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum ShapeHourglass: String {
+enum ShapeHourglass: String, Shape {
     case a,b,c,d,e,f,g,h,i,j,k,l,m,n
 
     var coordinate: (CGFloat, CGFloat) {

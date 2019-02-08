@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum ShapeC: String {
+enum ShapeC: String, Shape {
     case a,b,c,d,e,f,g,h,i,j,k,l
     
     var coordinate: (CGFloat, CGFloat) {
