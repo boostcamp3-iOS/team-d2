@@ -26,18 +26,6 @@ class SymbolController: UIViewController {
         self.view.addSubview(symbolView)
     }
     
-    private func coordinate(x1: CGFloat, y1: CGFloat,
-                            x2: CGFloat, y2: CGFloat,
-                            x3: CGFloat, y3: CGFloat,
-                            x4: CGFloat, y4: CGFloat) -> [CGPoint] {
-        var points = [CGPoint]()
-        points.append(CGPoint(x: x1, y: y1))
-        points.append(CGPoint(x: x2, y: y2))
-        points.append(CGPoint(x: x3, y: y3))
-        points.append(CGPoint(x: x4, y: y4))
-        return points
-    }
-    
     private func convertKeys(from keys: String, with shape: Shape.Type) -> [(CGFloat, CGFloat)] {
         var coordinates = [(CGFloat, CGFloat)]()
         for key in keys {
@@ -61,7 +49,6 @@ class SymbolController: UIViewController {
         return coordinates
     }
 
-    
     private func coordinate(xys: [(CGFloat, CGFloat)]) -> [CGPoint] {
         var points = [CGPoint]()
         for xy in xys {
