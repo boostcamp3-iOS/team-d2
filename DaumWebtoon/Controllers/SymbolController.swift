@@ -9,9 +9,11 @@
 import UIKit
 
 protocol SymbolDatasource: class {
-    func shapeRhombus() -> [UIBezierPath]
+    func shapeCtoN() -> [UIBezierPath]
     func shapeN() -> [UIBezierPath]
     func shapeC() -> [UIBezierPath]
+    func shapeHourglass() -> [UIBezierPath]
+    func shapeNtoHourglass() -> [UIBezierPath]
 }
 
 class SymbolController: UIViewController {
@@ -102,6 +104,28 @@ extension SymbolController: SymbolDatasource {
         return paths
     }
     
+    public func shapeCtoN() -> [UIBezierPath] {
+        var coordinates = [[CGPoint]]()
+        let keys1 = convertKeys(from: "qpor", with: ShapeSquare.self)
+        let keys2 = convertKeys(from: "aqrb", with: ShapeSquare.self)
+        let keys3 = convertKeys(from: "adts", with: ShapeSquare.self)
+        let keys4 = convertKeys(from: "stgf", with: ShapeSquare.self)
+        let keys5 = convertKeys(from: "ewzf", with: ShapeSquare.self)
+        let keys6 = convertKeys(from: "wlkz", with: ShapeSquare.self)
+        let keys7 = convertKeys(from: "uvkj", with: ShapeSquare.self)
+        let keys8 = convertKeys(from: "mpvu", with: ShapeSquare.self)
+        coordinates.append(coordinate(xys: keys1))
+        coordinates.append(coordinate(xys: keys2))
+        coordinates.append(coordinate(xys: keys3))
+        coordinates.append(coordinate(xys: keys4))
+        coordinates.append(coordinate(xys: keys5))
+        coordinates.append(coordinate(xys: keys6))
+        coordinates.append(coordinate(xys: keys7))
+        coordinates.append(coordinate(xys: keys8))
+        let paths = convertPath(from: coordinates)
+        return paths
+    }
+    
     public func shapeN() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
         let keys1 = convertKeys(from: "mdcn", with: ShapeN.self)
@@ -124,7 +148,7 @@ extension SymbolController: SymbolDatasource {
         return paths
     }
     
-    public func shapeRhombus() -> [UIBezierPath] {
+    public func shapeNtoHourglass() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
         let keys1 = convertKeys(from: "qpor", with: ShapeSquare.self)
         let keys2 = convertKeys(from: "aqrb", with: ShapeSquare.self)
@@ -134,6 +158,28 @@ extension SymbolController: SymbolDatasource {
         let keys6 = convertKeys(from: "wlkz", with: ShapeSquare.self)
         let keys7 = convertKeys(from: "uvkj", with: ShapeSquare.self)
         let keys8 = convertKeys(from: "mpvu", with: ShapeSquare.self)
+        coordinates.append(coordinate(xys: keys1))
+        coordinates.append(coordinate(xys: keys2))
+        coordinates.append(coordinate(xys: keys3))
+        coordinates.append(coordinate(xys: keys4))
+        coordinates.append(coordinate(xys: keys5))
+        coordinates.append(coordinate(xys: keys6))
+        coordinates.append(coordinate(xys: keys7))
+        coordinates.append(coordinate(xys: keys8))
+        let paths = convertPath(from: coordinates)
+        return paths
+    }
+    
+    public func shapeHourglass() -> [UIBezierPath] {
+        var coordinates = [[CGPoint]]()
+        let keys1 = convertKeys(from: "abji", with: ShapeHourglass.self)
+        let keys2 = convertKeys(from: "abji", with: ShapeHourglass.self)
+        let keys3 = convertKeys(from: "aenm", with: ShapeHourglass.self)
+        let keys4 = convertKeys(from: "mngc", with: ShapeHourglass.self)
+        let keys5 = convertKeys(from: "kldc", with: ShapeHourglass.self)
+        let keys6 = convertKeys(from: "kldc", with: ShapeHourglass.self)
+        let keys7 = convertKeys(from: "mndf", with: ShapeHourglass.self)
+        let keys8 = convertKeys(from: "hbnm", with: ShapeHourglass.self)
         coordinates.append(coordinate(xys: keys1))
         coordinates.append(coordinate(xys: keys2))
         coordinates.append(coordinate(xys: keys3))

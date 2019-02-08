@@ -28,18 +28,20 @@ class SymbolView: UIView {
     }
     
     private func configureShapes(with dataSource: SymbolDatasource) {
-        let beforePieces = dataSource.shapeC()
-        let passPieces = dataSource.shapeRhombus()
-        let afterPieces = dataSource.shapeN()
+        let pieceC = dataSource.shapeC()
+        let pieceCtoN = dataSource.shapeCtoN()
+        let pieceNtoHourglass = dataSource.shapeNtoHourglass()
+        let pieceN = dataSource.shapeN()
+        let pieceHourglass = dataSource.shapeHourglass()
         
-        for index in 0..<beforePieces.count {
-            let piece = PieceLayer(color: .red, path: beforePieces[index])
-            piece.pathAnimation(passPath: passPieces[index], toPath: afterPieces[index])
+        for index in 0..<pieceC.count {
+            let piece = PieceLayer(color: .red, path: pieceC[index])
+            piece.pathAnimation(pathCtoN: pieceCtoN[index], pathN: pieceN[index], pathNtoHourglass: pieceNtoHourglass[index], pathHourglass: pieceHourglass[index])
             piece.colorAnimation()
             pieces.append(piece)
-//            if index == 3 {
-//                piece.opacityAnimation()
-//            }
+            //            if index == 3 {
+            //                piece.opacityAnimation()
+            //            }
             self.layer.addSublayer(piece)
         }
     }
@@ -48,7 +50,7 @@ class SymbolView: UIView {
         let animation = CABasicAnimation(keyPath: animationKey)
         animation.duration = 1
         animation.fromValue = 0
-        animation.toValue = CGFloat(Double.pi / 2)
+        animation.toValue = CGFloat(Double.pi)
         self.layer.speed = 0
         self.layer.timeOffset = 0
         self.layer.add(animation, forKey: animationKey)
