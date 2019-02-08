@@ -54,7 +54,7 @@ class SymbolView: UIView {
         let animation = CABasicAnimation(keyPath: animationKey)
         animation.duration = 1
         animation.fromValue = 0
-        animation.toValue = CGFloat(Double.pi + Double.pi / 2)
+        animation.toValue = CGFloat(Double.pi * 2)
         self.layer.speed = 0
         self.layer.timeOffset = 0
         self.layer.add(animation, forKey: animationKey)
