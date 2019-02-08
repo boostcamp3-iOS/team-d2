@@ -39,11 +39,11 @@ class PieceLayer: CAShapeLayer {
         self.add(animation, forKey: animationKey)
     }
     
-    func pathAnimation(pathCtoN: UIBezierPath, pathN: UIBezierPath, pathNtoHourglass: UIBezierPath, pathHourglass: UIBezierPath, pathHourglassToIce: UIBezierPath, pathIce: UIBezierPath) {
+    func pathAnimation(pathCtoN: UIBezierPath, pathN: UIBezierPath, pathNtoHourglass: UIBezierPath, pathHourglass: UIBezierPath, pathHourglassToIce: UIBezierPath, pathIce: UIBezierPath, pathIceToC: UIBezierPath, pathAnotherC: UIBezierPath) {
         guard let fromPath = self.path else { return }
         let animation = CAKeyframeAnimation(keyPath: animationKey)
         animation.duration = 1
-        animation.values = [fromPath, pathCtoN.cgPath, pathN.cgPath, pathNtoHourglass.cgPath, pathHourglass.cgPath, pathHourglassToIce.cgPath, pathIce.cgPath]
+        animation.values = [fromPath, pathCtoN.cgPath, pathN.cgPath, pathNtoHourglass.cgPath, pathHourglass.cgPath, pathHourglassToIce.cgPath, pathIce.cgPath, pathIceToC.cgPath, pathAnotherC.cgPath]
         self.add(animation, forKey: animationKey)
     }
     

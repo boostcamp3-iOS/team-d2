@@ -9,13 +9,15 @@
 import UIKit
 
 protocol SymbolDatasource: class {
+    func shapeC() -> [UIBezierPath]
     func shapeCtoN() -> [UIBezierPath]
     func shapeN() -> [UIBezierPath]
-    func shapeC() -> [UIBezierPath]
     func shapeNtoHourglass() -> [UIBezierPath]
     func shapeHourglass() -> [UIBezierPath]
     func shapeHourglassToIce() -> [UIBezierPath]
     func shapeIce() -> [UIBezierPath]
+    func shapeIceToC() -> [UIBezierPath]
+    func shapeAnotherC() -> [UIBezierPath]
 }
 
 class SymbolController: UIViewController {
@@ -196,8 +198,8 @@ extension SymbolController: SymbolDatasource {
     
     public func shapeHourglassToIce() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
-        let keys1 = convertKeys(from: "aqrb", with: ShapeSquare.self)
-        let keys2 = convertKeys(from: "qpor", with: ShapeSquare.self)
+        let keys1 = convertKeys(from: "qpor", with: ShapeSquare.self)
+        let keys2 = convertKeys(from: "aqrb", with: ShapeSquare.self)
         let keys3 = convertKeys(from: "adts", with: ShapeSquare.self)
         let keys4 = convertKeys(from: "stgf", with: ShapeSquare.self)
         let keys5 = convertKeys(from: "ewzf", with: ShapeSquare.self)
@@ -218,14 +220,59 @@ extension SymbolController: SymbolDatasource {
     
     public func shapeIce() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
-        let keys1 = convertKeys(from: "aopb", with: ShapeIce.self)
-        let keys2 = convertKeys(from: "odcp", with: ShapeIce.self)
+        let keys1 = convertKeys(from: "odcp", with: ShapeIce.self)
+        let keys2 = convertKeys(from: "aopb", with: ShapeIce.self)
         let keys3 = convertKeys(from: "efnm", with: ShapeIce.self)
         let keys4 = convertKeys(from: "mnhg", with: ShapeIce.self)
         let keys5 = convertKeys(from: "aopb", with: ShapeIce.self)
         let keys6 = convertKeys(from: "odcp", with: ShapeIce.self)
         let keys7 = convertKeys(from: "mnji", with: ShapeIce.self)
         let keys8 = convertKeys(from: "lknm", with: ShapeIce.self)
+        coordinates.append(coordinate(xys: keys1))
+        coordinates.append(coordinate(xys: keys2))
+        coordinates.append(coordinate(xys: keys3))
+        coordinates.append(coordinate(xys: keys4))
+        coordinates.append(coordinate(xys: keys5))
+        coordinates.append(coordinate(xys: keys6))
+        coordinates.append(coordinate(xys: keys7))
+        coordinates.append(coordinate(xys: keys8))
+        let paths = convertPath(from: coordinates)
+        return paths
+    }
+    
+    public func shapeIceToC() -> [UIBezierPath] {
+        var coordinates = [[CGPoint]]()
+        let keys1 = convertKeys(from: "qpor", with: ShapeSquare.self)
+        let keys2 = convertKeys(from: "aqrb", with: ShapeSquare.self)
+        let keys3 = convertKeys(from: "adts", with: ShapeSquare.self)
+        let keys4 = convertKeys(from: "stgf", with: ShapeSquare.self)
+        let keys5 = convertKeys(from: "ewzf", with: ShapeSquare.self)
+        let keys6 = convertKeys(from: "wlkz", with: ShapeSquare.self)
+        let keys7 = convertKeys(from: "uvkj", with: ShapeSquare.self)
+        let keys8 = convertKeys(from: "mpvu", with: ShapeSquare.self)
+        coordinates.append(coordinate(xys: keys1))
+        coordinates.append(coordinate(xys: keys2))
+        coordinates.append(coordinate(xys: keys3))
+        coordinates.append(coordinate(xys: keys4))
+        coordinates.append(coordinate(xys: keys5))
+        coordinates.append(coordinate(xys: keys6))
+        coordinates.append(coordinate(xys: keys7))
+        coordinates.append(coordinate(xys: keys8))
+        let paths = convertPath(from: coordinates)
+        return paths
+    }
+    
+    // 좌표값이 초기 C와 동일하기 때문에 무한스크롤 할 때는 삭제하고 초기 C를 사용하면 됩니다.
+    public func shapeAnotherC() -> [UIBezierPath] {
+        var coordinates = [[CGPoint]]()
+        let keys1 = convertKeys(from: "aegh", with: ShapeC.self)
+        let keys2 = convertKeys(from: "cahi", with: ShapeC.self)
+        let keys3 = convertKeys(from: "cijf", with: ShapeC.self)
+        let keys4 = convertKeys(from: "cijf", with: ShapeC.self)
+        let keys5 = convertKeys(from: "jkbf", with: ShapeC.self)
+        let keys6 = convertKeys(from: "kldb", with: ShapeC.self)
+        let keys7 = convertKeys(from: "gedl", with: ShapeC.self)
+        let keys8 = convertKeys(from: "gedl", with: ShapeC.self)
         coordinates.append(coordinate(xys: keys1))
         coordinates.append(coordinate(xys: keys2))
         coordinates.append(coordinate(xys: keys3))

@@ -35,10 +35,12 @@ class SymbolView: UIView {
         let pieceHourglass = dataSource.shapeHourglass()
         let pieceHourglassToIce = dataSource.shapeHourglassToIce()
         let pieceIce = dataSource.shapeIce()
+        let pieceIceToC = dataSource.shapeIceToC()
+        let pieceAnotherC = dataSource.shapeAnotherC()
         
         for index in 0..<pieceC.count {
             let piece = PieceLayer(color: .red, path: pieceC[index])
-            piece.pathAnimation(pathCtoN: pieceCtoN[index], pathN: pieceN[index], pathNtoHourglass: pieceNtoHourglass[index], pathHourglass: pieceHourglass[index], pathHourglassToIce: pieceHourglassToIce[index], pathIce: pieceIce[index])
+            piece.pathAnimation(pathCtoN: pieceCtoN[index], pathN: pieceN[index], pathNtoHourglass: pieceNtoHourglass[index], pathHourglass: pieceHourglass[index], pathHourglassToIce: pieceHourglassToIce[index], pathIce: pieceIce[index], pathIceToC: pieceIceToC[index], pathAnotherC: pieceAnotherC[index])
             piece.colorAnimation()
             pieces.append(piece)
             //            if index == 3 {
