@@ -12,8 +12,10 @@ protocol SymbolDatasource: class {
     func shapeCtoN() -> [UIBezierPath]
     func shapeN() -> [UIBezierPath]
     func shapeC() -> [UIBezierPath]
-    func shapeHourglass() -> [UIBezierPath]
     func shapeNtoHourglass() -> [UIBezierPath]
+    func shapeHourglass() -> [UIBezierPath]
+    func shapeHourglassToIce() -> [UIBezierPath]
+    func shapeIce() -> [UIBezierPath]
 }
 
 class SymbolController: UIViewController {
@@ -180,6 +182,50 @@ extension SymbolController: SymbolDatasource {
         let keys6 = convertKeys(from: "kldc", with: ShapeHourglass.self)
         let keys7 = convertKeys(from: "mndf", with: ShapeHourglass.self)
         let keys8 = convertKeys(from: "hbnm", with: ShapeHourglass.self)
+        coordinates.append(coordinate(xys: keys1))
+        coordinates.append(coordinate(xys: keys2))
+        coordinates.append(coordinate(xys: keys3))
+        coordinates.append(coordinate(xys: keys4))
+        coordinates.append(coordinate(xys: keys5))
+        coordinates.append(coordinate(xys: keys6))
+        coordinates.append(coordinate(xys: keys7))
+        coordinates.append(coordinate(xys: keys8))
+        let paths = convertPath(from: coordinates)
+        return paths
+    }
+    
+    public func shapeHourglassToIce() -> [UIBezierPath] {
+        var coordinates = [[CGPoint]]()
+        let keys1 = convertKeys(from: "aqrb", with: ShapeSquare.self)
+        let keys2 = convertKeys(from: "qpor", with: ShapeSquare.self)
+        let keys3 = convertKeys(from: "adts", with: ShapeSquare.self)
+        let keys4 = convertKeys(from: "stgf", with: ShapeSquare.self)
+        let keys5 = convertKeys(from: "ewzf", with: ShapeSquare.self)
+        let keys6 = convertKeys(from: "wlkz", with: ShapeSquare.self)
+        let keys7 = convertKeys(from: "uvkj", with: ShapeSquare.self)
+        let keys8 = convertKeys(from: "mpvu", with: ShapeSquare.self)
+        coordinates.append(coordinate(xys: keys1))
+        coordinates.append(coordinate(xys: keys2))
+        coordinates.append(coordinate(xys: keys3))
+        coordinates.append(coordinate(xys: keys4))
+        coordinates.append(coordinate(xys: keys5))
+        coordinates.append(coordinate(xys: keys6))
+        coordinates.append(coordinate(xys: keys7))
+        coordinates.append(coordinate(xys: keys8))
+        let paths = convertPath(from: coordinates)
+        return paths
+    }
+    
+    public func shapeIce() -> [UIBezierPath] {
+        var coordinates = [[CGPoint]]()
+        let keys1 = convertKeys(from: "aopb", with: ShapeIce.self)
+        let keys2 = convertKeys(from: "odcp", with: ShapeIce.self)
+        let keys3 = convertKeys(from: "efnm", with: ShapeIce.self)
+        let keys4 = convertKeys(from: "mnhg", with: ShapeIce.self)
+        let keys5 = convertKeys(from: "aopb", with: ShapeIce.self)
+        let keys6 = convertKeys(from: "odcp", with: ShapeIce.self)
+        let keys7 = convertKeys(from: "mnji", with: ShapeIce.self)
+        let keys8 = convertKeys(from: "lknm", with: ShapeIce.self)
         coordinates.append(coordinate(xys: keys1))
         coordinates.append(coordinate(xys: keys2))
         coordinates.append(coordinate(xys: keys3))
