@@ -34,7 +34,6 @@ class MainViewController: UIViewController {
         addTabBarView()
         addTableView()
         addSplashView()
-        addPanGestureRecognizer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -169,6 +168,7 @@ extension MainViewController: SplashViewDelegate {
         }, completion: { [weak self] _ in
             guard let self = self else { return }
             self.splashView.removeFromSuperview()
+            self.addPanGestureRecognizer()
         })
     }
 }
