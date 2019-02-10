@@ -8,22 +8,22 @@
 
 import UIKit
 
-protocol TabBarDataSource {
+protocol TabBarDataSource: class {
     func tabContents(_ tabBarView: TabBarView) -> [TabContent]
 }
 
-protocol TabBarDelegate {
+protocol TabBarDelegate: class {
     func tabBarView(_ tabBarView: TabBarView, viewControllerAtIndex index: Int?)
 }
 
 class TabBarView: UIStackView {
     
-    var dataSource: TabBarDataSource? {
+    weak var dataSource: TabBarDataSource? {
         didSet {
             reloadData()
         }
     }
-    var delegate: TabBarDelegate?
+    weak var delegate: TabBarDelegate?
     
     private lazy var leftToRightAnimationTabBars = [
         UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
@@ -64,8 +64,10 @@ class TabBarView: UIStackView {
     }
     
     override func updateConstraints() {
-        centerXAnchor.constraint(equalTo: superview!.centerXAnchor).isActive = true
-        centerYAnchor.constraint(equalTo: superview!.centerYAnchor).isActive = true
+        guard let superview = superview else { return }
+        
+        centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
         widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
         heightAnchor.constraint(equalToConstant: 30).isActive = true
         
@@ -143,7 +145,6 @@ class TabBarView: UIStackView {
         spacing = 0
         isUserInteractionEnabled = true
         clipsToBounds = true
-        setNeedsUpdateConstraints()
     
         showEachTabs()
         setupAnimationTabBar()
