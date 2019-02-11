@@ -94,7 +94,6 @@ class TabBarViewController: UIViewController {
     }
     
     private func initializeSymbolView() {
-        symbolView.backgroundColor = .green
         symbolView.dataSource = self
         self.view.addSubview(symbolView)
     }
