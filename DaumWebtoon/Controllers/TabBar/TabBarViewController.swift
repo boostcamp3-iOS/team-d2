@@ -19,7 +19,7 @@ class TabBarViewController: UIViewController {
         TabContent(tabColor: UIColor.brown, tabTitle: "", tabIndex: 5)
     ]
     
-    private let initialIndex = 2
+    private let initialIndex = 1
     private let tabWidth = UIScreen.main.bounds.width - 20
     private let tabHeight: CGFloat = 30.0
     private var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 50, y: 100), size: CGSize(width: 200, height: 200)))
@@ -115,54 +115,6 @@ class TabBarViewController: UIViewController {
             contentOffset >= tabScrollView.frame.width * CGFloat(tabContents.count - 1)
             ? true : false
     }
-    
-    private func convertKeys(from keys: String, with shape: Shape.Type) -> [(CGFloat, CGFloat)] {
-        var coordinates = [(CGFloat, CGFloat)]()
-        for key in keys {
-            if shape is ShapeC.Type {
-                guard let shape = ShapeC(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
-            } else if shape is ShapeN.Type {
-                guard let shape = ShapeN(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
-            } else if shape is ShapeHourglass.Type {
-                guard let shape = ShapeHourglass(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
-            } else if shape is ShapeIce.Type {
-                guard let shape = ShapeIce(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
-            } else if shape is ShapeSquare.Type {
-                guard let shape = ShapeSquare(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
-            }
-        }
-        return coordinates
-    }
-    
-    private func coordinate(xys: [(CGFloat, CGFloat)]) -> [CGPoint] {
-        var points = [CGPoint]()
-        for xy in xys {
-            let x = xy.0
-            let y = xy.1
-            points.append(CGPoint(x: x, y: y))
-        }
-        return points
-    }
-    
-    private func convertPath(from coordinates: [[CGPoint]]) -> [UIBezierPath] {
-        let paths = coordinates.map { self.path(with: $0) }
-        return paths
-    }
-    
-    private func path(with coordinates: [CGPoint]) -> UIBezierPath {
-        let path = UIBezierPath()
-        path.move(to: coordinates[0])
-        path.addLine(to: coordinates[1])
-        path.addLine(to: coordinates[2])
-        path.addLine(to: coordinates[3])
-        path.close()
-        return path
-    }
 }
 
 extension TabBarViewController: TabBarDataSource {
@@ -223,6 +175,8 @@ extension TabBarViewController: UIScrollViewDelegate {
             nextTabIndex = 1
         }
         
+        slideSymbol(with: contentOffset / scrollWidth)
+        
         let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
         if(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) {
             NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
@@ -259,6 +213,63 @@ extension TabBarViewController: UIScrollViewDelegate {
     }
 }
 
+// MARK: - Symbol Coordinate Method
+extension TabBarViewController {
+    private func convertKeys(from keys: String, with shape: Shape.Type) -> [(CGFloat, CGFloat)] {
+        var coordinates = [(CGFloat, CGFloat)]()
+        for key in keys {
+            if shape is ShapeC.Type {
+                guard let shape = ShapeC(rawValue: String(key)) else { break }
+                coordinates.append(shape.coordinate)
+            } else if shape is ShapeN.Type {
+                guard let shape = ShapeN(rawValue: String(key)) else { break }
+                coordinates.append(shape.coordinate)
+            } else if shape is ShapeHourglass.Type {
+                guard let shape = ShapeHourglass(rawValue: String(key)) else { break }
+                coordinates.append(shape.coordinate)
+            } else if shape is ShapeIce.Type {
+                guard let shape = ShapeIce(rawValue: String(key)) else { break }
+                coordinates.append(shape.coordinate)
+            } else if shape is ShapeSquare.Type {
+                guard let shape = ShapeSquare(rawValue: String(key)) else { break }
+                coordinates.append(shape.coordinate)
+            }
+        }
+        return coordinates
+    }
+    
+    private func coordinate(xys: [(CGFloat, CGFloat)]) -> [CGPoint] {
+        var points = [CGPoint]()
+        for xy in xys {
+            let x = xy.0
+            let y = xy.1
+            points.append(CGPoint(x: x, y: y))
+        }
+        return points
+    }
+    
+    private func convertPath(from coordinates: [[CGPoint]]) -> [UIBezierPath] {
+        let paths = coordinates.map { self.path(with: $0) }
+        return paths
+    }
+    
+    private func path(with coordinates: [CGPoint]) -> UIBezierPath {
+        let path = UIBezierPath()
+        path.move(to: coordinates[0])
+        path.addLine(to: coordinates[1])
+        path.addLine(to: coordinates[2])
+        path.addLine(to: coordinates[3])
+        path.close()
+        return path
+    }
+    
+    private func slideSymbol(with value: CGFloat) {
+        let forMaxValueOne = CGFloat(4)
+        symbolView.timeOffset(value: Double(value / forMaxValueOne))
+    }
+}
+
+// MARK: - Symbol Coordinate By Shape
 extension TabBarViewController: SymbolDatasource {
     public func shapeC() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
