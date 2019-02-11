@@ -22,7 +22,7 @@ class TabBarViewController: UIViewController {
     private let initialIndex = 1
     private let tabWidth = UIScreen.main.bounds.width - 20
     private let tabHeight: CGFloat = 30.0
-    private var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 50, y: 100), size: CGSize(width: 200, height: 200)))
+    private var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 50, y: 100), size: CGSize(width: 200, height: 300)))
     private let tabBarView = TabBarView()
     private let tabContainerView = UIView()
     private let tabScrollView = UIScrollView(frame: CGRect(x: 0, y: 0,
@@ -218,23 +218,35 @@ extension TabBarViewController {
         var coordinates = [(CGFloat, CGFloat)]()
         for key in keys {
             if shape is ShapeC.Type {
-                guard let shape = ShapeC(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeC = ShapeC(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeC)
+                coordinates.append(fixedShape)
             } else if shape is ShapeN.Type {
-                guard let shape = ShapeN(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeN = ShapeN(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeN)
+                coordinates.append(fixedShape)
             } else if shape is ShapeHourglass.Type {
-                guard let shape = ShapeHourglass(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeHourglass = ShapeHourglass(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeHourglass)
+                coordinates.append(fixedShape)
             } else if shape is ShapeIce.Type {
-                guard let shape = ShapeIce(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeIce = ShapeIce(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeIce)
+                coordinates.append(fixedShape)
             } else if shape is ShapeSquare.Type {
-                guard let shape = ShapeSquare(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeSquare = ShapeSquare(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeSquare)
+                coordinates.append(fixedShape)
             }
         }
         return coordinates
+    }
+    
+    // 심볼뷰 크기에 따라 좌표값을 조절합니다.
+    private func scale(with shape: Shape) -> (CGFloat, CGFloat) {
+        let x = shape.coordinate.0 * symbolView.frame.width
+        let y = shape.coordinate.1 * symbolView.frame.height
+        return (x, y)
     }
     
     private func coordinate(xys: [(CGFloat, CGFloat)]) -> [CGPoint] {
