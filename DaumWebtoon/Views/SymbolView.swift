@@ -43,9 +43,6 @@ class SymbolView: UIView {
             piece.pathAnimation(pathCtoN: pieceCtoN[index], pathN: pieceN[index], pathNtoHourglass: pieceNtoHourglass[index], pathHourglass: pieceHourglass[index], pathHourglassToIce: pieceHourglassToIce[index], pathIce: pieceIce[index], pathIceToC: pieceIceToC[index], pathAnotherC: pieceAnotherC[index])
             piece.colorAnimation()
             pieces.append(piece)
-            //            if index == 3 {
-            //                piece.opacityAnimation()
-            //            }
             self.layer.addSublayer(piece)
         }
     }
