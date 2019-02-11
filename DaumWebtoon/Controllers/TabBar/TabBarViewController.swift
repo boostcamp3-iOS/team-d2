@@ -22,7 +22,7 @@ class TabBarViewController: UIViewController {
     private let initialIndex = 1
     private let tabWidth = UIScreen.main.bounds.width - 20
     private let tabHeight: CGFloat = 30.0
-    private var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 50, y: 100), size: CGSize(width: 200, height: 300)))
+    private var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 50, y: 50), size: CGSize(width: 100, height: 100)))
     private let tabBarView = TabBarView()
     private let tabContainerView = UIView()
     private let tabScrollView = UIScrollView(frame: CGRect(x: 0, y: 0,
