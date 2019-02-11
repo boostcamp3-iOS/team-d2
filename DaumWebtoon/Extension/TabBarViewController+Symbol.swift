@@ -8,6 +8,18 @@
 
 import UIKit
 
+protocol SymbolDatasource: class {
+    func shapeC() -> [UIBezierPath]
+    func shapeCtoN() -> [UIBezierPath]
+    func shapeN() -> [UIBezierPath]
+    func shapeNtoHourglass() -> [UIBezierPath]
+    func shapeHourglass() -> [UIBezierPath]
+    func shapeHourglassToIce() -> [UIBezierPath]
+    func shapeIce() -> [UIBezierPath]
+    func shapeIceToC() -> [UIBezierPath]
+    func shapeAnotherC() -> [UIBezierPath]
+}
+
 // MARK: - Symbol Coordinate Method
 extension TabBarViewController {
     private func convertKeys(from keys: String, with shape: Shape.Type) -> [(CGFloat, CGFloat)] {
