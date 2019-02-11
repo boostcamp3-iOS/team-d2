@@ -19,6 +19,8 @@
 		47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B42220D974500B99773 /* ShapeHourglass.swift */; };
 		47449B45220D97A600B99773 /* ShapeSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B44220D97A600B99773 /* ShapeSquare.swift */; };
 		47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B46220DA26300B99773 /* ShapeProtocol.swift */; };
+		4767DEED2211556A0017AC9A /* TabBarViewController+Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */; };
+		4767DEEF2211560C0017AC9A /* TabBarViewController+Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */; };
 		47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154B22002A8E0011544A /* PieceLayer.swift */; };
 		47BF154E22002B220011544A /* SymbolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154D22002B220011544A /* SymbolController.swift */; };
 		47BF157622017C3C0011544A /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF157522017C3C0011544A /* SymbolView.swift */; };
@@ -43,6 +45,8 @@
 		47449B42220D974500B99773 /* ShapeHourglass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeHourglass.swift; sourceTree = "<group>"; };
 		47449B44220D97A600B99773 /* ShapeSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSquare.swift; sourceTree = "<group>"; };
 		47449B46220DA26300B99773 /* ShapeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeProtocol.swift; sourceTree = "<group>"; };
+		4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarViewController+Symbol.swift"; sourceTree = "<group>"; };
+		4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarViewController+Splash.swift"; sourceTree = "<group>"; };
 		47BF154B22002A8E0011544A /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
 		47BF154D22002B220011544A /* SymbolController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolController.swift; sourceTree = "<group>"; };
 		47BF157522017C3C0011544A /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
@@ -98,6 +102,15 @@
 			path = Shapes;
 			sourceTree = "<group>";
 		};
+		4767DEEB2211554B0017AC9A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */,
+				4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		B8ABD49021FEACD800454AF3 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +130,7 @@
 		B8ABD49B21FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXGroup;
 			children = (
+				4767DEEB2211554B0017AC9A /* Extension */,
 				47449B3B220D94A900B99773 /* Shapes */,
 				3BBAA6E4220039E000861707 /* Utils */,
 				B8ABD4FD2200143100454AF3 /* AppDelegate */,
@@ -261,6 +275,7 @@
 				47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */,
 				3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */,
 				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
+				4767DEEF2211560C0017AC9A /* TabBarViewController+Splash.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,
 				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
@@ -268,6 +283,7 @@
 				47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
+				4767DEED2211556A0017AC9A /* TabBarViewController+Symbol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
