@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154B22002A8E0011544A /* PieceLayer.swift */; };
-		47BF154E22002B220011544A /* SymbolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154D22002B220011544A /* SymbolController.swift */; };
-		47BF157622017C3C0011544A /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF157522017C3C0011544A /* SymbolView.swift */; };
 		3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD1220312CD00077751 /* TabBarView.swift */; };
 		3B1C0FD42204201300077751 /* TabContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD32204201300077751 /* TabContent.swift */; };
 		3B1C0FD62204292300077751 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD52204292300077751 /* TabView.swift */; };
 		3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */; };
 		3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D521FFE5BA00861707 /* TabViewController.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
+		47449B3D220D94B400B99773 /* ShapeC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B3C220D94B400B99773 /* ShapeC.swift */; };
+		47449B3F220D956500B99773 /* ShapeIce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B3E220D956500B99773 /* ShapeIce.swift */; };
+		47449B41220D96B000B99773 /* ShapeN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B40220D96B000B99773 /* ShapeN.swift */; };
+		47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B42220D974500B99773 /* ShapeHourglass.swift */; };
+		47449B45220D97A600B99773 /* ShapeSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B44220D97A600B99773 /* ShapeSquare.swift */; };
+		47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B46220DA26300B99773 /* ShapeProtocol.swift */; };
+		47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154B22002A8E0011544A /* PieceLayer.swift */; };
+		47BF154E22002B220011544A /* SymbolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154D22002B220011544A /* SymbolController.swift */; };
+		47BF157622017C3C0011544A /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF157522017C3C0011544A /* SymbolView.swift */; };
 		B85187562203DBCD0081F72D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85187552203DBCD0081F72D /* SplashView.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
 		B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */; };
@@ -25,15 +31,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		47BF154B22002A8E0011544A /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
-		47BF154D22002B220011544A /* SymbolController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolController.swift; sourceTree = "<group>"; };
-		47BF157522017C3C0011544A /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		3B1C0FD1220312CD00077751 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		3B1C0FD32204201300077751 /* TabContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContent.swift; sourceTree = "<group>"; };
 		3B1C0FD52204292300077751 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3BBAA6D521FFE5BA00861707 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		47449B3C220D94B400B99773 /* ShapeC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeC.swift; sourceTree = "<group>"; };
+		47449B3E220D956500B99773 /* ShapeIce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeIce.swift; sourceTree = "<group>"; };
+		47449B40220D96B000B99773 /* ShapeN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeN.swift; sourceTree = "<group>"; };
+		47449B42220D974500B99773 /* ShapeHourglass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeHourglass.swift; sourceTree = "<group>"; };
+		47449B44220D97A600B99773 /* ShapeSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSquare.swift; sourceTree = "<group>"; };
+		47449B46220DA26300B99773 /* ShapeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeProtocol.swift; sourceTree = "<group>"; };
+		47BF154B22002A8E0011544A /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
+		47BF154D22002B220011544A /* SymbolController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolController.swift; sourceTree = "<group>"; };
+		47BF157522017C3C0011544A /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		B85187552203DBCD0081F72D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +85,19 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		47449B3B220D94A900B99773 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				47449B3C220D94B400B99773 /* ShapeC.swift */,
+				47449B40220D96B000B99773 /* ShapeN.swift */,
+				47449B42220D974500B99773 /* ShapeHourglass.swift */,
+				47449B3E220D956500B99773 /* ShapeIce.swift */,
+				47449B44220D97A600B99773 /* ShapeSquare.swift */,
+				47449B46220DA26300B99773 /* ShapeProtocol.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
 		B8ABD49021FEACD800454AF3 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +117,7 @@
 		B8ABD49B21FEACD800454AF3 /* DaumWebtoon */ = {
 			isa = PBXGroup;
 			children = (
+				47449B3B220D94A900B99773 /* Shapes */,
 				3BBAA6E4220039E000861707 /* Utils */,
 				B8ABD4FD2200143100454AF3 /* AppDelegate */,
 				B8ABD4FE2200143F00454AF3 /* Controllers */,
@@ -126,7 +152,6 @@
 				B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */,
 				B8ABD4A021FEACD800454AF3 /* Main.storyboard */,
 				3BBAA6E12200207800861707 /* TabBar.storyboard */,
-				B8ABD4F721FFE50B00454AF3 /* RectangleView.swift */,
 				47BF154B22002A8E0011544A /* PieceLayer.swift */,
 				47BF157522017C3C0011544A /* SymbolView.swift */,
 				3B1C0FD1220312CD00077751 /* TabBarView.swift */,
@@ -225,17 +250,22 @@
 			files = (
 				47BF157622017C3C0011544A /* SymbolView.swift in Sources */,
 				47BF154E22002B220011544A /* SymbolController.swift in Sources */,
+				47449B3D220D94B400B99773 /* ShapeC.swift in Sources */,
 				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
+				47449B45220D97A600B99773 /* ShapeSquare.swift in Sources */,
 				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
 				3B1C0FD62204292300077751 /* TabView.swift in Sources */,
+				47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */,
+				47449B41220D96B000B99773 /* ShapeN.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */,
 				3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */,
 				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
+				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,
 				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
-				B8ABD4F821FFE50B00454AF3 /* RectangleView.swift in Sources */,
+				47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 			);
