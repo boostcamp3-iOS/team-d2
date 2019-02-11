@@ -31,14 +31,6 @@ class PieceLayer: CAShapeLayer {
         self.path = path.cgPath
     }
     
-    func pathAnimation(passPath: UIBezierPath, toPath: UIBezierPath) {
-        guard let fromPath = self.path else { return }
-        let animation = CAKeyframeAnimation(keyPath: animationKey)
-        animation.duration = 1
-        animation.values = [fromPath, passPath.cgPath, toPath.cgPath]
-        self.add(animation, forKey: animationKey)
-    }
-    
     func pathAnimation(pathCtoN: UIBezierPath, pathN: UIBezierPath, pathNtoHourglass: UIBezierPath, pathHourglass: UIBezierPath, pathHourglassToIce: UIBezierPath, pathIce: UIBezierPath, pathIceToC: UIBezierPath, pathAnotherC: UIBezierPath) {
         guard let fromPath = self.path else { return }
         let animation = CAKeyframeAnimation(keyPath: animationKey)
@@ -48,9 +40,13 @@ class PieceLayer: CAShapeLayer {
     }
     
     func colorAnimation() {
-        let animation = CABasicAnimation(keyPath: colorKey)
+        let animation = CAKeyframeAnimation(keyPath: colorKey)
         animation.duration = 1
-        animation.toValue = UIColor.yellow.cgColor
+        let brown = UIColor.brown.cgColor
+        let red = UIColor.red.cgColor
+        let purple = UIColor.purple.cgColor
+        let blue = UIColor.blue.cgColor
+        animation.values = [red, brown, purple, blue, red]
         self.add(animation, forKey: colorKey)
     }
     

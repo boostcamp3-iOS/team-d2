@@ -31,11 +31,9 @@ class TabBarView: UIStackView {
         UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
         UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
         UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
-        UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight)),
         UIView(frame: CGRect(x: -screenWidth, y: 0, width: screenWidth, height: tabBarHeight))]
     
     private lazy var rightToLeftAnimationTabBars = [
-        UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
         UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
         UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
         UIView(frame: CGRect(x: tabBarWidth, y: 0, width: screenWidth, height: tabBarHeight)),
