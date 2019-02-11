@@ -15,7 +15,7 @@ protocol RequestType {
 
 extension RequestType {
     func execute(
-        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance,
+        dispatcher: URLSessionNetworkDispatcher = URLSessionNetworkDispatcher.instance,
         onSuccess: @escaping (ResponseType) -> Void,
         onError: @escaping (Error) -> Void
         ) {
