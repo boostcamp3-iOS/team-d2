@@ -15,9 +15,4 @@ extension TabBarViewController: SplashViewDelegate {
             self.splashView.alpha = 0
         }
     }
-    
-    func presentTabBarViewController() {
-        let tabBarViewController = TabBarViewController()
-        present(tabBarViewController, animated: false, completion: nil)
-    }
 }
