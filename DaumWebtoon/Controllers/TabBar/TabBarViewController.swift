@@ -12,11 +12,11 @@ class TabBarViewController: UIViewController {
  
     private let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
-        TabContent(tabColor: UIColor.brown, tabTitle: "캐시", tabIndex: 1),
-        TabContent(tabColor: UIColor.red, tabTitle: "연재", tabIndex: 2),
+        TabContent(tabColor: UIColor.red, tabTitle: "캐시", tabIndex: 1),
+        TabContent(tabColor: UIColor.brown, tabTitle: "연재", tabIndex: 2),
         TabContent(tabColor: UIColor.purple, tabTitle: "기다무", tabIndex: 3),
         TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 4),
-        TabContent(tabColor: UIColor.brown, tabTitle: "", tabIndex: 5)
+        TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
     
     private let initialIndex = 1
@@ -57,7 +57,7 @@ class TabBarViewController: UIViewController {
     
     private func initializeTabContainer() {
         tabContainerView.clipsToBounds = true
-        tabContainerView.backgroundColor = UIColor.brown
+        tabContainerView.backgroundColor = UIColor.red
         tabContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tabContainerView)

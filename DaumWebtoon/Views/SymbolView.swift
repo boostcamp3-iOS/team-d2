@@ -39,7 +39,7 @@ class SymbolView: UIView {
         let pieceAnotherC = dataSource.shapeAnotherC()
         
         for index in 0..<pieceC.count {
-            let piece = PieceLayer(color: .brown, path: pieceC[index])
+            let piece = PieceLayer(color: .red, path: pieceC[index])
             piece.pathAnimation(pathCtoN: pieceCtoN[index], pathN: pieceN[index], pathNtoHourglass: pieceNtoHourglass[index], pathHourglass: pieceHourglass[index], pathHourglassToIce: pieceHourglassToIce[index], pathIce: pieceIce[index], pathIceToC: pieceIceToC[index], pathAnotherC: pieceAnotherC[index])
             piece.colorAnimation()
             pieces.append(piece)

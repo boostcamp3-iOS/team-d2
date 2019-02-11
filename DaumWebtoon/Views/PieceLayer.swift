@@ -46,7 +46,7 @@ class PieceLayer: CAShapeLayer {
         let red = UIColor.red.cgColor
         let purple = UIColor.purple.cgColor
         let blue = UIColor.blue.cgColor
-        animation.values = [brown, red, purple, blue, brown]
+        animation.values = [red, brown, purple, blue, red]
         self.add(animation, forKey: colorKey)
     }
     
