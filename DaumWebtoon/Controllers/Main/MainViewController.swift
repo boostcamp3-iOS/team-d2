@@ -14,11 +14,13 @@ class MainViewController: UIViewController {
         TabContent(tabColor: UIColor.brown, tabTitle: "캐시", tabIndex: 0),
         TabContent(tabColor: UIColor.red, tabTitle: "연재", tabIndex: 1),
         TabContent(tabColor: UIColor.purple, tabTitle: "기다무", tabIndex: 2),
-        TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 3),
-        TabContent(tabColor: UIColor.green, tabTitle: "PICK", tabIndex: 4)
+        TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 3)
     ]
     private var scrollDirection: Direction?
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
+    private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
+    private let menuViewHeight: CGFloat = 80
+    private let tabBarViewHeight: CGFloat = 30
     
     // MARK: Views
     private lazy var splashView = SplashView()
@@ -26,11 +28,13 @@ class MainViewController: UIViewController {
     private lazy var scrollView = UIScrollView()
     private lazy var tabBarViewContainer = UIView()
     private lazy var tableView = UITableView()
+    private lazy var menuView = UIView()
     
     // MARK: Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         addScrollView()
+        addMenuView()
         addTabBarView()
         addTableView()
         addSplashView()
@@ -80,6 +84,8 @@ extension MainViewController {
         scrollView.contentSize = CGSize(
             width: view.frame.width * CGFloat(tabContents.count),
             height: view.frame.height)
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
     }
     
     // MARK: Tab Bar View Methods
@@ -99,7 +105,11 @@ extension MainViewController {
         tabBarViewContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         tabBarViewContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
         tabBarViewCenterYAnchorConstraint = tabBarViewContainer.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        tabBarViewCenterYAnchorConstraint?.priority = .defaultLow
         tabBarViewCenterYAnchorConstraint?.isActive = true
+        tabBarViewContainer.centerYAnchor.constraint(lessThanOrEqualTo: view.centerYAnchor).isActive = true
+        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: menuViewHeight + (tabBarViewHeight / 2)).isActive = true
+        tabBarViewTopAnchorConstraint?.isActive = true
     }
     
     func setTabBarViewProperties() {
@@ -125,7 +135,22 @@ extension MainViewController {
     }
     
     func setTableViewProperties() {
+        tableView.showsVerticalScrollIndicator = false
         tableView.isScrollEnabled = false
+    }
+    
+    // MARK: Menu View Methods
+    func addMenuView() {
+        scrollView.addSubview(menuView)
+        setMenuViewLayout()
+    }
+    
+    func setMenuViewLayout() {
+        menuView.translatesAutoresizingMaskIntoConstraints = false
+        menuView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        menuView.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     // MARK: Pan Gesture Recognizer Methods
@@ -153,9 +178,24 @@ extension MainViewController {
         guard let direction = scrollDirection,
             let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant,
             (direction == .up || direction == .down) else { return }
-        let translation = sender.translation(in: scrollView)
-        tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
-        sender.setTranslation(CGPoint.zero, in: scrollView)
+        let topLimit = menuViewHeight + (tabBarViewHeight / 2) - (scrollView.frame.height / 2)
+        if currentTabBarViewCenterYConstant >= CGFloat(0), direction == .down {
+            tableView.isScrollEnabled = true
+            tabBarViewCenterYAnchorConstraint?.constant = 0
+        } else if currentTabBarViewCenterYConstant <= topLimit, direction == .up {
+            tableView.isScrollEnabled = true
+            tabBarViewCenterYAnchorConstraint?.constant = topLimit
+        } else if currentTabBarViewCenterYConstant <= topLimit,
+            tableView.contentOffset.y > 0, direction == .down {
+            tableView.isScrollEnabled = true
+            tabBarViewCenterYAnchorConstraint?.constant = topLimit
+        } else {
+            tableView.isScrollEnabled = false
+            let translation = sender.translation(in: scrollView)
+            tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
+            sender.setTranslation(CGPoint.zero, in: scrollView)
+        }
+        print(currentTabBarViewCenterYConstant)
     }
 }
 
@@ -203,7 +243,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 임시 값
-        return 10
+        return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -216,5 +256,7 @@ extension MainViewController: UITableViewDataSource {
 
 // MARK: - Table View Delegate
 extension MainViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
 }
