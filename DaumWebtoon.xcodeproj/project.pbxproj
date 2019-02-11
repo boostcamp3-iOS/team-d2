@@ -82,13 +82,6 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		3BBAA6E4220039E000861707 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		47449B3B220D94A900B99773 /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,10 +125,8 @@
 			children = (
 				4767DEEB2211554B0017AC9A /* Extension */,
 				47449B3B220D94A900B99773 /* Shapes */,
-				3BBAA6E4220039E000861707 /* Utils */,
 				B8ABD4FD2200143100454AF3 /* AppDelegate */,
 				B8ABD4FE2200143F00454AF3 /* Controllers */,
-				B8ABD5002200146200454AF3 /* Models */,
 				B8ABD5012200146800454AF3 /* Resources */,
 				B8ABD4FF2200144B00454AF3 /* Views */,
 			);
@@ -172,13 +163,6 @@
 				B85187552203DBCD0081F72D /* SplashView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		B8ABD5002200146200454AF3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		B8ABD5012200146800454AF3 /* Resources */ = {
