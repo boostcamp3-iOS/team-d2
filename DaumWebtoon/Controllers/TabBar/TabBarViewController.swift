@@ -57,7 +57,7 @@ class TabBarViewController: UIViewController {
     
     private func initializeTabContainer() {
         tabContainerView.clipsToBounds = true
-        tabContainerView.backgroundColor = UIColor.red
+        tabContainerView.backgroundColor = UIColor.brown
         tabContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(tabContainerView)
