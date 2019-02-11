@@ -9,7 +9,7 @@
 import UIKit
 
 class TabBarViewController: UIViewController {
- 
+    
     private let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
         TabContent(tabColor: UIColor.red, tabTitle: "캐시", tabIndex: 1),
@@ -31,9 +31,12 @@ class TabBarViewController: UIViewController {
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
     private var currentIndex = 0
+    lazy var splashView = SplashView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        splashView.delegate = self
         
         initializeTabScrollView()
         initializeTabContainer()
@@ -45,13 +48,28 @@ class TabBarViewController: UIViewController {
         scrollToTab(currentIndex: initialIndex)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setSplashViewLayout()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        splashView.animate()
+    }
+    
+    private func setSplashViewLayout() {
+        view.addSubview(splashView)
+        splashView.frame = view.bounds
+    }
+    
     // MARK :- initialize views
     private func initializeTabScrollView() {
         tabScrollView.isPagingEnabled = true
         tabScrollView.showsHorizontalScrollIndicator = false
         tabScrollView.showsVerticalScrollIndicator = false
         tabScrollView.delegate = self
-
+        
         view.addSubview(tabScrollView)
     }
     
@@ -113,6 +131,21 @@ class TabBarViewController: UIViewController {
         return contentOffset <= 0.0 ||
             contentOffset >= tabScrollView.frame.width * CGFloat(tabContents.count - 1)
             ? true : false
+    }
+}
+
+// MARK: - Splash View Delegate
+extension TabBarViewController: SplashViewDelegate {
+    func splashViewDidFinished(_ splashView: SplashView) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let self = self else { return }
+            self.splashView.alpha = 0
+        }
+    }
+    
+    func presentTabBarViewController() {
+        let tabBarViewController = TabBarViewController()
+        present(tabBarViewController, animated: false, completion: nil)
     }
 }
 
