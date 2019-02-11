@@ -67,13 +67,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3BBAA6D421FFE59B00861707 /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TabBar;
-			sourceTree = "<group>";
-		};
 		47449B3B220D94A900B99773 /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,7 +141,6 @@
 			children = (
 				3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */,
 				3BBAA6D521FFE5BA00861707 /* TabViewController.swift */,
-				3BBAA6D421FFE59B00861707 /* TabBar */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
