@@ -1,8 +1,8 @@
 //
-//  SymbolController.swift
+//  TabBarViewController+Symbol.swift
 //  DaumWebtoon
 //
-//  Created by oingbong on 29/01/2019.
+//  Created by oingbong on 11/02/2019.
 //  Copyright © 2019 Gaon Kim. All rights reserved.
 //
 
@@ -20,41 +20,43 @@ protocol SymbolDatasource: class {
     func shapeAnotherC() -> [UIBezierPath]
 }
 
-class SymbolController: UIViewController {
-    
-    var symbolView: SymbolView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 87, y: 233), size: CGSize(width: 200, height: 200)))
-        symbolView.backgroundColor = .green
-        symbolView.dataSource = self
-        self.view.addSubview(symbolView)
-    }
-    
+// MARK: - Symbol Coordinate Method
+extension TabBarViewController {
     private func convertKeys(from keys: String, with shape: Shape.Type) -> [(CGFloat, CGFloat)] {
         var coordinates = [(CGFloat, CGFloat)]()
         for key in keys {
             if shape is ShapeC.Type {
-                guard let shape = ShapeC(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeC = ShapeC(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeC)
+                coordinates.append(fixedShape)
             } else if shape is ShapeN.Type {
-                guard let shape = ShapeN(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeN = ShapeN(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeN)
+                coordinates.append(fixedShape)
             } else if shape is ShapeHourglass.Type {
-                guard let shape = ShapeHourglass(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeHourglass = ShapeHourglass(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeHourglass)
+                coordinates.append(fixedShape)
             } else if shape is ShapeIce.Type {
-                guard let shape = ShapeIce(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeIce = ShapeIce(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeIce)
+                coordinates.append(fixedShape)
             } else if shape is ShapeSquare.Type {
-                guard let shape = ShapeSquare(rawValue: String(key)) else { break }
-                coordinates.append(shape.coordinate)
+                guard let shapeSquare = ShapeSquare(rawValue: String(key)) else { break }
+                let fixedShape = scale(with: shapeSquare)
+                coordinates.append(fixedShape)
             }
         }
         return coordinates
     }
-
+    
+    // 심볼뷰 크기에 따라 좌표값을 조절합니다.
+    private func scale(with shape: Shape) -> (CGFloat, CGFloat) {
+        let x = shape.coordinate.0 * symbolView.frame.width
+        let y = shape.coordinate.1 * symbolView.frame.height
+        return (x, y)
+    }
+    
     private func coordinate(xys: [(CGFloat, CGFloat)]) -> [CGPoint] {
         var points = [CGPoint]()
         for xy in xys {
@@ -80,12 +82,14 @@ class SymbolController: UIViewController {
         return path
     }
     
-    @IBAction func doSlider(_ sender: UISlider) {
-        symbolView.timeOffset(value: Double(sender.value))
+    func slideSymbol(with value: CGFloat) {
+        let forMaxValueOne = CGFloat(4)
+        symbolView.timeOffset(value: Double(value / forMaxValueOne))
     }
 }
 
-extension SymbolController: SymbolDatasource {
+// MARK: - Symbol Coordinate By Shape
+extension TabBarViewController: SymbolDatasource {
     public func shapeC() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
         let keys1 = convertKeys(from: "aegh", with: ShapeC.self)
