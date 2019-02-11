@@ -18,6 +18,7 @@
 		3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */; };
 		3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D521FFE5BA00861707 /* TabViewController.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
+		3BDC57C722114AB40009C115 /* SidePanelContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57C622114AB40009C115 /* SidePanelContainerView.swift */; };
 		47449B3D220D94B400B99773 /* ShapeC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B3C220D94B400B99773 /* ShapeC.swift */; };
 		47449B3F220D956500B99773 /* ShapeIce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B3E220D956500B99773 /* ShapeIce.swift */; };
 		47449B41220D96B000B99773 /* ShapeN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B40220D96B000B99773 /* ShapeN.swift */; };
@@ -47,6 +48,7 @@
 		3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3BBAA6D521FFE5BA00861707 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		3BDC57C622114AB40009C115 /* SidePanelContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidePanelContainerView.swift; sourceTree = "<group>"; };
 		47449B3C220D94B400B99773 /* ShapeC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeC.swift; sourceTree = "<group>"; };
 		47449B3E220D956500B99773 /* ShapeIce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeIce.swift; sourceTree = "<group>"; };
 		47449B40220D96B000B99773 /* ShapeN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeN.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				47BF157522017C3C0011544A /* SymbolView.swift */,
 				3B1C0FD1220312CD00077751 /* TabBarView.swift */,
 				B85187552203DBCD0081F72D /* SplashView.swift */,
+				3BDC57C622114AB40009C115 /* SidePanelContainerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
 				47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */,
+				3BDC57C722114AB40009C115 /* SidePanelContainerView.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				3B3AA64A220EF90A008A966E /* SidePanelViewController.swift in Sources */,

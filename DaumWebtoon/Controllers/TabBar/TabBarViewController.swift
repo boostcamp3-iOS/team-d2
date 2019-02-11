@@ -32,12 +32,14 @@ class TabBarViewController: UIViewController {
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
     private var currentIndex = 0
-    private var isSidePanelShowing = false
+    private var sidePanelBaseView: UIView!
+    private var baseViewMaxX: CGFloat = 0.0
+    private var scrollViewPanGestureRecognizer: UIPanGestureRecognizer?
+    private var screenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self,
+                                                                                  action: #selector(handleScreenEdgePanGesture(recognizer:)))
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         initializeTabScrollView()
         initializeTabContainer()
@@ -57,13 +59,15 @@ class TabBarViewController: UIViewController {
         tabScrollView.showsVerticalScrollIndicator = false
         tabScrollView.delegate = self
         
-        let screenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleScreenEdgePanGesture(sender:)))
         screenEdgePanGestureRecognizer.edges = UIRectEdge.right
+        screenEdgePanGestureRecognizer.delegate = self
         
         tabScrollView.isUserInteractionEnabled = true
         tabScrollView.addGestureRecognizer(screenEdgePanGestureRecognizer)
         
         view.addSubview(tabScrollView)
+        
+        scrollViewPanGestureRecognizer = tabScrollView.panGestureRecognizer
     }
     
     private func initializeTabContainer() {
@@ -118,21 +122,20 @@ class TabBarViewController: UIViewController {
         hambergerButton.widthAnchor.constraint(equalToConstant: 36).isActive = true
         hambergerButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
-    private var sidePanelBaseView: UIView!
+    
     private func initializeSidePanelView() {
         sidePanelBaseView = UIView(frame: CGRect(x: view.bounds.size.width, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
         sidePanelBaseView.backgroundColor = UIColor.clear
+        baseViewMaxX = sidePanelBaseView.frame.maxX
         
         addChild(sidePanelViewController)
-        
         sidePanelViewController.didMove(toParent: self)
         sidePanelViewController.view.frame = CGRect(x: 0, y: 0, width: sidePanelBaseView.bounds.size.width, height: sidePanelBaseView.bounds.size.height)
-        
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleSidePanelPanGesture(_:)))
-        sidePanelBaseView.addGestureRecognizer(panGesture)
+        sidePanelViewController.delegate = self
         sidePanelBaseView.addSubview(sidePanelViewController.view)
         
         view.addSubview(sidePanelBaseView)
+        view.bringSubviewToFront(sidePanelBaseView)
     }
     
     // MARK :- private methods
@@ -155,39 +158,62 @@ class TabBarViewController: UIViewController {
     // MARK :- event handling
     @objc func hambergerButtonTapped(_ recognizer: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.5) {
-            self.sidePanelViewController.view.frame.origin.x = -self.view.frame.size.width
+            self.sidePanelBaseView.frame.origin.x = 0
         }
     }
     
-    @objc func handleScreenEdgePanGesture(sender: UIScreenEdgePanGestureRecognizer) {
-
-        let translation = sender.translation(in: view)
-        print(translation.x)
-        UIView.animate(withDuration: 0.5) {
-            self.sidePanelBaseView.center = CGPoint(x: self.sidePanelBaseView.center.x + translation.x, y: self.sidePanelBaseView.center.y)
-            sender.setTranslation(CGPoint.zero, in: self.sidePanelBaseView)
+    @objc func handleScreenEdgePanGesture(recognizer: UIScreenEdgePanGestureRecognizer) {
+        let translation = recognizer.translation(in: view)
+        
+        switch recognizer.state {
+        case .changed:
+            UIView.animate(withDuration: 0.2) {
+                self.sidePanelBaseView.center = CGPoint(x: self.sidePanelBaseView.center.x + translation.x, y: self.sidePanelBaseView.center.y)
+                recognizer.setTranslation(CGPoint.zero, in: self.sidePanelBaseView)
+            }
+        case .ended:
+            if self.sidePanelBaseView.frame.origin.x < view.frame.size.width / 2 {
+                UIView.animate(withDuration: 0.6, animations: {
+                    self.sidePanelBaseView.frame.origin.x = 0
+                    recognizer.setTranslation(CGPoint.zero, in: self.sidePanelBaseView)
+                })
+            } else {
+                UIView.animate(withDuration: 0.6, animations: {
+                    self.sidePanelBaseView.frame.origin.x = self.baseViewMaxX
+                    recognizer.setTranslation(CGPoint.zero, in: self.sidePanelBaseView)
+                }) { (success) in
+                    if success {
+                        self.removeSidePanelView()
+                        self.initializeSidePanelView()
+                    }
+                }
+            }
+        default: print("default")
         }
+    }
+}
 
-//        switch sender.state {
-//        case .changed:
-//            UIView.animate(withDuration: 0.5) {
-//                self.sidePanelBaseView.center = CGPoint(x: self.sidePanelBaseView.center.x + translation.x, y: self.sidePanelBaseView.center.y)
-//                sender.setTranslation(CGPoint.zero, in: self.sidePanelBaseView)
-//            }
-//        case .ended: sidePanelBaseView.frame.origin.x = -view.frame.size.width
-//        default: print("")
-//        }
+extension TabBarViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+extension TabBarViewController: SidePanelViewDelegate {
+    func dismiss() {
+        UIView.animate(withDuration: 0.6, animations: {
+            self.sidePanelBaseView.frame.origin.x = self.baseViewMaxX
+        }) { (success) in
+            if success {
+                self.removeSidePanelView()
+                self.initializeSidePanelView()
+            }
+        }
     }
     
-    @objc func handleSidePanelPanGesture(_ panGesture: UIPanGestureRecognizer) {
-        let translation = panGesture.translation(in: self.view)
-
-        print(round(Double((panGesture.view?.frame.origin.x)!)))
-        if CGFloat(round(Double((panGesture.view?.frame.origin.x)!))) > 0
-        {
-            panGesture.view!.center = CGPoint(x: panGesture.view!.center.x + translation.x, y: panGesture.view!.center.y)
-            panGesture.setTranslation(CGPoint.zero, in: self.view)
-        }
+    func panGestureDraggingEnded() {
+        removeSidePanelView()
+        initializeSidePanelView()
     }
 }
 
@@ -206,6 +232,15 @@ extension TabBarViewController: TabBarDelegate {
 }
 
 extension TabBarViewController {
+    func removeSidePanelView() {
+        sidePanelViewController.willMove(toParent: nil)
+        sidePanelViewController.view.removeFromSuperview()
+        sidePanelViewController.removeFromParent()
+        
+        sidePanelBaseView.willRemoveSubview(sidePanelViewController.view)
+        sidePanelBaseView.removeFromSuperview()
+    }
+    
     func showCurrentTab(currentIndex: Int, animated: Bool = true) {
         let frame = CGRect(
             x: tabScrollView.frame.width * CGFloat(currentIndex),
@@ -239,21 +274,8 @@ extension TabBarViewController: UIScrollViewDelegate {
         scrollToTab(currentIndex: nextTabIndex, previousIndex: currentIndex)
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        guard
-//            scrollView.panGestureRecognizer.location(in: view).x < 380.0,
-//            isSidePanelShowing == false else {
-//            isSidePanelShowing = true
-//            print("dkjdkjk")
-//
-//            return
-//        }
-//
-//        print("11===========")
+        guard isEdgeScrolling == false else { return }
         
         let scrollWidth = tabScrollView.frame.width
         let contentOffset = scrollView.contentOffset.x
