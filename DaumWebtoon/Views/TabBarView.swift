@@ -44,8 +44,9 @@ class TabBarView: UIStackView {
     private var tabViews = [TabView]()
     private var tabContents = [TabContent]()
     
-    private let screenWidth = Int(UIScreen.main.bounds.width)
-    private let tabBarWidth = Int(UIScreen.main.bounds.width - 20)
+    private lazy var screenWidth = Int(frame.size.width + 20)
+    private lazy var tabBarWidth = Int(frame.size.width)
+    
     private let tabBarHeight = 30
     private let tabBarMargin = 20
     
