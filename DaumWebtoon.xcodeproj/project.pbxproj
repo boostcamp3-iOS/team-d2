@@ -19,6 +19,8 @@
 		3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CC221283660009C115 /* HTTPEnums.swift */; };
 		3BDC57CF2212837E0009C115 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CE2212837E0009C115 /* RequestData.swift */; };
 		3BDC57D1221283900009C115 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57D0221283900009C115 /* RequestType.swift */; };
+		3BDC57D6221294710009C115 /* SlidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57D5221294710009C115 /* SlidePanelViewController.swift */; };
+		3BDC57D8221295F90009C115 /* SlidePanelContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57D7221295F90009C115 /* SlidePanelContainerView.swift */; };
 		47449B3D220D94B400B99773 /* ShapeC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B3C220D94B400B99773 /* ShapeC.swift */; };
 		47449B3F220D956500B99773 /* ShapeIce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B3E220D956500B99773 /* ShapeIce.swift */; };
 		47449B41220D96B000B99773 /* ShapeN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B40220D96B000B99773 /* ShapeN.swift */; };
@@ -49,6 +51,8 @@
 		3BDC57CC221283660009C115 /* HTTPEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPEnums.swift; sourceTree = "<group>"; };
 		3BDC57CE2212837E0009C115 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
 		3BDC57D0221283900009C115 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		3BDC57D5221294710009C115 /* SlidePanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePanelViewController.swift; sourceTree = "<group>"; };
+		3BDC57D7221295F90009C115 /* SlidePanelContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePanelContainerView.swift; sourceTree = "<group>"; };
 		47449B3C220D94B400B99773 /* ShapeC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeC.swift; sourceTree = "<group>"; };
 		47449B3E220D956500B99773 /* ShapeIce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeIce.swift; sourceTree = "<group>"; };
 		47449B40220D96B000B99773 /* ShapeN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeN.swift; sourceTree = "<group>"; };
@@ -96,6 +100,14 @@
 				3BDC57D0221283900009C115 /* RequestType.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		3BDC57D4221294520009C115 /* Slide */ = {
+			isa = PBXGroup;
+			children = (
+				3BDC57D5221294710009C115 /* SlidePanelViewController.swift */,
+			);
+			path = Slide;
 			sourceTree = "<group>";
 		};
 		47449B3B220D94A900B99773 /* Shapes */ = {
@@ -171,9 +183,8 @@
 		B8ABD4FE2200143F00454AF3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3BDC57D4221294520009C115 /* Slide */,
 				3B8FAC61220A0B75002CEEEF /* Detail */,
-				3BBAA6D421FFE59B00861707 /* TabBar */,
-				B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */,
 				3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */,
 				3BBAA6D521FFE5BA00861707 /* TabViewController.swift */,
 			);
@@ -191,6 +202,7 @@
 				3B1C0FD1220312CD00077751 /* TabBarView.swift */,
 				B85187552203DBCD0081F72D /* SplashView.swift */,
 				3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */,
+				3BDC57D7221295F90009C115 /* SlidePanelContainerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -281,16 +293,17 @@
 				47449B3D220D94B400B99773 /* ShapeC.swift in Sources */,
 				47449B45220D97A600B99773 /* ShapeSquare.swift in Sources */,
 				3BDC57CB221283470009C115 /* NetworkDispatcher.swift in Sources */,
+				3BDC57D6221294710009C115 /* SlidePanelViewController.swift in Sources */,
 				3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */,
 				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
 				3B1C0FD62204292300077751 /* TabView.swift in Sources */,
 				47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */,
 				47449B41220D96B000B99773 /* ShapeN.swift in Sources */,
+				3BDC57D8221295F90009C115 /* SlidePanelContainerView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */,
 				3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* DetailViewController.swift in Sources */,
-				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
 				4767DEEF2211560C0017AC9A /* TabBarViewController+Splash.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,
