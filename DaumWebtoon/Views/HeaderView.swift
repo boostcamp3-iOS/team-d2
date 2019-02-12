@@ -9,11 +9,11 @@
 import UIKit
 
 class HeaderView: UIView {
-    var firstView = UIView()
-    var secondView = UIView()
-    var titleLabel = UILabel()
-    var imageView = UIImageView()
-    var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 20, y: 20), size: CGSize(width: 100, height: 100)))
+    private var firstView = UIView()
+    private var secondView = UIView()
+    private var titleLabel = UILabel()
+    private var imageView = UIImageView()
+    private var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 20, y: 20), size: CGSize(width: 100, height: 100)))
     
     /*
      설정 방법 : 추가할 컨트롤러에서 아래와 같이 설정합니다.
