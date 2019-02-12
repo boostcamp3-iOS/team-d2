@@ -42,6 +42,7 @@ class MainViewController: UIViewController {
         addScrollView()
         addMenuView()
         addTabBarView()
+        addContentViewControllers()
         addSplashView()
 
         showCurrentTab(currentIndex: initialIndex)
@@ -170,6 +171,16 @@ extension MainViewController {
         menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         menuView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+    }
+    
+    // MARK: Content View Controller Methods
+    func addContentViewControllers() {
+        for index in 0..<tabContents.count {
+            let contentViewController = ContentViewController()
+            contentViewController.testString = tabContents[index].tabTitle
+            addChild(contentViewController)
+            contentViewController.didMove(toParent: self)
+        }
     }
     
     // MARK: Pan Gesture Recognizer Methods
