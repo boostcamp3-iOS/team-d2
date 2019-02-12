@@ -42,7 +42,6 @@ class MainViewController: UIViewController {
         addScrollView()
         addMenuView()
         addTabBarView()
-        addTableView()
         addSplashView()
 
         showCurrentTab(currentIndex: initialIndex)
@@ -157,28 +156,6 @@ extension MainViewController {
         let index = adjustIndexForIndex(currentIndex: currentIndex, previousIndex: previousIndex)
         tabBarView.showEachTabs(currentIndex: index.0)
         tabBarView.showCurrentTabIndicator(currentIndex: index.0, previousIndex: index.1)
-    }
-    
-    // MARK: Table View Methods
-    func addTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        scrollView.addSubview(tableView)
-        setTableViewLayout()
-        setTableViewProperties()
-    }
-    
-    func setTableViewLayout() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.topAnchor.constraint(equalTo: tabBarViewContainer.bottomAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    }
-    
-    func setTableViewProperties() {
-        tableView.showsVerticalScrollIndicator = false
-        tableView.isScrollEnabled = false
     }
     
     // MARK: Menu View Methods
@@ -338,27 +315,5 @@ extension MainViewController: TabBarDelegate {
 extension MainViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
-    }
-}
-
-// MARK: - Table View Data Source
-extension MainViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 임시 값
-        return 50
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // 임시 값
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "임시 값"
-        return cell
-    }
-}
-
-// MARK: - Table View Delegate
-extension MainViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
     }
 }
