@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol SidePanelViewDelegate: class {
+protocol SlidePanelViewDelegate: class {
     func dismiss()
     func panGestureDraggingEnded()
 }
 
 class SlidePanelViewController: UIViewController {
     
-    weak var delegate: SidePanelViewDelegate?
+    weak var delegate: SlidePanelViewDelegate?
     
     private let containerView = SlidePanelContainerView()
     
@@ -52,14 +52,10 @@ class SlidePanelViewController: UIViewController {
     
     // MARK :- event handling
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        guard view.frame.origin.x > 0 else { return }
-        
         let translation = recognizer.translation(in: containerView)
         print(self.view.frame.origin.x)
         switch recognizer.state {
         case .changed:
-            
-            
             UIView.animate(withDuration: 0.2) {
                 self.view.center = CGPoint(x: self.view.center.x + translation.x, y: self.view.center.y)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)

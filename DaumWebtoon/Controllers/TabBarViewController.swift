@@ -31,13 +31,13 @@ class TabBarViewController: UIViewController {
     private let tabScrollView = UIScrollView(frame: CGRect(x: 0, y: 0,
                                                            width: UIScreen.main.bounds.width,
                                                            height: UIScreen.main.bounds.height))
+    
+    
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
     private var currentIndex = 0
     private var baseViewMaxX: CGFloat = 0.0
     private var sidePanelBaseView: UIView!
-    private var screenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self,
-                                                                                  action: #selector(handleScreenEdgePanGesture(recognizer:)))
     
     let symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 50, y: 50), size: CGSize(width: 100, height: 100)))
     lazy var splashView = SplashView()
@@ -81,6 +81,9 @@ class TabBarViewController: UIViewController {
         tabScrollView.showsVerticalScrollIndicator = false
         tabScrollView.delegate = self
         tabScrollView.isUserInteractionEnabled = true
+        
+        let screenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self,
+                                                                                      action: #selector(handleScreenEdgePanGesture(_:)))
         screenEdgePanGestureRecognizer.edges = UIRectEdge.right
         screenEdgePanGestureRecognizer.delegate = self
         tabScrollView.addGestureRecognizer(screenEdgePanGestureRecognizer)
@@ -184,7 +187,7 @@ class TabBarViewController: UIViewController {
         }
     }
     
-    @objc func handleScreenEdgePanGesture(recognizer: UIScreenEdgePanGestureRecognizer) {
+    @objc func handleScreenEdgePanGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         let translation = recognizer.translation(in: view)
         
         switch recognizer.state {
@@ -221,7 +224,7 @@ extension TabBarViewController: UIGestureRecognizerDelegate {
     }
 }
 
-extension TabBarViewController: SidePanelViewDelegate {
+extension TabBarViewController: SlidePanelViewDelegate {
     func dismiss() {
         UIView.animate(withDuration: 0.6, animations: {
             self.sidePanelBaseView.frame.origin.x = self.baseViewMaxX
