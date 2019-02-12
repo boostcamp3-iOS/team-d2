@@ -11,16 +11,22 @@ import UIKit
 class MainViewController: UIViewController {
     // MARK: - Properties
     private let tabContents: [TabContent] = [
-        TabContent(tabColor: UIColor.brown, tabTitle: "캐시", tabIndex: 0),
-        TabContent(tabColor: UIColor.red, tabTitle: "연재", tabIndex: 1),
-        TabContent(tabColor: UIColor.purple, tabTitle: "기다무", tabIndex: 2),
-        TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 3)
+        TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
+        TabContent(tabColor: UIColor.brown, tabTitle: "캐시", tabIndex: 1),
+        TabContent(tabColor: UIColor.red, tabTitle: "연재", tabIndex: 2),
+        TabContent(tabColor: UIColor.purple, tabTitle: "기다무", tabIndex: 3),
+        TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 4),
+        TabContent(tabColor: UIColor.brown, tabTitle: "", tabIndex: 5)
     ]
     private var scrollDirection: Direction?
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
     private let menuViewHeight: CGFloat = 80
     private let tabBarViewHeight: CGFloat = 30
+    private let initialIndex = 2
+    private var lastContentOffset: CGFloat = 0
+    private var contentOffsetInPage: CGFloat = 0
+    private var currentIndex = 0
     
     // MARK: Views
     private lazy var splashView = SplashView()
@@ -38,6 +44,9 @@ class MainViewController: UIViewController {
         addTabBarView()
         addTableView()
         addSplashView()
+
+        showCurrentTab(currentIndex: initialIndex)
+        scrollToTab(currentIndex: initialIndex)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -115,6 +124,39 @@ extension MainViewController {
     func setTabBarViewProperties() {
         tabBarViewContainer.clipsToBounds = true
         tabBarViewContainer.backgroundColor = .red
+    }
+    
+    func adjustIndexForIndex(currentIndex: Int, previousIndex: Int) -> (Int, Int) {
+        if currentIndex > tabContents.count - 2 {
+            return (1, tabContents.count - 2)
+        } else if currentIndex < 1 {
+            return (tabContents.count - 2, 1)
+        } else {
+            return (currentIndex, previousIndex)
+        }
+    }
+    
+    func isInvisibleTabForIndex(contentOffset: CGFloat) -> Bool {
+        return contentOffset <= 0.0 ||
+            contentOffset >= scrollView.frame.width * CGFloat(tabContents.count - 1)
+            ? true : false
+    }
+    
+    func showCurrentTab(currentIndex: Int, animated: Bool = true) {
+        let frame = CGRect(
+            x: scrollView.frame.width * CGFloat(currentIndex),
+            y: 0,
+            width: scrollView.frame.width,
+            height: scrollView.frame.height)
+        scrollView.setContentOffset(frame.origin, animated: animated)
+        
+        lastContentOffset = scrollView.frame.width * CGFloat(currentIndex)
+    }
+    
+    func scrollToTab(currentIndex: Int, previousIndex: Int = 0) {
+        let index = adjustIndexForIndex(currentIndex: currentIndex, previousIndex: previousIndex)
+        tabBarView.showEachTabs(currentIndex: index.0)
+        tabBarView.showCurrentTabIndicator(currentIndex: index.0, previousIndex: index.1)
     }
     
     // MARK: Table View Methods
@@ -205,17 +247,75 @@ extension MainViewController: SplashViewDelegate {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             guard let self = self else { return }
             self.splashView.alpha = 0
-        }, completion: { [weak self] _ in
-            guard let self = self else { return }
-            self.splashView.removeFromSuperview()
-            self.addPanGestureRecognizer()
+            }, completion: { [weak self] _ in
+                guard let self = self else { return }
+                self.splashView.removeFromSuperview()
+                self.addPanGestureRecognizer()
         })
     }
 }
 
 // MARK: - Scroll View Delegate
 extension MainViewController: UIScrollViewDelegate {
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        guard contentOffsetInPage >= UIScreen.main.bounds.width / 2 else { return }
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        
+        if lastContentOffset <= scrollView.contentOffset.x {
+            tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: scrollView.frame.width, currentIndex: currentIndex - 1)
+        }
+        
+        let nextTabIndex = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
+        showCurrentTab(currentIndex: nextTabIndex)
+        scrollToTab(currentIndex: nextTabIndex, previousIndex: currentIndex)
+    }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollWidth = scrollView.frame.width
+        let contentOffset = scrollView.contentOffset.x
+        var nextTabIndex = Int(round(contentOffset / scrollWidth))
+        if nextTabIndex == 0 {
+            nextTabIndex = tabContents.count - 2
+        } else if nextTabIndex == tabContents.count - 1 {
+            nextTabIndex = 1
+        }
+        
+        let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
+        if (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating),
+            let direction = scrollDirection, (direction == .left || direction == .right) {
+            NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
+            perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.0)
+            
+            if lastContentOffset > contentOffset {
+                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
+                tabBarView.drawTabBarColorLeftToRightWhileScrolling(x: abs(contentOffsetInPage - scrollWidth), currentIndex: index)
+                self.contentOffsetInPage = abs(contentOffsetInPage - scrollWidth)
+            } else if lastContentOffset <= contentOffset && contentOffsetInPage != 0.0 {
+                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
+                tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: contentOffsetInPage, currentIndex: index)
+                self.contentOffsetInPage = contentOffsetInPage
+            }
+        } else {
+            if lastContentOffset > contentOffset {
+                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
+                tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: contentOffsetInPage, currentIndex: index)
+                self.contentOffsetInPage = contentOffsetInPage
+            } else if lastContentOffset <= contentOffset && contentOffsetInPage != 0.0 {
+                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
+                tabBarView.drawTabBarColorLeftToRightWhileScrolling(x: abs(contentOffsetInPage - scrollWidth), currentIndex: index)
+                self.contentOffsetInPage = abs(contentOffsetInPage - scrollWidth)
+            }
+        }
+        
+        tabBarView.showEachTabs(currentIndex: currentIndex)
+        tabBarView.showCurrentTabIndicator(currentIndex: nextTabIndex, previousIndex: currentIndex)
+        if isInvisibleTabForIndex(contentOffset: contentOffset) {
+            showCurrentTab(currentIndex: nextTabIndex, animated: false)
+        }
+        
+        currentIndex = Int(nextTabIndex)
+    }
 }
 
 // MARK: - Tab Bar View Data Source
@@ -228,7 +328,9 @@ extension MainViewController: TabBarDataSource {
 // MARK: - Tab Bar View Delegate
 extension MainViewController: TabBarDelegate {
     func tabBarView(_ tabBarView: TabBarView, viewControllerAtIndex index: Int?) {
+        guard let index = index else { return }
         
+        showCurrentTab(currentIndex: index)
     }
 }
 
