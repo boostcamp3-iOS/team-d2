@@ -30,7 +30,6 @@ class SplashViewController: UIViewController {
         view.addSubview(splashView)
         splashView.frame = view.bounds
     }
-
 }
 
 // MARK: - Splash View Delegate
