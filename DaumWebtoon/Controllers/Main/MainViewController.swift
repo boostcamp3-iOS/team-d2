@@ -46,13 +46,11 @@ class MainViewController: UIViewController {
         addTableStackView()
         addContentViewControllers()
         addSplashView()
-
-        showCurrentTab(currentIndex: initialIndex)
-        scrollToTab(currentIndex: initialIndex)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        showCurrentTab(currentIndex: initialIndex)
         splashView.animate()
     }
 }
