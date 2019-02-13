@@ -20,12 +20,13 @@ class Database {
     
     var db: OpaquePointer?
     var stmt: OpaquePointer?
+    let storageName = "podcase.sqlite"
     
     private func dbPath() -> String {
         let fileManager = FileManager.default
         // Create
         guard let docPathUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else { return "" }
-        let dbPath = docPathUrl.appendingPathComponent("podcase.sqlite").path
+        let dbPath = docPathUrl.appendingPathComponent(storageName).path
         return dbPath
     }
     
