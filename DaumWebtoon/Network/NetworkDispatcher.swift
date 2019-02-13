@@ -14,7 +14,7 @@ protocol NetworkDispatcher {
 
 struct URLSessionNetworkDispatcher: NetworkDispatcher {
     
-    static let instance = URLSessionNetworkDispatcher()
+    static let shared = URLSessionNetworkDispatcher()
     
     private init() {}
     
@@ -26,8 +26,9 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue("application/json; charset=UTF-8;", forHTTPHeaderField: "Content-Type")
+        urlRequest.setValue("4e126310femshc6a8864c872a007p18d560jsnf26adf945b66", forHTTPHeaderField: "X-RapidAPI-Key")
         urlRequest.httpMethod = request.method.rawValue
-        
+
         do {
             if let params = request.params {
                 urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
