@@ -6,7 +6,7 @@
 //  Copyright © 2019 Gaon Kim. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol RequestType {
     associatedtype ResponseType: Codable
@@ -15,14 +15,18 @@ protocol RequestType {
 
 extension RequestType {
     func execute(
-        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance,
+        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.shared,
         onSuccess: @escaping (ResponseType) -> Void,
         onError: @escaping (Error) -> Void
         ) {
         dispatcher.dispatch(
             request: self.data,
             onSuccess: { (responseData: Data) in
+                
                 do {
+//                    let result1 = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
+//                    print(result1)
+                    
                     let jsonDecoder = JSONDecoder()
                     let result = try jsonDecoder.decode(ResponseType.self, from: responseData)
                     
