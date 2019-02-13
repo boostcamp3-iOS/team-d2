@@ -9,16 +9,15 @@
 import Foundation
 
 struct Episode: Codable {
-    
     let id: String
     let duration: Int
     let audio: String
     let image: String
     let thumbnail: String
     let description: String
-    let channelTitle: String
+    let channelTitle: String?
     let title: String
-    let dateTime: Int
+    let dateTime: Int?
     
     enum CodingKeys: String, CodingKey {
         case id, audio, image, thumbnail, description, dateTime, channelTitle
