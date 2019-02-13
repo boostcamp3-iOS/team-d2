@@ -13,13 +13,24 @@ class HeaderView: UIView {
     private var secondView = UIView()
     private var titleLabel = UILabel()
     private var imageView = UIImageView()
-    private var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 20, y: 20), size: CGSize(width: 100, height: 100)))
+    var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 20, y: 20), size: CGSize(width: 100, height: 100)))
     
     /*
      설정 방법 : 추가할 컨트롤러에서 아래와 같이 설정합니다.
      let headerView = HeaderView(frame: CGRect(origin: .zero, size: CGSize(width: 350, height: 350)))
      headerView.configureData(title: title, with: imageName)
      self.addSubview(headerView)
+     
+     추가할 컨트롤러를 심볼의 데이터소스로 지정하고 scale 과 slideSymbol 의 변수값을 더합니다.
+     ex )
+     Before : symbolView.frame.width
+     After : heaverView.symbolView.frame.width
+     Before : symbolView.frame.height
+     After : heaverView.symbolView.frame.height
+     Before : symbolView.dataSource = self
+     After : headerView.symbolView.dataSource = self
+     
+     ** 심볼뷰를 뷰 안에 뷰로 추가하거나 컨트롤러에 직접 추가하더라도 이전에 없던 렉(?) 현상이 생김, 메인뷰와 합칠 때 다시 확인 필요
      */
     
     override init(frame: CGRect) {
@@ -36,6 +47,7 @@ class HeaderView: UIView {
     private func configureView() {
         configureFirstView()
         configureSecondView()
+        configureSymbolView()
     }
     
     private func configureFirstView() {
@@ -56,6 +68,10 @@ class HeaderView: UIView {
         secondView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         secondView.leadingAnchor.constraint(equalTo: firstView.trailingAnchor).isActive = true
         secondView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+    }
+    
+    private func configureSymbolView() {
+        firstView.addSubview(symbolView)
     }
     
     func configureData(title: String, with image: String) {
