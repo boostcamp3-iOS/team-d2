@@ -20,3 +20,7 @@ enum HTTPMethod: String {
     case delete = "DELETE"
     case patch = "PATCH"
 }
+
+enum HTTPBaseUrl: String {
+    case baseUrl = "https://api.listennotes.com/api/v1"
+}
