@@ -19,6 +19,8 @@
 		3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CC221283660009C115 /* HTTPEnums.swift */; };
 		3BDC57CF2212837E0009C115 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CE2212837E0009C115 /* RequestData.swift */; };
 		3BDC57D1221283900009C115 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57D0221283900009C115 /* RequestType.swift */; };
+		3BDC57D6221294710009C115 /* SlidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57D5221294710009C115 /* SlidePanelViewController.swift */; };
+		3BDC57D8221295F90009C115 /* SlidePanelContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57D7221295F90009C115 /* SlidePanelContainerView.swift */; };
 		3BDC57DC2212A2440009C115 /* PodCastsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57DB2212A2440009C115 /* PodCastsViewController.swift */; };
 		3BDC57DE2212A2B60009C115 /* PodCast.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BDC57DD2212A2B60009C115 /* PodCast.storyboard */; };
 		3BDC57E02212A5F60009C115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BDC57DF2212A5F60009C115 /* Assets.xcassets */; };
@@ -58,6 +60,8 @@
 		3BDC57CC221283660009C115 /* HTTPEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPEnums.swift; sourceTree = "<group>"; };
 		3BDC57CE2212837E0009C115 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
 		3BDC57D0221283900009C115 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		3BDC57D5221294710009C115 /* SlidePanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePanelViewController.swift; sourceTree = "<group>"; };
+		3BDC57D7221295F90009C115 /* SlidePanelContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePanelContainerView.swift; sourceTree = "<group>"; };
 		3BDC57DB2212A2440009C115 /* PodCastsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastsViewController.swift; sourceTree = "<group>"; };
 		3BDC57DD2212A2B60009C115 /* PodCast.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PodCast.storyboard; sourceTree = "<group>"; };
 		3BDC57DF2212A5F60009C115 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,6 +118,14 @@
 				3BDC57D0221283900009C115 /* RequestType.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		3BDC57D4221294520009C115 /* Slide */ = {
+			isa = PBXGroup;
+			children = (
+				3BDC57D5221294710009C115 /* SlidePanelViewController.swift */,
+			);
+			path = Slide;
 			sourceTree = "<group>";
 		};
 		3BDC57DA2212A2150009C115 /* PodCasts */ = {
@@ -218,6 +230,7 @@
 		B8ABD4FE2200143F00454AF3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3BDC57D4221294520009C115 /* Slide */,
 				3BDC57DA2212A2150009C115 /* PodCasts */,
 				3B8FAC61220A0B75002CEEEF /* Detail */,
 				3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */,
@@ -238,6 +251,7 @@
 				3B1C0FD1220312CD00077751 /* TabBarView.swift */,
 				B85187552203DBCD0081F72D /* SplashView.swift */,
 				3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */,
+				3BDC57D7221295F90009C115 /* SlidePanelContainerView.swift */,
 				3BDC57E12212AD000009C115 /* PodCastCollectionViewCell.swift */,
 				3BDC57F3221328EF0009C115 /* DetailCollectionViewCell.swift */,
 			);
@@ -332,12 +346,14 @@
 				3BDC57DC2212A2440009C115 /* PodCastsViewController.swift in Sources */,
 				47449B45220D97A600B99773 /* ShapeSquare.swift in Sources */,
 				3BDC57CB221283470009C115 /* NetworkDispatcher.swift in Sources */,
+				3BDC57D6221294710009C115 /* SlidePanelViewController.swift in Sources */,
 				3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */,
 				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
 				3B1C0FD62204292300077751 /* TabView.swift in Sources */,
 				47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */,
 				3BDC57EB2212BA670009C115 /* PodCastService.swift in Sources */,
 				47449B41220D96B000B99773 /* ShapeN.swift in Sources */,
+				3BDC57D8221295F90009C115 /* SlidePanelContainerView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */,
 				3BDC57E22212AD000009C115 /* PodCastCollectionViewCell.swift in Sources */,
