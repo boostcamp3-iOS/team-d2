@@ -12,18 +12,18 @@ class MainViewController: UIViewController {
     // MARK: - Properties
     private let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
-        TabContent(tabColor: UIColor.brown, tabTitle: "캐시", tabIndex: 1),
-        TabContent(tabColor: UIColor.red, tabTitle: "연재", tabIndex: 2),
+        TabContent(tabColor: UIColor.red, tabTitle: "캐시", tabIndex: 1),
+        TabContent(tabColor: UIColor.brown, tabTitle: "연재", tabIndex: 2),
         TabContent(tabColor: UIColor.purple, tabTitle: "기다무", tabIndex: 3),
         TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 4),
-        TabContent(tabColor: UIColor.brown, tabTitle: "", tabIndex: 5)
+        TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
     private var scrollDirection: Direction?
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
     private let menuViewHeight: CGFloat = 80
     private let tabBarViewHeight: CGFloat = 30
-    private let initialIndex = 2
+    private let initialIndex = 1
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
     private var currentIndex = 0
@@ -35,6 +35,7 @@ class MainViewController: UIViewController {
     private lazy var tabBarViewContainer = UIView()
     private lazy var tableView = UITableView()
     private lazy var menuView = UIView()
+    private lazy var tableStackView = UIStackView()
     
     // MARK: Life Cycle Methods
     override func viewDidLoad() {
@@ -42,6 +43,7 @@ class MainViewController: UIViewController {
         addScrollView()
         addMenuView()
         addTabBarView()
+        addTableStackView()
         addContentViewControllers()
         addSplashView()
 
@@ -180,7 +182,17 @@ extension MainViewController {
             contentViewController.testString = tabContents[index].tabTitle
             addChild(contentViewController)
             contentViewController.didMove(toParent: self)
+            tableStackView.addArrangedSubview(contentViewController.view)
+            contentViewController.view.translatesAutoresizingMaskIntoConstraints = false
+            contentViewController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         }
+    }
+    
+    // MARK: Table Stack View
+    func addTableStackView() {
+        scrollView.addSubview(tableStackView)
+        tableStackView.translatesAutoresizingMaskIntoConstraints = false
+        tableStackView.topAnchor.constraint(equalTo: tabBarViewContainer.bottomAnchor).isActive = true
     }
     
     // MARK: Pan Gesture Recognizer Methods
