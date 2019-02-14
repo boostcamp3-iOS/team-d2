@@ -9,13 +9,17 @@
 import Foundation
 
 struct BestPodCasts: Codable {
-    let hasNext, hasPrevious: Bool
+    let hasNext: Bool
+    let hasPrevious: Bool
     let name: String
     let pageNumber: Int
     let listennotesURL: String
-    let total, id: Int
+    let total: Int
+    let id: Int
     let channels: [Channel]
-    let nextPageNumber, parentID, previousPageNumber: Int
+    let nextPageNumber: Int
+    let parentID: Int?
+    let previousPageNumber: Int
     
     enum CodingKeys: String, CodingKey {
         case hasNext = "has_next"

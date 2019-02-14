@@ -9,7 +9,7 @@
 import Foundation
 
 struct Channel: Codable {
-    let website: String
+    let website: String?
     let earliestPubDateMS: Int
     let explicitContent: Bool
     let publisher: String
@@ -22,12 +22,12 @@ struct Channel: Codable {
     let thumbnail: String
     let listennotesURL: String
     let extra: Extra
-    let rss: String
-    let email: String
+    let rss: String?
+    let email: String?
     let lookingFor: LookingFor
-    let country: String
+    let country: String?
     let id: String
-    let itunesID: Int
+    let itunesID: Int?
     let description: String
     
     enum CodingKeys: String, CodingKey {
