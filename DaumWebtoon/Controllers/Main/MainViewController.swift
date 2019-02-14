@@ -43,6 +43,7 @@ class MainViewController: UIViewController {
         return TabBarView(frame: CGRect(x: 0.0, y: 0.0, width: tabBarViewWidth, height: tabBarViewHeight))
     } ()
     private lazy var scrollView = UIScrollView()
+    private lazy var scrollContentView = UIView()
     private lazy var tabBarViewContainer = UIView()
     private lazy var tableView = UITableView()
     private lazy var menuView = UIView()
@@ -87,6 +88,7 @@ extension MainViewController {
     func addScrollView() {
         scrollView.delegate = self
         view.addSubview(scrollView)
+        scrollView.addSubview(scrollContentView)
         setScrollViewLayout()
         setScrollViewProperties()
     }
@@ -97,13 +99,20 @@ extension MainViewController {
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        scrollContentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollContentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        scrollContentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        scrollContentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        scrollContentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        let widthAnchor = scrollContentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        scrollContentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+        widthAnchor.priority = .defaultLow
+        widthAnchor.isActive = true
     }
     
     func setScrollViewProperties() {
         scrollView.isPagingEnabled = true
-        scrollView.contentSize = CGSize(
-            width: view.frame.width * CGFloat(tabContents.count),
-            height: view.frame.height)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
     }
@@ -112,7 +121,7 @@ extension MainViewController {
     func addTabBarView() {
         tabBarView.dataSource = self
         tabBarView.delegate = self
-        scrollView.addSubview(tabBarViewContainer)
+        scrollContentView.addSubview(tabBarViewContainer)
         tabBarViewContainer.addSubview(tabBarView)
         tabBarView.showCurrentTabIndicator()
         setTabBarViewLayout()
@@ -172,7 +181,7 @@ extension MainViewController {
     
     // MARK: Menu View Methods
     func addMenuView() {
-        scrollView.addSubview(menuView)
+        view.addSubview(menuView)
         setMenuViewLayout()
     }
     
@@ -197,11 +206,19 @@ extension MainViewController {
         }
     }
     
-    // MARK: Table Stack View
+    // MARK: Table Stack View Methods
     func addTableStackView() {
-        scrollView.addSubview(tableStackView)
+        scrollContentView.addSubview(tableStackView)
+        setTableStackViewLayout()
+    }
+    
+    func setTableStackViewLayout() {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         tableStackView.topAnchor.constraint(equalTo: tabBarViewContainer.bottomAnchor).isActive = true
+        tableStackView.bottomAnchor.constraint(equalTo: scrollContentView.bottomAnchor).isActive = true
+        tableStackView.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor).isActive = true
+        tableStackView.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor).isActive = true
+        tableStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: CGFloat(tabContents.count)).isActive = true
     }
     
     // MARK: Pan Gesture Recognizer Methods
