@@ -37,6 +37,8 @@
 		47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B42220D974500B99773 /* ShapeHourglass.swift */; };
 		47449B45220D97A600B99773 /* ShapeSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B44220D97A600B99773 /* ShapeSquare.swift */; };
 		47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B46220DA26300B99773 /* ShapeProtocol.swift */; };
+		47489C772213EF90003BF7DB /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47489C762213EF90003BF7DB /* Database.swift */; };
+		47489C792213F95F003BF7DB /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47489C782213F95F003BF7DB /* DatabaseService.swift */; };
 		4767DEED2211556A0017AC9A /* TabBarViewController+Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */; };
 		4767DEEF2211560C0017AC9A /* TabBarViewController+Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */; };
 		4767DEF622128F3C0017AC9A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEF522128F3C0017AC9A /* HeaderView.swift */; };
@@ -79,6 +81,8 @@
 		47449B42220D974500B99773 /* ShapeHourglass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeHourglass.swift; sourceTree = "<group>"; };
 		47449B44220D97A600B99773 /* ShapeSquare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSquare.swift; sourceTree = "<group>"; };
 		47449B46220DA26300B99773 /* ShapeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeProtocol.swift; sourceTree = "<group>"; };
+		47489C762213EF90003BF7DB /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		47489C782213F95F003BF7DB /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarViewController+Symbol.swift"; sourceTree = "<group>"; };
 		4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarViewController+Splash.swift"; sourceTree = "<group>"; };
 		4767DEF522128F3C0017AC9A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -168,6 +172,15 @@
 			path = Shapes;
 			sourceTree = "<group>";
 		};
+		47489C752213EF7F003BF7DB /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				47489C762213EF90003BF7DB /* Database.swift */,
+				47489C782213F95F003BF7DB /* DatabaseService.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		4767DEEB2211554B0017AC9A /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +224,7 @@
 				3BDC57E72212B2500009C115 /* Services */,
 				3BDC57C9221283330009C115 /* Network */,
 				4767DEF2221160600017AC9A /* DTO */,
+				47489C752213EF7F003BF7DB /* Database */,
 				4767DEEB2211554B0017AC9A /* Extension */,
 				47449B3B220D94A900B99773 /* Shapes */,
 				B8ABD4FD2200143100454AF3 /* AppDelegate */,
@@ -349,6 +363,7 @@
 				3BDC57DC2212A2440009C115 /* PodCastsViewController.swift in Sources */,
 				47449B45220D97A600B99773 /* ShapeSquare.swift in Sources */,
 				3BDC57CB221283470009C115 /* NetworkDispatcher.swift in Sources */,
+				47489C792213F95F003BF7DB /* DatabaseService.swift in Sources */,
 				3BDC57D6221294710009C115 /* SlidePanelViewController.swift in Sources */,
 				3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */,
 				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
@@ -367,6 +382,7 @@
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,
 				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
+				47489C772213EF90003BF7DB /* Database.swift in Sources */,
 				3BDC57E92212B2670009C115 /* FetchImageService.swift in Sources */,
 				3BDC57D1221283900009C115 /* RequestType.swift in Sources */,
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
