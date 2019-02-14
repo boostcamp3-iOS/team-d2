@@ -22,12 +22,16 @@ class EpisodeModalViewController: UIViewController {
     
     var episode: Episode?
     
+    private let audioSession = AVAudioSession.sharedInstance()
+    
     private var buttonSelected = false
     private var audioPlayer: AVAudioPlayer?
     private var audioTimer : Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupAudioSession()
         
         initializeEpisode()
         initializeViews()
@@ -55,6 +59,7 @@ class EpisodeModalViewController: UIViewController {
                 try
                     self.audioPlayer = AVAudioPlayer.init(data: data)
                     self.audioPlayer?.delegate = self
+                print("audio ready")
             } catch let error as NSError {
                 print("플레이어 초기화 실패")
                 print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
@@ -79,6 +84,18 @@ class EpisodeModalViewController: UIViewController {
     }
     
     // MARK :- private methods
+    private func setupAudioSession() {
+        do {
+            try audioSession.setCategory(AVAudioSession.Category.playback,
+                                    mode: .default,
+                                    policy: .longForm,
+                                    options: [])
+            try audioSession.setActive(true, options: [])
+        } catch let error {
+            fatalError("*** Unable to set up the audio session: \(error.localizedDescription) ***")
+        }
+    }
+    
     private func makeAndFireTimer() {
         self.audioTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { [weak self] (timer : Timer) in
             guard
@@ -93,18 +110,20 @@ class EpisodeModalViewController: UIViewController {
     private func updateEpisodeTime(time: TimeInterval?) {
         guard let time = time else { return }
         
-        let minute : Int = Int(time / 60)
-        let second : Int = Int(time.truncatingRemainder(dividingBy: 60))
-        let milisecond : Int = Int(time.truncatingRemainder(dividingBy: 1) * 100)
-        
-        let timeText : String = String(format : "%02ld:%02ld:%02ld", minute, second, milisecond)
-        
-        episodeUpdateTime.text = timeText
+        episodeUpdateTime.text = time.stringFromTimeInterval()
     }
     
     private func invalidateTimer() {
         self.audioTimer?.invalidate()
         self.audioTimer = nil
+    }
+    
+    private func playAudio() {
+        self.audioPlayer?.play()
+    }
+    
+    private func pauseAudio() {
+        audioPlayer?.pause()
     }
     
     // MARK :- event handling
@@ -114,10 +133,10 @@ class EpisodeModalViewController: UIViewController {
             sender.isSelected = !sender.isSelected
             
             if sender.isSelected {
-                audioPlayer?.play()
+                playAudio()
                 makeAndFireTimer()
             } else {
-                audioPlayer?.pause()
+                pauseAudio()
                 invalidateTimer()
             }
             

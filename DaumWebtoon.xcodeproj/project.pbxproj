@@ -10,14 +10,12 @@
 		3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD1220312CD00077751 /* TabBarView.swift */; };
 		3B1C0FD42204201300077751 /* TabContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD32204201300077751 /* TabContent.swift */; };
 		3B1C0FD62204292300077751 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1C0FD52204292300077751 /* TabView.swift */; };
-		3B40AC4D221501D1003D2CA8 /* PremitiveExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B40AC4C221501D1003D2CA8 /* PremitiveExtension.swift */; };
+		3B40AC4D221501D1003D2CA8 /* TimeFormatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B40AC4C221501D1003D2CA8 /* TimeFormatExtension.swift */; };
 		3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC62220A0B9E002CEEEF /* EpisodeModalViewController.swift */; };
 		3B8FAC65220A0BF5002CEEEF /* TranslateAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */; };
 		3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */; };
 		3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D521FFE5BA00861707 /* TabViewController.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
-		B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3B220ABCD000B11954 /* MainViewController.swift */; };
-		B84ECF40220ABD7D00B11954 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */; };
 		3BDC57CB221283470009C115 /* NetworkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CA221283470009C115 /* NetworkDispatcher.swift */; };
 		3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CC221283660009C115 /* HTTPEnums.swift */; };
 		3BDC57CF2212837E0009C115 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CE2212837E0009C115 /* RequestData.swift */; };
@@ -45,6 +43,8 @@
 		4767DEEF2211560C0017AC9A /* TabBarViewController+Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */; };
 		47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154B22002A8E0011544A /* PieceLayer.swift */; };
 		47BF157622017C3C0011544A /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF157522017C3C0011544A /* SymbolView.swift */; };
+		B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3B220ABCD000B11954 /* MainViewController.swift */; };
+		B84ECF40220ABD7D00B11954 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */; };
 		B85187562203DBCD0081F72D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85187552203DBCD0081F72D /* SplashView.swift */; };
 		B8701E7922108F12003F7217 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8701E7822108F12003F7217 /* Direction.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
@@ -56,14 +56,12 @@
 		3B1C0FD1220312CD00077751 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		3B1C0FD32204201300077751 /* TabContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContent.swift; sourceTree = "<group>"; };
 		3B1C0FD52204292300077751 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
-		3B40AC4C221501D1003D2CA8 /* PremitiveExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremitiveExtension.swift; sourceTree = "<group>"; };
+		3B40AC4C221501D1003D2CA8 /* TimeFormatExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatExtension.swift; sourceTree = "<group>"; };
 		3B8FAC62220A0B9E002CEEEF /* EpisodeModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeModalViewController.swift; sourceTree = "<group>"; };
 		3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateAnimator.swift; sourceTree = "<group>"; };
 		3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3BBAA6D521FFE5BA00861707 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
-		B84ECF3B220ABCD000B11954 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		3BDC57CA221283470009C115 /* NetworkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDispatcher.swift; sourceTree = "<group>"; };
 		3BDC57CC221283660009C115 /* HTTPEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPEnums.swift; sourceTree = "<group>"; };
 		3BDC57CE2212837E0009C115 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
@@ -91,6 +89,8 @@
 		4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarViewController+Splash.swift"; sourceTree = "<group>"; };
 		47BF154B22002A8E0011544A /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
 		47BF157522017C3C0011544A /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
+		B84ECF3B220ABCD000B11954 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		B85187552203DBCD0081F72D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8701E7822108F12003F7217 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,12 +138,12 @@
 			path = Slide;
 			sourceTree = "<group>";
 		};
-		3BDC57DA2212A2150009C115 /* PodCasts */ = {
+		3BDC57DA2212A2150009C115 /* PodCast */ = {
 			isa = PBXGroup;
 			children = (
 				3BDC57DB2212A2440009C115 /* PodCastsViewController.swift */,
 			);
-			path = PodCasts;
+			path = PodCast;
 			sourceTree = "<group>";
 		};
 		3BDC57E72212B2500009C115 /* Services */ = {
@@ -182,7 +182,7 @@
 			children = (
 				4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */,
 				4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */,
-				3B40AC4C221501D1003D2CA8 /* PremitiveExtension.swift */,
+				3B40AC4C221501D1003D2CA8 /* TimeFormatExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -253,12 +253,9 @@
 			isa = PBXGroup;
 			children = (
 				3BDC57D4221294520009C115 /* Slide */,
-				3BDC57DA2212A2150009C115 /* PodCasts */,
-				3B8FAC61220A0B75002CEEEF /* Episode */,
+				3BDC57DA2212A2150009C115 /* PodCast */,
 				B84ECF41220ABD8200B11954 /* Main */,
-				3B8FAC61220A0B75002CEEEF /* Detail */,
-				3BBAA6D421FFE59B00861707 /* TabBar */,
-				B8ABD49E21FEACD800454AF3 /* SplashViewController.swift */,
+				3B8FAC61220A0B75002CEEEF /* Episode */,
 				3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */,
 				3BBAA6D521FFE5BA00861707 /* TabViewController.swift */,
 			);
@@ -325,6 +322,11 @@
 				TargetAttributes = {
 					B8ABD49821FEACD800454AF3 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -380,7 +382,7 @@
 				B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */,
 				47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */,
 				3BDC57EB2212BA670009C115 /* PodCastService.swift in Sources */,
-				3B40AC4D221501D1003D2CA8 /* PremitiveExtension.swift in Sources */,
+				3B40AC4D221501D1003D2CA8 /* TimeFormatExtension.swift in Sources */,
 				47449B41220D96B000B99773 /* ShapeN.swift in Sources */,
 				3BDC57D8221295F90009C115 /* SlidePanelContainerView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
@@ -390,8 +392,7 @@
 				3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
-				3B8FAC63220A0B9E002CEEEF /* DetailViewController.swift in Sources */,
-				B8ABD49F21FEACD800454AF3 /* SplashViewController.swift in Sources */,
+				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				4767DEEF2211560C0017AC9A /* TabBarViewController+Splash.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,

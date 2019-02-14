@@ -14,3 +14,13 @@ extension Int {
     }
 }
 
+extension TimeInterval {
+    func stringFromTimeInterval() -> String {
+        let hours = (self / 3600)
+        let minute : Int = Int(self / 60)
+        let second : Int = Int(self.truncatingRemainder(dividingBy: 60))
+
+        return String(format : "%02ld:%02ld:%02ld", hours, minute, second)
+    }
+}
+
