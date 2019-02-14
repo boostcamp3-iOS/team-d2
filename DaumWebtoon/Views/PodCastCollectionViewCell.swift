@@ -20,6 +20,7 @@ class PodCastCollectionViewCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: -1, height: 1)
         
         podcastTitle.text = episode.title
+        print(episode.title)
         podcastDuration.text = String(episode.duration)
         
         FetchImageService.shared.execute(imageUrl: episode.thumbnail) { [weak self] (image) in
