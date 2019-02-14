@@ -60,7 +60,8 @@ class DatabaseService {
         let sql = """
         CREATE TABLE IF NOT EXISTS \(TableCategory.favorite) (
             dateTime INTEGER PRIMARY KEY,
-            CONSTRAINT episodeId FOREIGN KEY(id) REFERENCES \(TableCategory.episode)(id)
+            episodeId TEXT,
+            FOREIGN KEY(episodeId) REFERENCES \(TableCategory.episode)(id)
         )
         """
         try? database.create(with: sql)
@@ -70,7 +71,8 @@ class DatabaseService {
         let sql = """
         CREATE TABLE IF NOT EXISTS \(TableCategory.recent) (
             dateTime INTEGER PRIMARY KEY,
-            CONSTRAINT episodeId FOREIGN KEY(id) REFERENCES \(TableCategory.episode)(id)
+            episodeId TEXT,
+            FOREIGN KEY(episodeId) REFERENCES \(TableCategory.episode)(id)
         )
         """
         try? database.create(with: sql)
