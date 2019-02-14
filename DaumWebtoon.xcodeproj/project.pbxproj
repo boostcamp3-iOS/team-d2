@@ -15,8 +15,6 @@
 		3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */; };
 		3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA6D521FFE5BA00861707 /* TabViewController.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
-		B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3B220ABCD000B11954 /* MainViewController.swift */; };
-		B84ECF40220ABD7D00B11954 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */; };
 		3BDC57CB221283470009C115 /* NetworkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CA221283470009C115 /* NetworkDispatcher.swift */; };
 		3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CC221283660009C115 /* HTTPEnums.swift */; };
 		3BDC57CF2212837E0009C115 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CE2212837E0009C115 /* RequestData.swift */; };
@@ -46,6 +44,8 @@
 		4767DEF622128F3C0017AC9A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEF522128F3C0017AC9A /* HeaderView.swift */; };
 		47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154B22002A8E0011544A /* PieceLayer.swift */; };
 		47BF157622017C3C0011544A /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF157522017C3C0011544A /* SymbolView.swift */; };
+		B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3B220ABCD000B11954 /* MainViewController.swift */; };
+		B84ECF40220ABD7D00B11954 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */; };
 		B85187562203DBCD0081F72D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85187552203DBCD0081F72D /* SplashView.swift */; };
 		B8701E7922108F12003F7217 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8701E7822108F12003F7217 /* Direction.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
@@ -62,8 +62,6 @@
 		3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		3BBAA6D521FFE5BA00861707 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
-		B84ECF3B220ABCD000B11954 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		3BDC57CA221283470009C115 /* NetworkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDispatcher.swift; sourceTree = "<group>"; };
 		3BDC57CC221283660009C115 /* HTTPEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPEnums.swift; sourceTree = "<group>"; };
 		3BDC57CE2212837E0009C115 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
@@ -93,6 +91,8 @@
 		4767DEF522128F3C0017AC9A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		47BF154B22002A8E0011544A /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
 		47BF157522017C3C0011544A /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
+		B84ECF3B220ABCD000B11954 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		B85187552203DBCD0081F72D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		B8701E7822108F12003F7217 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };

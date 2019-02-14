@@ -9,11 +9,11 @@
 import UIKit
 
 class SlidePanelContainerView: UIView {
+    private var firstView = UIView()
+    private var secondView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        backgroundColor = UIColor.black
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -21,11 +21,27 @@ class SlidePanelContainerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        let leftRect = CGRect(x: 0, y: 0, width: (superview?.frame.size.width)! / 2, height: (superview?.frame.size.height)!)
-        UIColor.white.set()
-        UIRectFill(leftRect)
+        configureFirstView()
+        configureSecondView()
     }
     
+    private func configureFirstView() {
+        addSubview(firstView)
+        firstView.backgroundColor = .white
+        firstView.translatesAutoresizingMaskIntoConstraints = false
+        firstView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        firstView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        firstView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        firstView.widthAnchor.constraint(equalToConstant: self.frame.width / 2).isActive = true
+    }
+    
+    private func configureSecondView() {
+        addSubview(secondView)
+        secondView.backgroundColor = .black
+        secondView.translatesAutoresizingMaskIntoConstraints = false
+        secondView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        secondView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        secondView.leadingAnchor.constraint(equalTo: firstView.trailingAnchor).isActive = true
+        secondView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+    }
 }
