@@ -48,6 +48,7 @@ class SlidePanelContainerView: UIView {
         secondView.register(SlidePanelTableViewCell.self, forCellReuseIdentifier: cellId)
         secondView.dataSource = self
         secondView.delegate = self
+        secondView.separatorStyle = .none
         
         secondView.backgroundColor = .black
         secondView.translatesAutoresizingMaskIntoConstraints = false
