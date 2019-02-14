@@ -13,7 +13,10 @@ class SlidePanelContainerView: UIView {
     private var secondView = UITableView()
     private var recentButton = UIButton()
     private var favoriteButton = UIButton()
+    
+    private let dbService = DatabaseService()
     private let cellId = "cell"
+    private var currentEpisodes = [Episode]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,6 +30,7 @@ class SlidePanelContainerView: UIView {
         configureFirstView()
         configureSecondView()
         configureButton()
+        selectInDependent(from: .recent)
     }
     
     private func configureFirstView() {
@@ -41,7 +45,6 @@ class SlidePanelContainerView: UIView {
     
     private func configureSecondView() {
         addSubview(secondView)
-        
         secondView.register(SlidePanelTableViewCell.self, forCellReuseIdentifier: cellId)
         secondView.dataSource = self
         secondView.delegate = self
@@ -81,26 +84,34 @@ class SlidePanelContainerView: UIView {
     }
     
     @objc private func touchedRecent() {
-        
+        selectInDependent(from: .recent)
     }
     
     @objc private func touchedFavorite() {
-        
+        selectInDependent(from: .favorite)
+    }
+    
+    private func selectInDependent(from category: TableCategory) {
+        guard let episodes = dbService.selectInDependent(from: category) else { return }
+        currentEpisodes = episodes
+        secondView.reloadData()
     }
 }
 
 extension SlidePanelContainerView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return currentEpisodes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = secondView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SlidePanelTableViewCell else {
             return UITableViewCell()
         }
-        cell.imageEpisode.image = UIImage(named: "heart_active")
-        cell.titleLabel.text = "title"
-        cell.descLabel.text = "desc"
+        FetchImageService.shared.execute(imageUrl: currentEpisodes[indexPath.row].image) {
+            cell.imageEpisode.image = $0
+        }
+        cell.titleLabel.text = currentEpisodes[indexPath.row].title
+        cell.descLabel.text = currentEpisodes[indexPath.row].description
         return cell
     }
 }

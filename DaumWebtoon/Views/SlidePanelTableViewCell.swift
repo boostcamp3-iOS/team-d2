@@ -36,6 +36,7 @@ class SlidePanelTableViewCell: UITableViewCell {
     
     // MARK: - For AutoLayout
     private func configure() {
+        self.backgroundColor = .black
         contentView.addSubview(imageEpisode)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descLabel)
@@ -48,9 +49,11 @@ class SlidePanelTableViewCell: UITableViewCell {
         imageEpisode.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
         imageEpisode.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
+        titleLabel.textColor = .white
         titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: imageEpisode.bottomAnchor, constant: 8).isActive = true
         
+        descLabel.textColor = .white
         descLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
     }
