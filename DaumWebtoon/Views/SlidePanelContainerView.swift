@@ -10,9 +10,10 @@ import UIKit
 
 class SlidePanelContainerView: UIView {
     private var firstView = UIView()
-    private var secondView = UIView()
+    private var secondView = UITableView()
     private var recentButton = UIButton()
     private var favoriteButton = UIButton()
+    private let cellId = "cell"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,6 +41,11 @@ class SlidePanelContainerView: UIView {
     
     private func configureSecondView() {
         addSubview(secondView)
+        
+        secondView.register(SlidePanelTableViewCell.self, forCellReuseIdentifier: cellId)
+        secondView.dataSource = self
+        secondView.delegate = self
+        
         secondView.backgroundColor = .black
         secondView.translatesAutoresizingMaskIntoConstraints = false
         secondView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -80,5 +86,27 @@ class SlidePanelContainerView: UIView {
     
     @objc private func touchedFavorite() {
         
+    }
+}
+
+extension SlidePanelContainerView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = secondView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SlidePanelTableViewCell else {
+            return UITableViewCell()
+        }
+        cell.imageEpisode.image = UIImage(named: "heart_active")
+        cell.titleLabel.text = "title"
+        cell.descLabel.text = "desc"
+        return cell
+    }
+}
+
+extension SlidePanelContainerView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 180
     }
 }

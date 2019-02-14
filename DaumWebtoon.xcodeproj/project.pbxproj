@@ -39,6 +39,7 @@
 		47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B46220DA26300B99773 /* ShapeProtocol.swift */; };
 		47489C772213EF90003BF7DB /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47489C762213EF90003BF7DB /* Database.swift */; };
 		47489C792213F95F003BF7DB /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47489C782213F95F003BF7DB /* DatabaseService.swift */; };
+		475B4562221547DF003BFB14 /* SlidePanelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475B4561221547DF003BFB14 /* SlidePanelTableViewCell.swift */; };
 		4767DEED2211556A0017AC9A /* TabBarViewController+Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */; };
 		4767DEEF2211560C0017AC9A /* TabBarViewController+Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */; };
 		4767DEF622128F3C0017AC9A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEF522128F3C0017AC9A /* HeaderView.swift */; };
@@ -86,6 +87,7 @@
 		47449B46220DA26300B99773 /* ShapeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeProtocol.swift; sourceTree = "<group>"; };
 		47489C762213EF90003BF7DB /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		47489C782213F95F003BF7DB /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		475B4561221547DF003BFB14 /* SlidePanelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePanelTableViewCell.swift; sourceTree = "<group>"; };
 		4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarViewController+Symbol.swift"; sourceTree = "<group>"; };
 		4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarViewController+Splash.swift"; sourceTree = "<group>"; };
 		4767DEF522128F3C0017AC9A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				3BDC57D7221295F90009C115 /* SlidePanelContainerView.swift */,
 				3BDC57E12212AD000009C115 /* PodCastCollectionViewCell.swift */,
 				3BDC57F3221328EF0009C115 /* DetailCollectionViewCell.swift */,
+				475B4561221547DF003BFB14 /* SlidePanelTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				47489C772213EF90003BF7DB /* Database.swift in Sources */,
 				3BDC57E92212B2670009C115 /* FetchImageService.swift in Sources */,
 				3BDC57D1221283900009C115 /* RequestType.swift in Sources */,
+				475B4562221547DF003BFB14 /* SlidePanelTableViewCell.swift in Sources */,
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
