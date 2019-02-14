@@ -82,19 +82,19 @@ class DatabaseService {
     func selectInEpisode(with episode: Episode) -> [Episode]? {
         let sql = """
         SELECT * FROM \(TableCategory.episode)
-        WHERE id = \(episode.id)
+        WHERE id = '\(episode.id)'
         """
         guard let episodes = try? database.selectInEpisode(with: sql) else { return nil }
         return episodes
     }
     
-    func selectInDependent(with episode: Episode, from category: TableCategory) -> [Episode]? {
+    func selectInDependent(from category: TableCategory) -> [Episode]? {
         let another = TableCategory.episode
         let sql = """
-        SELECT \(another).id, \(another).audio,
-            \(another).image, \(another).thumbnail,
-            \(another).description, \(another).channelTitle,
-            \(another).title,
+        SELECT \(another).id, \(another).duration,
+            \(another).audio, \(another).image,
+            \(another).thumbnail, \(another).description,
+            \(another).channelTitle, \(another).title,
             \(category).dateTime
         FROM \(another) INNER JOIN \(category)
         ON \(another).id = \(category).episodeId
