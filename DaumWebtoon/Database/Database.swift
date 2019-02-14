@@ -43,13 +43,13 @@ class Database {
         guard step() == SQLITE_DONE else { throw SQLError.failToStep }
     }
     
-    func select(with sql: String) throws -> [Episode] {
+    func selectInEpisode(with sql: String) throws -> [Episode] {
         guard open() else { throw SQLError.failToOpen }
         defer { close() }
-
+        
         guard prepare(with: sql) else { throw SQLError.failToPrepare }
         defer { finalize() }
-
+        
         var episodes = [Episode]()
         while step() == SQLITE_ROW {
             let id = columnText(at: 0)
@@ -67,7 +67,7 @@ class Database {
         return episodes
     }
     
-    func insert(with sql: String, episode: Episode) throws {
+    func insertInEpisode(with sql: String, episode: Episode) throws {
         guard open() else { throw SQLError.failToOpen }
         defer { close() }
 
@@ -80,7 +80,16 @@ class Database {
         guard bindText(with: episode.description, at: 5) else { throw SQLError.failToBind }
         guard bindText(with: episode.channelTitle, at: 6) else { throw SQLError.failToBind }
         guard bindText(with: episode.title, at: 7) else { throw SQLError.failToBind }
-        guard bindInt(with: episode.dateTime, at: 8) else { throw SQLError.failToBind }
+        guard step() == SQLITE_DONE else { throw SQLError.failToStep }
+    }
+    
+    func insertInDependent(with sql: String, data: DependentTable) throws {
+        guard open() else { throw SQLError.failToOpen }
+        defer { close() }
+        
+        guard prepare(with: sql) else { throw SQLError.failToPrepare }
+        guard bindInt(with: data.dateTime, at: 0) else { throw SQLError.failToBind }
+        guard bindText(with: data.episodeId, at: 1) else { throw SQLError.failToBind }
         guard step() == SQLITE_DONE else { throw SQLError.failToStep }
     }
 
