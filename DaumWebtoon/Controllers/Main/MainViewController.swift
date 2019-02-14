@@ -245,7 +245,7 @@ extension MainViewController: SplashViewDelegate {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             guard let self = self else { return }
             self.splashView.alpha = 0
-            }, completion: { [weak self] _ in
+        }, completion: { [weak self] _ in
                 guard let self = self else { return }
                 self.splashView.removeFromSuperview()
                 self.addPanGestureRecognizer()
