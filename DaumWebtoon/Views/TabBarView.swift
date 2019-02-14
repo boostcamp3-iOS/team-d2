@@ -44,11 +44,10 @@ class TabBarView: UIStackView {
     private var tabViews = [TabView]()
     private var tabContents = [TabContent]()
     
-    private lazy var screenWidth = Int(frame.size.width + 20)
-    private lazy var tabBarWidth = Int(frame.size.width)
-    
-    private let tabBarHeight = 30
-    private let tabBarMargin = 20
+    private lazy var screenWidth = frame.width + 20.0
+    private lazy var tabBarWidth = frame.width
+    private let tabBarHeight: CGFloat = 30.0
+    private let tabBarMargin: CGFloat = 20.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,7 +84,7 @@ class TabBarView: UIStackView {
         bringSubviewToFront(leftToRightAnimationTabBars[currentIndex - 1])
         leftToRightAnimationTabBars[currentIndex - 1].transform = CGAffineTransform(translationX: x, y: 0)
     }
-
+    
     func drawTabBarColorRightToLeftWhileScrolling(x: CGFloat, currentIndex: Int) {
         bringSubviewToFront(rightToLeftAnimationTabBars[currentIndex + 1])
         rightToLeftAnimationTabBars[currentIndex + 1].transform = CGAffineTransform(translationX: -x, y: 0)
@@ -144,11 +143,11 @@ class TabBarView: UIStackView {
         spacing = 0
         isUserInteractionEnabled = true
         clipsToBounds = true
-    
+        
         showEachTabs()
         setupAnimationTabBar()
     }
-
+    
     private func setupAnimationTabBar() {
         guard let tabContents = dataSource?.tabContents(self) else { return }
         
