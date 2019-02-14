@@ -11,10 +11,10 @@ import SQLite3
 
 class Database {
     enum SQLError: Error {
-        case open
-        case prepare
-        case step
-        case bind
+        case failToOpen
+        case failToPrepare
+        case failToStep
+        case failToBind
         case other
     }
     
@@ -31,22 +31,22 @@ class Database {
     }
     
     func create(with sql: String) throws {
-        guard open() else { throw SQLError.open }
+        guard open() else { throw SQLError.failToOpen }
         defer { close() }
         
-        guard prepare(with: sql) else { throw SQLError.prepare }
+        guard prepare(with: sql) else { throw SQLError.failToPrepare }
         defer { finalize() }
         
-        guard step() == SQLITE_DONE else { throw SQLError.step }
+        guard step() == SQLITE_DONE else { throw SQLError.failToStep }
     }
     
     func select(with sql: String) throws -> [Episode] {
         let dbPath = self.dbPath()
 
-        guard open() else { throw SQLError.open }
+        guard open() else { throw SQLError.failToOpen }
         defer { close() }
 
-        guard prepare(with: sql) else { throw SQLError.prepare }
+        guard prepare(with: sql) else { throw SQLError.failToPrepare }
         defer { finalize() }
 
         var episodes = [Episode]()
@@ -67,28 +67,28 @@ class Database {
     }
     
     func insert(with sql: String, episode: Episode) throws {
-        guard open() else { throw SQLError.open }
+        guard open() else { throw SQLError.failToOpen }
         defer { close() }
 
-        guard prepare(with: sql) else { throw SQLError.prepare }
-        guard bindText(with: episode.id, at: 0) else { throw SQLError.bind }
-        guard bindInt(with: episode.duration, at: 1) else { throw SQLError.bind }
-        guard bindText(with: episode.audio, at: 2) else { throw SQLError.bind }
-        guard bindText(with: episode.image, at: 3) else { throw SQLError.bind }
-        guard bindText(with: episode.thumbnail, at: 4) else { throw SQLError.bind }
-        guard bindText(with: episode.description, at: 5) else { throw SQLError.bind }
-        guard bindText(with: episode.channelTitle, at: 6) else { throw SQLError.bind }
-        guard bindText(with: episode.title, at: 7) else { throw SQLError.bind }
-        guard bindInt(with: episode.dateTime, at: 8) else { throw SQLError.bind }
-        guard step() == SQLITE_DONE else { throw SQLError.step }
+        guard prepare(with: sql) else { throw SQLError.failToPrepare }
+        guard bindText(with: episode.id, at: 0) else { throw SQLError.failToBind }
+        guard bindInt(with: episode.duration, at: 1) else { throw SQLError.failToBind }
+        guard bindText(with: episode.audio, at: 2) else { throw SQLError.failToBind }
+        guard bindText(with: episode.image, at: 3) else { throw SQLError.failToBind }
+        guard bindText(with: episode.thumbnail, at: 4) else { throw SQLError.failToBind }
+        guard bindText(with: episode.description, at: 5) else { throw SQLError.failToBind }
+        guard bindText(with: episode.channelTitle, at: 6) else { throw SQLError.failToBind }
+        guard bindText(with: episode.title, at: 7) else { throw SQLError.failToBind }
+        guard bindInt(with: episode.dateTime, at: 8) else { throw SQLError.failToBind }
+        guard step() == SQLITE_DONE else { throw SQLError.failToStep }
     }
 
     func delete(with sql: String) throws {
-        guard open() else { throw SQLError.open }
+        guard open() else { throw SQLError.failToOpen }
         defer { close() }
 
-        guard prepare(with: sql) else { throw SQLError.prepare }
-        guard step() == SQLITE_DONE else { throw SQLError.step }
+        guard prepare(with: sql) else { throw SQLError.failToPrepare }
+        guard step() == SQLITE_DONE else { throw SQLError.failToStep }
     }
 
     func drop() {
