@@ -18,9 +18,9 @@ class Database {
         case other
     }
     
-    var db: OpaquePointer?
-    var stmt: OpaquePointer?
-    let storageName = "podcase.sqlite"
+    private var db: OpaquePointer?
+    private var stmt: OpaquePointer?
+    private let storageName = "podcase.sqlite"
     
     private func dbPath() -> String {
         let fileManager = FileManager.default
