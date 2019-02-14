@@ -55,6 +55,7 @@ class SlidePanelContainerView: UIView {
         recentButton.translatesAutoresizingMaskIntoConstraints = false
         recentButton.centerYAnchor.constraint(equalTo: firstView.centerYAnchor, constant: -30).isActive = true
         recentButton.centerXAnchor.constraint(equalTo: firstView.centerXAnchor).isActive = true
+        recentButton.addTarget(self, action: #selector(touchedRecent), for: .touchUpInside)
         
         firstView.addSubview(favoriteButton)
         favoriteButton.setAttributedTitle(customAttributedString(with: "좋아하는 에피소드"), for: .normal)
@@ -62,6 +63,7 @@ class SlidePanelContainerView: UIView {
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.centerYAnchor.constraint(equalTo: firstView.centerYAnchor, constant: 30).isActive = true
         favoriteButton.centerXAnchor.constraint(equalTo: firstView.centerXAnchor).isActive = true
+        favoriteButton.addTarget(self, action: #selector(touchedFavorite), for: .touchUpInside)
     }
     
     private func customAttributedString(with text: String) -> NSAttributedString {
@@ -70,5 +72,13 @@ class SlidePanelContainerView: UIView {
         attributedOption.updateValue(UIFont.boldSystemFont(ofSize: 20), forKey: .font)
         let attributedString = NSAttributedString(string: text, attributes: attributedOption)
         return attributedString
+    }
+    
+    @objc private func touchedRecent() {
+        
+    }
+    
+    @objc private func touchedFavorite() {
+        
     }
 }
