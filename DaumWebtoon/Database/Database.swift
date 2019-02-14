@@ -25,7 +25,10 @@ class Database {
     private func dbPath() -> String {
         let fileManager = FileManager.default
         // Create
-        guard let docPathUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else { return "" }
+        guard let docPathUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            assertionFailure("dbPath in Database")
+            return ""
+        }
         let dbPath = docPathUrl.appendingPathComponent(storageName).path
         return dbPath
     }
