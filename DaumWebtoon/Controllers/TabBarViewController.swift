@@ -39,7 +39,7 @@ class TabBarViewController: UIViewController {
     private var baseViewMaxX: CGFloat = 0.0
     private var sidePanelBaseView: UIView!
     
-    let symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 50, y: 50), size: CGSize(width: 100, height: 100)))
+//    let symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 50, y: 50), size: CGSize(width: 100, height: 100)))
     lazy var splashView = SplashView()
     
     override func viewDidLoad() {
@@ -51,7 +51,7 @@ class TabBarViewController: UIViewController {
         initializeTabContainer()
         initializeTabViewControllersContentSize()
         initializeTabViewControllers()
-        initializeSymbolView()
+//        initializeSymbolView()
         initializeHambergerButton()
         initializeSlidePanelView()
         
@@ -129,10 +129,10 @@ class TabBarViewController: UIViewController {
         }
     }
     
-    private func initializeSymbolView() {
-        symbolView.dataSource = self
-        self.view.addSubview(symbolView)
-    }
+//    private func initializeSymbolView() {
+//        symbolView.dataSource = self
+//        self.view.addSubview(symbolView)
+//    }
     
     private func initializeHambergerButton() {
         let image = UIImage(named: "hamberger")
@@ -309,7 +309,7 @@ extension TabBarViewController: UIScrollViewDelegate {
             nextTabIndex = 1
         }
         
-        slideSymbol(with: contentOffset / scrollWidth)
+//        slideSymbol(with: contentOffset / scrollWidth)
         
         let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
         if(scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) {
