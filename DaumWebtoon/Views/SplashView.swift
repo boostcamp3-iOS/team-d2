@@ -46,8 +46,8 @@ class SplashView: UIView {
     private func setRedSquareLayout() {
         addSubview(redSquare)
         redSquare.translatesAutoresizingMaskIntoConstraints = false
-        redSquare.widthAnchor.constraint(equalToConstant: 200).isActive = true
         redSquare.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        redSquare.widthAnchor.constraint(equalToConstant: 200).isActive = true
         redSquare.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         redSquare.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
@@ -73,17 +73,18 @@ class SplashView: UIView {
     func animate() {
         UIView.animate(withDuration: 0.1, delay: 0.5, options: [], animations: { [weak self] in
             guard let self = self else { return }
-            self.topWhiteRectangle.heightAnchor.constraint(equalToConstant: 0).isActive = true
-            self.bottomWhiteRectangle.heightAnchor.constraint(equalToConstant: 0).isActive = true
+            self.topWhiteRectangle.constraints[0].constant = 0
+            self.bottomWhiteRectangle.constraints[0].constant = 0
             self.layoutIfNeeded()
         }, completion: nil)
         UIView.animate(withDuration: 0.5, delay: 0.5, options: [], animations: { [weak self] in
             guard let self = self else { return }
-            self.redSquare.heightAnchor.constraint(equalToConstant: 30).isActive = true
+            self.redSquare.constraints[0].constant = 30
             self.layoutIfNeeded()
         }, completion: nil)
         UIView.animate(withDuration: 0.3, delay: 1.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: [], animations: { [weak self] in
             guard let self = self else { return }
+            self.redSquare.constraints[1].isActive = false
             self.redSquare.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
             self.redSquare.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
             self.layoutIfNeeded()
