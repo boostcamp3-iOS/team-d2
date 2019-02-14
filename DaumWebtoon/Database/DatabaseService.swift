@@ -9,7 +9,8 @@
 import Foundation
 
 enum Category: CustomStringConvertible {
-    case favorite, recent
+    case favorite
+    case recent
     
     var description: String {
         switch self {
@@ -22,9 +23,9 @@ enum Category: CustomStringConvertible {
 }
 
 class DatabaseService {
-    let database = Database()
-    let favorite = "Favorite"
-    let recent = "Recent"
+    private let database = Database()
+    private let favorite = "Favorite"
+    private let recent = "Recent"
     
     // MARK: - Create
     func createTable() {

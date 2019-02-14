@@ -41,8 +41,6 @@ class Database {
     }
     
     func select(with sql: String) throws -> [Episode] {
-        let dbPath = self.dbPath()
-
         guard open() else { throw SQLError.failToOpen }
         defer { close() }
 
