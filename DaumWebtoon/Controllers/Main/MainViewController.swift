@@ -22,7 +22,8 @@ class MainViewController: UIViewController {
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
     private let menuViewHeight: CGFloat = 80
-    private let tabBarViewHeight: CGFloat = 30
+    private lazy var tabBarViewWidth: CGFloat = view.frame.width - 20
+    private lazy var tabBarViewHeight: CGFloat = 30
     private let initialIndex = 1
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
@@ -30,7 +31,9 @@ class MainViewController: UIViewController {
     
     // MARK: Views
     private lazy var splashView = SplashView()
-    private lazy var tabBarView = TabBarView()
+    private lazy var tabBarView = {
+        return TabBarView(frame: CGRect(x: 0.0, y: 0.0, width: tabBarViewWidth, height: tabBarViewHeight))
+    } ()
     private lazy var scrollView = UIScrollView()
     private lazy var tabBarViewContainer = UIView()
     private lazy var tableView = UITableView()
@@ -286,21 +289,21 @@ extension MainViewController: UIScrollViewDelegate {
             perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.0)
             
             if lastContentOffset > contentOffset {
-                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
+                let index = contentOffsetInPage >= view.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
                 tabBarView.drawTabBarColorLeftToRightWhileScrolling(x: abs(contentOffsetInPage - scrollWidth), currentIndex: index)
                 self.contentOffsetInPage = abs(contentOffsetInPage - scrollWidth)
             } else if lastContentOffset <= contentOffset && contentOffsetInPage != 0.0 {
-                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
+                let index = contentOffsetInPage >= view.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
                 tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: contentOffsetInPage, currentIndex: index)
                 self.contentOffsetInPage = contentOffsetInPage
             }
         } else {
             if lastContentOffset > contentOffset {
-                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
+                let index = contentOffsetInPage >= view.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
                 tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: contentOffsetInPage, currentIndex: index)
                 self.contentOffsetInPage = contentOffsetInPage
             } else if lastContentOffset <= contentOffset && contentOffsetInPage != 0.0 {
-                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
+                let index = contentOffsetInPage >= view.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
                 tabBarView.drawTabBarColorLeftToRightWhileScrolling(x: abs(contentOffsetInPage - scrollWidth), currentIndex: index)
                 self.contentOffsetInPage = abs(contentOffsetInPage - scrollWidth)
             }
