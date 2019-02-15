@@ -49,6 +49,7 @@ class MainViewController: UIViewController {
         addTabBarView()
         addTableStackView()
         addContentViewControllers()
+        addHeaderView()
         addSplashView()
     }
     
@@ -297,6 +298,8 @@ extension MainViewController: UIScrollViewDelegate {
         } else if nextTabIndex == tabContents.count - 1 {
             nextTabIndex = 1
         }
+        
+        slideSymbol(with: contentOffset / scrollWidth - 1)
         
         let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
         if (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating),
