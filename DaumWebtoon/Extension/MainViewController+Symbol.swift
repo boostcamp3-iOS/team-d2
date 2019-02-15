@@ -1,5 +1,5 @@
 //
-//  TabBarViewController+Symbol.swift
+//  MainViewController+Symbol.swift
 //  DaumWebtoon
 //
 //  Created by oingbong on 11/02/2019.
