@@ -24,4 +24,14 @@ class PodCastService {
         }
     }
     
+    func fetchPodCastGenres(completion: @escaping ([Genre]) -> ()) {
+        let requestData = RequestData(path: HTTPBaseUrl.baseUrl.rawValue + "/genres")
+        
+        FetchGenreAPI(data: requestData).execute(onSuccess: { (genreDTO) in
+            completion(genreDTO.genres)
+        }) { (error) in
+            print("onError")
+        }
+    }
+    
 }
