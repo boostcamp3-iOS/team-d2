@@ -54,7 +54,8 @@ extension ContentViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? ChannelTableViewCell else { return UITableViewCell() }
-        cell.textLabel?.text = channels[indexPath.row].title
+        let channel = channels[indexPath.row]
+        cell.setData(channel: channel)
         return cell
     }
 }
