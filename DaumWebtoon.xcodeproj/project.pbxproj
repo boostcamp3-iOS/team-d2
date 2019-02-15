@@ -191,8 +191,6 @@
 		4767DEEB2211554B0017AC9A /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				4767DEEC2211556A0017AC9A /* TabBarViewController+Symbol.swift */,
-				4767DEEE2211560C0017AC9A /* TabBarViewController+Splash.swift */,
 				3B40AC4C221501D1003D2CA8 /* TimeFormatExtension.swift */,
 				4767DEEC2211556A0017AC9A /* MainViewController+Symbol.swift */,
 			);
@@ -265,16 +263,10 @@
 		B8ABD4FE2200143F00454AF3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B84ECF41220ABD8200B11954 /* Main */,
 				3BDC57D4221294520009C115 /* Slide */,
 				3BDC57DA2212A2150009C115 /* PodCast */,
-				B84ECF41220ABD8200B11954 /* Main */,
 				3B8FAC61220A0B75002CEEEF /* Episode */,
-				3BBAA6D221FFE0B300861707 /* TabBarViewController.swift */,
-				3BBAA6D521FFE5BA00861707 /* TabViewController.swift */,
-				B84ECF41220ABD8200B11954 /* Main */,
-				3BDC57D4221294520009C115 /* Slide */,
-				3BDC57DA2212A2150009C115 /* PodCasts */,
-				3B8FAC61220A0B75002CEEEF /* Detail */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -408,12 +400,10 @@
 				47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */,
 				3BDC57E22212AD000009C115 /* PodCastCollectionViewCell.swift in Sources */,
 				3BDC57E42212ADEE0009C115 /* PodCast.swift in Sources */,
-				3BBAA6D621FFE5BA00861707 /* TabViewController.swift in Sources */,
 				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
-				4767DEEF2211560C0017AC9A /* TabBarViewController+Splash.swift in Sources */,
 				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
-				3B8FAC63220A0B9E002CEEEF /* DetailViewController.swift in Sources */,
+				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,
 				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
