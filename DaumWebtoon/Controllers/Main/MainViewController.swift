@@ -39,6 +39,7 @@ class MainViewController: UIViewController {
     private lazy var tableView = UITableView()
     private lazy var menuView = UIView()
     private lazy var tableStackView = UIStackView()
+    lazy var headerView = HeaderView()
     
     // MARK: Life Cycle Methods
     override func viewDidLoad() {
@@ -48,6 +49,7 @@ class MainViewController: UIViewController {
         addTabBarView()
         addTableStackView()
         addContentViewControllers()
+        addHeaderView()
         addSplashView()
     }
     
@@ -73,6 +75,21 @@ extension MainViewController {
         splashView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         splashView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         splashView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
+    // MARK: Header View Methods
+    func addHeaderView() {
+        view.addSubview(headerView)
+        headerView.symbolView.dataSource = self
+        setHeaderViewLayout()
+    }
+    
+    func setHeaderViewLayout() {
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.topAnchor.constraint(equalTo: menuView.bottomAnchor).isActive = true
+        headerView.bottomAnchor.constraint(lessThanOrEqualTo: tabBarViewContainer.topAnchor).isActive = true
+        headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     // MARK: Scroll View Methods
@@ -281,6 +298,8 @@ extension MainViewController: UIScrollViewDelegate {
         } else if nextTabIndex == tabContents.count - 1 {
             nextTabIndex = 1
         }
+        
+        slideSymbol(with: contentOffset / scrollWidth - 1)
         
         let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
         if (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating),
