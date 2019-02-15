@@ -121,4 +121,9 @@ extension SlidePanelContainerView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 180
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let episode = currentEpisodes[indexPath.row]
+        // 이 부분에서 episode를 가지고 디테일 페이지 넘어가면 됩니다.
+    }
 }
