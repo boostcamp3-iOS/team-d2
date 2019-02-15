@@ -9,7 +9,6 @@
 import Foundation
 
 struct Episode: Codable {
-    
     let id: String
     let duration: Int
     let audio: String

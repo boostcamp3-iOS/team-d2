@@ -44,10 +44,10 @@ class TabBarView: UIStackView {
     private var tabViews = [TabView]()
     private var tabContents = [TabContent]()
     
-    private let screenWidth = Int(UIScreen.main.bounds.width)
-    private let tabBarWidth = Int(UIScreen.main.bounds.width - 20)
-    private let tabBarHeight = 30
-    private let tabBarMargin = 20
+    private lazy var screenWidth = frame.width + 20.0
+    private lazy var tabBarWidth = frame.width
+    private let tabBarHeight: CGFloat = 30.0
+    private let tabBarMargin: CGFloat = 20.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)

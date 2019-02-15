@@ -22,7 +22,8 @@ class MainViewController: UIViewController {
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
     private let menuViewHeight: CGFloat = 80
-    private let tabBarViewHeight: CGFloat = 30
+    private lazy var tabBarViewWidth: CGFloat = view.frame.width - 20
+    private lazy var tabBarViewHeight: CGFloat = 30
     private let initialIndex = 1
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
@@ -30,12 +31,15 @@ class MainViewController: UIViewController {
     
     // MARK: Views
     private lazy var splashView = SplashView()
-    private lazy var tabBarView = TabBarView()
+    private lazy var tabBarView = {
+        return TabBarView(frame: CGRect(x: 0.0, y: 0.0, width: tabBarViewWidth, height: tabBarViewHeight))
+    } ()
     private lazy var scrollView = UIScrollView()
     private lazy var tabBarViewContainer = UIView()
     private lazy var tableView = UITableView()
     private lazy var menuView = UIView()
     private lazy var tableStackView = UIStackView()
+    lazy var headerView = HeaderView()
     
     // MARK: Life Cycle Methods
     override func viewDidLoad() {
@@ -45,14 +49,13 @@ class MainViewController: UIViewController {
         addTabBarView()
         addTableStackView()
         addContentViewControllers()
+        addHeaderView()
         addSplashView()
-
-        showCurrentTab(currentIndex: initialIndex)
-        scrollToTab(currentIndex: initialIndex)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        showCurrentTab(currentIndex: initialIndex)
         splashView.animate()
     }
 }
@@ -72,6 +75,21 @@ extension MainViewController {
         splashView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         splashView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         splashView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
+    // MARK: Header View Methods
+    func addHeaderView() {
+        view.addSubview(headerView)
+        headerView.symbolView.dataSource = self
+        setHeaderViewLayout()
+    }
+    
+    func setHeaderViewLayout() {
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerView.topAnchor.constraint(equalTo: menuView.bottomAnchor).isActive = true
+        headerView.bottomAnchor.constraint(lessThanOrEqualTo: tabBarViewContainer.topAnchor).isActive = true
+        headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     // MARK: Scroll View Methods
@@ -247,7 +265,7 @@ extension MainViewController: SplashViewDelegate {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             guard let self = self else { return }
             self.splashView.alpha = 0
-            }, completion: { [weak self] _ in
+        }, completion: { [weak self] _ in
                 guard let self = self else { return }
                 self.splashView.removeFromSuperview()
                 self.addPanGestureRecognizer()
@@ -281,6 +299,8 @@ extension MainViewController: UIScrollViewDelegate {
             nextTabIndex = 1
         }
         
+        slideSymbol(with: contentOffset / scrollWidth - 1)
+        
         let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
         if (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating),
             let direction = scrollDirection, (direction == .left || direction == .right) {
@@ -288,21 +308,21 @@ extension MainViewController: UIScrollViewDelegate {
             perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.0)
             
             if lastContentOffset > contentOffset {
-                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
+                let index = contentOffsetInPage >= view.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
                 tabBarView.drawTabBarColorLeftToRightWhileScrolling(x: abs(contentOffsetInPage - scrollWidth), currentIndex: index)
                 self.contentOffsetInPage = abs(contentOffsetInPage - scrollWidth)
             } else if lastContentOffset <= contentOffset && contentOffsetInPage != 0.0 {
-                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
+                let index = contentOffsetInPage >= view.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
                 tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: contentOffsetInPage, currentIndex: index)
                 self.contentOffsetInPage = contentOffsetInPage
             }
         } else {
             if lastContentOffset > contentOffset {
-                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
+                let index = contentOffsetInPage >= view.bounds.width / 2 ? nextTabIndex - 1 : nextTabIndex
                 tabBarView.drawTabBarColorRightToLeftWhileScrolling(x: contentOffsetInPage, currentIndex: index)
                 self.contentOffsetInPage = contentOffsetInPage
             } else if lastContentOffset <= contentOffset && contentOffsetInPage != 0.0 {
-                let index = contentOffsetInPage >= UIScreen.main.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
+                let index = contentOffsetInPage >= view.bounds.width / 2 ? nextTabIndex : nextTabIndex + 1
                 tabBarView.drawTabBarColorLeftToRightWhileScrolling(x: abs(contentOffsetInPage - scrollWidth), currentIndex: index)
                 self.contentOffsetInPage = abs(contentOffsetInPage - scrollWidth)
             }
