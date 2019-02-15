@@ -1,5 +1,5 @@
 //
-//  TabBarViewController+Symbol.swift
+//  MainViewController+Symbol.swift
 //  DaumWebtoon
 //
 //  Created by oingbong on 11/02/2019.
@@ -21,7 +21,7 @@ protocol SymbolDatasource: class {
 }
 
 // MARK: - Symbol Coordinate Method
-extension TabBarViewController {
+extension MainViewController {
     private func convertKeys(from keys: String, with shape: Shape.Type) -> [(CGFloat, CGFloat)] {
         var coordinates = [(CGFloat, CGFloat)]()
         for key in keys {
@@ -52,8 +52,8 @@ extension TabBarViewController {
     
     // 심볼뷰 크기에 따라 좌표값을 조절합니다.
     private func scale(with shape: Shape) -> (CGFloat, CGFloat) {
-        let x = shape.coordinate.0 * symbolView.frame.width
-        let y = shape.coordinate.1 * symbolView.frame.height
+        let x = shape.coordinate.0 * headerView.symbolView.frame.width
+        let y = shape.coordinate.1 * headerView.symbolView.frame.height
         return (x, y)
     }
     
@@ -84,12 +84,12 @@ extension TabBarViewController {
     
     func slideSymbol(with value: CGFloat) {
         let forMaxValueOne = CGFloat(4)
-        symbolView.timeOffset(value: Double(value / forMaxValueOne))
+        headerView.timeOffset(value: Double(value / forMaxValueOne))
     }
 }
 
 // MARK: - Symbol Coordinate By Shape
-extension TabBarViewController: SymbolDatasource {
+extension MainViewController: SymbolDatasource {
     public func shapeC() -> [UIBezierPath] {
         var coordinates = [[CGPoint]]()
         let keys1 = convertKeys(from: "aegh", with: ShapeC.self)
