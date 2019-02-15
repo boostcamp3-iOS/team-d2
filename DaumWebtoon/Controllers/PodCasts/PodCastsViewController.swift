@@ -12,7 +12,7 @@ class PodCastsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var podcastId = "a2030430a26d46e59b7495c7a3609132"  //test
+    var podcastId: String?
     
     private var podcast: PodCast?
     
@@ -39,6 +39,7 @@ class PodCastsViewController: UIViewController {
     }
     
     private func fetchPodCasts() {
+        guard let podcastId = podcastId else { return }
         PodCastService.shared.fetchPodCasts(podcastId: podcastId) { [weak self] (podcast) in
             guard let self = self else { return }
             

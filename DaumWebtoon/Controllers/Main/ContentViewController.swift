@@ -39,6 +39,12 @@ extension ContentViewController {
             self.tableView.reloadData()
         }
     }
+    
+    private func presentPodCastsViewController(indexPath: IndexPath) {
+        guard let podCastsViewController = UIStoryboard.init(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "PodCasts") as? PodCastsViewController else { return }
+        podCastsViewController.podcastId = channels[indexPath.row].id
+        present(podCastsViewController, animated: true, completion: nil)
+    }
 }
 
 extension ContentViewController: UITableViewDataSource {
@@ -56,5 +62,6 @@ extension ContentViewController: UITableViewDataSource {
 extension ContentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        presentPodCastsViewController(indexPath: indexPath)
     }
 }
