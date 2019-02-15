@@ -26,6 +26,7 @@ extension ContentViewController {
     private func addTableView() {
         view.addSubview(tableView)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.frame = view.frame
         tableView.register(ChannelTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
