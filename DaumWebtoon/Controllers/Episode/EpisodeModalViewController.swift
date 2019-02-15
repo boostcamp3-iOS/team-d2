@@ -9,6 +9,10 @@
 import UIKit
 import AVFoundation
 
+protocol EpisodeModalViewDelegate: class {
+    func playPauseAudio(state: Bool)
+}
+
 class EpisodeModalViewController: UIViewController {
 
     @IBOutlet weak var episodeImage: UIImageView!
@@ -16,9 +20,8 @@ class EpisodeModalViewController: UIViewController {
     @IBOutlet weak var episodeTitle: UILabel!
     @IBOutlet weak var episodeTotalTime: UILabel!
     @IBOutlet weak var episodeUpdateTime: UILabel!
-    @IBOutlet weak var episodePlayContainer: UIView!
-    @IBOutlet weak var episodeThumbnail: UIImageView!
-    @IBOutlet weak var episodeTitleInContainer: UILabel!
+    
+    weak var delegate: EpisodeModalViewDelegate?
     
     var episode: Episode?
     
@@ -38,9 +41,9 @@ class EpisodeModalViewController: UIViewController {
     }
     
     private func initializeViews() {
-        episodePlayContainer.isHidden = true
-        episodePlayContainer.layer.borderWidth = 0.4
-        episodePlayContainer.layer.borderColor = UIColor.lightGray.cgColor
+        let gestureRecognizer = UIPanGestureRecognizer(target: self,
+                                                       action: #selector(handlePanGesture(_:)))
+        view.addGestureRecognizer(gestureRecognizer)
     }
     
     private func initializeEpisode() {
@@ -49,17 +52,13 @@ class EpisodeModalViewController: UIViewController {
         let (h,m,s) = episode.duration.secondsToHoursMinutesSeconds()
         
         episodeTitle.text = episode.title
-        episodeTitleInContainer.text = episode.title
         episodeTotalTime.text = "\(h):\(m):\(s)"
         
         FetchAudioService.shared.execute(audioUrl: episode.audio) { [weak self] (data) in
             guard let self = self else { return }
 
             do {
-                try
-                    self.audioPlayer = AVAudioPlayer.init(data: data)
-                    self.audioPlayer?.delegate = self
-                print("audio ready")
+                try self.audioPlayer = AVAudioPlayer.init(data: data)
             } catch let error as NSError {
                 print("플레이어 초기화 실패")
                 print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
@@ -72,14 +71,7 @@ class EpisodeModalViewController: UIViewController {
         
         FetchImageService.shared.execute(imageUrl: episode.image) { [weak self] (image) in
             guard let self = self else { return }
-            
             self.episodeImage.image = image
-        }
-        
-        FetchImageService.shared.execute(imageUrl: episode.thumbnail) { [weak self] (image) in
-            guard let self = self else { return }
-            
-            self.episodeThumbnail.image = image
         }
     }
     
@@ -95,54 +87,77 @@ class EpisodeModalViewController: UIViewController {
             fatalError("*** Unable to set up the audio session: \(error.localizedDescription) ***")
         }
     }
-    
+
     private func makeAndFireTimer() {
         self.audioTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { [weak self] (timer : Timer) in
             guard
                 let self = self,
                 self.episodeProgress.isTracking == false else { return }
-            
+
             self.updateEpisodeTime(time: self.audioPlayer?.currentTime)
             self.episodeProgress.value = Float(self.audioPlayer?.currentTime ?? 0)
         })
     }
-    
+
     private func updateEpisodeTime(time: TimeInterval?) {
         guard let time = time else { return }
-        
         episodeUpdateTime.text = time.stringFromTimeInterval()
     }
-    
+
     private func invalidateTimer() {
-        self.audioTimer?.invalidate()
-        self.audioTimer = nil
+        audioTimer?.invalidate()
+        audioTimer = nil
     }
-    
+
     private func playAudio() {
-        self.audioPlayer?.play()
+        audioPlayer?.play()
     }
-    
+
     private func pauseAudio() {
         audioPlayer?.pause()
     }
     
     // MARK :- event handling
-    @IBAction func playPauseTapped(_ sender: UIButton) {
-        switch sender.tag {
-        case 1, 2:
-            sender.isSelected = !sender.isSelected
-            
-            if sender.isSelected {
-                playAudio()
-                makeAndFireTimer()
-            } else {
-                pauseAudio()
-                invalidateTimer()
+    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        let touchPoint = recognizer.location(in: view?.window)
+        let translation = recognizer.translation(in: view)
+        
+        var initialTouchPoint = CGPoint.zero
+        switch recognizer.state {
+        case .began:
+            initialTouchPoint = touchPoint
+        case .changed:
+            if touchPoint.y > initialTouchPoint.y {
+                view.center = CGPoint(x: view.center.x, y: view.center.y + translation.y)
+                recognizer.setTranslation(CGPoint.zero, in: view)
             }
-            
-            buttonSelected = !sender.isSelected
-        default: return
+        case .ended, .cancelled:
+            if view.frame.origin.y > view.frame.size.height / 2 {
+                dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.frame = CGRect(x: 0,
+                                        y: 0,
+                                        width: self.view.frame.size.width,
+                                        height: self.view.frame.size.height)
+                })
+            }
+        case .failed, .possible:
+            break
         }
+    }
+    
+    @IBAction func playPauseTapped(_ sender: UIButton) {
+        if sender.isSelected {
+            playAudio()
+            makeAndFireTimer()
+        } else {
+            pauseAudio()
+            invalidateTimer()
+        }
+        
+        buttonSelected = !sender.isSelected
+        delegate?.playPauseAudio(state: buttonSelected)
     }
     
     @IBAction func likeTapped(_ sender: UIButton) {
@@ -153,14 +168,8 @@ class EpisodeModalViewController: UIViewController {
         sender.isSelected = !sender.isHighlighted
     }
     
+    @IBAction func downTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
-extension EpisodeModalViewController: AVAudioPlayerDelegate {
-    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        
-    }
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        
-    }
-}
