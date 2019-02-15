@@ -32,10 +32,10 @@ class MainViewController: UIViewController {
     private let menuViewHeight: CGFloat = 80
     private lazy var tabBarViewWidth: CGFloat = view.frame.width - 20
     private lazy var tabBarViewHeight: CGFloat = 30
-    private let initialIndex = 1
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
-    private var currentIndex = 0
+    private var currentIndex = 1
+    private var isSplashViewDidAppear = false
     
     // MARK: Views
     private lazy var splashView = SplashView()
@@ -64,8 +64,8 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showCurrentTab(currentIndex: initialIndex)
-        splashView.animate()
+        showCurrentTab(currentIndex: currentIndex)
+        animateSplashViewIfViewDidNotAppeared()
     }
 }
 
@@ -84,6 +84,13 @@ extension MainViewController {
         splashView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         splashView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         splashView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
+    func animateSplashViewIfViewDidNotAppeared() {
+        if !isSplashViewDidAppear {
+            isSplashViewDidAppear.toggle()
+            splashView.animate()
+        }
     }
     
     // MARK: Header View Methods
