@@ -156,8 +156,8 @@ class EpisodeModalViewController: UIViewController {
             invalidateTimer()
         }
         
+        sender.isSelected = !sender.isSelected
         buttonSelected = !sender.isSelected
-        delegate?.playPauseAudio(state: buttonSelected)
     }
     
     @IBAction func likeTapped(_ sender: UIButton) {
