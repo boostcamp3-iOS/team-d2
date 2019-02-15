@@ -11,13 +11,16 @@ import UIKit
 class SearchViewController: UIViewController {
 
     @IBOutlet weak var recommandCollectionView: UICollectionView!
+    @IBOutlet weak var podcastsTableView: UITableView!
     @IBOutlet weak var halfView: UIView!
     @IBOutlet weak var halfViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var keywordInput: UITextField!
     @IBOutlet weak var search: UIButton!
     
     private let collectionCellIdentifier = "recommandCell"
+    private let tableviewCellIdentifier = "tableviewCell"
     private var genres: [Genre]?
+    private var podcasts: [PodCastSearch]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +35,13 @@ class SearchViewController: UIViewController {
     }
 
     private func initializeViews() {
+        podcastsTableView.isHidden = true
         search.layer.cornerRadius = search.frame.height / 2
         keywordInput.delegate = self
         recommandCollectionView.dataSource = self
         recommandCollectionView.delegate = self
+        podcastsTableView.dataSource = self
+        podcastsTableView.delegate = self
     }
     
     private func fetchRecommandationPodcast() {
@@ -44,6 +50,16 @@ class SearchViewController: UIViewController {
             
             self.genres = genres
             self.recommandCollectionView.reloadData()
+        }
+    }
+    
+    private func searchPodCasts(query: String) {
+        SearchPodCastsService.shared.searchPodCasts(query: query) { [weak self] (podcasts) in
+            guard let self = self else { return }
+            
+            self.podcastsTableView.isHidden = false
+            self.podcasts = podcasts
+            self.podcastsTableView.reloadData()
         }
     }
     
@@ -56,6 +72,28 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController: UITextFieldDelegate {
+    
+}
+
+extension SearchViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return podcasts?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: tableviewCellIdentifier) as? PodCastTableViewCell,
+            let podcast = podcasts?[indexPath.row] else {
+            return PodCastTableViewCell()
+        }
+        
+        cell.configure(podcast: podcast)
+        
+        return cell
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
     
 }
 
@@ -82,6 +120,9 @@ extension SearchViewController: UICollectionViewDelegate {
         guard let genre = genres?[indexPath.item] else { return }
         
         keywordInput.text = genre.name
+        halfView.isHidden = true
+        
+        searchPodCasts(query: genre.name)
     }
 }
 

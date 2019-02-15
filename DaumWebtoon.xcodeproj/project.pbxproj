@@ -13,11 +13,16 @@
 		3B40AC5222164AA3003D2CA8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B40AC5122164AA3003D2CA8 /* SearchViewController.swift */; };
 		3B40AC542216533D003D2CA8 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B40AC532216533D003D2CA8 /* Search.storyboard */; };
 		3B40AC5622165FEF003D2CA8 /* SearchRecommandCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B40AC5522165FEF003D2CA8 /* SearchRecommandCollectionViewCell.swift */; };
+		3B422A582216A40900DA65D6 /* SearchPodCastsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B422A572216A40900DA65D6 /* SearchPodCastsService.swift */; };
+		3B422A5A2216A4E300DA65D6 /* SearchPodCastsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B422A592216A4E300DA65D6 /* SearchPodCastsAPI.swift */; };
+		3B422A5C2216A53200DA65D6 /* PodCastSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B422A5B2216A53200DA65D6 /* PodCastSearchDTO.swift */; };
+		3B422A5E2216A66900DA65D6 /* PodCastSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B422A5D2216A66900DA65D6 /* PodCastSearch.swift */; };
+		3B422A602216AB8400DA65D6 /* PodCastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B422A5F2216AB8400DA65D6 /* PodCastTableViewCell.swift */; };
 		3B8FAC63220A0B9E002CEEEF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC62220A0B9E002CEEEF /* DetailViewController.swift */; };
 		3B8FAC65220A0BF5002CEEEF /* TranslateAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
 		3BBEDB9422167B2300E0A769 /* GenreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9322167B2300E0A769 /* GenreDTO.swift */; };
-		3BBEDB9622167BD200E0A769 /* FetchGenreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9522167BD200E0A769 /* FetchGenreAPI.swift */; };
+		3BBEDB9622167BD200E0A769 /* FetchGenresAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */; };
 		3BBEDB9A22167D1300E0A769 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9922167D1300E0A769 /* Genre.swift */; };
 		3BDC57CB221283470009C115 /* NetworkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CA221283470009C115 /* NetworkDispatcher.swift */; };
 		3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CC221283660009C115 /* HTTPEnums.swift */; };
@@ -64,11 +69,16 @@
 		3B40AC5122164AA3003D2CA8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3B40AC532216533D003D2CA8 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		3B40AC5522165FEF003D2CA8 /* SearchRecommandCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommandCollectionViewCell.swift; sourceTree = "<group>"; };
+		3B422A572216A40900DA65D6 /* SearchPodCastsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPodCastsService.swift; sourceTree = "<group>"; };
+		3B422A592216A4E300DA65D6 /* SearchPodCastsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPodCastsAPI.swift; sourceTree = "<group>"; };
+		3B422A5B2216A53200DA65D6 /* PodCastSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastSearchDTO.swift; sourceTree = "<group>"; };
+		3B422A5D2216A66900DA65D6 /* PodCastSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastSearch.swift; sourceTree = "<group>"; };
+		3B422A5F2216AB8400DA65D6 /* PodCastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastTableViewCell.swift; sourceTree = "<group>"; };
 		3B8FAC62220A0B9E002CEEEF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateAnimator.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		3BBEDB9322167B2300E0A769 /* GenreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDTO.swift; sourceTree = "<group>"; };
-		3BBEDB9522167BD200E0A769 /* FetchGenreAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGenreAPI.swift; sourceTree = "<group>"; };
+		3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGenresAPI.swift; sourceTree = "<group>"; };
 		3BBEDB9922167D1300E0A769 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		3BDC57CA221283470009C115 /* NetworkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDispatcher.swift; sourceTree = "<group>"; };
 		3BDC57CC221283660009C115 /* HTTPEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPEnums.swift; sourceTree = "<group>"; };
@@ -169,6 +179,7 @@
 			children = (
 				3BDC57E82212B2670009C115 /* FetchImageService.swift */,
 				3BDC57EA2212BA670009C115 /* PodCastService.swift */,
+				3B422A572216A40900DA65D6 /* SearchPodCastsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -177,7 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				3BDC57ED2212F1B70009C115 /* FetchPodCastsAPI.swift */,
-				3BBEDB9522167BD200E0A769 /* FetchGenreAPI.swift */,
+				3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */,
+				3B422A592216A4E300DA65D6 /* SearchPodCastsAPI.swift */,
 			);
 			path = APIS;
 			sourceTree = "<group>";
@@ -221,6 +233,8 @@
 				3BDC57E52212AE4C0009C115 /* Episode.swift */,
 				3BBEDB9322167B2300E0A769 /* GenreDTO.swift */,
 				3BBEDB9922167D1300E0A769 /* Genre.swift */,
+				3B422A5B2216A53200DA65D6 /* PodCastSearchDTO.swift */,
+				3B422A5D2216A66900DA65D6 /* PodCastSearch.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -308,6 +322,7 @@
 				3BDC57F3221328EF0009C115 /* DetailCollectionViewCell.swift */,
 				3B40AC5522165FEF003D2CA8 /* SearchRecommandCollectionViewCell.swift */,
 				475B4561221547DF003BFB14 /* SlidePanelTableViewCell.swift */,
+				3B422A5F2216AB8400DA65D6 /* PodCastTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -395,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B422A5C2216A53200DA65D6 /* PodCastSearchDTO.swift in Sources */,
 				47BF157622017C3C0011544A /* SymbolView.swift in Sources */,
 				3BDC57CF2212837E0009C115 /* RequestData.swift in Sources */,
 				47449B3D220D94B400B99773 /* ShapeC.swift in Sources */,
@@ -423,12 +439,14 @@
 				3B1C0FD2220312CD00077751 /* TabBarView.swift in Sources */,
 				47489C772213EF90003BF7DB /* Database.swift in Sources */,
 				3BDC57E92212B2670009C115 /* FetchImageService.swift in Sources */,
+				3B422A582216A40900DA65D6 /* SearchPodCastsService.swift in Sources */,
 				3BDC57D1221283900009C115 /* RequestType.swift in Sources */,
 				475B4562221547DF003BFB14 /* SlidePanelTableViewCell.swift in Sources */,
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				3B40AC5222164AA3003D2CA8 /* SearchViewController.swift in Sources */,
+				3B422A5A2216A4E300DA65D6 /* SearchPodCastsAPI.swift in Sources */,
 				3B8FAC65220A0BF5002CEEEF /* TranslateAnimator.swift in Sources */,
 				3B40AC5622165FEF003D2CA8 /* SearchRecommandCollectionViewCell.swift in Sources */,
 				3BDC57F4221328EF0009C115 /* DetailCollectionViewCell.swift in Sources */,
@@ -437,10 +455,12 @@
 				3BDC57E62212AE4C0009C115 /* Episode.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				3BBEDB9422167B2300E0A769 /* GenreDTO.swift in Sources */,
+				3B422A602216AB8400DA65D6 /* PodCastTableViewCell.swift in Sources */,
 				4767DEED2211556A0017AC9A /* MainViewController+Symbol.swift in Sources */,
+				3B422A5E2216A66900DA65D6 /* PodCastSearch.swift in Sources */,
 				4767DEF622128F3C0017AC9A /* HeaderView.swift in Sources */,
 				3BDC57EE2212F1B70009C115 /* FetchPodCastsAPI.swift in Sources */,
-				3BBEDB9622167BD200E0A769 /* FetchGenreAPI.swift in Sources */,
+				3BBEDB9622167BD200E0A769 /* FetchGenresAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

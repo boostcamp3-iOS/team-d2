@@ -103,6 +103,54 @@
                                     <action selector="searchTapped:" destination="QQv-Fu-Xde" eventType="touchUpInside" id="qij-vI-OYm"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pyW-iu-zef">
+                                <rect key="frame" x="15" y="168" width="345" height="479"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableviewCell" rowHeight="89" id="yIi-mZ-9dv" customClass="PodCastTableViewCell" customModule="DaumWebtoon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="345" height="89"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yIi-mZ-9dv" id="ccT-C8-rjl">
+                                            <rect key="frame" x="0.0" y="0.0" width="345" height="88.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFD-ct-nz4">
+                                                    <rect key="frame" x="2" y="21" width="37" height="24"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="publisher" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSN-SF-zzW">
+                                                    <rect key="frame" x="2" y="46.5" width="67.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XNe-xI-TXQ">
+                                                    <rect key="frame" x="273" y="4.5" width="70" height="80"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="LAX-oq-XDG"/>
+                                                        <constraint firstAttribute="height" constant="80" id="zhi-Ge-N0u"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rFD-ct-nz4" firstAttribute="leading" secondItem="ccT-C8-rjl" secondAttribute="leading" constant="2" id="23B-CM-Rhu"/>
+                                                <constraint firstItem="LSN-SF-zzW" firstAttribute="top" secondItem="rFD-ct-nz4" secondAttribute="bottom" constant="1.5" id="FN8-vW-LXc"/>
+                                                <constraint firstItem="LSN-SF-zzW" firstAttribute="leading" secondItem="rFD-ct-nz4" secondAttribute="leading" id="MxD-oz-97s"/>
+                                                <constraint firstItem="rFD-ct-nz4" firstAttribute="top" secondItem="ccT-C8-rjl" secondAttribute="top" constant="21" id="X44-I5-enp"/>
+                                                <constraint firstItem="XNe-xI-TXQ" firstAttribute="centerY" secondItem="ccT-C8-rjl" secondAttribute="centerY" id="vZD-9I-XJg"/>
+                                                <constraint firstAttribute="trailing" secondItem="XNe-xI-TXQ" secondAttribute="trailing" constant="2" id="xOT-ia-vzI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="podcastPublisher" destination="LSN-SF-zzW" id="EIK-6u-jRp"/>
+                                            <outlet property="podcastThumbnail" destination="XNe-xI-TXQ" id="skS-V6-2cU"/>
+                                            <outlet property="podcastTitle" destination="rFD-ct-nz4" id="CMM-YE-WRU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -110,11 +158,15 @@
                             <constraint firstItem="o5m-K7-grM" firstAttribute="trailing" secondItem="aiM-gc-us8" secondAttribute="trailing" constant="30" id="4ic-Lv-UjW"/>
                             <constraint firstItem="Uzd-9W-1iv" firstAttribute="leading" secondItem="o5m-K7-grM" secondAttribute="leading" constant="14" id="BMp-Et-jSO"/>
                             <constraint firstItem="Ndf-WQ-9Lh" firstAttribute="bottom" secondItem="nHe-RP-374" secondAttribute="bottom" id="HzH-h6-L4a"/>
+                            <constraint firstItem="pyW-iu-zef" firstAttribute="top" secondItem="Uzd-9W-1iv" secondAttribute="bottom" constant="8" id="Lua-jx-ftl"/>
                             <constraint firstItem="aiM-gc-us8" firstAttribute="centerY" secondItem="Uzd-9W-1iv" secondAttribute="centerY" id="QEc-sZ-yN7"/>
                             <constraint firstItem="iC0-SC-Ubx" firstAttribute="leading" secondItem="o5m-K7-grM" secondAttribute="leading" constant="12" id="VZy-EE-gQz"/>
                             <constraint firstItem="Ndf-WQ-9Lh" firstAttribute="leading" secondItem="o5m-K7-grM" secondAttribute="leading" id="oAa-4H-dI6"/>
+                            <constraint firstItem="o5m-K7-grM" firstAttribute="trailing" secondItem="pyW-iu-zef" secondAttribute="trailing" constant="15" id="uR1-eT-847"/>
                             <constraint firstItem="iC0-SC-Ubx" firstAttribute="top" secondItem="o5m-K7-grM" secondAttribute="top" constant="10" id="udb-vk-dzu"/>
                             <constraint firstItem="Ndf-WQ-9Lh" firstAttribute="trailing" secondItem="o5m-K7-grM" secondAttribute="trailing" id="uq0-CD-tbM"/>
+                            <constraint firstItem="o5m-K7-grM" firstAttribute="bottom" secondItem="pyW-iu-zef" secondAttribute="bottom" constant="20" id="x8r-rg-rob"/>
+                            <constraint firstItem="pyW-iu-zef" firstAttribute="leading" secondItem="o5m-K7-grM" secondAttribute="leading" constant="15" id="xl3-nl-Y6V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="o5m-K7-grM"/>
                     </view>
@@ -122,6 +174,7 @@
                         <outlet property="halfView" destination="Ndf-WQ-9Lh" id="U0L-Pf-4kL"/>
                         <outlet property="halfViewHeightConstraint" destination="Cfs-yq-gZB" id="ZTX-Hc-O3A"/>
                         <outlet property="keywordInput" destination="Uzd-9W-1iv" id="98s-CW-om1"/>
+                        <outlet property="podcastsTableView" destination="pyW-iu-zef" id="DtZ-lh-k9a"/>
                         <outlet property="recommandCollectionView" destination="qbk-je-wfe" id="xJ9-yj-h0V"/>
                         <outlet property="search" destination="aiM-gc-us8" id="wEp-dM-luY"/>
                     </connections>
