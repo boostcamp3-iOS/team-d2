@@ -101,9 +101,9 @@ class SearchViewController: UIViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        let query = textField.text
+        guard let query = textField.text else { return }
         
-        if query == "" {
+        if query.isEmpty {
             podcastsTableView.isHidden = true
             halfView.isHidden = false
             return

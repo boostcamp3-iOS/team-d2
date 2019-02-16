@@ -18,9 +18,9 @@ class PodCastTableViewCell: UITableViewCell {
         podcastTitle.text = podcast.title
         podcastPublisher.text = podcast.publisher
         
-        FetchImageService.shared.execute(imageUrl: podcast.thumbnail) { [weak self] (image) in
+        FetchImageService.shared.execute(imageUrl: podcast.thumbnail) { [weak self] in
             guard let self = self else { return }
-            self.podcastThumbnail.image = image
+            self.podcastThumbnail.image = $0
         }
     }
 
