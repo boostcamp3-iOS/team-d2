@@ -96,6 +96,10 @@ class SearchViewController: UIViewController {
         view.endEditing(true)
     }
     
+    @IBAction func backTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField) {
         let query = textField.text
         

@@ -25,6 +25,9 @@
                                     <constraint firstAttribute="width" constant="24" id="hgs-tS-roW"/>
                                 </constraints>
                                 <state key="normal" image="back"/>
+                                <connections>
+                                    <action selector="backTapped:" destination="QQv-Fu-Xde" eventType="touchUpInside" id="4rU-e8-cUw"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목, 키워드 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uzd-9W-1iv">
                                 <rect key="frame" x="14" y="124" width="205.5" height="36"/>
@@ -42,7 +45,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qbk-je-wfe">
-                                        <rect key="frame" x="30" y="56.5" width="315" height="243.5"/>
+                                        <rect key="frame" x="30" y="56.5" width="315" height="268.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="yXY-x0-MyN">
                                             <size key="itemSize" width="78" height="31"/>
@@ -90,7 +93,7 @@
                                     <constraint firstItem="qbk-je-wfe" firstAttribute="top" secondItem="5x9-2j-OqP" secondAttribute="bottom" constant="5" id="gAx-Li-9Fh"/>
                                     <constraint firstAttribute="trailing" secondItem="qbk-je-wfe" secondAttribute="trailing" constant="30" id="hd2-7V-9BL"/>
                                     <constraint firstItem="qbk-je-wfe" firstAttribute="leading" secondItem="Ndf-WQ-9Lh" secondAttribute="leading" constant="30" id="sBh-y9-iRx"/>
-                                    <constraint firstAttribute="bottom" secondItem="qbk-je-wfe" secondAttribute="bottom" constant="50" id="upx-RL-e3t"/>
+                                    <constraint firstAttribute="bottom" secondItem="qbk-je-wfe" secondAttribute="bottom" constant="25" id="upx-RL-e3t"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aiM-gc-us8">
