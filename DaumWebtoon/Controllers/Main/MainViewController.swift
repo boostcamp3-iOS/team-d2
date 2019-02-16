@@ -196,7 +196,6 @@ extension MainViewController {
     
     func setupSearchView() {
         let search = UIButton()
-        search.backgroundColor = UIColor.lightGray
         search.addTarget(self, action: #selector(searchTapped(_:)), for: .touchUpInside)
         search.setImage(UIImage(named: "search"), for: .normal)
         menuView.addSubview(search)

@@ -13,7 +13,7 @@ class PodCastsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var podcastId: String?
-    
+
     private var podcast: PodCast?
     
     private let podcastIdentifier = "PodCastCell"

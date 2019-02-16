@@ -412,7 +412,7 @@
 				B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */,
 				3BDC57DE2212A2B60009C115 /* PodCast.storyboard in Resources */,
 				3B40AC542216533D003D2CA8 /* Search.storyboard in Resources */,
-				3BDC57E02212A5F60009C115 /* Assets.xcassets in Resources */,
+				3BDC57F62213C4180009C115 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
