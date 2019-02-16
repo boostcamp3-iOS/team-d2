@@ -12,7 +12,7 @@ class PodCastsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var podcastId = "a2030430a26d46e59b7495c7a3609132"  //test
+    var podcastId: String?
     
     private var podcast: PodCast?
     
@@ -22,15 +22,27 @@ class PodCastsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initializeCollectionView()
-        
         fetchPodCasts()
+        
+        initializeCollectionView()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            let modalViewController = segue.destination as? EpisodeModalViewController,
+            let cell: UICollectionViewCell = sender as? UICollectionViewCell else { return }
+        
+        let indexPath = collectionView?.indexPath(for: cell)
+        
+        if let selectedIndex = indexPath?.item {
+            modalViewController.episode = podcast?.episodes[selectedIndex]
+        }
     }
     
     private func initializeCollectionView() {

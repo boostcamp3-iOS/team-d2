@@ -14,7 +14,9 @@ class PodCastService {
     
     private init() { }
     
-    func fetchPodCasts(podcastId: String, completion: @escaping (PodCast) -> ()) {
+    func fetchPodCasts(podcastId: String?, completion: @escaping (PodCast) -> ()) {
+        guard let podcastId = podcastId else { return }
+        
         let requestData = RequestData(path: HTTPBaseUrl.baseUrl.rawValue + "/podcasts/" + podcastId)
         
         FetchPodCastsAPI(data: requestData).execute(onSuccess: { (podcast) in
@@ -27,11 +29,13 @@ class PodCastService {
     func fetchPodCastGenres(completion: @escaping ([Genre]) -> ()) {
         let requestData = RequestData(path: HTTPBaseUrl.baseUrl.rawValue + "/genres")
         
-        FetchGenreAPI(data: requestData).execute(onSuccess: { (genreDTO) in
+        FetchGenresAPI(data: requestData).execute(onSuccess: { (genreDTO) in
             completion(genreDTO.genres)
         }) { (error) in
             print("onError")
         }
     }
+    
+   
     
 }

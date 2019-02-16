@@ -191,13 +191,14 @@ extension MainViewController {
         menuView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        menuView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        menuView.heightAnchor.constraint(equalToConstant: 120).isActive = true
     }
     
     func setupSearchView() {
         let search = UIButton()
-        search.setImage(UIImage(named: "search"), for: .normal)
+        search.backgroundColor = UIColor.lightGray
         search.addTarget(self, action: #selector(searchTapped(_:)), for: .touchUpInside)
+        search.setImage(UIImage(named: "search"), for: .normal)
         menuView.addSubview(search)
         
         search.translatesAutoresizingMaskIntoConstraints = false
@@ -208,7 +209,7 @@ extension MainViewController {
     }
     
     @objc func searchTapped(_ sender: UIButton) {
-        let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "SearchView")
+        let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "Search")
         present(searchViewController, animated: false, completion: nil)
     }
     

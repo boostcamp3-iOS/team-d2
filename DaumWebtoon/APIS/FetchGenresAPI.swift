@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FetchGenreAPI: RequestType {
+struct FetchGenresAPI: RequestType {
     
     typealias ResponseType = GenreDTO
     var data: RequestData
