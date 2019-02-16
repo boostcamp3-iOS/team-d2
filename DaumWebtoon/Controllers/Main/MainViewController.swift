@@ -28,6 +28,9 @@ class MainViewController: UIViewController {
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
     private var currentIndex = 0
+    private let slidePanelViewController = SlidePanelViewController()
+    private var slidePanelBaseView: UIView!
+    private var baseViewMaxX: CGFloat = 0.0
     
     // MARK: Views
     private lazy var splashView = SplashView()
@@ -51,6 +54,7 @@ class MainViewController: UIViewController {
         addContentViewControllers()
         addHeaderView()
         addSplashView()
+        setupSlidePanelView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -98,6 +102,7 @@ extension MainViewController {
         view.addSubview(scrollView)
         setScrollViewLayout()
         setScrollViewProperties()
+        setupEdgeGesture()
     }
     
     func setScrollViewLayout() {
@@ -115,6 +120,14 @@ extension MainViewController {
             height: view.frame.height)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
+    }
+    
+    func setupEdgeGesture() {
+        let screenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self,
+                                                                              action: #selector(handleScreenEdgePanGesture(_:)))
+        screenEdgePanGestureRecognizer.edges = UIRectEdge.right
+        screenEdgePanGestureRecognizer.delegate = self
+        scrollView.addGestureRecognizer(screenEdgePanGestureRecognizer)
     }
     
     // MARK: Tab Bar View Methods
@@ -144,6 +157,31 @@ extension MainViewController {
     func setTabBarViewProperties() {
         tabBarViewContainer.clipsToBounds = true
         tabBarViewContainer.backgroundColor = .red
+    }
+    
+    // MARK :- SlidePanelView
+    private func setupSlidePanelView() {
+        slidePanelBaseView = UIView(frame: CGRect(x: view.bounds.size.width, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
+        slidePanelBaseView.backgroundColor = UIColor.clear
+        baseViewMaxX = slidePanelBaseView.frame.maxX
+        
+        addChild(slidePanelViewController)
+        slidePanelViewController.didMove(toParent: self)
+        slidePanelViewController.view.frame = CGRect(x: 0, y: 0, width: slidePanelBaseView.bounds.size.width, height: slidePanelBaseView.bounds.size.height)
+        slidePanelViewController.delegate = self
+        slidePanelBaseView.addSubview(slidePanelViewController.view)
+        
+        view.addSubview(slidePanelBaseView)
+        view.bringSubviewToFront(slidePanelBaseView)
+    }
+
+    func removeSlidePanelView() {
+        slidePanelViewController.willMove(toParent: nil)
+        slidePanelViewController.view.removeFromSuperview()
+        slidePanelViewController.removeFromParent()
+        
+        slidePanelBaseView.willRemoveSubview(slidePanelViewController.view)
+        slidePanelBaseView.removeFromSuperview()
     }
     
     func adjustIndexForIndex(currentIndex: Int, previousIndex: Int) -> (Int, Int) {
@@ -183,6 +221,7 @@ extension MainViewController {
     func addMenuView() {
         scrollView.addSubview(menuView)
         setMenuViewLayout()
+        setupHambergerButton()
     }
     
     func setMenuViewLayout() {
@@ -191,6 +230,19 @@ extension MainViewController {
         menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         menuView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+    }
+    
+    func setupHambergerButton() {
+        let hamberger = UIButton()
+        hamberger.setImage(UIImage(named: "hamberger"), for: .normal)
+        hamberger.addTarget(self, action: #selector(hambergerButtonDidTapped(_:)), for: .touchUpInside)
+        menuView.addSubview(hamberger)
+        
+        hamberger.translatesAutoresizingMaskIntoConstraints = false
+        hamberger.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        hamberger.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        hamberger.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -20).isActive = true
+        hamberger.centerYAnchor.constraint(equalTo: menuView.centerYAnchor).isActive = true
     }
     
     // MARK: Content View Controller Methods
@@ -255,7 +307,62 @@ extension MainViewController {
             tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
             sender.setTranslation(CGPoint.zero, in: scrollView)
         }
-        print(currentTabBarViewCenterYConstant)
+    }
+    
+    @objc func hambergerButtonDidTapped(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.5) {
+            self.slidePanelBaseView.frame.origin.x = 0
+        }
+    }
+    
+    @objc func handleScreenEdgePanGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        let translation = recognizer.translation(in: view)
+        
+        switch recognizer.state {
+        case .changed:
+            UIView.animate(withDuration: 0.2) {
+                self.slidePanelBaseView.center = CGPoint(x: self.slidePanelBaseView.center.x + translation.x, y: self.slidePanelBaseView.center.y)
+                recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
+            }
+        case .ended:
+            if self.slidePanelBaseView.frame.origin.x < view.frame.size.width / 2 {
+                UIView.animate(withDuration: 0.6, animations: {
+                    self.slidePanelBaseView.frame.origin.x = 0
+                    recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
+                })
+            } else {
+                UIView.animate(withDuration: 0.6, animations: {
+                    self.slidePanelBaseView.frame.origin.x = self.baseViewMaxX
+                    recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
+                }) { (success) in
+                    if success {
+                        self.removeSlidePanelView()
+                        self.setupSlidePanelView()
+                    }
+                }
+            }
+        default: print("default")
+        }
+    }
+
+}
+
+// MARK :- SlidePanelView Delegate
+extension MainViewController: SlidePanelViewDelegate {
+    func dismiss() {
+        UIView.animate(withDuration: 0.6, animations: {
+            self.slidePanelBaseView.frame.origin.x = self.baseViewMaxX
+        }) { (success) in
+            if success {
+                self.removeSlidePanelView()
+                self.setupSlidePanelView()
+            }
+        }
+    }
+    
+    func panGestureDraggingEnded() {
+        removeSlidePanelView()
+        setupSlidePanelView()
     }
 }
 
