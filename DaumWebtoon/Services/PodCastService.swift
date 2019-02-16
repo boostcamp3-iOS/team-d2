@@ -14,7 +14,9 @@ class PodCastService {
     
     private init() { }
     
-    func fetchPodCasts(podcastId: String, completion: @escaping (PodCast) -> ()) {
+    func fetchPodCasts(podcastId: String?, completion: @escaping (PodCast) -> ()) {
+        guard let podcastId = podcastId else { return }
+        
         let requestData = RequestData(path: HTTPBaseUrl.baseUrl.rawValue + "/podcasts/" + podcastId)
         
         FetchPodCastsAPI(data: requestData).execute(onSuccess: { (podcast) in

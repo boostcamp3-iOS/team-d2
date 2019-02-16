@@ -19,7 +19,6 @@ struct URLSessionNetworkDispatcher: NetworkDispatcher {
     private init() {}
     
     func dispatch(request: RequestData, onSuccess: @escaping (Data) -> Void, onError: @escaping (Error) -> Void) {
-        print("dispatch :\(URL(string: request.path)!)")
         guard let url = URL(string: request.path) else {
             onError(ConnectionError.invalidURL)
             return
