@@ -222,6 +222,7 @@ extension MainViewController {
         scrollView.addSubview(menuView)
         setMenuViewLayout()
         setupHambergerButton()
+        setupSearchView()
     }
     
     func setMenuViewLayout() {
@@ -229,7 +230,20 @@ extension MainViewController {
         menuView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        menuView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        menuView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+    }
+    
+    func setupSearchView() {
+        let search = UIButton()
+        search.addTarget(self, action: #selector(searchTapped(_:)), for: .touchUpInside)
+        search.setImage(UIImage(named: "search"), for: .normal)
+        menuView.addSubview(search)
+        
+        search.translatesAutoresizingMaskIntoConstraints = false
+        search.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        search.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        search.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -70).isActive = true
+        search.centerYAnchor.constraint(equalTo: menuView.centerYAnchor).isActive = true
     }
     
     func setupHambergerButton() {
@@ -307,6 +321,11 @@ extension MainViewController {
             tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
             sender.setTranslation(CGPoint.zero, in: scrollView)
         }
+    }
+    
+    @objc func searchTapped(_ sender: UIButton) {
+        let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "Search")
+        present(searchViewController, animated: false, completion: nil)
     }
     
     @objc func hambergerButtonDidTapped(_ sender: UIButton) {
