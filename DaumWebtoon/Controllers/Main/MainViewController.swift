@@ -227,10 +227,10 @@ extension MainViewController {
     
     func setMenuViewLayout() {
         menuView.translatesAutoresizingMaskIntoConstraints = false
-        menuView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        menuView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        menuView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        menuView.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     func setupSearchView() {
@@ -242,7 +242,7 @@ extension MainViewController {
         search.translatesAutoresizingMaskIntoConstraints = false
         search.widthAnchor.constraint(equalToConstant: 24).isActive = true
         search.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        search.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -70).isActive = true
+        search.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -50).isActive = true
         search.centerYAnchor.constraint(equalTo: menuView.centerYAnchor).isActive = true
     }
     
@@ -255,7 +255,7 @@ extension MainViewController {
         hamberger.translatesAutoresizingMaskIntoConstraints = false
         hamberger.widthAnchor.constraint(equalToConstant: 24).isActive = true
         hamberger.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        hamberger.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -20).isActive = true
+        hamberger.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -10).isActive = true
         hamberger.centerYAnchor.constraint(equalTo: menuView.centerYAnchor).isActive = true
     }
     

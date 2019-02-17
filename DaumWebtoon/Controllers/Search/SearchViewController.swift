@@ -17,10 +17,13 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var keywordInput: UITextField!
     @IBOutlet weak var search: UIButton!
     
+    private let imageTranslateAnimator = TranslateAnimator()
     private let collectionCellIdentifier = "recommandCell"
     private let tableviewCellIdentifier = "tableviewCell"
     private var genres: [Genre]?
     private var podcasts: [PodCastSearch]?
+    private var selectedImage: UIImageView?
+    private var selectedCellFrame: CGRect?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,10 +99,6 @@ class SearchViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @IBAction func backTapped(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
-    
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let query = textField.text else { return }
         
@@ -112,8 +111,16 @@ class SearchViewController: UIViewController {
         searchPodCasts(query: query)
     }
     
+    @IBAction func backTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func searchTapped(_ sender: UIButton) {
-        guard let query = keywordInput.text, query != "" else { return }
+        guard var query = keywordInput.text, query != "" else { return }
+        
+        if query.starts(with: "#") {
+            query = String(query.suffix(query.count-1))
+        }
         
         searchPodCasts(query: query)
     }
@@ -123,6 +130,16 @@ extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension SearchViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        imageTranslateAnimator.selectedImage = selectedImage
+        imageTranslateAnimator.selectedCellFrame = selectedCellFrame
+        
+        return imageTranslateAnimator
     }
 }
 
@@ -148,8 +165,13 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard
             let podcast = podcasts?[indexPath.row],
-            let podcastsViewController = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "PodCasts") as? PodCastsViewController else { return }
+            let podcastsViewController = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "PodCasts") as? PodCastsViewController,
+            let selectedCell = tableView.cellForRow(at: indexPath) as? PodCastTableViewCell else { return }
+
+        self.selectedImage = selectedCell.podcastThumbnail
+        self.selectedCellFrame = selectedCell.frame
         
+        podcastsViewController.transitioningDelegate = self
         podcastsViewController.podcastId = podcast.id
         present(podcastsViewController, animated: true, completion: nil)
     }

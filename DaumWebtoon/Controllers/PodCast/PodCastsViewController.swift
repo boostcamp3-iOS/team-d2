@@ -58,6 +58,11 @@ class PodCastsViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
+    
+    // MARK :- event handling
+    @IBAction func backTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }
 
 extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
@@ -119,6 +124,3 @@ extension PodCastsViewController: UICollectionViewDataSource {
     }
 }
 
-extension PodCastsViewController: UICollectionViewDelegate {
-    
-}
