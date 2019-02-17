@@ -18,16 +18,24 @@ class MainViewController: UIViewController {
         TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 4),
         TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
+    private let fetchers: [BestPodCastsFetcher?] = [
+        nil,
+        WebDesignBestPodCastsFetcher(),
+        ProgrammingBestPodCastsFetcher(),
+        VRandARBestPodCastsFetcher(),
+        StartupBestPodCastsFetcher(),
+        nil
+    ]
     private var scrollDirection: Direction?
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
     private let menuViewHeight: CGFloat = 80
     private lazy var tabBarViewWidth: CGFloat = view.frame.width - 20
     private lazy var tabBarViewHeight: CGFloat = 30
-    private let initialIndex = 1
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
-    private var currentIndex = 0
+    private var currentIndex = 1
+    private var isSplashViewDidAppear = false
     
     // MARK: Views
     private lazy var splashView = SplashView()
@@ -35,6 +43,7 @@ class MainViewController: UIViewController {
         return TabBarView(frame: CGRect(x: 0.0, y: 0.0, width: tabBarViewWidth, height: tabBarViewHeight))
     } ()
     private lazy var scrollView = UIScrollView()
+    private lazy var scrollContentView = UIView()
     private lazy var tabBarViewContainer = UIView()
     private lazy var tableView = UITableView()
     private lazy var menuView = UIView()
@@ -55,8 +64,8 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showCurrentTab(currentIndex: initialIndex)
-        splashView.animate()
+        showCurrentTab(currentIndex: currentIndex)
+        animateSplashViewIfViewDidNotAppeared()
     }
 }
 
@@ -75,6 +84,13 @@ extension MainViewController {
         splashView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         splashView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         splashView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
+    
+    func animateSplashViewIfViewDidNotAppeared() {
+        if !isSplashViewDidAppear {
+            isSplashViewDidAppear.toggle()
+            splashView.animate()
+        }
     }
     
     // MARK: Header View Methods
@@ -96,6 +112,7 @@ extension MainViewController {
     func addScrollView() {
         scrollView.delegate = self
         view.addSubview(scrollView)
+        scrollView.addSubview(scrollContentView)
         setScrollViewLayout()
         setScrollViewProperties()
     }
@@ -106,13 +123,20 @@ extension MainViewController {
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        scrollContentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollContentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        scrollContentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        scrollContentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        scrollContentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        let widthAnchor = scrollContentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        scrollContentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+        widthAnchor.priority = .defaultLow
+        widthAnchor.isActive = true
     }
     
     func setScrollViewProperties() {
         scrollView.isPagingEnabled = true
-        scrollView.contentSize = CGSize(
-            width: view.frame.width * CGFloat(tabContents.count),
-            height: view.frame.height)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
     }
@@ -121,7 +145,7 @@ extension MainViewController {
     func addTabBarView() {
         tabBarView.dataSource = self
         tabBarView.delegate = self
-        scrollView.addSubview(tabBarViewContainer)
+        scrollContentView.addSubview(tabBarViewContainer)
         tabBarViewContainer.addSubview(tabBarView)
         tabBarView.showCurrentTabIndicator()
         setTabBarViewLayout()
@@ -181,7 +205,7 @@ extension MainViewController {
     
     // MARK: Menu View Methods
     func addMenuView() {
-        scrollView.addSubview(menuView)
+        view.addSubview(menuView)
         setMenuViewLayout()
         setupSearchView()
     }
@@ -216,7 +240,7 @@ extension MainViewController {
     func addContentViewControllers() {
         for index in 0..<tabContents.count {
             let contentViewController = ContentViewController()
-            contentViewController.testString = tabContents[index].tabTitle
+            contentViewController.fetcher = fetchers[index]
             addChild(contentViewController)
             contentViewController.didMove(toParent: self)
             tableStackView.addArrangedSubview(contentViewController.view)
@@ -225,11 +249,19 @@ extension MainViewController {
         }
     }
     
-    // MARK: Table Stack View
+    // MARK: Table Stack View Methods
     func addTableStackView() {
-        scrollView.addSubview(tableStackView)
+        scrollContentView.addSubview(tableStackView)
+        setTableStackViewLayout()
+    }
+    
+    func setTableStackViewLayout() {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         tableStackView.topAnchor.constraint(equalTo: tabBarViewContainer.bottomAnchor).isActive = true
+        tableStackView.bottomAnchor.constraint(equalTo: scrollContentView.bottomAnchor).isActive = true
+        tableStackView.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor).isActive = true
+        tableStackView.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor).isActive = true
+        tableStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: CGFloat(tabContents.count)).isActive = true
     }
     
     // MARK: Pan Gesture Recognizer Methods

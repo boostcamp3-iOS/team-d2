@@ -59,6 +59,13 @@
 		B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3B220ABCD000B11954 /* MainViewController.swift */; };
 		B84ECF40220ABD7D00B11954 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */; };
 		B85187562203DBCD0081F72D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85187552203DBCD0081F72D /* SplashView.swift */; };
+		B87007C62215381B00113BA8 /* BestPodCasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007C52215381B00113BA8 /* BestPodCasts.swift */; };
+		B87007CC22153B3000113BA8 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007CB22153B3000113BA8 /* Channel.swift */; };
+		B87007D022153B6A00113BA8 /* Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007CF22153B6A00113BA8 /* Extra.swift */; };
+		B87007D222153BBD00113BA8 /* LookingFor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D122153BBD00113BA8 /* LookingFor.swift */; };
+		B87007D42215405400113BA8 /* BestPodCastsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D32215405400113BA8 /* BestPodCastsAPI.swift */; };
+		B87007D6221540F300113BA8 /* BestPodCastsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D5221540F300113BA8 /* BestPodCastsFetcher.swift */; };
+		B87007D822155A6E00113BA8 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */; };
 		B8701E7922108F12003F7217 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8701E7822108F12003F7217 /* Direction.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
 		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
@@ -118,6 +125,13 @@
 		B84ECF3B220ABCD000B11954 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		B85187552203DBCD0081F72D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		B87007C52215381B00113BA8 /* BestPodCasts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPodCasts.swift; sourceTree = "<group>"; };
+		B87007CB22153B3000113BA8 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		B87007CF22153B6A00113BA8 /* Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extra.swift; sourceTree = "<group>"; };
+		B87007D122153BBD00113BA8 /* LookingFor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingFor.swift; sourceTree = "<group>"; };
+		B87007D32215405400113BA8 /* BestPodCastsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPodCastsAPI.swift; sourceTree = "<group>"; };
+		B87007D5221540F300113BA8 /* BestPodCastsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPodCastsFetcher.swift; sourceTree = "<group>"; };
+		B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		B8701E7822108F12003F7217 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +199,7 @@
 			children = (
 				3BDC57E82212B2670009C115 /* FetchImageService.swift */,
 				3BDC57EA2212BA670009C115 /* PodCastService.swift */,
+				B87007D5221540F300113BA8 /* BestPodCastsFetcher.swift */,
 				3B422A572216A40900DA65D6 /* SearchPodCastsService.swift */,
 				3BDC57F72213DB900009C115 /* FetchAudioService.swift */,
 			);
@@ -195,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				3BDC57ED2212F1B70009C115 /* FetchPodCastsAPI.swift */,
+				B87007D32215405400113BA8 /* BestPodCastsAPI.swift */,
 				3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */,
 				3B422A592216A4E300DA65D6 /* SearchPodCastsAPI.swift */,
 			);
@@ -239,6 +255,10 @@
 				3B1C0FD52204292300077751 /* TabView.swift */,
 				3BDC57E32212ADEE0009C115 /* PodCast.swift */,
 				3BDC57E52212AE4C0009C115 /* Episode.swift */,
+				B87007C52215381B00113BA8 /* BestPodCasts.swift */,
+				B87007CB22153B3000113BA8 /* Channel.swift */,
+				B87007CF22153B6A00113BA8 /* Extra.swift */,
+				B87007D122153BBD00113BA8 /* LookingFor.swift */,
 				3BBEDB9322167B2300E0A769 /* GenreDTO.swift */,
 				3BBEDB9922167D1300E0A769 /* Genre.swift */,
 				3B422A5B2216A53200DA65D6 /* PodCastSearchDTO.swift */,
@@ -253,6 +273,7 @@
 				B84ECF3B220ABCD000B11954 /* MainViewController.swift */,
 				B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */,
 				B8701E7822108F12003F7217 /* Direction.swift */,
+				B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -433,12 +454,17 @@
 				47489C792213F95F003BF7DB /* DatabaseService.swift in Sources */,
 				3BDC57D6221294710009C115 /* SlidePanelViewController.swift in Sources */,
 				3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */,
+				B87007D42215405400113BA8 /* BestPodCastsAPI.swift in Sources */,
+				3BBAA6D321FFE0B300861707 /* TabBarViewController.swift in Sources */,
 				3BBEDB9A22167D1300E0A769 /* Genre.swift in Sources */,
 				3B1C0FD62204292300077751 /* TabView.swift in Sources */,
 				B84ECF40220ABD7D00B11954 /* ContentViewController.swift in Sources */,
 				B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */,
+				B87007C62215381B00113BA8 /* BestPodCasts.swift in Sources */,
+				B87007D222153BBD00113BA8 /* LookingFor.swift in Sources */,
 				47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */,
 				3BDC57EB2212BA670009C115 /* PodCastService.swift in Sources */,
+				B87007CC22153B3000113BA8 /* Channel.swift in Sources */,
 				3B40AC4D221501D1003D2CA8 /* TimeFormatExtension.swift in Sources */,
 				47449B41220D96B000B99773 /* ShapeN.swift in Sources */,
 				3BDC57D8221295F90009C115 /* SlidePanelContainerView.swift in Sources */,
@@ -447,6 +473,9 @@
 				3BDC57E22212AD000009C115 /* PodCastCollectionViewCell.swift in Sources */,
 				3BDC57E42212ADEE0009C115 /* PodCast.swift in Sources */,
 				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
+				3B8FAC63220A0B9E002CEEEF /* DetailViewController.swift in Sources */,
+				B87007D822155A6E00113BA8 /* ChannelTableViewCell.swift in Sources */,
+				B87007D6221540F300113BA8 /* BestPodCastsFetcher.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
@@ -461,6 +490,7 @@
 				475B4562221547DF003BFB14 /* SlidePanelTableViewCell.swift in Sources */,
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
+				B87007D022153B6A00113BA8 /* Extra.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				3B40AC5222164AA3003D2CA8 /* SearchViewController.swift in Sources */,
 				3B422A5A2216A4E300DA65D6 /* SearchPodCastsAPI.swift in Sources */,
