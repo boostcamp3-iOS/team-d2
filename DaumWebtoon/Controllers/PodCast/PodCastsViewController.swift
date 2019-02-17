@@ -55,6 +55,7 @@ class PodCastsViewController: UIViewController {
     }
     
     private func fetchPodCasts() {
+        guard let podcastId = podcastId else { return }
         PodCastService.shared.fetchPodCasts(podcastId: podcastId) { [weak self] (podcast) in
             guard let self = self else { return }
             
