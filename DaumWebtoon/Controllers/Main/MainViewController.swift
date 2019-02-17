@@ -18,14 +18,7 @@ class MainViewController: UIViewController {
         TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 4),
         TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
-    private let fetchers: [BestPodCastsFetcher?] = [
-        nil,
-        WebDesignBestPodCastsFetcher(),
-        ProgrammingBestPodCastsFetcher(),
-        VRandARBestPodCastsFetcher(),
-        StartupBestPodCastsFetcher(),
-        nil
-    ]
+    private let genres: [Int?] = [nil, 140, 143, 139, 157, nil]
     private var scrollDirection: Direction?
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
@@ -240,7 +233,7 @@ extension MainViewController {
     func addContentViewControllers() {
         for index in 0..<tabContents.count {
             let contentViewController = ContentViewController()
-            contentViewController.fetcher = fetchers[index]
+            contentViewController.genre = genres[index]
             addChild(contentViewController)
             contentViewController.didMove(toParent: self)
             tableStackView.addArrangedSubview(contentViewController.view)

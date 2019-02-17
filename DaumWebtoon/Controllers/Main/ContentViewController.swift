@@ -10,10 +10,13 @@ import UIKit
 
 class ContentViewController: UIViewController {
 
-    var fetcher: BestPodCastsFetcher?
+    var genre: Int?
     lazy var tableView = UITableView()
     private var channels: [Channel] = []
     private let cellIdentifier = "cellIdentifier"
+    private let fetcher = BestPodCastsFetcher.shared
+    private var hasNextPage = true
+    private var currentPage = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +35,16 @@ extension ContentViewController {
     }
     
     private func fetchBestPodCasts() {
-        guard let fetcher = fetcher else { return }
-        fetcher.execute { [weak self] bestPodCasts in
+        guard hasNextPage, let genre = genre else { return }
+
+        BestPodCastsFetcher.shared.loadPage(genre: genre, currentPage: currentPage) { [weak self] bestPodCasts in
             guard let self = self else { return }
-            self.channels = bestPodCasts.channels
+            self.channels += bestPodCasts.channels
+            if !bestPodCasts.hasNext {
+                self.hasNextPage = false
+            } else {
+                self.currentPage += 1
+            }
             self.tableView.reloadData()
         }
     }
@@ -64,5 +73,11 @@ extension ContentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         presentPodCastsViewController(indexPath: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == channels.count - 1 {
+            fetchBestPodCasts()
+        }
     }
 }
