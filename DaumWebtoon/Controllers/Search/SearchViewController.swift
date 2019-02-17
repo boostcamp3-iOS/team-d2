@@ -168,8 +168,8 @@ extension SearchViewController: UITableViewDelegate {
             let podcastsViewController = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "PodCasts") as? PodCastsViewController,
             let selectedCell = tableView.cellForRow(at: indexPath) as? PodCastTableViewCell else { return }
 
-        self.selectedImage = selectedCell.podcastThumbnail
-        self.selectedCellFrame = selectedCell.frame
+        selectedImage = selectedCell.podcastThumbnail
+        selectedCellFrame = selectedCell.frame
         
         podcastsViewController.transitioningDelegate = self
         podcastsViewController.podcastId = podcast.id
