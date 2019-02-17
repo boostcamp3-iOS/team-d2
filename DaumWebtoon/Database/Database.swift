@@ -72,14 +72,14 @@ class Database {
         defer { close() }
 
         guard prepare(with: sql) else { throw SQLError.failToPrepare }
-        guard bindText(with: episode.id, at: 0) else { throw SQLError.failToBind }
-        guard bindInt(with: episode.duration, at: 1) else { throw SQLError.failToBind }
-        guard bindText(with: episode.audio, at: 2) else { throw SQLError.failToBind }
-        guard bindText(with: episode.image, at: 3) else { throw SQLError.failToBind }
-        guard bindText(with: episode.thumbnail, at: 4) else { throw SQLError.failToBind }
-        guard bindText(with: episode.description, at: 5) else { throw SQLError.failToBind }
-        guard bindText(with: episode.channelTitle, at: 6) else { throw SQLError.failToBind }
-        guard bindText(with: episode.title, at: 7) else { throw SQLError.failToBind }
+        guard bindText(with: episode.id, at: 1) else { throw SQLError.failToBind }
+        guard bindInt(with: episode.duration, at: 2) else { throw SQLError.failToBind }
+        guard bindText(with: episode.audio, at: 3) else { throw SQLError.failToBind }
+        guard bindText(with: episode.image, at: 4) else { throw SQLError.failToBind }
+        guard bindText(with: episode.thumbnail, at: 5) else { throw SQLError.failToBind }
+        guard bindText(with: episode.description, at: 6) else { throw SQLError.failToBind }
+        guard bindText(with: episode.channelTitle, at: 7) else { throw SQLError.failToBind }
+        guard bindText(with: episode.title, at: 8) else { throw SQLError.failToBind }
         guard step() == SQLITE_DONE else { throw SQLError.failToStep }
     }
     
@@ -88,8 +88,8 @@ class Database {
         defer { close() }
         
         guard prepare(with: sql) else { throw SQLError.failToPrepare }
-        guard bindInt(with: data.dateTime, at: 0) else { throw SQLError.failToBind }
-        guard bindText(with: data.episodeId, at: 1) else { throw SQLError.failToBind }
+        guard bindInt(with: data.dateTime, at: 1) else { throw SQLError.failToBind }
+        guard bindText(with: data.episodeId, at: 2) else { throw SQLError.failToBind }
         guard step() == SQLITE_DONE else { throw SQLError.failToStep }
     }
 
