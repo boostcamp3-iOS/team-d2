@@ -173,6 +173,7 @@ extension SearchViewController: UITableViewDelegate {
         
         podcastsViewController.transitioningDelegate = self
         podcastsViewController.podcastId = podcast.id
+        podcastsViewController.headerImage = selectedImage?.image
         present(podcastsViewController, animated: true, completion: nil)
     }
 }
