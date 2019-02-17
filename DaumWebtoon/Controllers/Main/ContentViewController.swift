@@ -14,6 +14,9 @@ class ContentViewController: UIViewController {
     lazy var tableView = UITableView()
     private var channels: [Channel] = []
     private let cellIdentifier = "cellIdentifier"
+    private let imageTranslateAnimator = TranslateAnimator()
+    private var selectedImage: UIImageView?
+    private var selectedCellFrame: CGRect?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +44,21 @@ extension ContentViewController {
     }
     
     private func presentPodCastsViewController(indexPath: IndexPath) {
-        guard let podCastsViewController = UIStoryboard.init(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "PodCasts") as? PodCastsViewController else { return }
+        guard let podCastsViewController = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "PodCasts") as? PodCastsViewController else { return }
+        
+        podCastsViewController.transitioningDelegate = self
         podCastsViewController.podcastId = channels[indexPath.row].id
+        podCastsViewController.headerImage = selectedImage?.image
         present(podCastsViewController, animated: true, completion: nil)
+    }
+}
+
+extension ContentViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        imageTranslateAnimator.selectedImage = selectedImage
+        imageTranslateAnimator.selectedCellFrame = selectedCellFrame
+        
+        return imageTranslateAnimator
     }
 }
 
@@ -63,6 +78,10 @@ extension ContentViewController: UITableViewDataSource {
 extension ContentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let selectedCell = tableView.cellForRow(at: indexPath) as? ChannelTableViewCell else { return }
+        
+        selectedImage = selectedCell.thumbnailImageView
+        selectedCellFrame = selectedCell.frame
         presentPodCastsViewController(indexPath: indexPath)
     }
 }

@@ -45,14 +45,13 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
-    private var toViewController: UIViewController?
+    
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard
             let selectedImage = selectedImage,
             let toView = transitionContext.view(forKey: .to),
             let selectedFrame = selectedCellFrame,
-            let backgroundImage = UIImage(named: "lightGray"),
-            let toViewController = transitionContext.viewController(forKey: .to) else { return }
+            let backgroundImage = UIImage(named: "lightGray") else { return }
         
         let containerView = transitionContext.containerView
         let duration = transitionDuration(using: transitionContext)
@@ -60,6 +59,8 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         containerWidth = containerView.frame.width
         initialOrigin = CGPoint(x: selectedImage.frame.origin.x, y: selectedFrame.origin.y)
+        print(initialOrigin.x)
+        print(initialOrigin.y)
         selectedImageHeight = 150
         
         let animatedImage = CALayer()
@@ -98,8 +99,6 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         animatedImage.add(flight, forKey: nil)
         animatedImage.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - 20)
-        
-        self.toViewController = toViewController
         
         transitionContext.completeTransition(true)
     }
