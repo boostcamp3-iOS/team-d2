@@ -98,6 +98,7 @@ class DatabaseService {
             \(category).dateTime
         FROM \(another) INNER JOIN \(category)
         ON \(another).id = \(category).episodeId
+        ORDER BY \(category).dateTime DESC
         """
         guard let episodes = try? database.selectInEpisode(with: sql) else { return nil }
         return episodes
@@ -165,15 +166,15 @@ class DatabaseService {
          4. 에피소드 테이블에 있고 recent 테이블에 있으면 update (dateTime)
          */
         if let findEpisodes = selectInEpisode(with: episode),
-            findEpisodes.count > 0 {
+            findEpisodes.count == 0 {
             self.insertInEpisode(with: episode)
         }
         
         if hasDependentEpisode(of: episode, from: .recent) {
-            self.insertInDependent(with: episode, from: .recent)
+            updateEpisode(of: episode, from: .recent)
         }
         
-        updateEpisode(of: episode, from: .recent)
+        self.insertInDependent(with: episode, from: .recent)
     }
     
     private func updateEpisode(of episode: Episode, from category: TableCategory) {
