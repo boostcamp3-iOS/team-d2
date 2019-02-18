@@ -28,10 +28,10 @@ class EpisodeModalViewController: UIViewController {
     
     private let audioSession = AVAudioSession.sharedInstance()
     private let dbService = DatabaseService()
+    private let audioService = FetchAudioService.shared
     
     private var audioUrl: String?
     private var buttonSelected = false
-    private var audioPlayer: AVAudioPlayer?
     private var audioTimer : Timer?
     
     override func viewDidLoad() {
@@ -59,20 +59,14 @@ class EpisodeModalViewController: UIViewController {
         episodeTitle.text = episode.title
         episodeTotalTime.text = "\(h):\(m):\(s)"
         
-        FetchAudioService.shared.execute(audioUrl: episode.audio) { [weak self] (data) in
+        audioService.execute(audioUrl: episode.audio) { [weak self] (status) in
             guard let self = self else { return }
 
-            do {
-                try self.audioPlayer = AVAudioPlayer.init(data: data)
-                    self.audioPlayer?.prepareToPlay()
-            } catch let error as NSError {
-                print("플레이어 초기화 실패")
-                print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")
+            if status == AudioFetchStatus.success {
+                self.episodeProgress.maximumValue = self.audioService.getMaximumValue()
+                self.episodeProgress.minimumValue = 0
+                self.episodeProgress.value = Float(self.audioService.getCurrentValue())
             }
-
-            self.episodeProgress.maximumValue = Float(self.audioPlayer?.duration ?? 0)
-            self.episodeProgress.minimumValue = 0
-            self.episodeProgress.value = Float(self.audioPlayer?.currentTime ?? 0)
         }
         
         FetchImageService.shared.execute(imageUrl: episode.image) { [weak self] (image) in
@@ -104,8 +98,8 @@ class EpisodeModalViewController: UIViewController {
                 let self = self,
                 self.episodeProgress.isTracking == false else { return }
 
-            self.updateEpisodeTime(time: self.audioPlayer?.currentTime)
-            self.episodeProgress.value = Float(self.audioPlayer?.currentTime ?? 0)
+            self.updateEpisodeTime(time: self.audioService.getCurrentValue())
+            self.episodeProgress.value = Float(self.audioService.getCurrentValue())
         })
     }
 
@@ -120,11 +114,11 @@ class EpisodeModalViewController: UIViewController {
     }
 
     private func playAudio() {
-        audioPlayer?.play()
+        audioService.play()
     }
 
     private func pauseAudio() {
-        audioPlayer?.pause()
+        audioService.pause()
     }
     
     private func dismissModal() {
@@ -164,11 +158,11 @@ class EpisodeModalViewController: UIViewController {
     
     @IBAction func playPauseTapped(_ sender: UIButton) {
         if sender.isSelected {
-            playAudio()
-            makeAndFireTimer()
-        } else {
             pauseAudio()
             invalidateTimer()
+        } else {
+            playAudio()
+            makeAndFireTimer()
         }
         
         sender.isSelected = !sender.isSelected
@@ -199,4 +193,3 @@ class EpisodeModalViewController: UIViewController {
         dismissModal()
     }
 }
-
