@@ -59,8 +59,8 @@ class DatabaseService {
     private func createFavoriteTable() {
         let sql = """
         CREATE TABLE IF NOT EXISTS \(TableCategory.favorite) (
-            dateTime INTEGER PRIMARY KEY,
-            episodeId TEXT,
+            dateTime INTEGER,
+            episodeId TEXT PRIMARY KEY,
             FOREIGN KEY(episodeId) REFERENCES \(TableCategory.episode)(id)
         )
         """
@@ -70,8 +70,8 @@ class DatabaseService {
     private func createRecentTable() {
         let sql = """
         CREATE TABLE IF NOT EXISTS \(TableCategory.recent) (
-            dateTime INTEGER PRIMARY KEY,
-            episodeId TEXT,
+            dateTime INTEGER,
+            episodeId TEXT PRIMARY KEY,
             FOREIGN KEY(episodeId) REFERENCES \(TableCategory.episode)(id)
         )
         """
