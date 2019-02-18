@@ -12,10 +12,10 @@ class MainViewController: UIViewController {
     // MARK: - Properties
     private let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
-        TabContent(tabColor: UIColor.red, tabTitle: "캐시", tabIndex: 1),
-        TabContent(tabColor: UIColor.brown, tabTitle: "연재", tabIndex: 2),
-        TabContent(tabColor: UIColor.purple, tabTitle: "기다무", tabIndex: 3),
-        TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 4),
+        TabContent(tabColor: UIColor.red, tabTitle: "웹디자인", tabIndex: 1),
+        TabContent(tabColor: UIColor.brown, tabTitle: "프로그래밍", tabIndex: 2),
+        TabContent(tabColor: UIColor.purple, tabTitle: "가상현실", tabIndex: 3),
+        TabContent(tabColor: UIColor.blue, tabTitle: "스타트업", tabIndex: 4),
         TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
     private enum Genre: Int {
@@ -337,17 +337,10 @@ extension MainViewController {
             (direction == .up || direction == .down) else { return }
         let topLimit = menuViewHeight + (tabBarViewHeight / 2) - (scrollView.frame.height / 2)
         if currentTabBarViewCenterYConstant >= CGFloat(0), direction == .down {
-            tableView.isScrollEnabled = true
             tabBarViewCenterYAnchorConstraint?.constant = 0
         } else if currentTabBarViewCenterYConstant <= topLimit, direction == .up {
-            tableView.isScrollEnabled = true
-            tabBarViewCenterYAnchorConstraint?.constant = topLimit
-        } else if currentTabBarViewCenterYConstant <= topLimit,
-            tableView.contentOffset.y > 0, direction == .down {
-            tableView.isScrollEnabled = true
             tabBarViewCenterYAnchorConstraint?.constant = topLimit
         } else {
-            tableView.isScrollEnabled = false
             let translation = sender.translation(in: scrollView)
             tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
             sender.setTranslation(CGPoint.zero, in: scrollView)
