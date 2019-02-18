@@ -8,9 +8,8 @@
 
 import UIKit
 
-class DetailCollectionViewCell: UICollectionReusableView {
+class PodCastDetailCollectionViewCell: UICollectionReusableView {
     
-    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var podcastTitle: UILabel!
     @IBOutlet weak var podcastDescription: UILabel!
     @IBOutlet weak var podcastPublisher: UILabel!
@@ -20,4 +19,5 @@ class DetailCollectionViewCell: UICollectionReusableView {
         podcastDescription.text = description ?? ""
         podcastPublisher.text = publisher ?? ""
     }
+    
 }
