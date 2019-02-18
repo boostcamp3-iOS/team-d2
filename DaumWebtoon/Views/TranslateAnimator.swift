@@ -14,7 +14,7 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     var selectedImage: UIImageView?
     var selectedCellOriginY: CGFloat?
     
-    private let duration = 1.0
+    private let duration = 3.0
     
     private var backgroundImageLayer: CALayer?
     private var containerWidth: CGFloat = 0.0
@@ -109,7 +109,7 @@ extension TranslateAnimator: CAAnimationDelegate {
         guard let backgroundImageLayer = backgroundImageLayer else { return }
         
         backgroundImageLayer.isHidden = false
-        UIView.animate(withDuration: 0.6) {
+        UIView.animate(withDuration: 3.0) {
             backgroundImageLayer.cornerRadius = 10
             backgroundImageLayer.opacity = 0.5
             backgroundImageLayer.setAffineTransform(CGAffineTransform(scaleX: self.containerWidth, y: CGFloat(1)))

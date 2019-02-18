@@ -64,6 +64,7 @@ class EpisodeModalViewController: UIViewController {
 
             do {
                 try self.audioPlayer = AVAudioPlayer.init(data: data)
+                    self.audioPlayer?.prepareToPlay()
             } catch let error as NSError {
                 print("플레이어 초기화 실패")
                 print("코드 : \(error.code), 메세지 : \(error.localizedDescription)")

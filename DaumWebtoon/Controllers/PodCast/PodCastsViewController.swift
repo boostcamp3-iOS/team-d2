@@ -86,18 +86,6 @@ extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionView.frame.size.width / 3, height: collectionView.frame.size.width / 3)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard let headerView = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? DetailCollectionViewCell else {
-            return CGSize(width: 1, height: 1)
-        }
-
-        headerView.layoutIfNeeded()
-
-        let height = headerView.contentView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
-
-        return CGSize(width: collectionView.frame.width, height: height)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
@@ -115,7 +103,7 @@ extension PodCastsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: detailIdentifier, for: indexPath) as? DetailCollectionViewCell else {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: detailIdentifier, for: indexPath) as? PodCastDetailCollectionViewCell else {
                 return UICollectionReusableView()
             }
             
