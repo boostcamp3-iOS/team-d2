@@ -104,6 +104,7 @@ extension MainViewController {
         setHeaderViewLayout()
         // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
         view.bringSubviewToFront(scrollView)
+        view.bringSubviewToFront(menuView)
     }
     
     func setHeaderViewLayout() {
