@@ -50,6 +50,7 @@ class SymbolView: UIView {
     private func configureRotateAnimation() {
         let animation = CABasicAnimation(keyPath: animationKey)
         animation.duration = 1
+        animation.isRemovedOnCompletion = false
         animation.fromValue = 0
         animation.toValue = CGFloat(Double.pi * 2)
         self.layer.speed = 0
