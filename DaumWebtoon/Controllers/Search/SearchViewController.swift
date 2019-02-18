@@ -137,7 +137,7 @@ extension SearchViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         imageTranslateAnimator.selectedImage = selectedImage
-        imageTranslateAnimator.selectedCellFrame = selectedCellFrame
+        imageTranslateAnimator.selectedCellOriginY = selectedCellFrame?.origin.y
         
         return imageTranslateAnimator
     }

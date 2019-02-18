@@ -12,12 +12,13 @@ import UIKit
 class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     var selectedImage: UIImageView?
-    var selectedCellFrame: CGRect?
+    var selectedCellOriginY: CGFloat?
     
     private let duration = 1.0
     
     private var backgroundImageLayer: CALayer?
     private var containerWidth: CGFloat = 0.0
+    private var containerHeight: CGFloat = 0.0
     private var selectedImageHeight: CGFloat = 0.0
     private var initialOrigin = CGPoint(x: 0.0, y: 0.0)
     private lazy var flightValues = [
@@ -38,6 +39,7 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             CGPoint(x: containerWidth / 2, y: selectedImageHeight - 20)
         ],
         [   initialOrigin,
+            CGPoint(x: containerWidth / 2, y: containerWidth / 2),
             CGPoint(x: containerWidth / 2, y: selectedImageHeight - 20)
         ]
     ]
@@ -50,17 +52,15 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         guard
             let selectedImage = selectedImage,
             let toView = transitionContext.view(forKey: .to),
-            let selectedFrame = selectedCellFrame,
+            let selectedCellOriginY = selectedCellOriginY,
             let backgroundImage = UIImage(named: "lightGray") else { return }
         
         let containerView = transitionContext.containerView
         let duration = transitionDuration(using: transitionContext)
-        let yPosition = selectedFrame.origin.y
         
         containerWidth = containerView.frame.width
-        initialOrigin = CGPoint(x: selectedImage.frame.origin.x, y: selectedFrame.origin.y)
-        print(initialOrigin.x)
-        print(initialOrigin.y)
+        containerHeight = containerView.frame.height
+        initialOrigin = CGPoint(x: selectedImage.frame.origin.x, y: selectedCellOriginY)
         selectedImageHeight = 150
         
         let animatedImage = CALayer()
@@ -79,15 +79,15 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         let flight = CAKeyframeAnimation(keyPath: "position")
         flight.delegate = self
-        if yPosition >= containerView.frame.height / 1.5 && yPosition < containerView.frame.height / 2 {
+        if selectedCellOriginY >= containerView.frame.height / 1.5 && selectedCellOriginY < containerView.frame.height / 2 {
             flight.duration = duration
             flight.values = flightValues[0].map { NSValue(cgPoint: $0) }
             flight.keyTimes = [0.0, 0.2, 0.75, 1.0]
-        } else if yPosition >= containerView.frame.height / 2 && yPosition < containerView.frame.height / 4 {
+        } else if selectedCellOriginY >= containerView.frame.height / 2 && selectedCellOriginY < containerView.frame.height / 4 {
             flight.duration = duration
             flight.values = flightValues[1].map { NSValue(cgPoint: $0) }
             flight.keyTimes = [0.0, 0.2, 1.0]
-        } else if yPosition >= containerView.frame.height / 4 && yPosition < containerView.frame.height / 2 {
+        } else if selectedCellOriginY >= containerView.frame.height / 4 && selectedCellOriginY < containerView.frame.height / 2 {
             flight.duration = 0.2
             flight.values = flightValues[2].map { NSValue(cgPoint: $0) }
             flight.keyTimes = [0.0, 0.2, 1.0]
