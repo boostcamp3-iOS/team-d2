@@ -17,11 +17,14 @@ class ContentViewController: UIViewController {
     private let fetcher = BestPodCastsFetcher.shared
     private var hasNextPage = true
     private var currentPage = 1
+    private var shownIndexes: [IndexPath] = []
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addTableView()
         fetchBestPodCasts()
+        addRefreshControl()
     }
 }
 
@@ -33,6 +36,20 @@ extension ContentViewController {
         tableView.frame = view.frame
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 120))
         tableView.register(ChannelTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    }
+    
+    private func addRefreshControl() {
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshContentData), for: .valueChanged)
+    }
+    
+    @objc func refreshContentData() {
+        hasNextPage = true
+        currentPage = 1
+        shownIndexes = []
+        channels = []
+        fetchBestPodCasts()
+        refreshControl.endRefreshing()
     }
     
     private func fetchBestPodCasts() {
@@ -63,7 +80,8 @@ extension ContentViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? ChannelTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? ChannelTableViewCell,
+            indexPath.row < channels.count else { return UITableViewCell() }
         let channel = channels[indexPath.row]
         cell.setData(channel: channel)
         return cell
@@ -77,6 +95,22 @@ extension ContentViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard shownIndexes.contains(indexPath) == false else { return }
+        shownIndexes.append(indexPath)
+        cell.alpha = 0
+        if indexPath.row < 10 {
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0.05 * Double(indexPath.row),
+                options: [],
+                animations: {
+                    cell.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                cell.alpha = 1
+            }
+        }
         if indexPath.row == channels.count - 1 {
             fetchBestPodCasts()
         }
