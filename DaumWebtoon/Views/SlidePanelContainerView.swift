@@ -27,10 +27,15 @@ class SlidePanelContainerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        configureDatabase()
         configureFirstView()
         configureSecondView()
         configureButton()
         selectInDependent(from: .recent)
+    }
+    
+    private func configureDatabase() {
+        dbService.createTable()
     }
     
     private func configureFirstView() {
