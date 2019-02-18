@@ -9,7 +9,7 @@
 import UIKit
 
 class ChannelTableViewCell: UITableViewCell {
-    private lazy var thumbnailImageView = UIImageView()
+    var thumbnailImageView = UIImageView()
     private lazy var titleLabel = UILabel()
     private lazy var publisherLabel = UILabel()
     

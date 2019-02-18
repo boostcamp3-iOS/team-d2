@@ -11,6 +11,7 @@ import AVFoundation
 
 protocol EpisodeModalViewDelegate: class {
     func playPauseAudio(state: Bool)
+    func showHeaderImageView()
 }
 
 class EpisodeModalViewController: UIViewController {
@@ -26,7 +27,9 @@ class EpisodeModalViewController: UIViewController {
     var episode: Episode?
     
     private let audioSession = AVAudioSession.sharedInstance()
+    private let dbService = DatabaseService()
     
+    private var audioUrl: String?
     private var buttonSelected = false
     private var audioPlayer: AVAudioPlayer?
     private var audioTimer : Timer?
@@ -35,6 +38,7 @@ class EpisodeModalViewController: UIViewController {
         super.viewDidLoad()
         
         setupAudioSession()
+        setupLikeViewState()
         
         initializeEpisode()
         initializeViews()
@@ -51,6 +55,7 @@ class EpisodeModalViewController: UIViewController {
         
         let (h,m,s) = episode.duration.secondsToHoursMinutesSeconds()
         
+        audioUrl = episode.audio
         episodeTitle.text = episode.title
         episodeTotalTime.text = "\(h):\(m):\(s)"
         
@@ -76,6 +81,10 @@ class EpisodeModalViewController: UIViewController {
     }
     
     // MARK :- private methods
+    private func setupLikeViewState() {
+        
+    }
+    
     private func setupAudioSession() {
         do {
             try audioSession.setCategory(AVAudioSession.Category.playback,
@@ -117,6 +126,11 @@ class EpisodeModalViewController: UIViewController {
         audioPlayer?.pause()
     }
     
+    private func dismissModal() {
+        delegate?.showHeaderImageView()
+        dismiss(animated: true, completion: nil)
+    }
+    
     // MARK :- event handling
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let touchPoint = recognizer.location(in: view?.window)
@@ -133,7 +147,7 @@ class EpisodeModalViewController: UIViewController {
             }
         case .ended, .cancelled:
             if view.frame.origin.y > view.frame.size.height / 2 {
-                dismiss(animated: true, completion: nil)
+                dismissModal()
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
                     self.view.frame = CGRect(x: 0,
@@ -161,15 +175,27 @@ class EpisodeModalViewController: UIViewController {
     }
     
     @IBAction func likeTapped(_ sender: UIButton) {
+        guard let episode = episode else { return }
+        
+        if sender.isSelected {
+            dbService.delete(from: .favorite, target: episode)
+        } else {
+            dbService.insertInEpisode(with: episode)
+            dbService.insertInDependent(with: episode, from: .favorite)
+        }
+        
         sender.isSelected = !sender.isSelected
     }
     
     @IBAction func shareTapped(_ sender: UIButton) {
+        let activityViewController = UIActivityViewController(activityItems: [episode?.audio ?? "", episode?.channelTitle ?? ""], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [.airDrop]
+        present(activityViewController, animated: true)
         sender.isSelected = !sender.isHighlighted
     }
     
     @IBAction func downTapped(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        dismissModal()
     }
 }
 
