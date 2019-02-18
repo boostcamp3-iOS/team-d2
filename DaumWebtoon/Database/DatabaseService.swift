@@ -162,16 +162,13 @@ class DatabaseService {
          3. 에피소드 테이블에 있고 recent 테이블에 없으면 insert
          4. 에피소드 테이블에 있고 recent 테이블에 있으면 update (dateTime)
          */
-        guard let findEpisodes = selectInEpisode(with: episode) else { return }
-        guard findEpisodes.count > 0 else {
+        if let findEpisodes = selectInEpisode(with: episode),
+            findEpisodes.count > 0 {
             self.insertInEpisode(with: episode)
-            self.insertInDependent(with: episode, from: .recent)
-            return
         }
         
-        guard hasDependentEpisode(of: episode, from: .recent) else {
+        if hasDependentEpisode(of: episode, from: .recent) {
             self.insertInDependent(with: episode, from: .recent)
-            return
         }
         
         updateEpisode(of: episode, from: .recent)
