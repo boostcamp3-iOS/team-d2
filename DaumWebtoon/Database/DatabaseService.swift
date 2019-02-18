@@ -138,6 +138,7 @@ class DatabaseService {
         return isFavorite
     }
     
+    // MARK: - Favorite
     func manageFavoriteEpisode(with episode: Episode, state: Bool) {
         state ? delete(from: .favorite, target: episode) : addFavoriteEpisode(with: episode)
     }
@@ -155,6 +156,7 @@ class DatabaseService {
         self.insertInDependent(with: episode, from: .favorite)
     }
     
+    // MARK: - Recent
     func addRecentEpisode(with episode: Episode) {
         /*
          1. 에피소드 테이블에서 찾기
@@ -184,7 +186,7 @@ class DatabaseService {
     }
     
     // MARK: - Insert
-    func insertInEpisode(with episode: Episode) {
+    private func insertInEpisode(with episode: Episode) {
         let sql = """
         INSERT INTO \(TableCategory.episode) (
             id, duration, audio, image, thumbnail, description, channelTitle, title)
@@ -193,7 +195,7 @@ class DatabaseService {
         try? database.insertInEpisode(with: sql, episode: episode)
     }
     
-    func insertInDependent(with episode: Episode, from category: TableCategory) {
+    private func insertInDependent(with episode: Episode, from category: TableCategory) {
         let sql = """
         INSERT INTO \(category) (
         dateTime, episodeId)
@@ -204,14 +206,14 @@ class DatabaseService {
     }
     
     // MARK: - Delete
-    func delete(from category: TableCategory, target episode: Episode) {
+    private func delete(from category: TableCategory, target episode: Episode) {
         let idName = category == .episode ? "id" : "episodeId"
         let sql = "DELETE FROM \(category) WHERE \(idName) = '\(episode.id)'"
         try? database.delete(with: sql)
     }
     
     // MARK: - DateTime ( for Insert )
-    func dateTime() -> Int {
+    private func dateTime() -> Int {
         let date = Date()
         let timeInterval = date.timeIntervalSince1970
         return Int(timeInterval)
