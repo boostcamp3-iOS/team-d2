@@ -177,7 +177,7 @@ extension MainViewController {
         tabBarViewCenterYAnchorConstraint?.priority = .defaultLow
         tabBarViewCenterYAnchorConstraint?.isActive = true
         tabBarViewContainer.centerYAnchor.constraint(lessThanOrEqualTo: view.centerYAnchor).isActive = true
-        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: menuViewHeight + (tabBarViewHeight / 2)).isActive = true
+        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: menuViewHeight + tabBarViewHeight).isActive = true
         tabBarViewTopAnchorConstraint?.isActive = true
     }
     
@@ -339,7 +339,7 @@ extension MainViewController {
         guard let direction = scrollDirection,
             let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant,
             (direction == .up || direction == .down) else { return }
-        let topLimit = menuViewHeight + (tabBarViewHeight / 2) - (scrollView.frame.height / 2)
+        let topLimit = menuViewHeight + tabBarViewHeight - (scrollView.frame.height / 2)
         if currentTabBarViewCenterYConstant >= CGFloat(0), direction == .down {
             tabBarViewCenterYAnchorConstraint?.constant = 0
         } else if currentTabBarViewCenterYConstant <= topLimit, direction == .up {
@@ -349,6 +349,12 @@ extension MainViewController {
             tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
             sender.setTranslation(CGPoint.zero, in: scrollView)
         }
+        updateHeaderViewAlpha(topLimit: topLimit, currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
+    }
+    
+    func updateHeaderViewAlpha(topLimit: CGFloat, currentTabBarViewCenterYConstant: CGFloat) {
+        let headerViewHeight = -topLimit
+        headerView.alpha = (currentTabBarViewCenterYConstant - topLimit) / headerViewHeight
     }
     
     @objc func searchTapped(_ sender: UIButton) {
