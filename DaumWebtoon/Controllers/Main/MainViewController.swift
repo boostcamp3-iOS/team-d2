@@ -18,7 +18,13 @@ class MainViewController: UIViewController {
         TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 4),
         TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
-    private let genres: [Int?] = [nil, 140, 143, 139, 157, nil]
+    private enum Genre: Int {
+        case webDesign = 140
+        case programming = 143
+        case vrAndAr = 139
+        case startup = 157
+    }
+    private let genres: [Genre?] = [nil, .webDesign, .programming, .vrAndAr, .startup, nil]
     private var scrollDirection: Direction?
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
@@ -233,7 +239,7 @@ extension MainViewController {
     func addContentViewControllers() {
         for index in 0..<tabContents.count {
             let contentViewController = ContentViewController()
-            contentViewController.genre = genres[index]
+            contentViewController.genre = genres[index]?.rawValue
             addChild(contentViewController)
             contentViewController.didMove(toParent: self)
             tableStackView.addArrangedSubview(contentViewController.view)
@@ -310,9 +316,9 @@ extension MainViewController: SplashViewDelegate {
             guard let self = self else { return }
             self.splashView.alpha = 0
         }, completion: { [weak self] _ in
-                guard let self = self else { return }
-                self.splashView.removeFromSuperview()
-                self.addPanGestureRecognizer()
+            guard let self = self else { return }
+            self.splashView.removeFromSuperview()
+            self.addPanGestureRecognizer()
         })
     }
 }
