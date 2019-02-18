@@ -31,7 +31,7 @@ extension ContentViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = view.frame
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 100))
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 120))
         tableView.register(ChannelTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
     }
     
