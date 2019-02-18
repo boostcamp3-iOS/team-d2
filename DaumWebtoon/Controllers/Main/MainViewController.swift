@@ -349,6 +349,12 @@ extension MainViewController {
             tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
             sender.setTranslation(CGPoint.zero, in: scrollView)
         }
+        updateHeaderViewAlpha(topLimit: topLimit, currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
+    }
+    
+    func updateHeaderViewAlpha(topLimit: CGFloat, currentTabBarViewCenterYConstant: CGFloat) {
+        let headerViewHeight = -topLimit
+        headerView.alpha = (currentTabBarViewCenterYConstant - topLimit) / headerViewHeight
     }
     
     @objc func searchTapped(_ sender: UIButton) {
