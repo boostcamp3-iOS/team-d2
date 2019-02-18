@@ -85,8 +85,7 @@ class EpisodeModalViewController: UIViewController {
     
     private func addRecentEpisode() {
         guard let episode = self.episode else { return }
-        dbService.insertInEpisode(with: episode)
-        dbService.insertInDependent(with: episode, from: .recent)
+        dbService.addRecentEpisode(with: episode)
     }
     
     // MARK :- private methods

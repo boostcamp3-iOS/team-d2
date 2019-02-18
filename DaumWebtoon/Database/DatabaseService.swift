@@ -121,6 +121,56 @@ class DatabaseService {
         return isFavorite
     }
     
+    private func hasDependentEpisode(of episode: Episode, from category: TableCategory) -> Bool {
+        let another = TableCategory.episode
+        let sql = """
+        SELECT \(another).id, \(another).duration,
+        \(another).audio, \(another).image,
+        \(another).thumbnail, \(another).description,
+        \(another).channelTitle, \(another).title,
+        \(category).dateTime
+        FROM \(another) INNER JOIN \(category)
+        ON \(another).id = \(category).episodeId
+        WHERE \(category).episodeId = '\(episode.id)'
+        """
+        guard let episdoes = try? database.selectInEpisode(with: sql) else { return false }
+        let isFavorite = episdoes.count == 1 ? true : false
+        return isFavorite
+    }
+    
+    func addRecentEpisode(with episode: Episode) {
+        // 에피소드 테이블에서 찾아서 없으면 추가
+        // 있으면 recent 항목에 다시 select 하고 없으면 insert 있으면 update
+        /*
+         1. 에피소드 테이블에서 찾기
+         2. 에피소드 테이블에 없으면 에피소드 테이블에 insert, recent 테이블에 insert
+         3. 에피소드 테이블에 있고 recent 테이블에 없으면 insert
+         4. 에피소드 테이블에 있고 recent 테이블에 있으면 update (dateTime)
+         */
+        guard let findEpisodes = selectInEpisode(with: episode) else { return }
+        guard findEpisodes.count > 0 else {
+            self.insertInEpisode(with: episode)
+            self.insertInDependent(with: episode, from: .recent)
+            return
+        }
+        
+        guard hasDependentEpisode(of: episode, from: .recent) else {
+            self.insertInDependent(with: episode, from: .recent)
+            return
+        }
+        
+        updateEpisode(of: episode, from: .recent)
+    }
+    
+    private func updateEpisode(of episode: Episode, from category: TableCategory) {
+        let sql = """
+        UPDATE \(category)
+        SET dateTime = \(dateTime())
+        WHERE episodeId = '\(episode.id)'
+        """
+        try? database.update(with: sql)
+    }
+    
     // MARK: - Insert
     func insertInEpisode(with episode: Episode) {
         let sql = """
