@@ -106,6 +106,8 @@ class SlidePanelContainerView: UIView {
         guard let episodes = dbService.selectInDependent(from: category) else { return }
         currentEpisodes = episodes
         secondView.reloadData()
+        let indexPath = IndexPath(row: 0, section: 0)
+        secondView.scrollToRow(at: indexPath, at: .top, animated: false)
     }
 }
 
