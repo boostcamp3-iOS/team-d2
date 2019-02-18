@@ -138,9 +138,24 @@ class DatabaseService {
         return isFavorite
     }
     
+    func manageFavoriteEpisode(with episode: Episode, state: Bool) {
+        state ? delete(from: .favorite, target: episode) : addFavoriteEpisode(with: episode)
+    }
+    
+    private func addFavoriteEpisode(with episode: Episode) {
+        /*
+         1. 에피소드 테이블에서 찾기
+         2. 에피소드 테이블에 없으면 에피소드 테이블에 insert, favorite 테이블에 insert
+         3. 에피소드 테이블에 있으면 favorite 테이블에만 insert
+         */
+        if let findEpisodes = selectInEpisode(with: episode),
+            findEpisodes.count > 0 {
+            self.insertInEpisode(with: episode)
+        }
+        self.insertInDependent(with: episode, from: .favorite)
+    }
+    
     func addRecentEpisode(with episode: Episode) {
-        // 에피소드 테이블에서 찾아서 없으면 추가
-        // 있으면 recent 항목에 다시 select 하고 없으면 insert 있으면 update
         /*
          1. 에피소드 테이블에서 찾기
          2. 에피소드 테이블에 없으면 에피소드 테이블에 insert, recent 테이블에 insert
