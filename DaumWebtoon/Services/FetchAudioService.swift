@@ -16,15 +16,12 @@ class FetchAudioService {
     
     func execute(audioUrl: String, onSuccess: @escaping (Data) -> Void) {
         guard let audioUrl = URL(string: audioUrl) else { return }
-        print("audioService: \(audioUrl)")
-        
+    
         URLSession.shared.dataTask(with: audioUrl) { (data, response, error) in
             if let error = error {
                 print(error)
                 return
             }
-            
-            print("audioResponseUrl: \(data)")
             
             DispatchQueue.main.async {
                 onSuccess(data!)
@@ -32,7 +29,3 @@ class FetchAudioService {
         }.resume()
     }
 }
-
-//extension FetchAudioService: URLSessionDataDelegate {
-//    
-//}

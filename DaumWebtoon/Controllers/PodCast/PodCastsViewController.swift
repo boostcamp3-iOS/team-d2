@@ -11,9 +11,12 @@ import UIKit
 class PodCastsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var headerImageView: UIImageView!
+    @IBOutlet weak var headerBackgroundImage: UIImageView!
     
     var podcastId: String?
-
+    var headerImage: UIImage?
+    
     private var podcast: PodCast?
     
     private let podcastIdentifier = "PodCastCell"
@@ -26,7 +29,7 @@ class PodCastsViewController: UIViewController {
         
         initializeCollectionView()
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -41,6 +44,7 @@ class PodCastsViewController: UIViewController {
         let indexPath = collectionView?.indexPath(for: cell)
         
         if let selectedIndex = indexPath?.item {
+            modalViewController.delegate = self
             modalViewController.episode = podcast?.episodes[selectedIndex]
         }
     }
@@ -58,6 +62,22 @@ class PodCastsViewController: UIViewController {
             self.podcast = podcast
             self.collectionView.reloadData()
         }
+    }
+    
+    // MARK :- event handling
+    @IBAction func backTapped(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PodCastsViewController: EpisodeModalViewDelegate {
+    func playPauseAudio(state: Bool) { }
+    
+    func showHeaderImageView() {
+        headerBackgroundImage.image = UIImage(named: "lightGray")
+        headerImageView.image = headerImage
+        view.sendSubviewToBack(headerBackgroundImage)
+        view.bringSubviewToFront(headerImageView)
     }
 }
 
@@ -120,6 +140,3 @@ extension PodCastsViewController: UICollectionViewDataSource {
     }
 }
 
-extension PodCastsViewController: UICollectionViewDelegate {
-    
-}

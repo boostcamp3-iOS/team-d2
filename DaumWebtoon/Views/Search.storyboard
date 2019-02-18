@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iC0-SC-Ubx">
-                                <rect key="frame" x="12" y="30" width="24" height="24"/>
+                                <rect key="frame" x="12" y="32" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="d7G-nr-IkR"/>
                                     <constraint firstAttribute="width" constant="24" id="hgs-tS-roW"/>
@@ -30,7 +30,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목, 키워드 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uzd-9W-1iv">
-                                <rect key="frame" x="14" y="124" width="205.5" height="36"/>
+                                <rect key="frame" x="14" y="126" width="205.5" height="36"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" smartDashesType="yes"/>
@@ -97,7 +97,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aiM-gc-us8">
-                                <rect key="frame" x="315" y="127" width="30" height="30"/>
+                                <rect key="frame" x="315" y="129" width="30" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="검색">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,7 +107,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pyW-iu-zef">
-                                <rect key="frame" x="15" y="180" width="345" height="467"/>
+                                <rect key="frame" x="15" y="182" width="345" height="465"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableviewCell" rowHeight="89" id="yIi-mZ-9dv" customClass="PodCastTableViewCell" customModule="DaumWebtoon" customModuleProvider="target">
@@ -158,7 +158,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CnF-JO-rfS">
-                                <rect key="frame" x="14" y="160" width="331" height="2"/>
+                                <rect key="frame" x="14" y="162" width="331" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="SCQ-ij-AOa"/>
@@ -178,7 +178,7 @@
                             <constraint firstItem="CnF-JO-rfS" firstAttribute="trailing" secondItem="aiM-gc-us8" secondAttribute="trailing" id="lNS-Rp-DNY"/>
                             <constraint firstItem="Ndf-WQ-9Lh" firstAttribute="leading" secondItem="o5m-K7-grM" secondAttribute="leading" id="oAa-4H-dI6"/>
                             <constraint firstItem="o5m-K7-grM" firstAttribute="trailing" secondItem="pyW-iu-zef" secondAttribute="trailing" constant="15" id="uR1-eT-847"/>
-                            <constraint firstItem="iC0-SC-Ubx" firstAttribute="top" secondItem="o5m-K7-grM" secondAttribute="top" constant="10" id="udb-vk-dzu"/>
+                            <constraint firstItem="iC0-SC-Ubx" firstAttribute="top" secondItem="o5m-K7-grM" secondAttribute="top" constant="12" id="udb-vk-dzu"/>
                             <constraint firstItem="Ndf-WQ-9Lh" firstAttribute="trailing" secondItem="o5m-K7-grM" secondAttribute="trailing" id="uq0-CD-tbM"/>
                             <constraint firstItem="CnF-JO-rfS" firstAttribute="top" secondItem="Uzd-9W-1iv" secondAttribute="bottom" id="vSd-8v-WZG"/>
                             <constraint firstItem="o5m-K7-grM" firstAttribute="bottom" secondItem="pyW-iu-zef" secondAttribute="bottom" constant="20" id="x8r-rg-rob"/>
