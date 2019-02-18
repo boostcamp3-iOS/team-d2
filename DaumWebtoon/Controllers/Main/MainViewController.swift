@@ -100,13 +100,16 @@ extension MainViewController {
     func addHeaderView() {
         view.addSubview(headerView)
         headerView.symbolView.dataSource = self
+        headerView.configureData(title: "title", with: "heart_active")
         setHeaderViewLayout()
+        // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
+        view.bringSubviewToFront(scrollView)
     }
     
     func setHeaderViewLayout() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.topAnchor.constraint(equalTo: menuView.bottomAnchor).isActive = true
-        headerView.bottomAnchor.constraint(lessThanOrEqualTo: tabBarViewContainer.topAnchor).isActive = true
+        headerView.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
@@ -197,7 +200,7 @@ extension MainViewController {
         view.addSubview(slidePanelBaseView)
         view.bringSubviewToFront(slidePanelBaseView)
     }
-
+    
     func removeSlidePanelView() {
         slidePanelViewController.willMove(toParent: nil)
         slidePanelViewController.view.removeFromSuperview()
@@ -387,7 +390,7 @@ extension MainViewController {
         default: print("default")
         }
     }
-
+    
 }
 
 // MARK :- SlidePanelView Delegate
@@ -415,10 +418,10 @@ extension MainViewController: SplashViewDelegate {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             guard let self = self else { return }
             self.splashView.alpha = 0
-        }, completion: { [weak self] _ in
-            guard let self = self else { return }
-            self.splashView.removeFromSuperview()
-            self.addPanGestureRecognizer()
+            }, completion: { [weak self] _ in
+                guard let self = self else { return }
+                self.splashView.removeFromSuperview()
+                self.addPanGestureRecognizer()
         })
     }
 }

@@ -104,6 +104,7 @@ class SlidePanelContainerView: UIView {
     
     private func selectInDependent(from category: TableCategory) {
         guard let episodes = dbService.selectInDependent(from: category) else { return }
+        guard episodes.count > 0 else { return }
         currentEpisodes = episodes
         secondView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
