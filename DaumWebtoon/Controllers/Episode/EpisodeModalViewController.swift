@@ -21,6 +21,7 @@ class EpisodeModalViewController: UIViewController {
     @IBOutlet weak var episodeTitle: UILabel!
     @IBOutlet weak var episodeTotalTime: UILabel!
     @IBOutlet weak var episodeUpdateTime: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     weak var delegate: EpisodeModalViewDelegate?
     
@@ -38,7 +39,7 @@ class EpisodeModalViewController: UIViewController {
         super.viewDidLoad()
         
         setupAudioSession()
-        setupLikeViewState()
+        setupFavoriteViewState()
         
         initializeEpisode()
         initializeViews()
@@ -89,8 +90,10 @@ class EpisodeModalViewController: UIViewController {
     }
     
     // MARK :- private methods
-    private func setupLikeViewState() {
-        
+    private func setupFavoriteViewState() {
+        guard let episode = self.episode else { return }
+        let isFavorite = dbService.isFavoriteEpisode(of: episode)
+        favoriteButton.isSelected = isFavorite
     }
     
     private func setupAudioSession() {

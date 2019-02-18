@@ -103,6 +103,24 @@ class DatabaseService {
         return episodes
     }
     
+    func isFavoriteEpisode(of episode: Episode) -> Bool {
+        let category = TableCategory.favorite
+        let another = TableCategory.episode
+        let sql = """
+        SELECT \(another).id, \(another).duration,
+        \(another).audio, \(another).image,
+        \(another).thumbnail, \(another).description,
+        \(another).channelTitle, \(another).title,
+        \(category).dateTime
+        FROM \(another) INNER JOIN \(category)
+        ON \(another).id = \(category).episodeId
+        WHERE \(category).episodeId = '\(episode.id)'
+        """
+        guard let episdoes = try? database.selectInEpisode(with: sql) else { return false }
+        let isFavorite = episdoes.count == 1 ? true : false
+        return isFavorite
+    }
+    
     // MARK: - Insert
     func insertInEpisode(with episode: Episode) {
         let sql = """
@@ -126,7 +144,7 @@ class DatabaseService {
     // MARK: - Delete
     func delete(from category: TableCategory, target episode: Episode) {
         let idName = category == .episode ? "id" : "episodeId"
-        let sql = "DELETE FROM \(category) WHERE \(idName) = \(episode.id)"
+        let sql = "DELETE FROM \(category) WHERE \(idName) = '\(episode.id)'"
         try? database.delete(with: sql)
     }
     
