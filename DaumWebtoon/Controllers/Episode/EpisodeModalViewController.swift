@@ -21,6 +21,7 @@ class EpisodeModalViewController: UIViewController {
     @IBOutlet weak var episodeTitle: UILabel!
     @IBOutlet weak var episodeTotalTime: UILabel!
     @IBOutlet weak var episodeUpdateTime: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     weak var delegate: EpisodeModalViewDelegate?
     
@@ -38,10 +39,12 @@ class EpisodeModalViewController: UIViewController {
         super.viewDidLoad()
         
         setupAudioSession()
-        setupLikeViewState()
+        setupFavoriteViewState()
         
         initializeEpisode()
         initializeViews()
+        
+        addRecentEpisode()
     }
     
     private func initializeViews() {
@@ -80,9 +83,16 @@ class EpisodeModalViewController: UIViewController {
         }
     }
     
+    private func addRecentEpisode() {
+        guard let episode = self.episode else { return }
+        dbService.addRecentEpisode(with: episode)
+    }
+    
     // MARK :- private methods
-    private func setupLikeViewState() {
-        
+    private func setupFavoriteViewState() {
+        guard let episode = self.episode else { return }
+        let isFavorite = dbService.isFavoriteEpisode(of: episode)
+        favoriteButton.isSelected = isFavorite
     }
     
     private func setupAudioSession() {
@@ -176,14 +186,7 @@ class EpisodeModalViewController: UIViewController {
     
     @IBAction func likeTapped(_ sender: UIButton) {
         guard let episode = episode else { return }
-        
-        if sender.isSelected {
-            dbService.delete(from: .favorite, target: episode)
-        } else {
-            dbService.insertInEpisode(with: episode)
-            dbService.insertInDependent(with: episode, from: .favorite)
-        }
-        
+        dbService.manageFavoriteEpisode(with: episode, state: sender.isSelected)
         sender.isSelected = !sender.isSelected
     }
     

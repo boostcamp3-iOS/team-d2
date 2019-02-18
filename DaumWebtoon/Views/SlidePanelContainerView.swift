@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DetailEpisodeDelegate: class {
+    func touchedEpisode(with episode: Episode)
+}
+
 class SlidePanelContainerView: UIView {
     private var firstView = UIView()
     private var secondView = UITableView()
@@ -17,6 +21,7 @@ class SlidePanelContainerView: UIView {
     private let dbService = DatabaseService()
     private let cellId = "cell"
     private var currentEpisodes = [Episode]()
+    weak var delegate: DetailEpisodeDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,10 +32,15 @@ class SlidePanelContainerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        configureDatabase()
         configureFirstView()
         configureSecondView()
         configureButton()
         selectInDependent(from: .recent)
+    }
+    
+    private func configureDatabase() {
+        dbService.createTable()
     }
     
     private func configureFirstView() {
@@ -96,6 +106,8 @@ class SlidePanelContainerView: UIView {
         guard let episodes = dbService.selectInDependent(from: category) else { return }
         currentEpisodes = episodes
         secondView.reloadData()
+        let indexPath = IndexPath(row: 0, section: 0)
+        secondView.scrollToRow(at: indexPath, at: .top, animated: false)
     }
 }
 
@@ -123,7 +135,9 @@ extension SlidePanelContainerView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 해당 뷰 대신 이 뷰를 가진 컨트롤러에서 처리하도록 delegate 패턴을 사용합니다.
         let episode = currentEpisodes[indexPath.row]
-        // 이 부분에서 episode를 가지고 디테일 페이지 넘어가면 됩니다.
+        delegate?.touchedEpisode(with: episode)
+        
     }
 }

@@ -322,6 +322,7 @@
                         <outlet property="episodeTitle" destination="F6M-kb-pf5" id="1Pd-sG-6xL"/>
                         <outlet property="episodeTotalTime" destination="Ayc-jY-QN6" id="aFy-SL-0NK"/>
                         <outlet property="episodeUpdateTime" destination="gTE-z5-NOj" id="wfN-7H-1Gk"/>
+                        <outlet property="favoriteButton" destination="DWJ-pF-DCO" id="UkY-jB-dBw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mcp-lp-Nob" userLabel="First Responder" sceneMemberID="firstResponder"/>
