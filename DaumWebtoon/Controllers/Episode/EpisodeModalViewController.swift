@@ -42,6 +42,8 @@ class EpisodeModalViewController: UIViewController {
         
         initializeEpisode()
         initializeViews()
+        
+        addRecentEpisode()
     }
     
     private func initializeViews() {
@@ -78,6 +80,12 @@ class EpisodeModalViewController: UIViewController {
             guard let self = self else { return }
             self.episodeImage.image = image
         }
+    }
+    
+    private func addRecentEpisode() {
+        guard let episode = self.episode else { return }
+        dbService.insertInEpisode(with: episode)
+        dbService.insertInDependent(with: episode, from: .recent)
     }
     
     // MARK :- private methods
