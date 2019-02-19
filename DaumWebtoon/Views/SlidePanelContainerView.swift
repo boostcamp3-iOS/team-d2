@@ -20,26 +20,8 @@ class SlidePanelContainerView: UIView {
     
     private var firstView = UIView()
     private var secondView = UITableView()
-    private var recentButton = UIButton() {
-        didSet {
-            if recentButton.isSelected {
-                print("recentButton.isSelected")
-                favoriteButton.isSelected = false
-            } else {
-                print("recentButton. No")
-            }
-        }
-    }
-    private var favoriteButton = UIButton() {
-        didSet {
-            if favoriteButton.isSelected {
-                print("favoriteButton.isSelected")
-                recentButton.isSelected = false
-            } else {
-                print("favoriteButton no")
-            }
-        }
-    }
+    private var recentButton = UIButton()
+    private var favoriteButton = UIButton()
     
     private let dbService = DatabaseService()
     private let cellId = "cell"
