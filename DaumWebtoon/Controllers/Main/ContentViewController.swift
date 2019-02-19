@@ -9,10 +9,10 @@
 import UIKit
 
 class ContentViewController: UIViewController {
-
+    
     var genre: Int?
     lazy var tableView = UITableView()
-    private var channels: [Channel] = []
+    var channels: [Channel] = []
     private let cellIdentifier = "cellIdentifier"
     private let fetcher = BestPodCastsFetcher.shared
     private var hasNextPage = true
@@ -22,6 +22,7 @@ class ContentViewController: UIViewController {
     private let imageTranslateAnimator = TranslateAnimator()
     private var selectedImage: UIImageView?
     private var selectedCellOriginY: CGFloat?
+    weak var delegate: HeaderDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +59,7 @@ extension ContentViewController {
     
     private func fetchBestPodCasts() {
         guard hasNextPage, let genre = genre else { return }
-
+        
         BestPodCastsFetcher.shared.loadPage(genre: genre, currentPage: currentPage) { [weak self] bestPodCasts in
             guard let self = self else { return }
             self.channels += bestPodCasts.channels
@@ -68,12 +69,13 @@ extension ContentViewController {
                 self.currentPage += 1
             }
             self.tableView.reloadData()
+            self.delegate?.firstgenre(with: bestPodCasts.channels[0])
         }
     }
     
     private func presentPodCastsViewController(indexPath: IndexPath) {
         guard let podCastsViewController = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "PodCasts") as? PodCastsViewController else { return }
-            
+        
         podCastsViewController.transitioningDelegate = self
         podCastsViewController.podcastId = channels[indexPath.row].id
         podCastsViewController.headerImage = selectedImage?.image

@@ -51,6 +51,7 @@ class MainViewController: UIViewController {
     private lazy var menuView = UIView()
     private lazy var tableStackView = UIStackView()
     lazy var headerView = HeaderView()
+    private var contentViewControllers = [ContentViewController]()
     
     // MARK: Life Cycle Methods
     override func viewDidLoad() {
@@ -296,6 +297,12 @@ extension MainViewController {
             tableStackView.addArrangedSubview(contentViewController.view)
             contentViewController.view.translatesAutoresizingMaskIntoConstraints = false
             contentViewController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+            // MARK: - For HeaderView
+            let firstTabIndex = 1
+            if index == firstTabIndex {
+                contentViewController.delegate = self
+            }
+            contentViewControllers.append(contentViewController)
         }
     }
     
@@ -436,6 +443,12 @@ extension MainViewController: SplashViewDelegate {
 // MARK: - Scroll View Delegate
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        // MARK: - For HeaderView
+        let channels = contentViewControllers[currentIndex].channels
+        if channels.count > 0 {
+            headerView.configureData(title: channels[0].title, with: channels[0].image)
+        }
+        
         guard contentOffsetInPage >= UIScreen.main.bounds.width / 2 else { return }
         
         NSObject.cancelPreviousPerformRequests(withTarget: self)

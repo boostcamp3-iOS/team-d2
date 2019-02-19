@@ -48,7 +48,9 @@ class HeaderView: UIView {
     
     private func configureImage(with image: String) {
         addSubview(imageView)
-        imageView.image = UIImage(named: image)
+        FetchImageService.shared.execute(imageUrl: image) {
+            self.imageView.image = $0
+        }
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
