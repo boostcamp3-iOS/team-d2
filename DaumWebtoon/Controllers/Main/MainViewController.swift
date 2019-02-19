@@ -101,7 +101,7 @@ extension MainViewController {
     func addHeaderView() {
         view.addSubview(headerView)
         headerView.symbolView.dataSource = self
-        headerView.configureData(title: "title", with: "heart_active")
+        headerView.configureData(with: nil)
         setHeaderViewLayout()
         // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
         view.bringSubviewToFront(scrollView)
@@ -446,7 +446,7 @@ extension MainViewController: UIScrollViewDelegate {
         // MARK: - For HeaderView
         let channels = contentViewControllers[currentIndex].channels
         if channels.count > 0 {
-            headerView.configureData(title: channels[0].title, with: channels[0].image)
+            headerView.configureData(with: channels[0])
         }
         
         guard contentOffsetInPage >= UIScreen.main.bounds.width / 2 else { return }
