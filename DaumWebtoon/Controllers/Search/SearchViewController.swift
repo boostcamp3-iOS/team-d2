@@ -17,7 +17,6 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var keywordInput: UITextField!
     @IBOutlet weak var search: UIButton!
     
-    private let imageTranslateAnimator = TranslateAnimator()
     private let collectionCellIdentifier = "recommandCell"
     private let tableviewCellIdentifier = "tableviewCell"
     private var genres: [Genre]?
@@ -136,6 +135,7 @@ extension SearchViewController: UITextFieldDelegate {
 extension SearchViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
+        let imageTranslateAnimator = TranslateAnimator()
         imageTranslateAnimator.selectedImage = selectedImage
         imageTranslateAnimator.selectedCellOriginY = selectedCellFrame?.origin.y
         
