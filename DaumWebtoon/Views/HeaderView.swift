@@ -9,6 +9,7 @@
 import UIKit
 
 class HeaderView: UIView {
+    private var tabTitleLabel = UILabel()
     private var titleLabel = UILabel()
     private var descriptionLabel = UILabel()
     private var imageView = UIImageView()
@@ -31,22 +32,37 @@ class HeaderView: UIView {
         symbolView.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
-    func configureData(with channel: Channel?) {
+    func configureData(with channel: Channel?, tabContent: TabContent?) {
         configureSymbolView()
+        guard let tabContent = tabContent else { return }
+        configureTabTitle(with: tabContent)
         guard let channel = channel else { return }
         configureTitle(with: channel.title)
         configureImage(with: channel.image)
         configureDescription(with: channel.description)
     }
     
+    private func configureTabTitle(with tabContent: TabContent) {
+        addSubview(tabTitleLabel)
+        tabTitleLabel.text = tabContent.tabTitle
+        tabTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        tabTitleLabel.textColor = tabContent.tabColor
+        tabTitleLabel.frame.size = CGSize(width: 100, height: 40)
+        tabTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        tabTitleLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
+        tabTitleLabel.topAnchor.constraint(equalTo: symbolView.bottomAnchor, constant: 20).isActive = true
+        tabTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        tabTitleLabel.numberOfLines = 1
+    }
+    
     private func configureTitle(with title: String) {
         addSubview(titleLabel)
         titleLabel.text = title
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
         titleLabel.frame.size = CGSize(width: 100, height: 40)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: symbolView.bottomAnchor, constant: 20).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: tabTitleLabel.bottomAnchor, constant: 5).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         titleLabel.numberOfLines = 3
     }
@@ -72,7 +88,7 @@ class HeaderView: UIView {
         descriptionLabel.frame.size = CGSize(width: 100, height: 40)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         descriptionLabel.numberOfLines = 4
     }

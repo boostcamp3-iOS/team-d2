@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     // MARK: - Properties
-    private let tabContents: [TabContent] = [
+    let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
         TabContent(tabColor: UIColor.red, tabTitle: "웹디자인", tabIndex: 1),
         TabContent(tabColor: UIColor.brown, tabTitle: "프로그래밍", tabIndex: 2),
@@ -101,7 +101,7 @@ extension MainViewController {
     func addHeaderView() {
         view.addSubview(headerView)
         headerView.symbolView.dataSource = self
-        headerView.configureData(with: nil)
+        headerView.configureData(with: nil, tabContent: nil)
         setHeaderViewLayout()
         // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
         view.bringSubviewToFront(scrollView)
@@ -446,7 +446,7 @@ extension MainViewController: UIScrollViewDelegate {
         // MARK: - For HeaderView
         let channels = contentViewControllers[currentIndex].channels
         if channels.count > 0 {
-            headerView.configureData(with: channels[0])
+            headerView.configureData(with: channels[0], tabContent: tabContents[currentIndex])
         }
         
         guard contentOffsetInPage >= UIScreen.main.bounds.width / 2 else { return }

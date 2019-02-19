@@ -69,6 +69,7 @@ extension ContentViewController {
                 self.currentPage += 1
             }
             self.tableView.reloadData()
+            // MARK: - Just Using First Genre
             self.delegate?.firstgenre(with: bestPodCasts.channels[0])
         }
     }

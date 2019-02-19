@@ -14,6 +14,6 @@ protocol HeaderDelegate: class {
 
 extension MainViewController: HeaderDelegate {
     func firstgenre(with channel: Channel) {
-        headerView.configureData(with: channel)
+        headerView.configureData(with: channel, tabContent: tabContents[1])
     }
 }
