@@ -65,6 +65,10 @@ class SlidePanelContainerView: UIView {
         secondView.delegate = self
         secondView.separatorStyle = .none
         
+        let headerView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: secondView.frame.width, height: 100)))
+        headerView.backgroundColor = .black
+        secondView.tableHeaderView = headerView
+        
         secondView.backgroundColor = .black
         secondView.translatesAutoresizingMaskIntoConstraints = false
         secondView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -130,7 +134,7 @@ class SlidePanelContainerView: UIView {
         currentEpisodes = episodes
         secondView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
-        secondView.scrollToRow(at: indexPath, at: .top, animated: false)
+        secondView.scrollToRow(at: indexPath, at: .middle, animated: false)
     }
     
     private func selectedAttributed(with button: UIButton) {
