@@ -14,15 +14,16 @@ class PodCastService {
     
     private init() { }
     
-    func fetchPodCasts(podcastId: String?, completion: @escaping (PodCast) -> ()) {
-        guard let podcastId = podcastId else { return }
+    func fetchPodCasts(podcastId: String?, nextEpisodePubDate: String?, completion: @escaping (PodCast) -> ()) {
+        guard let podcastId = podcastId,
+            let nextEpisodePubDate = nextEpisodePubDate else { return }
         
-        let requestData = RequestData(path: HTTPBaseUrl.baseUrl.rawValue + "/podcasts/" + podcastId)
+        let requestData = RequestData(path: HTTPBaseUrl.baseUrl.rawValue + "/podcasts/" + podcastId + "?next_episode_pub_date=" + nextEpisodePubDate)
         
         FetchPodCastsAPI(data: requestData).execute(onSuccess: { (podcast) in
             completion(podcast)
         }) { (error) in
-            print("onError")
+            print(error)
         }
     }
     
