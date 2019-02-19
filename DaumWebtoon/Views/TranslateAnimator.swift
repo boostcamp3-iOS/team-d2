@@ -74,7 +74,7 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let flight = CAKeyframeAnimation(keyPath: "position")
         flight.delegate = self
         flight.duration = duration
-        
+        print(selectedCellOriginY)
         if selectedCellOriginY < containerView.frame.height / 4 {
             flight.values = flightValues[0].map { NSValue(cgPoint: $0) }
             flight.keyTimes = [0.0, 1.0]
