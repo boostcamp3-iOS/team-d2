@@ -159,11 +159,7 @@ extension SlidePanelContainerView: UITableViewDataSource {
         guard let cell = secondView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SlidePanelTableViewCell else {
             return UITableViewCell()
         }
-        FetchImageService.shared.execute(imageUrl: currentEpisodes[indexPath.row].image) {
-            cell.imageEpisode.image = $0
-        }
-        cell.titleLabel.text = currentEpisodes[indexPath.row].title
-        cell.descLabel.text = currentEpisodes[indexPath.row].description
+        cell.configure(with: currentEpisodes[indexPath.row])
         return cell
     }
 }

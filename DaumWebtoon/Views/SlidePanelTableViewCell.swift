@@ -31,11 +31,19 @@ class SlidePanelTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configure()
+        configureAutolayout()
+    }
+    
+    func configure(with episode: Episode) {
+        FetchImageService.shared.execute(imageUrl: episode.image) {
+            self.imageEpisode.image = $0
+        }
+        titleLabel.text = episode.title.deleteHTMLTag
+        descLabel.text = episode.description.deleteHTMLTag
     }
     
     // MARK: - For AutoLayout
-    private func configure() {
+    private func configureAutolayout() {
         self.backgroundColor = .black
         contentView.addSubview(imageEpisode)
         contentView.addSubview(titleLabel)
