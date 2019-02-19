@@ -92,6 +92,14 @@ class Database {
         guard bindText(with: data.episodeId, at: 2) else { throw SQLError.failToBind }
         guard step() == SQLITE_DONE else { throw SQLError.failToStep }
     }
+    
+    func update(with sql: String) throws {
+        guard open() else { throw SQLError.failToOpen }
+        defer { close() }
+        
+        guard prepare(with: sql) else { throw SQLError.failToPrepare }
+        guard step() == SQLITE_DONE else { throw SQLError.failToStep }
+    }
 
     func delete(with sql: String) throws {
         guard open() else { throw SQLError.failToOpen }

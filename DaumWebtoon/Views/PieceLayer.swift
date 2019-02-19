@@ -35,6 +35,7 @@ class PieceLayer: CAShapeLayer {
         guard let fromPath = self.path else { return }
         let animation = CAKeyframeAnimation(keyPath: animationKey)
         animation.duration = 1
+        animation.isRemovedOnCompletion = false
         animation.values = [fromPath, pathCtoN.cgPath, pathN.cgPath, pathNtoHourglass.cgPath, pathHourglass.cgPath, pathHourglassToIce.cgPath, pathIce.cgPath, pathIceToC.cgPath, pathAnotherC.cgPath]
         self.add(animation, forKey: animationKey)
     }
@@ -42,6 +43,7 @@ class PieceLayer: CAShapeLayer {
     func colorAnimation() {
         let animation = CAKeyframeAnimation(keyPath: colorKey)
         animation.duration = 1
+        animation.isRemovedOnCompletion = false
         let brown = UIColor.brown.cgColor
         let red = UIColor.red.cgColor
         let purple = UIColor.purple.cgColor

@@ -57,11 +57,12 @@ class ChannelTableViewCell: UITableViewCell {
         titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor, constant: -20).isActive = true
+        titleLabel.heightAnchor.constraint(lessThanOrEqualToConstant: 60).isActive = true
     }
     
     func setTitleLabelProperties() {
         titleLabel.numberOfLines = 0
-        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        titleLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
     }
     
     // MARK: Publisher Label Methods

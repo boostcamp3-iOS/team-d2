@@ -12,20 +12,19 @@ class MainViewController: UIViewController {
     // MARK: - Properties
     private let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
-        TabContent(tabColor: UIColor.red, tabTitle: "캐시", tabIndex: 1),
-        TabContent(tabColor: UIColor.brown, tabTitle: "연재", tabIndex: 2),
-        TabContent(tabColor: UIColor.purple, tabTitle: "기다무", tabIndex: 3),
-        TabContent(tabColor: UIColor.blue, tabTitle: "완결", tabIndex: 4),
+        TabContent(tabColor: UIColor.red, tabTitle: "웹디자인", tabIndex: 1),
+        TabContent(tabColor: UIColor.brown, tabTitle: "프로그래밍", tabIndex: 2),
+        TabContent(tabColor: UIColor.purple, tabTitle: "가상현실", tabIndex: 3),
+        TabContent(tabColor: UIColor.blue, tabTitle: "스타트업", tabIndex: 4),
         TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
-    private let fetchers: [BestPodCastsFetcher?] = [
-        nil,
-        WebDesignBestPodCastsFetcher(),
-        ProgrammingBestPodCastsFetcher(),
-        VRandARBestPodCastsFetcher(),
-        StartupBestPodCastsFetcher(),
-        nil
-    ]
+    private enum Genre: Int {
+        case webDesign = 140
+        case programming = 143
+        case vrAndAr = 139
+        case startup = 157
+    }
+    private let genres: [Genre?] = [nil, .webDesign, .programming, .vrAndAr, .startup, nil]
     private var scrollDirection: Direction?
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
@@ -101,13 +100,17 @@ extension MainViewController {
     func addHeaderView() {
         view.addSubview(headerView)
         headerView.symbolView.dataSource = self
+        headerView.configureData(title: "title", with: "heart_active")
         setHeaderViewLayout()
+        // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
+        view.bringSubviewToFront(scrollView)
+        view.bringSubviewToFront(menuView)
     }
     
     func setHeaderViewLayout() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.topAnchor.constraint(equalTo: menuView.bottomAnchor).isActive = true
-        headerView.bottomAnchor.constraint(lessThanOrEqualTo: tabBarViewContainer.topAnchor).isActive = true
+        headerView.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
@@ -174,7 +177,7 @@ extension MainViewController {
         tabBarViewCenterYAnchorConstraint?.priority = .defaultLow
         tabBarViewCenterYAnchorConstraint?.isActive = true
         tabBarViewContainer.centerYAnchor.constraint(lessThanOrEqualTo: view.centerYAnchor).isActive = true
-        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: menuViewHeight + (tabBarViewHeight / 2)).isActive = true
+        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: menuViewHeight + tabBarViewHeight).isActive = true
         tabBarViewTopAnchorConstraint?.isActive = true
     }
     
@@ -198,7 +201,7 @@ extension MainViewController {
         view.addSubview(slidePanelBaseView)
         view.bringSubviewToFront(slidePanelBaseView)
     }
-
+    
     func removeSlidePanelView() {
         slidePanelViewController.willMove(toParent: nil)
         slidePanelViewController.view.removeFromSuperview()
@@ -287,7 +290,7 @@ extension MainViewController {
     func addContentViewControllers() {
         for index in 0..<tabContents.count {
             let contentViewController = ContentViewController()
-            contentViewController.fetcher = fetchers[index]
+            contentViewController.genre = genres[index]?.rawValue
             addChild(contentViewController)
             contentViewController.didMove(toParent: self)
             tableStackView.addArrangedSubview(contentViewController.view)
@@ -336,23 +339,22 @@ extension MainViewController {
         guard let direction = scrollDirection,
             let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant,
             (direction == .up || direction == .down) else { return }
-        let topLimit = menuViewHeight + (tabBarViewHeight / 2) - (scrollView.frame.height / 2)
+        let topLimit = menuViewHeight + tabBarViewHeight - (scrollView.frame.height / 2)
         if currentTabBarViewCenterYConstant >= CGFloat(0), direction == .down {
-            tableView.isScrollEnabled = true
             tabBarViewCenterYAnchorConstraint?.constant = 0
         } else if currentTabBarViewCenterYConstant <= topLimit, direction == .up {
-            tableView.isScrollEnabled = true
-            tabBarViewCenterYAnchorConstraint?.constant = topLimit
-        } else if currentTabBarViewCenterYConstant <= topLimit,
-            tableView.contentOffset.y > 0, direction == .down {
-            tableView.isScrollEnabled = true
             tabBarViewCenterYAnchorConstraint?.constant = topLimit
         } else {
-            tableView.isScrollEnabled = false
             let translation = sender.translation(in: scrollView)
             tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
             sender.setTranslation(CGPoint.zero, in: scrollView)
         }
+        updateHeaderViewAlpha(topLimit: topLimit, currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
+    }
+    
+    func updateHeaderViewAlpha(topLimit: CGFloat, currentTabBarViewCenterYConstant: CGFloat) {
+        let headerViewHeight = -topLimit
+        headerView.alpha = (currentTabBarViewCenterYConstant - topLimit) / headerViewHeight
     }
     
     @objc func searchTapped(_ sender: UIButton) {
@@ -395,7 +397,7 @@ extension MainViewController {
         default: print("default")
         }
     }
-
+    
 }
 
 // MARK :- SlidePanelView Delegate
@@ -423,7 +425,7 @@ extension MainViewController: SplashViewDelegate {
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
             guard let self = self else { return }
             self.splashView.alpha = 0
-        }, completion: { [weak self] _ in
+            }, completion: { [weak self] _ in
                 guard let self = self else { return }
                 self.splashView.removeFromSuperview()
                 self.addPanGestureRecognizer()
