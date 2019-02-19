@@ -17,13 +17,12 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var keywordInput: UITextField!
     @IBOutlet weak var search: UIButton!
     
-    private let imageTranslateAnimator = TranslateAnimator()
     private let collectionCellIdentifier = "recommandCell"
     private let tableviewCellIdentifier = "tableviewCell"
     private var genres: [Genre]?
     private var podcasts: [PodCastSearch]?
     private var selectedImage: UIImageView?
-    private var selectedCellFrame: CGRect?
+    private var selectedCellOriginY: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +35,7 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidDisappear), name: UIResponder.keyboardDidHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
@@ -90,7 +89,7 @@ class SearchViewController: UIViewController {
         halfView.isHidden = true
     }
     
-    @objc func keyboardWillDisappear() {
+    @objc func keyboardDidDisappear() {
         podcastsTableView.isHidden = true
         halfView.isHidden = false
     }
@@ -136,8 +135,9 @@ extension SearchViewController: UITextFieldDelegate {
 extension SearchViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
+        let imageTranslateAnimator = TranslateAnimator()
         imageTranslateAnimator.selectedImage = selectedImage
-        imageTranslateAnimator.selectedCellOriginY = selectedCellFrame?.origin.y
+        imageTranslateAnimator.selectedCellOriginY = selectedCellOriginY
         
         return imageTranslateAnimator
     }
@@ -168,8 +168,11 @@ extension SearchViewController: UITableViewDelegate {
             let podcastsViewController = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "PodCasts") as? PodCastsViewController,
             let selectedCell = tableView.cellForRow(at: indexPath) as? PodCastTableViewCell else { return }
 
+        let rectOfCell = tableView.rectForRow(at: indexPath)
+        let originOfCellInPresentedViewController = tableView.convert(rectOfCell.origin, to: presentedViewController?.view)
+        
         selectedImage = selectedCell.podcastThumbnail
-        selectedCellFrame = selectedCell.frame
+        selectedCellOriginY = originOfCellInPresentedViewController.y + rectOfCell.height / 2
         
         podcastsViewController.transitioningDelegate = self
         podcastsViewController.podcastId = podcast.id
