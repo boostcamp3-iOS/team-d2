@@ -177,6 +177,5 @@ extension SlidePanelContainerView: UITableViewDelegate {
         // 해당 뷰 대신 이 뷰를 가진 컨트롤러에서 처리하도록 delegate 패턴을 사용합니다.
         let episode = currentEpisodes[indexPath.row]
         delegate?.touchedEpisode(with: episode)
-        
     }
 }

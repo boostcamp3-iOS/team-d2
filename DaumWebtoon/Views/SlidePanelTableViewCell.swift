@@ -44,6 +44,7 @@ class SlidePanelTableViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        imageEpisode.contentMode = .scaleAspectFit
         imageEpisode.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         imageEpisode.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         imageEpisode.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
