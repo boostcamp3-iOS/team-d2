@@ -27,9 +27,8 @@ class MainViewController: UIViewController {
     private let genres: [Genre?] = [nil, .webDesign, .programming, .vrAndAr, .startup, nil]
     private var scrollDirection: Direction?
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
-    private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
     private var headerViewTopAnchorConstraint: NSLayoutConstraint?
-    private let menuViewHeight: CGFloat = 80
+    private let menuViewHeight: CGFloat = 70
     private lazy var tabBarViewWidth: CGFloat = view.frame.width - 20
     private lazy var tabBarViewHeight: CGFloat = 30
     private var lastContentOffset: CGFloat = 0
@@ -179,8 +178,7 @@ extension MainViewController {
         tabBarViewCenterYAnchorConstraint?.priority = .defaultLow
         tabBarViewCenterYAnchorConstraint?.isActive = true
         tabBarViewContainer.centerYAnchor.constraint(lessThanOrEqualTo: view.centerYAnchor).isActive = true
-        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: menuViewHeight + tabBarViewHeight).isActive = true
-        tabBarViewTopAnchorConstraint?.isActive = true
+        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: menuViewHeight + (tabBarViewHeight / 2)).isActive = true
     }
     
     func setTabBarViewProperties() {
@@ -259,7 +257,7 @@ extension MainViewController {
         menuView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        menuView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        menuView.heightAnchor.constraint(equalToConstant: menuViewHeight).isActive = true
     }
     
     func setupSearchView() {
@@ -269,9 +267,9 @@ extension MainViewController {
         menuView.addSubview(search)
         
         search.translatesAutoresizingMaskIntoConstraints = false
-        search.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        search.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        search.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -50).isActive = true
+        search.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        search.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        search.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -70).isActive = true
         search.centerYAnchor.constraint(equalTo: menuView.centerYAnchor).isActive = true
     }
     
@@ -282,9 +280,9 @@ extension MainViewController {
         menuView.addSubview(hamberger)
         
         hamberger.translatesAutoresizingMaskIntoConstraints = false
-        hamberger.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        hamberger.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        hamberger.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -10).isActive = true
+        hamberger.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        hamberger.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        hamberger.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -18).isActive = true
         hamberger.centerYAnchor.constraint(equalTo: menuView.centerYAnchor).isActive = true
     }
     
@@ -341,7 +339,7 @@ extension MainViewController {
         guard let direction = scrollDirection,
             let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant,
             (direction == .up || direction == .down) else { return }
-        let topLimit = menuViewHeight + tabBarViewHeight - (scrollView.frame.height / 2)
+        let topLimit = menuViewHeight + (tabBarViewHeight / 2) - (scrollView.frame.height / 2)
         if currentTabBarViewCenterYConstant >= CGFloat(0), direction == .down {
             tabBarViewCenterYAnchorConstraint?.constant = 0
         } else if currentTabBarViewCenterYConstant <= topLimit, direction == .up {
