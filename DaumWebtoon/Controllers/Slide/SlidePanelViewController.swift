@@ -28,6 +28,7 @@ class SlidePanelViewController: UIViewController {
     
     // MARK :- initialize views
     private func initializeContainerView() {
+        containerView.delegate = self
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:))))
         view.addSubview(containerView)
@@ -84,4 +85,12 @@ class SlidePanelViewController: UIViewController {
         delegate?.dismiss()
     }
     
+}
+
+extension SlidePanelViewController: DetailEpisodeDelegate {
+    func touchedEpisode(with episode: Episode) {
+        guard let episodeVC = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "Episode") as? EpisodeModalViewController else { return }
+        episodeVC.episode = episode
+        self.present(episodeVC, animated: true, completion: nil)
+    }
 }
