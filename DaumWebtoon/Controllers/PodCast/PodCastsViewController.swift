@@ -151,7 +151,7 @@ extension PodCastsViewController: UICollectionViewDataSource {
             }
         }
         
-        if indexPath.item == episodes.count - 1 {
+        if indexPath.item == episodes.count - 10 || episodes.count - 10 < 0 {
             fetchPodCasts()
         }
     }
