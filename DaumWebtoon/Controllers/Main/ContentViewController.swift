@@ -83,6 +83,8 @@ extension ContentViewController {
 
 extension ContentViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        let imageTranslateAnimator = TranslateAnimator()
         imageTranslateAnimator.selectedImage = selectedImage
         imageTranslateAnimator.selectedCellOriginY = selectedCellOriginY
         
@@ -110,8 +112,11 @@ extension ContentViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? ChannelTableViewCell else { return }
         
+        let rectOfCell = tableView.rectForRow(at: indexPath)
+        let originOfCellInPresentedViewController = tableView.convert(rectOfCell.origin, to: presentedViewController?.view)
+        
         selectedImage = selectedCell.thumbnailImageView
-        selectedCellOriginY = selectedCell.frame.origin.y + view.frame.height
+        selectedCellOriginY = originOfCellInPresentedViewController.y + rectOfCell.height / 2
         
         presentPodCastsViewController(indexPath: indexPath)
     }
