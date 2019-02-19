@@ -20,6 +20,7 @@ class PodCastsViewController: UIViewController {
     private var podcast: PodCast?
     private var episodes: [Episode] = []
     private var nextEpisodePubDate: String? = ""
+    private var shownIndexes: [IndexPath] = []
     
     private let podcastIdentifier = "PodCastCell"
     private let detailIdentifier = "DetailCell"
@@ -133,6 +134,23 @@ extension PodCastsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard shownIndexes.contains(indexPath) == false else { return }
+        shownIndexes.append(indexPath)
+        cell.alpha = 0
+        if indexPath.row < 10 {
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0.05 * Double(indexPath.row),
+                options: [],
+                animations: {
+                    cell.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                cell.alpha = 1
+            }
+        }
+        
         if indexPath.item == episodes.count - 1 {
             fetchPodCasts()
         }
