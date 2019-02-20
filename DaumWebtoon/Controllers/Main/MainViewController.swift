@@ -56,7 +56,7 @@ class MainViewController: UIViewController {
         didSet {
             let emptyTab = 2
             if headerContentsDictionary.count == tabContents.count - emptyTab {
-                headerView.testAnimation(with: headerContentsDictionary)
+                headerView.configureFirstContent(with: headerContentsDictionary)
             }
         }
     }
@@ -108,8 +108,9 @@ extension MainViewController {
     // MARK: Header View Methods
     func addHeaderView() {
         view.addSubview(headerView)
+        headerView.delegate = self
         headerView.symbolView.dataSource = self
-        headerView.configureData(with: nil, tabContent: nil)
+        headerView.configure()
         setHeaderViewLayout()
         // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
         view.bringSubviewToFront(scrollView)

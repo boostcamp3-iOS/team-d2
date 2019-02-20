@@ -14,6 +14,8 @@ class HeaderView: UIView {
     private var descriptionLabel = UILabel()
     var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 20, y: 20), size: CGSize(width: 100, height: 100)))
     private var headerImageView = HeaderImageView()
+    private var headerContentsDictionary = [Int: HeaderContent]()
+    weak var delegate: HeaderDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,6 +23,11 @@ class HeaderView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func configure() {
+        configureSymbolView()
+        configureImageView()
     }
     
     private func configureSymbolView() {
@@ -32,14 +39,13 @@ class HeaderView: UIView {
         symbolView.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
-    func configureData(with channel: Channel?, tabContent: TabContent?) {
-        configureSymbolView()
-        configureImage()
-        guard let tabContent = tabContent else { return }
-        configureTabTitle(with: tabContent)
-        guard let channel = channel else { return }
-        configureTitle(with: channel.title)
-        configureDescription(with: channel.description)
+    private func configureImageView() {
+        addSubview(headerImageView)
+        headerImageView.translatesAutoresizingMaskIntoConstraints = false
+        headerImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 35).isActive = true
+        headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
+        headerImageView.leadingAnchor.constraint(equalTo: symbolView.trailingAnchor, constant: 20).isActive = true
+        headerImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
     }
     
     private func configureTabTitle(with tabContent: TabContent) {
@@ -66,14 +72,6 @@ class HeaderView: UIView {
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         titleLabel.numberOfLines = 3
     }
-    private func configureImage() {
-        addSubview(headerImageView)
-        headerImageView.translatesAutoresizingMaskIntoConstraints = false
-        headerImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 35).isActive = true
-        headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
-        headerImageView.leadingAnchor.constraint(equalTo: symbolView.trailingAnchor, constant: 20).isActive = true
-        headerImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
-    }
     
     private func configureDescription(with description: String) {
         addSubview(descriptionLabel)
@@ -91,9 +89,45 @@ class HeaderView: UIView {
     func timeOffset(value: Double) {
         symbolView.timeOffset(value: value)
         headerImageView.timeOffset(with: value)
+        
+        let genre = MainViewController.Genre.self
+        let firstId = genre.webDesign.rawValue
+        let secondId = genre.programming.rawValue
+        let thirdId = genre.vrAndAr.rawValue
+        let fourthId = genre.startup.rawValue
+
+        switch value {
+        case 0..<0.125:
+            configureContent(with: firstId, tabIndex: 1)
+        case 0.125..<0.375:
+            configureContent(with: secondId, tabIndex: 2)
+        case 0.375..<0.625:
+            configureContent(with: thirdId, tabIndex: 3)
+        case 0.625..<0.875:
+            configureContent(with: fourthId, tabIndex: 4)
+        default:
+            configureContent(with: firstId, tabIndex: 1)
+        }
     }
     
-    func testAnimation(with headerContentsDictionary: [Int: HeaderContent]) {
+    func configureFirstContent(with headerContentsDictionary: [Int: HeaderContent]) {
         headerImageView.configure(with: headerContentsDictionary)
+        
+        let genre = MainViewController.Genre.self
+        let firstId = genre.webDesign.rawValue
+        
+        guard let (headerContent, tabContents) = delegate?.content(from: firstId) else { return }
+        configureText(headerContent: headerContent, tabContent: tabContents[1])
+    }
+    
+    private func configureContent(with genreId: Int, tabIndex: Int) {
+        guard let (headerContent, tabContents) = delegate?.content(from: genreId) else { return }
+        configureText(headerContent: headerContent, tabContent: tabContents[tabIndex])
+    }
+    
+    private func configureText(headerContent: HeaderContent, tabContent: TabContent) {
+        configureTabTitle(with: tabContent)
+        configureTitle(with: headerContent.title)
+        configureDescription(with: headerContent.description)
     }
 }

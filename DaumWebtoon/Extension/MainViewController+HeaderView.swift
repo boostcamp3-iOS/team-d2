@@ -2,21 +2,19 @@
 //  MainViewController+HeaderView.swift
 //  DaumWebtoon
 //
-//  Created by oingbong on 19/02/2019.
+//  Created by oingbong on 20/02/2019.
 //  Copyright © 2019 Gaon Kim. All rights reserved.
 //
 
 import Foundation
 
 protocol HeaderDelegate: class {
-    func firstgenre(with channel: Channel, genreId: Int)
+    func content(from genreId: Int) -> (HeaderContent, [TabContent])?
 }
 
 extension MainViewController: HeaderDelegate {
-    func firstgenre(with channel: Channel, genreId: Int) {
-        FetchImageService.shared.execute(imageUrl: channel.image) {
-            let headerContent = HeaderContent(title: channel.title, description: channel.description, image: $0)
-            self.headerContentsDictionary.updateValue(headerContent, forKey: genreId)
-        }
+    func content(from genreId: Int) -> (HeaderContent, [TabContent])? {
+        guard let content = headerContentsDictionary[genreId] else { return nil}
+        return (content, tabContents)
     }
 }

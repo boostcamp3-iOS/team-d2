@@ -22,7 +22,7 @@ class ContentViewController: UIViewController {
     private let imageTranslateAnimator = TranslateAnimator()
     private var selectedImage: UIImageView?
     private var selectedCellOriginY: CGFloat?
-    weak var delegate: HeaderDelegate?
+    weak var delegate: ContentDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
