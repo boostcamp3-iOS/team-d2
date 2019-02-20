@@ -74,7 +74,7 @@ class HeaderView: UIView {
             self.imageView.contentMode = .scaleAspectFit
         }
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 50).isActive = true
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 35).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
         imageView.leadingAnchor.constraint(equalTo: symbolView.trailingAnchor, constant: 20).isActive = true
         imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
@@ -90,7 +90,7 @@ class HeaderView: UIView {
         descriptionLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
         descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        descriptionLabel.numberOfLines = 6
+        descriptionLabel.numberOfLines = 5
     }
     
     func timeOffset(value: Double) {
