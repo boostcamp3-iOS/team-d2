@@ -85,7 +85,6 @@
                                             <outlet property="podcastDuration" destination="8nG-Vw-vuf" id="fc2-4P-r5d"/>
                                             <outlet property="podcastThumbnail" destination="eex-uL-ebc" id="WXr-Ps-dTF"/>
                                             <outlet property="podcastTitle" destination="ntD-qf-quZ" id="PAn-Bh-owC"/>
-                                            <segue destination="Bgc-TS-TUe" kind="presentation" id="Cih-4x-pLn"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

@@ -28,12 +28,10 @@ class EpisodeModalViewController: UIViewController {
     
     var episode: Episode?
     
-    
     private let dbService = DatabaseService()
     private let audioService = AudioService.shared
     
     private var audioUrl: String?
-    private var buttonSelected = false
     private var audioTimer : Timer?
     
     override func viewDidLoad() {
@@ -41,51 +39,50 @@ class EpisodeModalViewController: UIViewController {
         
         setupFavoriteViewState()
         
-        initializeEpisode()
-        initializeViews()
+        setupEpisode()
+        setupViews()
+        setupAudio()
         
         addRecentEpisode()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-//        audioTimer?.invalidate()
-//        audioService.invalidateAVPlayer()
+    func togglePlayPause() {
+        audioService.togglePlayPause()
     }
     
-    private func initializeViews() {
+    private func setupViews() {
         let gestureRecognizer = UIPanGestureRecognizer(target: self,
                                                        action: #selector(handlePanGesture(_:)))
         view.addGestureRecognizer(gestureRecognizer)
     }
     
-    private func initializeEpisode() {
+    private func setupEpisode() {
         guard let episode = self.episode else { return }
         
-        audioUrl = episode.audio
         episodeTitle.text = episode.title
-        
-        audioService.dataSource = self
-        audioService.setupAndPlay(audioUrl: episode.audio)
-        setupAudioTimer()
-        
         FetchImageService.shared.execute(imageUrl: episode.image) { [weak self] (image) in
             guard let self = self else { return }
             self.episodeImage.image = image
         }
     }
     
-    // MARK :- private methods
-    private func setupFavoriteViewState() {
+    private func setupAudio() {
         guard let episode = self.episode else { return }
-        let isFavorite = dbService.isFavoriteEpisode(of: episode)
-        favoriteButton.isSelected = isFavorite
+        
+        audioService.dataSource = self
+        audioService.setupAndPlayAudio(audioUrl: episode.audio)
+        setupAudioTimer()
     }
     
     private func setupAudioTimer() {
         audioTimer = Timer(timeInterval: 0.001, target: self, selector: #selector(EpisodeModalViewController.timeInterval), userInfo: nil, repeats: true)
         RunLoop.current.add(audioTimer!, forMode: RunLoop.Mode.common)
+    }
+    
+    private func setupFavoriteViewState() {
+        guard let episode = self.episode else { return }
+        let isFavorite = dbService.isFavoriteEpisode(of: episode)
+        favoriteButton.isSelected = isFavorite
     }
 
     private func dismissModal() {
@@ -137,7 +134,7 @@ class EpisodeModalViewController: UIViewController {
     }
     
     @IBAction func playPauseTapped(_ sender: UIButton) {
-        audioService.togglePlayPause()
+        togglePlayPause()
         sender.isSelected = !sender.isSelected
     }
     

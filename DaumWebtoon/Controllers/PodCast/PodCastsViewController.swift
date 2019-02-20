@@ -68,6 +68,7 @@ class PodCastsViewController: UIViewController {
     @IBAction func backTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+
 }
 
 extension PodCastsViewController: EpisodeModalViewDelegate {
@@ -128,3 +129,20 @@ extension PodCastsViewController: UICollectionViewDataSource {
     }
 }
 
+extension PodCastsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let episode = podcast?.episodes[indexPath.item]
+        
+        let window = UIApplication.shared.keyWindow
+        let appDelegate = UIApplication.shared.delegate
+        
+        guard let miniPlayerViewController = UIStoryboard(name: "MiniPlayer", bundle: nil).instantiateViewController(withIdentifier: "MiniPlayer") as? MiniPlayerViewController else { return }
+        miniPlayerViewController.view.frame = CGRect(x: 0, y: view.bounds.height - 80,
+                                                     width: view.bounds.width, height: 80)
+        miniPlayerViewController.episode = episode
+        
+        appDelegate?.window??.rootViewController = miniPlayerViewController
+        
+        window?.addSubview(miniPlayerViewController.view)
+    }
+}

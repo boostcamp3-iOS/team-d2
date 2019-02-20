@@ -10,28 +10,37 @@ import Foundation
 import AVFoundation
 import AVKit
 
-protocol AudioServiceDataSource: class {
-    func initializeTimeProgress(minimumTime: Float, maximumTime: Float)
-    func setTimeProgressInTimeInterval(time: Float, duration: String, currentTime: String)
+@objc protocol AudioServiceDataSource: class {
+    @objc optional func initializeTimeProgress(minimumTime: Float, maximumTime: Float)
+    @objc optional func setTimeProgressInTimeInterval(time: Float, duration: String, currentTime: String)
     func showLoading(alpha: CGFloat)
 }
 
-class AudioService {
+class AudioService: NSObject {
     
     static let shared = AudioService()
 
     weak var dataSource: AudioServiceDataSource?
+    @objc dynamic var audioStatus: Int = 0
     
     private var audioPlayer: AVAudioPlayer?
     
     private var avPlayer: AVPlayer?
     private var isPaused = false
     
-    private init() { }
+    override private init() { }
     
-    func setupAndPlay(audioUrl: String) {
+    func setupAndPlayAudio(audioUrl: String) {
         guard let audioUrl = URL(string: audioUrl) else { return }
     
+        if avPlayer?.timeControlStatus == .playing {
+            return
+        }
+        
+        if avPlayer != nil {
+            return
+        }
+        
         avPlayer = AVPlayer(playerItem: AVPlayerItem(url: audioUrl))
         avPlayer?.automaticallyWaitsToMinimizeStalling = false
         avPlayer?.volume = 1.0
@@ -62,40 +71,29 @@ class AudioService {
         if avPlayer?.currentItem?.asset.duration != nil {
             guard let currentItem = avPlayer?.currentItem else { return }
             
-            if isPaused == false {
-                if avPlayer?.rate == 0 {
-                    avPlayer?.play()
-                    dataSource?.showLoading(alpha: 1)
-                } else {
-                    dataSource?.showLoading(alpha: 0)
-                }
+            if avPlayer?.currentTime().seconds == 0.0 {
+                dataSource?.showLoading(alpha: 1)
+            } else {
+                dataSource?.showLoading(alpha: 0)
             }
             
             let currentTime1 = currentItem.asset.duration
             let seconds1 = CMTimeGetSeconds(currentTime1)
             let time1 = Float(seconds1)
             
-            dataSource?.initializeTimeProgress(minimumTime: 0, maximumTime: time1)
+            dataSource?.initializeTimeProgress?(minimumTime: 0, maximumTime: time1)
 
             let currentTime = (self.avPlayer?.currentTime())!
             let seconds = CMTimeGetSeconds(currentTime)
             let time = Float(seconds)
             
-            dataSource?.setTimeProgressInTimeInterval(time: time,
+            dataSource?.setTimeProgressInTimeInterval?(time: time,
                                                       duration: currentItem.asset.duration.formatTimeFromSeconds(),
                                                       currentTime: currentItem.currentTime().formatTimeFromSeconds())
         }
     }
     
-    func invalidateAVPlayer() {
-        avPlayer = nil
+    deinit {
+        avPlayer?.removeObserver(self, forKeyPath: "timeControlStatus")
     }
-    
-    private func formatTimeFromSeconds(totalSeconds: Int32) -> String {
-        let seconds: Int32 = totalSeconds%60
-        let minutes: Int32 = (totalSeconds/60)%60
-        let hours: Int32 = totalSeconds/3600
-        return String(format: "%02d:%02d:%02d", hours,minutes,seconds)
-    }
-    
 }

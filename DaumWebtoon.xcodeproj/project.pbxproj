@@ -25,6 +25,8 @@
 		3BBEDB9422167B2300E0A769 /* GenreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9322167B2300E0A769 /* GenreDTO.swift */; };
 		3BBEDB9622167BD200E0A769 /* FetchGenresAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */; };
 		3BBEDB9A22167D1300E0A769 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9922167D1300E0A769 /* Genre.swift */; };
+		3BCEC387221BE44E00DD4174 /* MiniPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCEC386221BE44E00DD4174 /* MiniPlayerViewController.swift */; };
+		3BCEC389221BEF2400DD4174 /* MiniPlayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BCEC388221BEF2400DD4174 /* MiniPlayer.storyboard */; };
 		3BDC57CB221283470009C115 /* NetworkDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CA221283470009C115 /* NetworkDispatcher.swift */; };
 		3BDC57CD221283660009C115 /* HTTPEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CC221283660009C115 /* HTTPEnums.swift */; };
 		3BDC57CF2212837E0009C115 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDC57CE2212837E0009C115 /* RequestData.swift */; };
@@ -90,6 +92,8 @@
 		3BBEDB9322167B2300E0A769 /* GenreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDTO.swift; sourceTree = "<group>"; };
 		3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGenresAPI.swift; sourceTree = "<group>"; };
 		3BBEDB9922167D1300E0A769 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		3BCEC386221BE44E00DD4174 /* MiniPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerViewController.swift; sourceTree = "<group>"; };
+		3BCEC388221BEF2400DD4174 /* MiniPlayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MiniPlayer.storyboard; sourceTree = "<group>"; };
 		3BDC57CA221283470009C115 /* NetworkDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDispatcher.swift; sourceTree = "<group>"; };
 		3BDC57CC221283660009C115 /* HTTPEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPEnums.swift; sourceTree = "<group>"; };
 		3BDC57CE2212837E0009C115 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
@@ -163,6 +167,14 @@
 				3B8FAC62220A0B9E002CEEEF /* EpisodeModalViewController.swift */,
 			);
 			path = Episode;
+			sourceTree = "<group>";
+		};
+		3BCEC385221BE43F00DD4174 /* MiniPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				3BCEC386221BE44E00DD4174 /* MiniPlayerViewController.swift */,
+			);
+			path = MiniPlayer;
 			sourceTree = "<group>";
 		};
 		3BDC57C9221283330009C115 /* Network */ = {
@@ -321,6 +333,7 @@
 		B8ABD4FE2200143F00454AF3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3BCEC385221BE43F00DD4174 /* MiniPlayer */,
 				3B40AC5022164A81003D2CA8 /* Search */,
 				B84ECF41220ABD8200B11954 /* Main */,
 				3BDC57D4221294520009C115 /* Slide */,
@@ -338,6 +351,7 @@
 				3BBAA6E12200207800861707 /* TabBar.storyboard */,
 				3BDC57DD2212A2B60009C115 /* PodCast.storyboard */,
 				3B40AC532216533D003D2CA8 /* Search.storyboard */,
+				3BCEC388221BEF2400DD4174 /* MiniPlayer.storyboard */,
 				47BF154B22002A8E0011544A /* PieceLayer.swift */,
 				47BF157522017C3C0011544A /* SymbolView.swift */,
 				3B1C0FD1220312CD00077751 /* TabBarView.swift */,
@@ -431,6 +445,7 @@
 				B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */,
 				3BDC57DE2212A2B60009C115 /* PodCast.storyboard in Resources */,
 				3B40AC542216533D003D2CA8 /* Search.storyboard in Resources */,
+				3BCEC389221BEF2400DD4174 /* MiniPlayer.storyboard in Resources */,
 				3BDC57F62213C4180009C115 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,6 +507,7 @@
 				3B40AC5222164AA3003D2CA8 /* SearchViewController.swift in Sources */,
 				3B422A5A2216A4E300DA65D6 /* SearchPodCastsAPI.swift in Sources */,
 				3B8FAC65220A0BF5002CEEEF /* TranslateAnimator.swift in Sources */,
+				3BCEC387221BE44E00DD4174 /* MiniPlayerViewController.swift in Sources */,
 				3B40AC5622165FEF003D2CA8 /* SearchRecommandCollectionViewCell.swift in Sources */,
 				3BDC57F4221328EF0009C115 /* PodCastDetailCollectionViewCell.swift in Sources */,
 				47449B47220DA26300B99773 /* ShapeProtocol.swift in Sources */,
