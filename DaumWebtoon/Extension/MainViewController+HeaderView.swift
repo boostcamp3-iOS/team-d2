@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 protocol HeaderDelegate: class {
     func firstgenre(with channel: Channel, genreId: Int)

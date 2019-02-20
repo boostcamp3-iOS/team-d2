@@ -6,7 +6,7 @@
 //  Copyright © 2019 Gaon Kim. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct HeaderContent {
     var title: String
