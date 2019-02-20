@@ -9,11 +9,11 @@
 import Foundation
 
 protocol ContentDelegate: class {
-    func firstgenre(with channel: Channel, genreId: Int)
+    func firstGenre(with channel: Channel, genreId: Int)
 }
 
 extension MainViewController: ContentDelegate {
-    func firstgenre(with channel: Channel, genreId: Int) {
+    func firstGenre(with channel: Channel, genreId: Int) {
         FetchImageService.shared.execute(imageUrl: channel.image) {
             let headerContent = HeaderContent(title: channel.title, description: channel.description, image: $0)
             self.headerContentsDictionary.updateValue(headerContent, forKey: genreId)

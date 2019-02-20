@@ -71,7 +71,7 @@ extension ContentViewController {
             }
             self.tableView.reloadData()
             // MARK: - For HeaderView
-            self.delegate?.firstgenre(with: bestPodCasts.channels[0], genreId: genre)
+            self.delegate?.firstGenre(with: bestPodCasts.channels[0], genreId: genre)
         }
     }
     
