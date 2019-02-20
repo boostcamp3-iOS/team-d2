@@ -30,11 +30,11 @@ class PodCastsViewController: UIViewController {
         initializeCollectionView()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        collectionView.collectionViewLayout.invalidateLayout()
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        
+//        collectionView.collectionViewLayout.invalidateLayout()
+//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
@@ -82,16 +82,68 @@ extension PodCastsViewController: EpisodeModalViewDelegate {
 }
 
 extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / 3, height: collectionView.frame.size.width / 3)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        return 5.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        return 5.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        guard let headerView = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? PodCastDetailCollectionViewCell else {
+//            return CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+//        }
+
+//        let label:UILabel = UILabel(frame: CGRect(0, 0, collectionView.frame.width - 16, CGFloat.max))
+//        label.numberOfLines = 0
+//        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+//        //here, be sure you set the font type and size that matches the one set in the storyboard label
+//        label.font = UIFont(name: "Helvetica", size: 17.0)
+//        label.text = labels[section]
+//        label.sizeToFit()
+        
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+        title.numberOfLines = 0
+        title.lineBreakMode = NSLineBreakMode.byWordWrapping
+        title.font = UIFont.boldSystemFont(ofSize: 22.0)
+        title.text = podcast?.title
+        title.sizeToFit()
+        
+        let publisher = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+        publisher.numberOfLines = 0
+        publisher.lineBreakMode = NSLineBreakMode.byWordWrapping
+        publisher.font = UIFont(name: "System", size: 16.0)
+        publisher.text = podcast?.publisher
+        publisher.sizeToFit()
+        
+        let description = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+        description.numberOfLines = 0
+        description.lineBreakMode = NSLineBreakMode.byWordWrapping
+        description.font = UIFont(name: "System", size: 17.0)
+        description.text = podcast?.description
+        description.sizeToFit()
+//        headerView.layoutIfNeeded()
+//
+//        let titleHeight = headerView.podcastTitle.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
+//        let descHeight = headerView.podcastDescription.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
+//        let publisherHeight = headerView.podcastPublisher.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
+        let margin: CGFloat = 12.0
+        
+        print(title)
+        print(publisher)
+        print(description)
+        
+        return CGSize(width: collectionView.frame.width, height: title.frame.height + publisher.frame.height + description.frame.height + margin)
+
     }
 }
 
