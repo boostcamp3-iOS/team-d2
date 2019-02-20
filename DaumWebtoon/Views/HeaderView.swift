@@ -59,6 +59,7 @@ class HeaderView: UIView {
         tabTitleLabel.topAnchor.constraint(equalTo: symbolView.bottomAnchor, constant: 20).isActive = true
         tabTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         tabTitleLabel.numberOfLines = 1
+        opacityAnimation(to: tabTitleLabel)
     }
     
     private func configureTitle(with title: String) {
@@ -71,6 +72,7 @@ class HeaderView: UIView {
         titleLabel.topAnchor.constraint(equalTo: tabTitleLabel.bottomAnchor, constant: 18).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         titleLabel.numberOfLines = 3
+        opacityAnimation(to: titleLabel)
     }
     
     private func configureDescription(with description: String) {
@@ -84,11 +86,21 @@ class HeaderView: UIView {
         descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         descriptionLabel.numberOfLines = 5
+        opacityAnimation(to: descriptionLabel)
+    }
+    
+    private func opacityAnimation(to label: UILabel) {
+        let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
+        opacityAnimation.duration = 1
+        opacityAnimation.isRemovedOnCompletion = false
+        opacityAnimation.values = [1,0,1,0,1,0,1,0,1]
+        label.layer.timeOffset = 0
+        label.layer.speed = 0
+        label.layer.add(opacityAnimation, forKey: nil)
     }
     
     func timeOffset(value: Double) {
-        symbolView.timeOffset(value: value)
-        headerImageView.timeOffset(with: value)
+        contentTimeOffset(with: value)
         
         let genre = MainViewController.Genre.self
         let firstId = genre.webDesign.rawValue
@@ -110,6 +122,22 @@ class HeaderView: UIView {
         }
     }
     
+    private func contentTimeOffset(with value: Double) {
+        symbolView.timeOffset(value: value)
+        headerImageView.timeOffset(with: value)
+        tabTitleLabel.layer.timeOffset = value
+        titleLabel.layer.timeOffset = value
+        descriptionLabel.layer.timeOffset = value
+    }
+    
+    private func configureContent(with genreId: Int, tabIndex: Int) {
+        guard let (headerContent, tabContents) = delegate?.content(from: genreId) else { return }
+        tabTitleLabel.text = tabContents[tabIndex].tabTitle
+        tabTitleLabel.textColor = tabContents[tabIndex].tabColor
+        titleLabel.text = headerContent.title
+        descriptionLabel.text = headerContent.description
+    }
+    
     func configureFirstContent(with headerContentsDictionary: [Int: HeaderContent]) {
         headerImageView.configure(with: headerContentsDictionary)
         
@@ -118,11 +146,6 @@ class HeaderView: UIView {
         
         guard let (headerContent, tabContents) = delegate?.content(from: firstId) else { return }
         configureText(headerContent: headerContent, tabContent: tabContents[1])
-    }
-    
-    private func configureContent(with genreId: Int, tabIndex: Int) {
-        guard let (headerContent, tabContents) = delegate?.content(from: genreId) else { return }
-        configureText(headerContent: headerContent, tabContent: tabContents[tabIndex])
     }
     
     private func configureText(headerContent: HeaderContent, tabContent: TabContent) {
