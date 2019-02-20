@@ -13,6 +13,11 @@ protocol DetailEpisodeDelegate: class {
 }
 
 class SlidePanelContainerView: UIView {
+    private enum ButtonCategory {
+        case recent
+        case favorite
+    }
+    
     private var firstView = UIView()
     private var secondView = UITableView()
     private var recentButton = UIButton()
@@ -60,6 +65,10 @@ class SlidePanelContainerView: UIView {
         secondView.delegate = self
         secondView.separatorStyle = .none
         
+        let headerView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: secondView.frame.width, height: 100)))
+        headerView.backgroundColor = .black
+        secondView.tableHeaderView = headerView
+        
         secondView.backgroundColor = .black
         secondView.translatesAutoresizingMaskIntoConstraints = false
         secondView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -70,7 +79,8 @@ class SlidePanelContainerView: UIView {
     
     private func configureButton() {
         firstView.addSubview(recentButton)
-        recentButton.setAttributedTitle(customAttributedString(with: "최근 본 에피소드"), for: .normal)
+        recentButton.isSelected = true
+        recentButton.setAttributedTitle(customAttributedString(with: "최근 본 에피소드", isSelected: recentButton.isSelected), for: .normal)
         recentButton.frame.size = CGSize(width: 100, height: 40)
         recentButton.translatesAutoresizingMaskIntoConstraints = false
         recentButton.centerYAnchor.constraint(equalTo: firstView.centerYAnchor, constant: -30).isActive = true
@@ -78,7 +88,8 @@ class SlidePanelContainerView: UIView {
         recentButton.addTarget(self, action: #selector(touchedRecent), for: .touchUpInside)
         
         firstView.addSubview(favoriteButton)
-        favoriteButton.setAttributedTitle(customAttributedString(with: "좋아하는 에피소드"), for: .normal)
+        recentButton.isSelected = false
+        favoriteButton.setAttributedTitle(customAttributedString(with: "좋아하는 에피소드", isSelected: recentButton.isSelected), for: .normal)
         favoriteButton.frame.size = CGSize(width: 100, height: 40)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.centerYAnchor.constraint(equalTo: firstView.centerYAnchor, constant: 30).isActive = true
@@ -86,20 +97,35 @@ class SlidePanelContainerView: UIView {
         favoriteButton.addTarget(self, action: #selector(touchedFavorite), for: .touchUpInside)
     }
     
-    private func customAttributedString(with text: String) -> NSAttributedString {
+    private func customAttributedString(with text: String, isSelected: Bool) -> NSAttributedString {
         var attributedOption = [NSAttributedString.Key: Any]()
-        attributedOption.updateValue(2, forKey: .underlineStyle)
-        attributedOption.updateValue(UIFont.boldSystemFont(ofSize: 20), forKey: .font)
+        if isSelected {
+            attributedOption.updateValue(2, forKey: .underlineStyle)
+            attributedOption.updateValue(UIFont.boldSystemFont(ofSize: 20), forKey: .font)
+            attributedOption.updateValue(UIColor.black, forKey: .foregroundColor)
+        } else {
+            attributedOption.updateValue(UIFont.boldSystemFont(ofSize: 20), forKey: .font)
+            attributedOption.updateValue(UIColor.gray, forKey: .foregroundColor)
+        }
         let attributedString = NSAttributedString(string: text, attributes: attributedOption)
         return attributedString
     }
     
     @objc private func touchedRecent() {
         selectInDependent(from: .recent)
+        switchSelectedButton(activatedButton: .recent)
     }
     
     @objc private func touchedFavorite() {
         selectInDependent(from: .favorite)
+        switchSelectedButton(activatedButton: .favorite)
+    }
+    
+    private func switchSelectedButton(activatedButton: ButtonCategory) {
+        let selectedButton = activatedButton == .recent ? recentButton : favoriteButton
+        let unSelectedButton = activatedButton == .recent ? favoriteButton : recentButton
+        selectedAttributed(with: selectedButton)
+        unSelectedAttributed(with: unSelectedButton)
     }
     
     private func selectInDependent(from category: TableCategory) {
@@ -108,7 +134,19 @@ class SlidePanelContainerView: UIView {
         currentEpisodes = episodes
         secondView.reloadData()
         let indexPath = IndexPath(row: 0, section: 0)
-        secondView.scrollToRow(at: indexPath, at: .top, animated: false)
+        secondView.scrollToRow(at: indexPath, at: .middle, animated: false)
+    }
+    
+    private func selectedAttributed(with button: UIButton) {
+        guard let title = button.titleLabel?.text else { return }
+        button.isSelected = true
+        button.setAttributedTitle(customAttributedString(with: title, isSelected: button.isSelected), for: .normal)
+    }
+    
+    private func unSelectedAttributed(with button: UIButton) {
+        guard let title = button.titleLabel?.text else { return }
+        button.isSelected = false
+        button.setAttributedTitle(customAttributedString(with: title, isSelected: button.isSelected), for: .normal)
     }
 }
 
@@ -121,11 +159,7 @@ extension SlidePanelContainerView: UITableViewDataSource {
         guard let cell = secondView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SlidePanelTableViewCell else {
             return UITableViewCell()
         }
-        FetchImageService.shared.execute(imageUrl: currentEpisodes[indexPath.row].image) {
-            cell.imageEpisode.image = $0
-        }
-        cell.titleLabel.text = currentEpisodes[indexPath.row].title
-        cell.descLabel.text = currentEpisodes[indexPath.row].description
+        cell.configure(with: currentEpisodes[indexPath.row])
         return cell
     }
 }
@@ -139,6 +173,5 @@ extension SlidePanelContainerView: UITableViewDelegate {
         // 해당 뷰 대신 이 뷰를 가진 컨트롤러에서 처리하도록 delegate 패턴을 사용합니다.
         let episode = currentEpisodes[indexPath.row]
         delegate?.touchedEpisode(with: episode)
-        
     }
 }
