@@ -18,6 +18,9 @@ class PodCastsViewController: UIViewController {
     var headerImage: UIImage?
     
     private var podcast: PodCast?
+    private var episodes: [Episode] = []
+    private var nextEpisodePubDate: String? = ""
+    private var shownIndexes: [IndexPath] = []
     
     private let podcastIdentifier = "PodCastCell"
     private let detailIdentifier = "DetailCell"
@@ -45,7 +48,7 @@ class PodCastsViewController: UIViewController {
         
         if let selectedIndex = indexPath?.item {
             modalViewController.delegate = self
-            modalViewController.episode = podcast?.episodes[selectedIndex]
+            modalViewController.episode = episodes[selectedIndex]
         }
     }
     
@@ -56,10 +59,13 @@ class PodCastsViewController: UIViewController {
     
     private func fetchPodCasts() {
         guard let podcastId = podcastId else { return }
-        PodCastService.shared.fetchPodCasts(podcastId: podcastId) { [weak self] (podcast) in
-            guard let self = self else { return }
+        PodCastService.shared.fetchPodCasts(podcastId: podcastId, nextEpisodePubDate: nextEpisodePubDate) { [weak self] (podcast) in
+            guard let self = self,
+                let nextEpisodePubDate = podcast.nextEpisodePubDate else { return }
             
             self.podcast = podcast
+            self.episodes += podcast.episodes
+            self.nextEpisodePubDate = String(nextEpisodePubDate)
             self.collectionView.reloadData()
         }
     }
@@ -68,6 +74,7 @@ class PodCastsViewController: UIViewController {
     @IBAction func backTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+
 }
 
 extension PodCastsViewController: EpisodeModalViewDelegate {
@@ -149,7 +156,7 @@ extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
 
 extension PodCastsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return podcast?.episodes.count ?? 0
+        return episodes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -169,14 +176,54 @@ extension PodCastsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let podcastsCell = collectionView.dequeueReusableCell(withReuseIdentifier: podcastIdentifier, for: indexPath) as? PodCastCollectionViewCell,
-            let episode = podcast?.episodes[indexPath.item] else {
+            let podcastsCell = collectionView.dequeueReusableCell(withReuseIdentifier: podcastIdentifier, for: indexPath) as? PodCastCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let episode = episodes[indexPath.item]
         
         podcastsCell.configure(episode, item: indexPath.item, index: collectionView.indexPath(for: podcastsCell) ?? indexPath)
         
         return podcastsCell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard shownIndexes.contains(indexPath) == false else { return }
+        shownIndexes.append(indexPath)
+        cell.alpha = 0
+        if indexPath.row < 10 {
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0.05 * Double(indexPath.row),
+                options: [],
+                animations: {
+                    cell.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                cell.alpha = 1
+            }
+        }
+        
+        if indexPath.item == episodes.count - 10 || episodes.count - 10 < 0 {
+            fetchPodCasts()
+        }
+    }
 }
 
+extension PodCastsViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let episode = podcast?.episodes[indexPath.item]
+        
+        let window = UIApplication.shared.keyWindow
+        let appDelegate = UIApplication.shared.delegate
+        
+        guard let miniPlayerViewController = UIStoryboard(name: "MiniPlayer", bundle: nil).instantiateViewController(withIdentifier: "MiniPlayer") as? MiniPlayerViewController else { return }
+        miniPlayerViewController.view.frame = CGRect(x: 0, y: view.bounds.height - 80,
+                                                     width: view.bounds.width, height: 80)
+        miniPlayerViewController.episode = episode
+        
+        appDelegate?.window??.rootViewController = miniPlayerViewController
+        
+        window?.addSubview(miniPlayerViewController.view)
+    }
+}
