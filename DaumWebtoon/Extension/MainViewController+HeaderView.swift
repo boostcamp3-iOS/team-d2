@@ -7,13 +7,17 @@
 //
 
 import Foundation
+import UIKit
 
 protocol HeaderDelegate: class {
-    func firstgenre(with channel: Channel)
+    func firstgenre(with channel: Channel, genreId: Int)
 }
 
 extension MainViewController: HeaderDelegate {
-    func firstgenre(with channel: Channel) {
-        headerView.configureData(with: channel, tabContent: tabContents[1])
+    func firstgenre(with channel: Channel, genreId: Int) {
+        FetchImageService.shared.execute(imageUrl: channel.image) {
+            let headerContent = HeaderContent(title: channel.title, description: channel.description, image: $0)
+            self.headerContentsDictionary.updateValue(headerContent, forKey: genreId)
+        }
     }
 }

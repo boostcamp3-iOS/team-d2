@@ -14,6 +14,7 @@ class HeaderView: UIView {
     private var descriptionLabel = UILabel()
     private var imageView = UIImageView()
     var symbolView = SymbolView(frame: CGRect(origin: CGPoint(x: 20, y: 20), size: CGSize(width: 100, height: 100)))
+    var firstLayer = CALayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -95,5 +96,39 @@ class HeaderView: UIView {
     
     func timeOffset(value: Double) {
         symbolView.timeOffset(value: value)
+        firstLayer.timeOffset = value
+    }
+    
+    func testAnimation(with headerContentsDictionary: [Int: HeaderContent]) {
+        let genre = MainViewController.Genre.self
+        let firstId = genre.webDesign.rawValue
+        let secondId = genre.programming.rawValue
+        let thirdId = genre.vrAndAr.rawValue
+        let fourthId = genre.startup.rawValue
+        let emptyView = UIView(frame: CGRect(origin: CGPoint(x: 100, y: 100), size: CGSize(width: 100, height: 100)))
+        emptyView.backgroundColor = .white
+        guard let firstImage = headerContentsDictionary[firstId]?.image.cgImage else { return }
+        guard let secondImage = headerContentsDictionary[secondId]?.image.cgImage else { return }
+        guard let thirdImage = headerContentsDictionary[thirdId]?.image.cgImage else { return }
+        guard let fourthImage = headerContentsDictionary[fourthId]?.image.cgImage else { return }
+        
+        firstLayer.contentsGravity = .resizeAspect
+        firstLayer.frame = self.bounds
+        firstLayer.contents = firstImage
+        firstLayer.speed = 0
+        firstLayer.timeOffset = 0
+        
+        let contentAnimation = CAKeyframeAnimation(keyPath: "contents")
+        contentAnimation.duration = 1
+        contentAnimation.isRemovedOnCompletion = false
+        contentAnimation.values = [firstImage, secondImage, thirdImage, fourthImage, firstImage]
+        firstLayer.add(contentAnimation, forKey: "contents")
+        
+        let opacityAnimation = CAKeyframeAnimation(keyPath: "opacity")
+        opacityAnimation.duration = 1
+        opacityAnimation.isRemovedOnCompletion = false
+        opacityAnimation.values = [1,0,1,0,1,0,1,0,1]
+        firstLayer.add(opacityAnimation, forKey: "opacity")
+        self.layer.addSublayer(firstLayer)
     }
 }
