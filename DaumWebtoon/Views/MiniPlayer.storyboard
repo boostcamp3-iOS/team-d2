@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4U2-fN-830">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Mini Player View Controller-->
+        <scene sceneID="tVn-b3-vrj">
+            <objects>
+                <viewController storyboardIdentifier="MiniPlayer" id="4U2-fN-830" customClass="MiniPlayerViewController" customModule="DaumWebtoon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dWz-tk-4fX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f1Q-8Y-qLW">
+                                <rect key="frame" x="20" y="8" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="CnK-LV-fyk"/>
+                                    <constraint firstAttribute="width" constant="64" id="Smw-ez-ELW"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGa-Mz-nhr">
+                                <rect key="frame" x="324" y="22" width="36" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="2bu-oU-SoU"/>
+                                    <constraint firstAttribute="width" constant="36" id="Wf5-Oh-dkG"/>
+                                </constraints>
+                                <state key="normal" image="pause"/>
+                                <state key="selected" image="play"/>
+                                <connections>
+                                    <action selector="playPauseDidTapped:" destination="4U2-fN-830" eventType="touchUpInside" id="VAc-b3-6O9"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWV-Yh-jb9">
+                                <rect key="frame" x="96" y="8" width="216" height="45"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Loading...." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCh-V4-Hab">
+                                <rect key="frame" x="244.5" y="55" width="67.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.9514990482233503" green="0.9514990482233503" blue="0.9514990482233503" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="sGa-Mz-nhr" firstAttribute="leading" secondItem="pWV-Yh-jb9" secondAttribute="trailing" constant="12" id="5gq-va-icH"/>
+                            <constraint firstItem="pWV-Yh-jb9" firstAttribute="top" secondItem="f1Q-8Y-qLW" secondAttribute="top" id="7hN-5y-hk2"/>
+                            <constraint firstItem="FCh-V4-Hab" firstAttribute="top" secondItem="pWV-Yh-jb9" secondAttribute="bottom" constant="2" id="G8u-ak-tpd"/>
+                            <constraint firstItem="sGa-Mz-nhr" firstAttribute="centerY" secondItem="dWz-tk-4fX" secondAttribute="centerY" id="Yh9-Ub-DE0"/>
+                            <constraint firstItem="f1Q-8Y-qLW" firstAttribute="centerY" secondItem="dWz-tk-4fX" secondAttribute="centerY" id="aCW-0e-1ww"/>
+                            <constraint firstItem="f1Q-8Y-qLW" firstAttribute="leading" secondItem="wRb-2Y-o9T" secondAttribute="leading" constant="20" id="bcW-2E-VqH"/>
+                            <constraint firstItem="FCh-V4-Hab" firstAttribute="trailing" secondItem="pWV-Yh-jb9" secondAttribute="trailing" id="c6m-vQ-bMc"/>
+                            <constraint firstItem="pWV-Yh-jb9" firstAttribute="leading" secondItem="f1Q-8Y-qLW" secondAttribute="trailing" constant="12" id="f2m-kO-YTI"/>
+                            <constraint firstItem="wRb-2Y-o9T" firstAttribute="trailing" secondItem="sGa-Mz-nhr" secondAttribute="trailing" constant="15" id="hp0-SD-Qqu"/>
+                            <constraint firstItem="FCh-V4-Hab" firstAttribute="bottom" secondItem="f1Q-8Y-qLW" secondAttribute="bottom" id="hsN-Hz-E7c"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wRb-2Y-o9T"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="80"/>
+                    <connections>
+                        <outlet property="episodeThumbnail" destination="f1Q-8Y-qLW" id="Fzd-D3-iOm"/>
+                        <outlet property="episodeTitle" destination="pWV-Yh-jb9" id="EWi-qA-Sew"/>
+                        <outlet property="loading" destination="FCh-V4-Hab" id="Cpn-hi-mHs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8wb-8F-VxV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-239.19999999999999" y="118.74062968515743"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="pause" width="37.5" height="37.5"/>
+        <image name="play" width="37.5" height="37.5"/>
+    </resources>
+</document>
