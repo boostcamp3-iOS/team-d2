@@ -38,7 +38,9 @@ extension ContentViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = view.frame
-        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 120))
+        let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
+        tableFooterView.backgroundColor = #colorLiteral(red: 0.8705882353, green: 0.8705882353, blue: 0.8705882353, alpha: 1)
+        tableView.tableFooterView = tableFooterView
         tableView.register(ChannelTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.contentInsetAdjustmentBehavior = .never
     }
@@ -129,20 +131,21 @@ extension ContentViewController: UITableViewDelegate {
         guard shownIndexes.contains(indexPath) == false else { return }
         shownIndexes.append(indexPath)
         cell.alpha = 0
-        if indexPath.row < 10 {
+        if indexPath.row < 20 {
             UIView.animate(
-                withDuration: 0.5,
+                withDuration: 0.1,
                 delay: 0.05 * Double(indexPath.row),
                 options: [],
                 animations: {
                     cell.alpha = 1
             }, completion: nil)
         } else {
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.1) {
                 cell.alpha = 1
             }
         }
-        if indexPath.row == channels.count - 1 {
+        
+        if indexPath.row == channels.count - 18 || channels.count - 18 < 0 {
             fetchBestPodCasts()
         }
     }
