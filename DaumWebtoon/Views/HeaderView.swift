@@ -62,7 +62,7 @@ class HeaderView: UIView {
         titleLabel.frame.size = CGSize(width: 100, height: 40)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: tabTitleLabel.bottomAnchor, constant: 5).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: tabTitleLabel.bottomAnchor, constant: 18).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
         titleLabel.numberOfLines = 3
     }
@@ -74,10 +74,10 @@ class HeaderView: UIView {
             self.imageView.contentMode = .scaleAspectFit
         }
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 50).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
         imageView.leadingAnchor.constraint(equalTo: symbolView.trailingAnchor, constant: 20).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
     }
     
     private func configureDescription(with description: String) {
@@ -88,9 +88,9 @@ class HeaderView: UIView {
         descriptionLabel.frame.size = CGSize(width: 100, height: 40)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        descriptionLabel.numberOfLines = 4
+        descriptionLabel.numberOfLines = 6
     }
     
     func timeOffset(value: Double) {

@@ -61,6 +61,7 @@ extension ContentViewController {
         guard hasNextPage, let genre = genre else { return }
         
         BestPodCastsFetcher.shared.loadPage(genre: genre, currentPage: currentPage) { [weak self] bestPodCasts in
+            
             guard let self = self else { return }
             self.channels += bestPodCasts.channels
             if !bestPodCasts.hasNext {
