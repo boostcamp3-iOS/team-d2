@@ -55,6 +55,8 @@
 		4767DEF622128F3C0017AC9A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767DEF522128F3C0017AC9A /* HeaderView.swift */; };
 		47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF154B22002A8E0011544A /* PieceLayer.swift */; };
 		47BF157622017C3C0011544A /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF157522017C3C0011544A /* SymbolView.swift */; };
+		47E55E54221B9B7600878080 /* MainViewController+HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E55E53221B9B7600878080 /* MainViewController+HeaderView.swift */; };
+		47E55E56221BD28000878080 /* String+DeleteHTMLTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E55E55221BD28000878080 /* String+DeleteHTMLTag.swift */; };
 		B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3B220ABCD000B11954 /* MainViewController.swift */; };
 		B84ECF40220ABD7D00B11954 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */; };
 		B85187562203DBCD0081F72D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85187552203DBCD0081F72D /* SplashView.swift */; };
@@ -120,6 +122,8 @@
 		4767DEF522128F3C0017AC9A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		47BF154B22002A8E0011544A /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
 		47BF157522017C3C0011544A /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
+		47E55E53221B9B7600878080 /* MainViewController+HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+HeaderView.swift"; sourceTree = "<group>"; };
+		47E55E55221BD28000878080 /* String+DeleteHTMLTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DeleteHTMLTag.swift"; sourceTree = "<group>"; };
 		B84ECF3B220ABCD000B11954 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		B85187552203DBCD0081F72D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 			children = (
 				3B40AC4C221501D1003D2CA8 /* TimeFormatExtension.swift */,
 				4767DEEC2211556A0017AC9A /* MainViewController+Symbol.swift */,
+				47E55E53221B9B7600878080 /* MainViewController+HeaderView.swift */,
+				47E55E55221BD28000878080 /* String+DeleteHTMLTag.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -443,6 +449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B422A5C2216A53200DA65D6 /* PodCastSearchDTO.swift in Sources */,
+				47E55E56221BD28000878080 /* String+DeleteHTMLTag.swift in Sources */,
 				47BF157622017C3C0011544A /* SymbolView.swift in Sources */,
 				3BDC57CF2212837E0009C115 /* RequestData.swift in Sources */,
 				47449B3D220D94B400B99773 /* ShapeC.swift in Sources */,
@@ -467,6 +474,7 @@
 				3BDC57D8221295F90009C115 /* SlidePanelContainerView.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */,
+				47E55E54221B9B7600878080 /* MainViewController+HeaderView.swift in Sources */,
 				3BDC57E22212AD000009C115 /* PodCastCollectionViewCell.swift in Sources */,
 				3BDC57E42212ADEE0009C115 /* PodCast.swift in Sources */,
 				B8701E7922108F12003F7217 /* Direction.swift in Sources */,

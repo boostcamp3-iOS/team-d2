@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     // MARK: - Properties
-    private let tabContents: [TabContent] = [
+    let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
         TabContent(tabColor: UIColor.red, tabTitle: "웹디자인", tabIndex: 1),
         TabContent(tabColor: UIColor.brown, tabTitle: "프로그래밍", tabIndex: 2),
@@ -51,6 +51,7 @@ class MainViewController: UIViewController {
     private lazy var menuView = UIView()
     private lazy var tableStackView = UIStackView()
     lazy var headerView = HeaderView()
+    private var contentViewControllers = [ContentViewController]()
     
     // MARK: Life Cycle Methods
     override func viewDidLoad() {
@@ -100,7 +101,7 @@ extension MainViewController {
     func addHeaderView() {
         view.addSubview(headerView)
         headerView.symbolView.dataSource = self
-        headerView.configureData(title: "title", with: "heart_active")
+        headerView.configureData(with: nil, tabContent: nil)
         setHeaderViewLayout()
         // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
         view.bringSubviewToFront(scrollView)
@@ -296,6 +297,12 @@ extension MainViewController {
             tableStackView.addArrangedSubview(contentViewController.view)
             contentViewController.view.translatesAutoresizingMaskIntoConstraints = false
             contentViewController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+            // MARK: - For HeaderView
+            let firstTabIndex = 1
+            if index == firstTabIndex {
+                contentViewController.delegate = self
+            }
+            contentViewControllers.append(contentViewController)
         }
     }
     
@@ -441,6 +448,12 @@ extension MainViewController: SplashViewDelegate {
 // MARK: - Scroll View Delegate
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        // MARK: - For HeaderView
+        let channels = contentViewControllers[currentIndex].channels
+        if channels.count > 0 {
+            headerView.configureData(with: channels[0], tabContent: tabContents[currentIndex])
+        }
+        
         guard contentOffsetInPage >= UIScreen.main.bounds.width / 2 else { return }
         
         NSObject.cancelPreviousPerformRequests(withTarget: self)

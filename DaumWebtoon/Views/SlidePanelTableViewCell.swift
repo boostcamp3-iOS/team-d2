@@ -31,11 +31,19 @@ class SlidePanelTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configure()
+        configureAutolayout()
+    }
+    
+    func configure(with episode: Episode) {
+        FetchImageService.shared.execute(imageUrl: episode.image) {
+            self.imageEpisode.image = $0
+        }
+        titleLabel.text = episode.title.deleteHTMLTag
+        descLabel.text = episode.description.deleteHTMLTag
     }
     
     // MARK: - For AutoLayout
-    private func configure() {
+    private func configureAutolayout() {
         self.backgroundColor = .black
         contentView.addSubview(imageEpisode)
         contentView.addSubview(titleLabel)
@@ -44,21 +52,22 @@ class SlidePanelTableViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        imageEpisode.contentMode = .scaleAspectFit
         imageEpisode.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         imageEpisode.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        imageEpisode.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
+        imageEpisode.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
         imageEpisode.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         titleLabel.textColor = .white
         titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: imageEpisode.bottomAnchor, constant: 8).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
         
         descLabel.textColor = .white
         descLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
         descLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        descLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
+        descLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
     }
 }
