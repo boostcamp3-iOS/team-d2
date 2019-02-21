@@ -80,7 +80,7 @@ class SlidePanelContainerView: UIView {
     private func configureButton() {
         firstView.addSubview(recentButton)
         recentButton.isSelected = true
-        recentButton.setAttributedTitle(customAttributedString(with: "최근 본 에피소드", isSelected: recentButton.isSelected), for: .normal)
+        recentButton.setAttributedTitle(customAttributedString(with: "최근 들은 에피소드", isSelected: recentButton.isSelected), for: .normal)
         recentButton.frame.size = CGSize(width: 100, height: 40)
         recentButton.translatesAutoresizingMaskIntoConstraints = false
         recentButton.centerYAnchor.constraint(equalTo: firstView.centerYAnchor, constant: -30).isActive = true
