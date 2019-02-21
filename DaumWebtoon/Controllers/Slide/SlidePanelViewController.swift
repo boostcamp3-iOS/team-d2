@@ -91,8 +91,10 @@ class SlidePanelViewController: UIViewController {
 
 extension SlidePanelViewController: DetailEpisodeDelegate {
     func touchedEpisode(with episode: Episode) {
-        guard let episodeVC = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "Episode") as? EpisodeModalViewController else { return }
-        episodeVC.episode = episode
-        self.present(episodeVC, animated: true, completion: nil)
+        let window = UIApplication.shared.keyWindow
+        guard let miniPlayerViewController = UIStoryboard(name: "MiniPlayer", bundle: nil).instantiateViewController(withIdentifier: "MiniPlayer") as? MiniPlayerViewController else { return }
+        miniPlayerViewController.view.frame = CGRect(x: 0, y: view.bounds.height - 80, width: view.bounds.width, height: 80)
+        miniPlayerViewController.episode = episode
+        window?.addSubview(miniPlayerViewController.view)
     }
 }
