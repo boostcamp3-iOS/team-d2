@@ -15,18 +15,15 @@ class PodCastCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var podcastDuration: UILabel!
  
     func configure(_ episode: Episode, item: Int, index: IndexPath) {
-        layer.borderWidth = 0.23
+        layer.borderWidth = 0.5
+        layer.cornerRadius = 10
         layer.borderColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: -1, height: 1)
-        
-        let (h,m,s) = episode.duration.secondsToHoursMinutesSeconds()
         
         podcastTitle.text = episode.title
-        podcastDuration.text = "\(h):\(m):\(s)"
+        podcastDuration.text = episode.duration.stringFromTimeInt()
         
         FetchImageService.shared.execute(imageUrl: episode.thumbnail) { [weak self] (image) in
             guard let self = self else { return }
-
             self.podcastThumbnail.image = image
         }
     }

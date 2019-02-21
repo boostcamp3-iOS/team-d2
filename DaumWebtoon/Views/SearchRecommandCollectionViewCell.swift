@@ -15,24 +15,27 @@ class SearchRecommandCollectionViewCell: UICollectionViewCell {
     func configure(genre: Genre) {
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.lightGray.cgColor
-        recommandTitle.sizeToFit()
-        recommandTitle.numberOfLines = 1
-        recommandTitle.lineBreakMode = .byWordWrapping
         recommandTitle.text = "#\(genre.name)"
     }
     
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        setNeedsLayout()
-        layoutIfNeeded()
-
-        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
-        var frame = layoutAttributes.frame
-        frame.size.width = ceil(size.width)
-        frame.size.height = 30
-        layoutAttributes.frame = frame
-
-        prepareForReuse()
-
-        return layoutAttributes
-    }
+//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+//        setNeedsLayout()
+//        layoutIfNeeded()
+//
+////        layoutIfNeeded()
+////        label.preferredMaxLayoutWidth = label.bounds.size.width
+////        layoutAttributes.bounds.size.height  = systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+//        
+////        let size = contentView.systemLayoutSizeFitting(recommandTitle.frame.size)
+////        var frame = layoutAttributes.frame
+////        frame.size.width = ceil(size.width)
+////        frame.size.height = 30
+////        layoutAttributes.frame = frame
+////
+////        prepareForReuse()
+//
+//        layoutAttributes.frame.size = contentView.systemLayoutSizeFitting(recommandTitle.frame.size)
+//        
+//        return layoutAttributes
+//    }
 }

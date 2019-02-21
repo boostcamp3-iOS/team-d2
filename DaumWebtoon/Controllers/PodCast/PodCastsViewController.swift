@@ -13,6 +13,7 @@ class PodCastsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var headerBackgroundImage: UIImageView!
+    @IBOutlet weak var backButton: UIButton!
     
     var podcastId: String?
     var headerImage: UIImage?
@@ -30,29 +31,10 @@ class PodCastsViewController: UIViewController {
 
         fetchPodCasts()
         
-        initializeCollectionView()
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        collectionView.collectionViewLayout.invalidateLayout()
+        setupCollectionView()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-            let modalViewController = segue.destination as? EpisodeModalViewController,
-            let cell: UICollectionViewCell = sender as? UICollectionViewCell else { return }
-        
-        let indexPath = collectionView?.indexPath(for: cell)
-        
-        if let selectedIndex = indexPath?.item {
-            modalViewController.delegate = self
-            modalViewController.episode = episodes[selectedIndex]
-        }
-    }
-    
-    private func initializeCollectionView() {
+    private func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -74,7 +56,6 @@ class PodCastsViewController: UIViewController {
     @IBAction func backTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-
 }
 
 extension PodCastsViewController: EpisodeModalViewDelegate {
@@ -89,16 +70,49 @@ extension PodCastsViewController: EpisodeModalViewDelegate {
 }
 
 extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width / 3, height: collectionView.frame.size.width / 3)
+        return CGSize(width: collectionView.frame.size.width / 3 - 4, height: collectionView.frame.size.width / 3)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        return 8.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.0
+        return 2.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+        title.numberOfLines = 0
+        title.lineBreakMode = NSLineBreakMode.byWordWrapping
+        title.font = UIFont.boldSystemFont(ofSize: 22.0)
+        title.text = podcast?.title
+        title.sizeToFit()
+        
+        let publisher = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+        publisher.numberOfLines = 0
+        publisher.lineBreakMode = NSLineBreakMode.byWordWrapping
+        publisher.font = UIFont(name: "System", size: 16.0)
+        publisher.text = podcast?.publisher
+        publisher.sizeToFit()
+        
+        let description = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+        description.numberOfLines = 0
+        description.lineBreakMode = NSLineBreakMode.byWordWrapping
+        description.font = UIFont(name: "System", size: 17.0)
+        description.text = podcast?.description
+        description.sizeToFit()
+
+        let margin: CGFloat = 12.0
+        
+        return CGSize(width: collectionView.frame.width, height: title.frame.height + publisher.frame.height + description.frame.height + margin)
+
     }
 }
 
@@ -160,7 +174,7 @@ extension PodCastsViewController: UICollectionViewDataSource {
 
 extension PodCastsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let episode = podcast?.episodes[indexPath.item]
+        let episode = episodes[indexPath.item]
         
         let window = UIApplication.shared.keyWindow
         let appDelegate = UIApplication.shared.delegate
