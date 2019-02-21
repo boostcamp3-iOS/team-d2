@@ -71,7 +71,7 @@ class HeaderView: UIView {
         titleLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: tabTitleLabel.bottomAnchor, constant: 18).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        titleLabel.numberOfLines = 3
+        titleLabel.numberOfLines = 2
         opacityAnimation(to: titleLabel)
     }
     
