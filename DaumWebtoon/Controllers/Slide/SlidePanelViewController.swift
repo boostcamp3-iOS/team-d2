@@ -54,10 +54,12 @@ class SlidePanelViewController: UIViewController {
     // MARK :- event handling
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: containerView)
-        print(self.view.frame.origin.x)
         switch recognizer.state {
         case .changed:
             UIView.animate(withDuration: 0.2) {
+                // MARK: - 왼쪽 슬라이드 제스처 막는 부분
+                guard self.view.frame.origin.x >= 0 else { return }
+                
                 self.view.center = CGPoint(x: self.view.center.x + translation.x, y: self.view.center.y)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
             }
