@@ -210,8 +210,22 @@ extension SearchViewController: UICollectionViewDelegate {
 }
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let genre = genres?[indexPath.item] else { return CGSize(width: 0, height: 0) }
+        
+        let recommandTitle = UILabel(frame: CGRect.zero)
+        recommandTitle.numberOfLines = 0
+        recommandTitle.textAlignment = .center
+        recommandTitle.lineBreakMode = NSLineBreakMode.byWordWrapping
+        recommandTitle.font = UIFont(name: "System", size: 14.0)
+        recommandTitle.text = genre.name
+        recommandTitle.sizeToFit()
+        
+        return CGSize(width: recommandTitle.frame.width + 18, height: 28)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
+        return 8.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
