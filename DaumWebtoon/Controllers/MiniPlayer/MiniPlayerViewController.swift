@@ -33,13 +33,14 @@ class MiniPlayerViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let y = UIScreen.main.bounds.height - (UIApplication.shared.statusBarFrame.size.height + 100)
-        view.frame = CGRect(x: 0, y: y, width: view.superview?.frame.width ?? 0, height: 100)
+        let y = UIScreen.main.bounds.height - (UIApplication.shared.statusBarFrame.size.height + 60)
+        view.frame = CGRect(x: 0, y: y, width: view.superview?.frame.width ?? 0, height: 80)
     }
     
     private func setupViews() {
         guard let episode = self.episode else { return }
         
+        episodeTitle.alpha = 0
         episodeTitle.text = episode.title
         FetchImageService.shared.execute(imageUrl: episode.thumbnail) { [weak self] (image) in
             guard let self = self else { return }
@@ -87,5 +88,9 @@ class MiniPlayerViewController: UIViewController {
 extension MiniPlayerViewController: AudioServiceDataSource {
     func showLoading(alpha: CGFloat) {
         loading.alpha = alpha
+    }
+    
+    func showTitle(alpha: CGFloat) {
+        episodeTitle.alpha = alpha
     }
 }

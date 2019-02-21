@@ -14,6 +14,7 @@ import UIKit
 @objc protocol AudioServiceDataSource: class {
     @objc optional func initializeTimeProgress(minimumTime: Float, maximumTime: Float)
     @objc optional func setTimeProgressInTimeInterval(time: Float, duration: String, currentTime: String)
+    @objc optional func showTitle(alpha: CGFloat)
     func showLoading(alpha: CGFloat)
 }
 
@@ -69,8 +70,10 @@ class AudioService: NSObject {
             
             if avPlayer?.currentTime().seconds == 0.0 {
                 dataSource?.showLoading(alpha: 1)
+                dataSource?.showTitle?(alpha: 0)
             } else {
                 dataSource?.showLoading(alpha: 0)
+                dataSource?.showTitle?(alpha: 1)
             }
             
             let currentTime1 = currentItem.asset.duration
