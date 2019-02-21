@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
         TabContent(tabColor: UIColor.blue, tabTitle: "스타트업", tabIndex: 4),
         TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
-    private enum Genre: Int {
+    enum Genre: Int {
         case webDesign = 140
         case programming = 143
         case vrAndAr = 139
@@ -52,6 +52,14 @@ class MainViewController: UIViewController {
     private lazy var tableStackView = UIStackView()
     lazy var headerView = HeaderView()
     private var contentViewControllers = [ContentViewController]()
+    var headerContentsDictionary = [Int: HeaderContent]() {
+        didSet {
+            let emptyTab = 2
+            if headerContentsDictionary.count == tabContents.count - emptyTab {
+                headerView.configureFirstContent(with: headerContentsDictionary)
+            }
+        }
+    }
     
     // MARK: Life Cycle Methods
     override func viewDidLoad() {
@@ -100,8 +108,9 @@ extension MainViewController {
     // MARK: Header View Methods
     func addHeaderView() {
         view.addSubview(headerView)
+        headerView.delegate = self
         headerView.symbolView.dataSource = self
-        headerView.configureData(with: nil, tabContent: nil)
+        headerView.configure()
         setHeaderViewLayout()
         // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
         view.bringSubviewToFront(scrollView)
@@ -298,10 +307,8 @@ extension MainViewController {
             contentViewController.view.translatesAutoresizingMaskIntoConstraints = false
             contentViewController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
             // MARK: - For HeaderView
-            let firstTabIndex = 1
-            if index == firstTabIndex {
-                contentViewController.delegate = self
-            }
+            contentViewController.delegate = self
+            
             contentViewControllers.append(contentViewController)
         }
     }
@@ -448,11 +455,6 @@ extension MainViewController: SplashViewDelegate {
 // MARK: - Scroll View Delegate
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        // MARK: - For HeaderView
-        let channels = contentViewControllers[currentIndex].channels
-        if channels.count > 0 {
-            headerView.configureData(with: channels[0], tabContent: tabContents[currentIndex])
-        }
         
         guard contentOffsetInPage >= UIScreen.main.bounds.width / 2 else { return }
         

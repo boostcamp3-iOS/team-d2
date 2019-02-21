@@ -22,7 +22,7 @@ class ContentViewController: UIViewController {
     private let imageTranslateAnimator = TranslateAnimator()
     private var selectedImage: UIImageView?
     private var selectedCellOriginY: CGFloat?
-    weak var delegate: HeaderDelegate?
+    weak var delegate: ContentDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,8 +72,8 @@ extension ContentViewController {
                 self.currentPage += 1
             }
             self.tableView.reloadData()
-            // MARK: - Just Using First Genre
-            self.delegate?.firstgenre(with: bestPodCasts.channels[0])
+            // MARK: - For HeaderView
+            self.delegate?.firstGenre(with: bestPodCasts.channels[0], genreId: genre)
         }
     }
     
