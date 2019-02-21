@@ -111,10 +111,6 @@ extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
 
         let margin: CGFloat = 12.0
         
-        print(title)
-        print(publisher)
-        print(description)
-        
         return CGSize(width: collectionView.frame.width, height: title.frame.height + publisher.frame.height + description.frame.height + margin)
 
     }

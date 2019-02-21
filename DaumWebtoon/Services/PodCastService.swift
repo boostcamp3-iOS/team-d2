@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class PodCastService {
     
@@ -31,9 +32,23 @@ class PodCastService {
         let requestData = RequestData(path: HTTPBaseUrl.baseUrl.rawValue + "/genres")
         
         FetchGenresAPI(data: requestData).execute(onSuccess: { (genreDTO) in
-            completion(genreDTO.genres)
+            var genres = [Genre]()
+            
+            var count = 0
+            if genreDTO.genres.count > 25 {
+                count = 25
+            } else {
+                count = genreDTO.genres.count
+            }
+            
+            for index in 0..<count {
+                genres.append(genreDTO.genres[index])
+            }
+            
+            completion(genres)
         }) { (error) in
             print("onError")
         }
     }
+
 }
