@@ -59,12 +59,14 @@ class SlidePanelTableViewCell: UITableViewCell {
         imageEpisode.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         titleLabel.textColor = .white
+        titleLabel.font = UIFont.systemFont(ofSize: 15)
         titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: imageEpisode.bottomAnchor, constant: 8).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
         
-        descLabel.textColor = .white
+        descLabel.textColor = .gray
+        descLabel.font = UIFont.systemFont(ofSize: 12)
         descLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
         descLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
