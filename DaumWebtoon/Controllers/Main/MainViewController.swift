@@ -31,6 +31,9 @@ class MainViewController: UIViewController {
     private let menuViewHeight: CGFloat = 70
     private lazy var tabBarViewWidth: CGFloat = view.frame.width - 20
     private lazy var tabBarViewHeight: CGFloat = 30
+    private lazy var tableViewInsetTop: CGFloat = {
+        return view.frame.height / 2 - (view.safeAreaInsets.top + menuViewHeight + tabBarViewHeight / 2)
+    }()
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
     private let slidePanelViewController = SlidePanelViewController()
@@ -66,12 +69,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         addScrollView()
         addMenuView()
-        addTabBarView()
         addTableStackView()
         addContentViewControllers()
+        addTabBarView()
         addHeaderView()
         addSplashView()
         setupSlidePanelView()
+        addContentOffsetNotification()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -306,7 +310,13 @@ extension MainViewController {
             tableStackView.addArrangedSubview(contentViewController.view)
             contentViewController.view.translatesAutoresizingMaskIntoConstraints = false
             contentViewController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-            // MARK: - For HeaderView
+            contentViewController.tableView.contentInset = UIEdgeInsets(
+                top: tableViewInsetTop,
+                left: 0,
+                bottom: 0,
+                right: 0)
+            print("contentInset.top: \(contentViewController.tableView.contentInset.top)")
+                // MARK: - For HeaderView
             contentViewController.delegate = self
             
             contentViewControllers.append(contentViewController)
@@ -321,7 +331,7 @@ extension MainViewController {
     
     func setTableStackViewLayout() {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
-        tableStackView.topAnchor.constraint(equalTo: tabBarViewContainer.bottomAnchor).isActive = true
+        tableStackView.topAnchor.constraint(equalTo: menuView.bottomAnchor).isActive = true
         tableStackView.bottomAnchor.constraint(equalTo: scrollContentView.bottomAnchor).isActive = true
         tableStackView.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor).isActive = true
         tableStackView.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor).isActive = true
@@ -329,15 +339,26 @@ extension MainViewController {
     }
     
     // MARK: Pan Gesture Recognizer Methods
-    func addPanGestureRecognizer() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
-        view.addGestureRecognizer(panGestureRecognizer)
-        panGestureRecognizer.delegate = self
+//    func addPanGestureRecognizer() {
+//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
+//        view.addGestureRecognizer(panGestureRecognizer)
+//        panGestureRecognizer.delegate = self
+//    }
+//
+//    @objc func didPan(_ sender: UIPanGestureRecognizer) {
+//        calculateScrollDirection(sender)
+//        moveTabBarViewVertically(sender)
+//    }
+    
+    func addContentOffsetNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidChageContentOffset(_:)), name: .didChangeContentOffset, object: nil)
     }
     
-    @objc func didPan(_ sender: UIPanGestureRecognizer) {
-        calculateScrollDirection(sender)
-        moveTabBarViewVertically(sender)
+    @objc func onDidChageContentOffset(_ notification: Notification) {
+        tabBarViewCenterYAnchorConstraint?.constant = -tableViewInsetTop - MainCommon.shared.contentOffset
+        print("노티노티")
+        print(tabBarViewCenterYAnchorConstraint?.constant)
+        tabBarViewContainer.updateConstraints()
     }
     
     func calculateScrollDirection(_ sender: UIPanGestureRecognizer) {
@@ -349,23 +370,23 @@ extension MainViewController {
         }
     }
     
-    func moveTabBarViewVertically(_ sender: UIPanGestureRecognizer) {
-        guard let direction = scrollDirection,
-            let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant,
-            (direction == .up || direction == .down) else { return }
-        let topLimit = menuViewHeight + (tabBarViewHeight / 2) - (scrollView.frame.height / 2)
-        if currentTabBarViewCenterYConstant >= CGFloat(0), direction == .down {
-            tabBarViewCenterYAnchorConstraint?.constant = 0
-        } else if currentTabBarViewCenterYConstant <= topLimit, direction == .up {
-            tabBarViewCenterYAnchorConstraint?.constant = topLimit
-        } else {
-            let translation = sender.translation(in: scrollView)
-            tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
-            sender.setTranslation(CGPoint.zero, in: scrollView)
-        }
-        updateHeaderViewAlpha(topLimit: topLimit, currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
-        updateHeaderViewTopAnchorConstraint(currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
-    }
+//    func moveTabBarViewVertically(_ sender: UIPanGestureRecognizer) {
+//        guard let direction = scrollDirection,
+//            let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant,
+//            (direction == .up || direction == .down) else { return }
+//        let topLimit = menuViewHeight + (tabBarViewHeight / 2) - (scrollView.frame.height / 2)
+//        if currentTabBarViewCenterYConstant >= CGFloat(0), direction == .down {
+//            tabBarViewCenterYAnchorConstraint?.constant = 0
+//        } else if currentTabBarViewCenterYConstant <= topLimit, direction == .up {
+//            tabBarViewCenterYAnchorConstraint?.constant = topLimit
+//        } else {
+//            let translation = sender.translation(in: scrollView)
+//            tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
+//            sender.setTranslation(CGPoint.zero, in: scrollView)
+//        }
+//        updateHeaderViewAlpha(topLimit: topLimit, currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
+//        updateHeaderViewTopAnchorConstraint(currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
+//    }
     
     func updateHeaderViewAlpha(topLimit: CGFloat, currentTabBarViewCenterYConstant: CGFloat) {
         let headerViewHeight = -topLimit
@@ -447,7 +468,7 @@ extension MainViewController: SplashViewDelegate {
             }, completion: { [weak self] _ in
                 guard let self = self else { return }
                 self.splashView.removeFromSuperview()
-                self.addPanGestureRecognizer()
+//                self.addPanGestureRecognizer()
         })
     }
 }

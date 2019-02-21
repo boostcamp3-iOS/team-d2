@@ -29,6 +29,11 @@ class ContentViewController: UIViewController {
         addTableView()
         fetchBestPodCasts()
         addRefreshControl()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
 
@@ -38,6 +43,7 @@ extension ContentViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = view.frame
+        tableView.backgroundColor = .clear
         let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
         tableFooterView.backgroundColor = #colorLiteral(red: 0.8705882353, green: 0.8705882353, blue: 0.8705882353, alpha: 1)
         tableView.tableFooterView = tableFooterView
@@ -131,7 +137,7 @@ extension ContentViewController: UITableViewDelegate {
         guard shownIndexes.contains(indexPath) == false else { return }
         shownIndexes.append(indexPath)
         cell.alpha = 0
-        if indexPath.row < 20 {
+        if indexPath.row < 10 {
             UIView.animate(
                 withDuration: 0.1,
                 delay: 0.05 * Double(indexPath.row),
@@ -145,8 +151,28 @@ extension ContentViewController: UITableViewDelegate {
             }
         }
         
-        if indexPath.row == channels.count - 18 || channels.count - 18 < 0 {
+        if indexPath.row == channels.count - 1 {
             fetchBestPodCasts()
+        }
+    }
+}
+
+extension ContentViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset = tableView.contentOffset.y
+        if -tableView.contentInset.top <= contentOffset,
+            contentOffset <= 0 {
+            print("노티 보낸다")
+            MainCommon.shared.contentOffset = contentOffset
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
+        } else if contentOffset < -tableView.contentInset.top,
+            MainCommon.shared.contentOffset != -tableView.contentInset.top {
+            MainCommon.shared.contentOffset = -tableView.contentInset.top
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
+        } else if contentOffset > 0,
+            MainCommon.shared.contentOffset != 0 {
+            MainCommon.shared.contentOffset = 0
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
         }
     }
 }
