@@ -52,10 +52,11 @@ class SlidePanelTableViewCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        imageEpisode.contentMode = .scaleAspectFit
+        imageEpisode.roundedCorner()
+        imageEpisode.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        imageEpisode.heightAnchor.constraint(equalToConstant: 100).isActive = true
         imageEpisode.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        imageEpisode.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        imageEpisode.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        imageEpisode.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         imageEpisode.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         titleLabel.textColor = .white
