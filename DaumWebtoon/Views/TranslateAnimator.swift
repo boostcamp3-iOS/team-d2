@@ -24,16 +24,16 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     private lazy var flightValues = [
         [
             initialOrigin,
-            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 20)
+            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
         ],
         [
             initialOrigin,
             CGPoint(x: containerWidth / 2, y: containerHeight / 6),
-            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 20)
+            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
         ],
         [   initialOrigin,
             CGPoint(x: containerWidth / 2, y: containerHeight / 2),
-            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 20)
+            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
         ]
     ]
     
@@ -55,7 +55,7 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         containerWidth = containerView.frame.width
         containerHeight = containerView.frame.height
         initialOrigin = CGPoint(x: selectedImage.frame.origin.x, y: selectedCellOriginY)
-        selectedImageHeight = 150
+        selectedImageHeight = 160
     
         let animatedImage = CALayer()
         animatedImage.contents = selectedImage.image?.cgImage
@@ -65,7 +65,7 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         backgroundImageLayer?.isHidden = true
         backgroundImageLayer?.contents = backgroundImage.cgImage
         backgroundImageLayer?.frame = CGRect(x: 0, y: 0, width: 100, height: selectedImageHeight)
-        backgroundImageLayer?.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - 20)
+        backgroundImageLayer?.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
         
         containerView.addSubview(toView)
         containerView.layer.addSublayer(backgroundImageLayer ?? CALayer())
@@ -87,7 +87,7 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         animatedImage.add(flight, forKey: nil)
-        animatedImage.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - 20)
+        animatedImage.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
         
         transitionContext.completeTransition(true)
         fromView.removeFromSuperview()

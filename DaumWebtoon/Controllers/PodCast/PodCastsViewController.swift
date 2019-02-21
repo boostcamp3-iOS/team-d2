@@ -13,6 +13,7 @@ class PodCastsViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var headerBackgroundImage: UIImageView!
+    @IBOutlet weak var backButton: UIButton!
     
     var podcastId: String?
     var headerImage: UIImage?
@@ -30,29 +31,10 @@ class PodCastsViewController: UIViewController {
 
         fetchPodCasts()
         
-        initializeCollectionView()
-    }
-
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        
-//        collectionView.collectionViewLayout.invalidateLayout()
-//    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-            let modalViewController = segue.destination as? EpisodeModalViewController,
-            let cell: UICollectionViewCell = sender as? UICollectionViewCell else { return }
-        
-        let indexPath = collectionView?.indexPath(for: cell)
-        
-        if let selectedIndex = indexPath?.item {
-            modalViewController.delegate = self
-            modalViewController.episode = episodes[selectedIndex]
-        }
+        setupCollectionView()
     }
     
-    private func initializeCollectionView() {
+    private func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
     }
@@ -74,7 +56,6 @@ class PodCastsViewController: UIViewController {
     @IBAction func backTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
-
 }
 
 extension PodCastsViewController: EpisodeModalViewDelegate {
@@ -94,29 +75,18 @@ extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width / 3, height: collectionView.frame.size.width / 3)
+        return CGSize(width: collectionView.frame.size.width / 3 - 4, height: collectionView.frame.size.width / 3)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 5.0
+        return 8.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5.0
+        return 2.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        guard let headerView = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? PodCastDetailCollectionViewCell else {
-//            return CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
-//        }
-
-//        let label:UILabel = UILabel(frame: CGRect(0, 0, collectionView.frame.width - 16, CGFloat.max))
-//        label.numberOfLines = 0
-//        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
-//        //here, be sure you set the font type and size that matches the one set in the storyboard label
-//        label.font = UIFont(name: "Helvetica", size: 17.0)
-//        label.text = labels[section]
-//        label.sizeToFit()
         
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.frame.width, height: CGFloat.greatestFiniteMagnitude))
         title.numberOfLines = 0
@@ -138,11 +108,7 @@ extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
         description.font = UIFont(name: "System", size: 17.0)
         description.text = podcast?.description
         description.sizeToFit()
-//        headerView.layoutIfNeeded()
-//
-//        let titleHeight = headerView.podcastTitle.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
-//        let descHeight = headerView.podcastDescription.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
-//        let publisherHeight = headerView.podcastPublisher.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
+
         let margin: CGFloat = 12.0
         
         print(title)
@@ -212,7 +178,7 @@ extension PodCastsViewController: UICollectionViewDataSource {
 
 extension PodCastsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let episode = podcast?.episodes[indexPath.item]
+        let episode = episodes[indexPath.item]
         
         let window = UIApplication.shared.keyWindow
         let appDelegate = UIApplication.shared.delegate

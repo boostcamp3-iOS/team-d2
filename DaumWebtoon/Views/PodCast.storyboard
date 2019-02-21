@@ -19,16 +19,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jFB-aU-D5g">
-                                <rect key="frame" x="122" y="59" width="170" height="150"/>
+                                <rect key="frame" x="122" y="44" width="170" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="8IS-Et-2tc"/>
+                                    <constraint firstAttribute="height" constant="160" id="8IS-Et-2tc"/>
                                     <constraint firstAttribute="width" constant="170" id="HUP-CQ-Sb3"/>
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="j63-CK-TA9">
-                                <rect key="frame" x="12" y="229" width="390" height="633"/>
+                                <rect key="frame" x="12" y="234" width="390" height="628"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4co-RC-DiP">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="4co-RC-DiP">
                                     <size key="itemSize" width="124" height="158"/>
                                     <size key="headerReferenceSize" width="50" height="390"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -146,30 +146,31 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kyI-Qm-V7U">
-                                <rect key="frame" x="0.0" y="59" width="414" height="150"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="160"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="P4z-0S-Hnn"/>
+                                    <constraint firstAttribute="height" constant="160" id="P4z-0S-Hnn"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="kyI-Qm-V7U" firstAttribute="leading" secondItem="PZN-Da-SLW" secondAttribute="leading" id="1FD-Kn-PxG"/>
+                            <constraint firstItem="kyI-Qm-V7U" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" id="5rD-hV-wCF"/>
                             <constraint firstItem="PZN-Da-SLW" firstAttribute="bottom" secondItem="j63-CK-TA9" secondAttribute="bottom" id="G1F-Fq-QLy"/>
+                            <constraint firstItem="jFB-aU-D5g" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" id="IGN-Ou-Bus"/>
                             <constraint firstItem="jFB-aU-D5g" firstAttribute="centerX" secondItem="Fu0-TO-5gq" secondAttribute="centerX" id="IX3-TC-JXo"/>
                             <constraint firstItem="j63-CK-TA9" firstAttribute="leading" secondItem="PZN-Da-SLW" secondAttribute="leading" constant="12" id="JFT-F3-hJ9"/>
                             <constraint firstItem="PZN-Da-SLW" firstAttribute="trailing" secondItem="j63-CK-TA9" secondAttribute="trailing" constant="12" id="OT3-aN-5er"/>
                             <constraint firstItem="kyI-Qm-V7U" firstAttribute="trailing" secondItem="PZN-Da-SLW" secondAttribute="trailing" id="Umc-RA-4Xu"/>
                             <constraint firstItem="kyI-Qm-V7U" firstAttribute="centerX" secondItem="Fu0-TO-5gq" secondAttribute="centerX" id="Vd3-xj-z82"/>
                             <constraint firstItem="V1y-tC-27m" firstAttribute="leading" secondItem="PZN-Da-SLW" secondAttribute="leading" constant="12" id="YG6-60-RiO"/>
-                            <constraint firstItem="jFB-aU-D5g" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" constant="15" id="fEl-hD-frN"/>
-                            <constraint firstItem="kyI-Qm-V7U" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" constant="15" id="g2u-VK-mPP"/>
                             <constraint firstItem="V1y-tC-27m" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" constant="12" id="t3n-Qr-bUB"/>
-                            <constraint firstItem="j63-CK-TA9" firstAttribute="top" secondItem="kyI-Qm-V7U" secondAttribute="bottom" constant="20" id="vPd-a4-MDl"/>
+                            <constraint firstItem="j63-CK-TA9" firstAttribute="top" secondItem="kyI-Qm-V7U" secondAttribute="bottom" constant="30" id="vPd-a4-MDl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PZN-Da-SLW"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="V1y-tC-27m" id="Avg-dz-0g7"/>
                         <outlet property="collectionView" destination="j63-CK-TA9" id="tea-k7-iCF"/>
                         <outlet property="headerBackgroundImage" destination="kyI-Qm-V7U" id="Doc-Vg-vlg"/>
                         <outlet property="headerImageView" destination="jFB-aU-D5g" id="Jkb-MB-h0v"/>
