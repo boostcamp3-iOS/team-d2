@@ -41,9 +41,10 @@ class HeaderView: UIView {
     
     private func configureImageView() {
         addSubview(headerImageView)
+        headerImageView.roundedCorner()
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
         headerImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 35).isActive = true
-        headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
+        headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -42).isActive = true
         headerImageView.leadingAnchor.constraint(equalTo: symbolView.trailingAnchor, constant: 20).isActive = true
         headerImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
     }

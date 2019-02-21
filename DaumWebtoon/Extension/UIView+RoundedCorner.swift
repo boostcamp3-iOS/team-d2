@@ -1,5 +1,5 @@
 //
-//  UIImageView+RoundedCorner.swift
+//  UIView+RoundedCorner.swift
 //  DaumWebtoon
 //
 //  Created by oingbong on 21/02/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIImageView {
+extension UIView {
     func roundedCorner() {
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
