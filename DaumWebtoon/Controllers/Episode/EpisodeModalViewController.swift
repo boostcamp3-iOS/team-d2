@@ -67,10 +67,7 @@ class EpisodeModalViewController: UIViewController {
     }
     
     private func setupAudio() {
-        guard let episode = self.episode else { return }
-        
         audioService.dataSource = self
-        audioService.setupAndPlayAudio(audioUrl: episode.audio)
         setupAudioTimer()
     }
     

@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 import AVKit
+import UIKit
 
 @objc protocol AudioServiceDataSource: class {
     @objc optional func initializeTimeProgress(minimumTime: Float, maximumTime: Float)
@@ -32,19 +33,14 @@ class AudioService: NSObject {
     
     func setupAndPlayAudio(audioUrl: String) {
         guard let audioUrl = URL(string: audioUrl) else { return }
-    
-        if avPlayer?.timeControlStatus == .playing {
-            return
-        }
         
-        if avPlayer != nil {
-            return
+        let asset = AVAsset(url: audioUrl)
+        asset.loadValuesAsynchronously(forKeys: ["duration"]) {
+            self.avPlayer = AVPlayer(playerItem: AVPlayerItem(asset: asset))
+            self.avPlayer?.automaticallyWaitsToMinimizeStalling = false
+            self.avPlayer?.volume = 1.0
+            self.avPlayer?.play()
         }
-        
-        avPlayer = AVPlayer(playerItem: AVPlayerItem(url: audioUrl))
-        avPlayer?.automaticallyWaitsToMinimizeStalling = false
-        avPlayer?.volume = 1.0
-        avPlayer?.play()
     }
     
     func togglePlayPause() {
