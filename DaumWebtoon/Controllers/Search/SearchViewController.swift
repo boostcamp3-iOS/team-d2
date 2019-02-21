@@ -39,6 +39,16 @@ class SearchViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIView.animate(withDuration: 0.6) {
+            self.halfView.isHidden = false
+            self.halfView.alpha = 1.0
+            self.halfView.center.y += self.view.bounds.height
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
@@ -49,6 +59,8 @@ class SearchViewController: UIViewController {
     }
 
     private func initializeViews() {
+        halfView.alpha = 0.0
+        halfView.center.y -= view.bounds.height
         podcastsTableView.isHidden = true
         search.layer.cornerRadius = search.frame.height / 2
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
