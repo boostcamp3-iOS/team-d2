@@ -80,7 +80,7 @@ class SlidePanelContainerView: UIView {
     private func configureButton() {
         firstView.addSubview(recentButton)
         recentButton.isSelected = true
-        recentButton.setAttributedTitle(customAttributedString(with: "최근 본 에피소드", isSelected: recentButton.isSelected), for: .normal)
+        recentButton.setAttributedTitle(customAttributedString(with: "최근 들은 에피소드", isSelected: recentButton.isSelected), for: .normal)
         recentButton.frame.size = CGSize(width: 100, height: 40)
         recentButton.translatesAutoresizingMaskIntoConstraints = false
         recentButton.centerYAnchor.constraint(equalTo: firstView.centerYAnchor, constant: -30).isActive = true
@@ -127,14 +127,18 @@ class SlidePanelContainerView: UIView {
         selectedAttributed(with: selectedButton)
         unSelectedAttributed(with: unSelectedButton)
     }
-    
+
     private func selectInDependent(from category: TableCategory) {
         guard let episodes = dbService.selectInDependent(from: category) else { return }
-        guard episodes.count > 0 else { return }
-        currentEpisodes = episodes
-        secondView.reloadData()
-        let indexPath = IndexPath(row: 0, section: 0)
-        secondView.scrollToRow(at: indexPath, at: .middle, animated: false)
+        if episodes.count > 0 {
+            currentEpisodes = episodes
+            secondView.reloadData()
+            let indexPath = IndexPath(row: 0, section: 0)
+            secondView.scrollToRow(at: indexPath, at: .middle, animated: false)
+        } else {
+            currentEpisodes.removeAll()
+            secondView.reloadData()
+        }
     }
     
     private func selectedAttributed(with button: UIButton) {
@@ -152,6 +156,15 @@ class SlidePanelContainerView: UIView {
 
 extension SlidePanelContainerView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if currentEpisodes.count > 0 {
+            secondView.backgroundView = nil
+        } else {
+            let noDataLabel = UILabel(frame: CGRect(x: 0, y: 0, width: secondView.bounds.size.width, height: secondView.bounds.size.height))
+            noDataLabel.text = "에피소드가 없습니다."
+            noDataLabel.textColor = UIColor.white
+            noDataLabel.textAlignment = .center
+            secondView.backgroundView = noDataLabel
+        }
         return currentEpisodes.count
     }
 
