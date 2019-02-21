@@ -119,8 +119,7 @@ extension MainViewController {
     
     func setHeaderViewLayout() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerViewTopAnchorConstraint = headerView.topAnchor.constraint(equalTo: menuView.bottomAnchor)
-        headerViewTopAnchorConstraint?.isActive = true
+        headerView.topAnchor.constraint(equalTo: menuView.bottomAnchor).isActive = true
         headerView.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -364,16 +363,11 @@ extension MainViewController {
             sender.setTranslation(CGPoint.zero, in: scrollView)
         }
         updateHeaderViewAlpha(topLimit: topLimit, currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
-        updateHeaderViewTopAnchorConstraint(currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
     }
     
     func updateHeaderViewAlpha(topLimit: CGFloat, currentTabBarViewCenterYConstant: CGFloat) {
         let headerViewHeight = -topLimit
         headerView.alpha = (currentTabBarViewCenterYConstant - topLimit) / headerViewHeight
-    }
-    
-    func updateHeaderViewTopAnchorConstraint(currentTabBarViewCenterYConstant: CGFloat) {
-        headerViewTopAnchorConstraint?.constant = currentTabBarViewCenterYConstant / 2
     }
     
     @objc func searchTapped(_ sender: UIButton) {
