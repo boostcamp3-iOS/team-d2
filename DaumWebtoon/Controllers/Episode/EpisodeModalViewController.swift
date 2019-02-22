@@ -9,9 +9,10 @@
 import UIKit
 import AVFoundation
 
-protocol EpisodeModalViewDelegate: class {
-    func playPauseAudio(state: Bool)
-    func showHeaderImageView()
+@objc protocol EpisodeModalViewDelegate: class {
+    @objc optional func playPauseAudio(state: Bool)
+    @objc optional func showHeaderImageView()
+    @objc optional func showPlayPauseState(isSelected: Bool)
 }
 
 class EpisodeModalViewController: UIViewController {
@@ -23,10 +24,12 @@ class EpisodeModalViewController: UIViewController {
     @IBOutlet weak var episodeUpdateTime: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var loading: UILabel!
+    @IBOutlet weak var playPauseButton: UIButton!
     
     weak var delegate: EpisodeModalViewDelegate?
     
     var episode: Episode?
+    var playButtonSelected = false
     
     private let dbService = DatabaseService()
     private let audioService = AudioService.shared
@@ -38,7 +41,7 @@ class EpisodeModalViewController: UIViewController {
         super.viewDidLoad()
         
         setupFavoriteViewState()
-        
+        setupPlayPauseState()
         setupEpisode()
         setupViews()
         setupAudio()
@@ -46,8 +49,12 @@ class EpisodeModalViewController: UIViewController {
         addRecentEpisode()
     }
     
-    func togglePlayPause() {
+    private func togglePlayPause() {
         audioService.togglePlayPause()
+    }
+    
+    private func setupPlayPauseState() {
+        playPauseButton.isSelected = playButtonSelected
     }
     
     private func setupViews() {
@@ -83,7 +90,7 @@ class EpisodeModalViewController: UIViewController {
     }
 
     private func dismissModal() {
-        delegate?.showHeaderImageView()
+        delegate?.showHeaderImageView?()
         dismiss(animated: true, completion: nil)
     }
     
@@ -133,6 +140,7 @@ class EpisodeModalViewController: UIViewController {
     @IBAction func playPauseTapped(_ sender: UIButton) {
         togglePlayPause()
         sender.isSelected = !sender.isSelected
+        delegate?.showPlayPauseState?(isSelected: sender.isSelected)
     }
     
     @IBAction func likeTapped(_ sender: UIButton) {

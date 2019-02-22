@@ -8,12 +8,23 @@
 
 import UIKit
 
+enum LoadingStatus: CGFloat {
+    case success = 0.0
+    case loading = 1.0
+}
+
+protocol MiniPlayerDelegate: class {
+    func removeMiniPlayer()
+}
+
 class MiniPlayerViewController: UIViewController {
 
     @IBOutlet weak var episodeThumbnail: UIImageView!
     @IBOutlet weak var episodeTitle: UILabel!
-    @IBOutlet weak var loading: UILabel!
+    @IBOutlet weak var loading: UILabel?
+    @IBOutlet weak var playPauseButton: UIButton!
     
+    weak var delegate: MiniPlayerDelegate?
     var episode: Episode? {
         didSet {
             setupViews()
@@ -22,24 +33,36 @@ class MiniPlayerViewController: UIViewController {
         }
     }
     
+    private var isLoading: CGFloat = 1.0
     private var audioTimer : Timer?
     private let audioService = AudioService.shared
     private var episodeModalViewController: EpisodeModalViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupPosition()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        setupPosition()
+    }
+    
+    private func setupPosition() {
+        var y: CGFloat = 0.0
+        if UIDevice.current.hasNotch {
+            y = UIScreen.main.bounds.height - (UIApplication.shared.statusBarFrame.size.height + 32)
+        } else {
+            y = UIScreen.main.bounds.height - (UIApplication.shared.statusBarFrame.size.height + 54)
+        }
         
-        let y = UIScreen.main.bounds.height - (UIApplication.shared.statusBarFrame.size.height + 60)
-        view.frame = CGRect(x: 0, y: y, width: view.superview?.frame.width ?? 0, height: 80)
+        view.frame = CGRect(x: 0, y: y, width: view.superview?.frame.width ?? 0, height: 76)
     }
     
     private func setupViews() {
         guard let episode = self.episode else { return }
         
+        loading?.alpha = 1
         episodeTitle.alpha = 0
         episodeTitle.text = episode.title
         FetchImageService.shared.execute(imageUrl: episode.thumbnail) { [weak self] (image) in
@@ -70,27 +93,49 @@ class MiniPlayerViewController: UIViewController {
         guard let episodeModalViewController = UIStoryboard(name: "PodCast", bundle: nil)
             .instantiateViewController(withIdentifier: "Episode") as? EpisodeModalViewController else { return }
         episodeModalViewController.episode = episode
+        episodeModalViewController.playButtonSelected = playButtonSelected
+        episodeModalViewController.delegate = self
         present(episodeModalViewController, animated: true, completion: nil)
         
         self.episodeModalViewController = episodeModalViewController
     }
     
-    @IBAction func playPauseDidTapped(_ sender: UIButton) {
-        audioService.togglePlayPause()
-        sender.isSelected = !sender.isSelected
-    }
-    
     @objc func timeInterval(){
         audioService.timeInterval()
+    }
+    private var playButtonSelected = false
+    @IBAction func playPauseDidTapped(_ sender: UIButton) {
+        audioService.togglePlayPause()
+        
+        if isLoading == LoadingStatus.success.rawValue {
+            sender.isSelected = !sender.isSelected
+            playButtonSelected = sender.isSelected
+        }
+    }
+    
+    @IBAction func exitTapped(_ sender: UIButton) {
+        audioService.stopAudio()
+        
+        view.removeFromSuperview()
+        dismiss(animated: true, completion: nil)
+        delegate?.removeMiniPlayer()
     }
 }
 
 extension MiniPlayerViewController: AudioServiceDataSource {
     func showLoading(alpha: CGFloat) {
-        loading.alpha = alpha
+        loading?.alpha = alpha
+        isLoading = alpha
     }
     
     func showTitle(alpha: CGFloat) {
         episodeTitle.alpha = alpha
+    }
+}
+
+extension MiniPlayerViewController: EpisodeModalViewDelegate {
+    func showPlayPauseState(isSelected: Bool) {
+        playPauseButton.isSelected = isSelected ? true : false
+        playButtonSelected = isSelected
     }
 }

@@ -26,8 +26,8 @@ class AudioService: NSObject {
     @objc dynamic var audioStatus: Int = 0
     
     private var audioPlayer: AVAudioPlayer?
-    
     private var avPlayer: AVPlayer?
+    private var asset: AVAsset?
     private var isPaused = false
     
     override private init() { }
@@ -35,13 +35,23 @@ class AudioService: NSObject {
     func setupAndPlayAudio(audioUrl: String) {
         guard let audioUrl = URL(string: audioUrl) else { return }
         
-        let asset = AVAsset(url: audioUrl)
+        if avPlayer?.timeControlStatus == .playing {
+            asset = nil
+            avPlayer = nil
+        }
+        
+        asset = AVAsset(url: audioUrl)
+        guard let asset = asset else { return }
         asset.loadValuesAsynchronously(forKeys: ["duration"]) {
             self.avPlayer = AVPlayer(playerItem: AVPlayerItem(asset: asset))
             self.avPlayer?.automaticallyWaitsToMinimizeStalling = false
             self.avPlayer?.volume = 1.0
             self.avPlayer?.play()
         }
+    }
+    
+    func stopAudio() {
+        avPlayer = nil
     }
     
     func togglePlayPause() {

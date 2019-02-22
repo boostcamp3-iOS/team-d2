@@ -14,6 +14,8 @@ class PodCastsViewController: UIViewController {
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var headerBackgroundImage: UIImageView!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var headerImageViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var headerImageViewWidth: NSLayoutConstraint!
     
     var podcastId: String?
     var headerImage: UIImage?
@@ -22,16 +24,46 @@ class PodCastsViewController: UIViewController {
     private var episodes: [Episode] = []
     private var nextEpisodePubDate: String? = ""
     private var shownIndexes: [IndexPath] = []
+    private var miniPlayerViewController: MiniPlayerViewController?
     
     private let podcastIdentifier = "PodCastCell"
     private let detailIdentifier = "DetailCell"
+    private let footerIdentifier = "FooterCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         fetchPodCasts()
         
+        setupMiniPlayer()
+        setupViews()
         setupCollectionView()
+    }
+    
+    private func setupMiniPlayer() {
+        let window = UIApplication.shared.keyWindow
+        
+        miniPlayerViewController = UIStoryboard(name: "MiniPlayer", bundle: nil).instantiateViewController(withIdentifier: "MiniPlayer") as? MiniPlayerViewController
+        miniPlayerViewController?.delegate = self
+        miniPlayerViewController?.view.frame = CGRect(x: 0, y: view.bounds.height - 80,
+                                                     width: view.bounds.width, height: 80)
+        miniPlayerViewController?.view.isHidden = true
+        
+        window?.addSubview(miniPlayerViewController?.view ?? UIView())
+    }
+    
+    private func setupViews() {
+        if UIDevice.current.hasNotch {
+            headerImageViewWidth.constant = 200.0
+            headerImageViewHeight.constant = 210.0
+        } else {
+            headerImageViewWidth.constant = 100.0
+            headerImageViewHeight.constant = 100.0
+        }
+        
+//        layer.borderWidth = 0.5
+//        layer.cornerRadius = 10
+//        layer.borderColor = UIColor.lightGray.cgColor
     }
     
     private func setupCollectionView() {
@@ -112,7 +144,6 @@ extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
         let margin: CGFloat = 12.0
         
         return CGSize(width: collectionView.frame.width, height: title.frame.height + publisher.frame.height + description.frame.height + margin)
-
     }
 }
 
@@ -131,6 +162,12 @@ extension PodCastsViewController: UICollectionViewDataSource {
             headerView.configure(title: podcast?.title, description: podcast?.description, publisher: podcast?.publisher)
             
             return headerView
+        case UICollectionView.elementKindSectionFooter:
+            guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: footerIdentifier, for: indexPath) as? PodCastFooterCollectionReusableView else {
+                return UICollectionReusableView()
+            }
+            
+            return footerView
         default:
             assert(false, "invalid type")
         }
@@ -176,16 +213,20 @@ extension PodCastsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let episode = episodes[indexPath.item]
         
-        let window = UIApplication.shared.keyWindow
+        if miniPlayerViewController == nil {
+            setupMiniPlayer()
+        }
+        
         let appDelegate = UIApplication.shared.delegate
-        
-        guard let miniPlayerViewController = UIStoryboard(name: "MiniPlayer", bundle: nil).instantiateViewController(withIdentifier: "MiniPlayer") as? MiniPlayerViewController else { return }
-        miniPlayerViewController.view.frame = CGRect(x: 0, y: view.bounds.height - 80,
-                                                     width: view.bounds.width, height: 80)
-        miniPlayerViewController.episode = episode
-        
         appDelegate?.window??.rootViewController = miniPlayerViewController
         
-        window?.addSubview(miniPlayerViewController.view)
+        miniPlayerViewController?.view.isHidden = false
+        miniPlayerViewController?.episode = episode
+    }
+}
+
+extension PodCastsViewController: MiniPlayerDelegate {
+    func removeMiniPlayer() {
+        miniPlayerViewController = nil
     }
 }
