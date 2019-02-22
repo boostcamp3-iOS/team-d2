@@ -29,6 +29,7 @@ class AudioService: NSObject {
     private var avPlayer: AVPlayer?
     private var asset: AVAsset?
     private var isPaused = false
+    private var isLoading = false
     
     override private init() { }
     
@@ -43,6 +44,7 @@ class AudioService: NSObject {
         asset = AVAsset(url: audioUrl)
         guard let asset = asset else { return }
         
+        isLoading = true
         asset.loadValuesAsynchronously(forKeys: ["duration"]) {
             self.avPlayer = AVPlayer(playerItem: AVPlayerItem(asset: asset))
             self.avPlayer?.automaticallyWaitsToMinimizeStalling = false
@@ -56,6 +58,8 @@ class AudioService: NSObject {
     }
     
     func togglePlayPause() {
+        guard isLoading == false else { return }
+        
         if avPlayer?.timeControlStatus == .playing {
             avPlayer?.pause()
             isPaused = true
@@ -77,6 +81,8 @@ class AudioService: NSObject {
     
     func timeInterval() {
         if avPlayer?.currentItem?.asset.duration != nil {
+            isLoading = false
+            
             guard let currentItem = avPlayer?.currentItem else { return }
             
             if avPlayer?.currentTime().seconds == 0.0 {
