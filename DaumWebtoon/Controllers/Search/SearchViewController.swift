@@ -20,6 +20,7 @@ class SearchViewController: UIViewController {
     private let tableviewCellIdentifier = "tableviewCell"
     private var genres: [Genre]?
     private var podcasts: [PodCastSearch]?
+    private var shownIndexPaths = [IndexPath]()
     private var selectedImage: UIImageView?
     private var selectedCellOriginY: CGFloat?
     private var bottomAnchor: NSLayoutConstraint?
@@ -42,7 +43,7 @@ class SearchViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
    
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: 0.6, animations: {
             self.halfView.frame.origin.y -= self.view.bounds.height / 2
             self.bottomAnchor = self.halfView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             self.bottomAnchor?.isActive = true
@@ -137,7 +138,6 @@ class SearchViewController: UIViewController {
         
         if query.isEmpty {
             podcastsTableView.isHidden = true
-//            showHalfBottomView()
             halfView.isHidden = false
             return
         }
@@ -213,6 +213,26 @@ extension SearchViewController: UITableViewDelegate {
         podcastsViewController.podcastId = podcast.id
         podcastsViewController.headerImage = selectedImage?.image
         present(podcastsViewController, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard shownIndexPaths.contains(indexPath) == false else { return }
+        
+        shownIndexPaths.append(indexPath)
+        cell.alpha = 0
+        if indexPath.row < 10 {
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0.05 * Double(indexPath.row),
+                options: [],
+                animations: {
+                    cell.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                cell.alpha = 1
+            }
+        }
     }
 }
 
