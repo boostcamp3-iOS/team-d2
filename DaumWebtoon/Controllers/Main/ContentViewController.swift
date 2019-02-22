@@ -43,10 +43,8 @@ extension ContentViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = view.frame
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
         tableView.backgroundColor = .clear
-        let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
-        tableFooterView.backgroundColor = #colorLiteral(red: 0.8705882353, green: 0.8705882353, blue: 0.8705882353, alpha: 1)
-        tableView.tableFooterView = tableFooterView
         tableView.register(ChannelTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.contentInsetAdjustmentBehavior = .never
     }

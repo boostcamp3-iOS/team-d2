@@ -328,7 +328,7 @@ extension MainViewController {
     func setTableStackViewLayout() {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
         tableStackView.topAnchor.constraint(equalTo: menuView.bottomAnchor, constant: tabBarViewHeight).isActive = true
-        tableStackView.bottomAnchor.constraint(equalTo: scrollContentView.bottomAnchor).isActive = true
+        tableStackView.bottomAnchor.constraint(equalTo: scrollContentView.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableStackView.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor).isActive = true
         tableStackView.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor).isActive = true
         tableStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: CGFloat(tabContents.count)).isActive = true
@@ -417,7 +417,6 @@ extension MainViewController: SplashViewDelegate {
             }, completion: { [weak self] _ in
                 guard let self = self else { return }
                 self.splashView.removeFromSuperview()
-//                self.addPanGestureRecognizer()
         })
     }
 }
