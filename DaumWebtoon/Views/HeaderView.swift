@@ -41,9 +41,10 @@ class HeaderView: UIView {
     
     private func configureImageView() {
         addSubview(headerImageView)
+        headerImageView.roundedCorner()
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
         headerImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 35).isActive = true
-        headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20).isActive = true
+        headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -42).isActive = true
         headerImageView.leadingAnchor.constraint(equalTo: symbolView.trailingAnchor, constant: 20).isActive = true
         headerImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
     }
@@ -71,7 +72,7 @@ class HeaderView: UIView {
         titleLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: tabTitleLabel.bottomAnchor, constant: 18).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        titleLabel.numberOfLines = 3
+        titleLabel.numberOfLines = 2
         opacityAnimation(to: titleLabel)
     }
     

@@ -30,6 +30,7 @@ class MiniPlayerViewController: UIViewController {
             setupViews()
             setupAndPlayAudio()
             setupAudioTimer()
+            addRecentEpisode()
         }
     }
     
@@ -86,6 +87,12 @@ class MiniPlayerViewController: UIViewController {
     private func setupAudioTimer() {
         audioTimer = Timer(timeInterval: 0.001, target: self, selector: #selector(EpisodeModalViewController.timeInterval), userInfo: nil, repeats: true)
         RunLoop.current.add(audioTimer!, forMode: RunLoop.Mode.common)
+    }
+    
+    private func addRecentEpisode() {
+        let dbService = DatabaseService()
+        guard let episode = self.episode else { return }
+        dbService.addRecentEpisode(with: episode)
     }
     
     // MARK :- event handling

@@ -33,7 +33,7 @@ class HeaderImageView: UIView {
         guard let thirdImage = headerContentsDictionary[thirdId]?.image.cgImage else { return }
         guard let fourthImage = headerContentsDictionary[fourthId]?.image.cgImage else { return }
         imageLayer.contentsGravity = .resizeAspect
-        imageLayer.frame = self.bounds
+        imageLayer.frame.size = self.frame.size
         imageLayer.contents = firstImage
         imageLayer.speed = 0
         imageLayer.timeOffset = 0

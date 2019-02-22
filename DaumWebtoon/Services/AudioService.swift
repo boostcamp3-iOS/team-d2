@@ -34,7 +34,7 @@ class AudioService: NSObject {
     
     func setupAndPlayAudio(audioUrl: String) {
         guard let audioUrl = URL(string: audioUrl) else { return }
-        
+
         if avPlayer?.timeControlStatus == .playing {
             asset = nil
             avPlayer = nil
@@ -42,6 +42,7 @@ class AudioService: NSObject {
         
         asset = AVAsset(url: audioUrl)
         guard let asset = asset else { return }
+        
         asset.loadValuesAsynchronously(forKeys: ["duration"]) {
             self.avPlayer = AVPlayer(playerItem: AVPlayerItem(asset: asset))
             self.avPlayer?.automaticallyWaitsToMinimizeStalling = false

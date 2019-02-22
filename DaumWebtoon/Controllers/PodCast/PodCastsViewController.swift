@@ -60,12 +60,8 @@ class PodCastsViewController: UIViewController {
             headerImageViewWidth.constant = 100.0
             headerImageViewHeight.constant = 100.0
         }
-        
-//        layer.borderWidth = 0.5
-//        layer.cornerRadius = 10
-//        layer.borderColor = UIColor.lightGray.cgColor
     }
-    
+
     private func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -216,9 +212,6 @@ extension PodCastsViewController: UICollectionViewDelegate {
         if miniPlayerViewController == nil {
             setupMiniPlayer()
         }
-        
-        let appDelegate = UIApplication.shared.delegate
-        appDelegate?.window??.rootViewController = miniPlayerViewController
         
         miniPlayerViewController?.view.isHidden = false
         miniPlayerViewController?.episode = episode
