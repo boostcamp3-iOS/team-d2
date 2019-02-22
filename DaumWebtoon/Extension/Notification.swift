@@ -12,4 +12,5 @@ import UIKit
 
 extension Notification.Name {
     static let didChangeContentOffset = Notification.Name("didChangeContentOffset")
+    static let didFinishChangingContentOffset = Notification.Name("didFinishChangingContentOffset")
 }

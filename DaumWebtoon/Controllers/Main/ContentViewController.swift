@@ -29,7 +29,7 @@ class ContentViewController: UIViewController {
         addTableView()
         fetchBestPodCasts()
         addRefreshControl()
-        
+        addDidFinishChangingContentOffsetNotification()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -89,7 +89,21 @@ extension ContentViewController {
         podCastsViewController.transitioningDelegate = self
         podCastsViewController.podcastId = channels[indexPath.row].id
         podCastsViewController.headerImage = selectedImage?.image
-        present(podCastsViewController, animated: true, completion: nil)
+        present(podCastsViewController, animated: true, completion: {
+            MainCommon.shared.contentOffset = self.tableView.contentOffset.y
+        })
+    }
+    
+    func addDidFinishChangingContentOffsetNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidFinishChangingContentOffset(_:)), name: .didFinishChangingContentOffset, object: nil)
+    }
+    
+    @objc func onDidFinishChangingContentOffset(_ notification: Notification) {
+        let contentOffset = tableView.contentOffset.y
+        print(MainCommon.shared.contentOffset)
+        if (contentOffset <= 0 && contentOffset >= -tableView.contentInset.top) || (MainCommon.shared.contentOffset == -tableView.contentInset.top && contentOffset > 0) {
+            tableView.setContentOffset(CGPoint(x: 0, y: MainCommon.shared.contentOffset), animated: false)
+        }
     }
 }
 
@@ -158,21 +172,38 @@ extension ContentViewController: UITableViewDelegate {
 }
 
 extension ContentViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func notifyContentOffset(_ notification: Notification.Name, contentOffset: CGFloat) {
+        MainCommon.shared.contentOffset = contentOffset
+        NotificationCenter.default.post(name: notification, object: nil)
+    }
+    
+    func notifyChangeOfContentOffset(notification: Notification.Name) {
         let contentOffset = tableView.contentOffset.y
         if -tableView.contentInset.top <= contentOffset,
             contentOffset <= 0 {
-            print("노티 보낸다")
-            MainCommon.shared.contentOffset = contentOffset
-            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
+            notifyContentOffset(notification, contentOffset: contentOffset)
         } else if contentOffset < -tableView.contentInset.top,
             MainCommon.shared.contentOffset != -tableView.contentInset.top {
-            MainCommon.shared.contentOffset = -tableView.contentInset.top
-            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
+            notifyContentOffset(notification, contentOffset: -tableView.contentInset.top)
         } else if contentOffset > 0,
             MainCommon.shared.contentOffset != 0 {
-            MainCommon.shared.contentOffset = 0
-            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
+            notifyContentOffset(notification, contentOffset: 0)
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        notifyChangeOfContentOffset(notification: .didChangeContentOffset)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        notifyChangeOfContentOffset(notification: .didFinishChangingContentOffset)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        notifyChangeOfContentOffset(notification: .didFinishChangingContentOffset)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        notifyChangeOfContentOffset(notification: .didFinishChangingContentOffset)
     }
 }

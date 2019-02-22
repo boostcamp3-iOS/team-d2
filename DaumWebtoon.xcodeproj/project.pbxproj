@@ -74,7 +74,6 @@
 		B87007D42215405400113BA8 /* BestPodCastsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D32215405400113BA8 /* BestPodCastsAPI.swift */; };
 		B87007D6221540F300113BA8 /* BestPodCastsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D5221540F300113BA8 /* BestPodCastsFetcher.swift */; };
 		B87007D822155A6E00113BA8 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */; };
-		B8701E7922108F12003F7217 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8701E7822108F12003F7217 /* Direction.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
 		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
 		B8ABD4A721FEACDA00454AF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */; };
@@ -148,7 +147,6 @@
 		B87007D32215405400113BA8 /* BestPodCastsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPodCastsAPI.swift; sourceTree = "<group>"; };
 		B87007D5221540F300113BA8 /* BestPodCastsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPodCastsFetcher.swift; sourceTree = "<group>"; };
 		B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
-		B8701E7822108F12003F7217 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8ABD4A121FEACD800454AF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 			children = (
 				B84ECF3B220ABCD000B11954 /* MainViewController.swift */,
 				B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */,
-				B8701E7822108F12003F7217 /* Direction.swift */,
 				B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */,
 				B83D9B42221EA10000DF8CC3 /* MainCommon.swift */,
 			);
@@ -508,13 +505,11 @@
 				47E55E54221B9B7600878080 /* MainViewController+ContentView.swift in Sources */,
 				3BDC57E22212AD000009C115 /* PodCastCollectionViewCell.swift in Sources */,
 				3BDC57E42212ADEE0009C115 /* PodCast.swift in Sources */,
-				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				B87007D822155A6E00113BA8 /* ChannelTableViewCell.swift in Sources */,
 				B87007D6221540F300113BA8 /* BestPodCastsFetcher.swift in Sources */,
 				470D6994221D2CBA003AEA16 /* MainViewController+HeaderView.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
-				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,
@@ -695,13 +690,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U38RWYJ536;
+				DEVELOPMENT_TEAM = 9YDN5UGRB3;
 				INFOPLIST_FILE = "$(SRCROOT)/DaumWebtoon/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaonk.DaumWebtoon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaonkk.DaumWebtoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -713,13 +708,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U38RWYJ536;
+				DEVELOPMENT_TEAM = 9YDN5UGRB3;
 				INFOPLIST_FILE = "$(SRCROOT)/DaumWebtoon/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaonk.DaumWebtoon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaonkk.DaumWebtoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
