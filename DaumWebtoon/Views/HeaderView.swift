@@ -9,6 +9,7 @@
 import UIKit
 
 class HeaderView: UIView {
+    private var containerView = UIView()
     private var tabTitleLabel = UILabel()
     private var titleLabel = UILabel()
     private var descriptionLabel = UILabel()
@@ -26,15 +27,26 @@ class HeaderView: UIView {
     }
     
     func configure() {
+        configureContainerView()
         configureSymbolView()
         configureImageView()
     }
     
+    private func configureContainerView() {
+        addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        containerView.topAnchor.constraint(equalTo: self.topAnchor, constant: -20).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -42).isActive = true
+    }
+    
     private func configureSymbolView() {
-        addSubview(symbolView)
+        containerView.addSubview(symbolView)
         symbolView.translatesAutoresizingMaskIntoConstraints = false
-        symbolView.topAnchor.constraint(equalTo: self.topAnchor, constant: -20).isActive = true
-        symbolView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        symbolView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        symbolView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        symbolView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         symbolView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         symbolView.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
@@ -43,50 +55,53 @@ class HeaderView: UIView {
         addSubview(headerImageView)
         headerImageView.roundedCorner()
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
-        headerImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 35).isActive = true
         headerImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -42).isActive = true
         headerImageView.leadingAnchor.constraint(equalTo: symbolView.trailingAnchor, constant: 20).isActive = true
         headerImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        headerImageView.addConstraint(NSLayoutConstraint(item: headerImageView, attribute: .width, relatedBy: .equal, toItem: headerImageView, attribute: .height, multiplier: 1, constant: 0))
     }
     
     private func configureTabTitle(with tabContent: TabContent) {
-        addSubview(tabTitleLabel)
+        containerView.addSubview(tabTitleLabel)
         tabTitleLabel.text = tabContent.tabTitle
         tabTitleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         tabTitleLabel.textColor = tabContent.tabColor
         tabTitleLabel.frame.size = CGSize(width: 100, height: 40)
         tabTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        tabTitleLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
         tabTitleLabel.topAnchor.constraint(equalTo: symbolView.bottomAnchor, constant: 20).isActive = true
-        tabTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        tabTitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        tabTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         tabTitleLabel.numberOfLines = 1
         opacityAnimation(to: tabTitleLabel)
     }
     
     private func configureTitle(with title: String) {
-        addSubview(titleLabel)
+        containerView.addSubview(titleLabel)
         titleLabel.text = title
         titleLabel.font = UIFont.systemFont(ofSize: 16)
         titleLabel.frame.size = CGSize(width: 100, height: 40)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: tabTitleLabel.bottomAnchor, constant: 18).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: tabTitleLabel.bottomAnchor, constant: 15).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         titleLabel.numberOfLines = 2
         opacityAnimation(to: titleLabel)
     }
     
     private func configureDescription(with description: String) {
-        addSubview(descriptionLabel)
+        containerView.addSubview(descriptionLabel)
         descriptionLabel.text = description
         descriptionLabel.textColor = .gray
         descriptionLabel.font = UIFont.systemFont(ofSize: 13)
         descriptionLabel.frame.size = CGSize(width: 100, height: 40)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.centerXAnchor.constraint(equalTo: symbolView.centerXAnchor).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-        descriptionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
-        descriptionLabel.numberOfLines = 5
+        descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        descriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        descriptionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor).isActive = true
+        descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
+        descriptionLabel.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 749), for: .vertical)
+        
+        descriptionLabel.numberOfLines = 0
         opacityAnimation(to: descriptionLabel)
     }
     
@@ -108,7 +123,7 @@ class HeaderView: UIView {
         let secondId = genre.programming.rawValue
         let thirdId = genre.vrAndAr.rawValue
         let fourthId = genre.startup.rawValue
-
+        
         switch value {
         case 0..<0.125:
             configureContent(with: firstId, tabIndex: 1)

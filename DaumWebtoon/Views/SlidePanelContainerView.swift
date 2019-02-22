@@ -65,10 +65,7 @@ class SlidePanelContainerView: UIView {
         secondView.delegate = self
         secondView.separatorStyle = .none
         
-        let headerView = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: secondView.frame.width, height: 100)))
-        headerView.backgroundColor = .black
-        secondView.tableHeaderView = headerView
-        
+        secondView.contentInset = .init(top: 100, left: 0, bottom: 0, right: 0)
         secondView.backgroundColor = .black
         secondView.translatesAutoresizingMaskIntoConstraints = false
         secondView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true

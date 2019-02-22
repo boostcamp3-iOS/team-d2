@@ -9,7 +9,15 @@
 import UIKit
 
 class HeaderImageView: UIView {
-    var imageLayer = CALayer()
+    struct HeaderImages {
+        let gap: CGImage
+        let first: CGImage
+        let second: CGImage
+        let third: CGImage
+        let fourth: CGImage
+    }
+    
+    private var imageLayer = CALayer()
     private let contentsKey = "contents"
     private let opacityKey = "opacity"
     
@@ -22,6 +30,10 @@ class HeaderImageView: UIView {
     }
     
     func configure(with headerContentsDictionary: [Int: HeaderContent]) {
+        let gapView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
+        gapView.backgroundColor = .white
+        guard let gapImage = gapView.convertCGImage() else { return }
+        
         let genre = MainViewController.Genre.self
         let firstId = genre.webDesign.rawValue
         let secondId = genre.programming.rawValue
@@ -32,24 +44,31 @@ class HeaderImageView: UIView {
         guard let secondImage = headerContentsDictionary[secondId]?.image.cgImage else { return }
         guard let thirdImage = headerContentsDictionary[thirdId]?.image.cgImage else { return }
         guard let fourthImage = headerContentsDictionary[fourthId]?.image.cgImage else { return }
-        imageLayer.contentsGravity = .resizeAspect
         imageLayer.frame.size = self.frame.size
         imageLayer.contents = firstImage
         imageLayer.speed = 0
         imageLayer.timeOffset = 0
         
+        let headerImages = HeaderImages(gap: gapImage, first: firstImage, second: secondImage, third: thirdImage, fourth: fourthImage)
+        contentAnimation(with: headerImages)
+        opacityAnimation()
+        self.layer.addSublayer(imageLayer)
+    }
+    
+    private func contentAnimation(with images: HeaderImages) {
         let contentAnimation = CAKeyframeAnimation(keyPath: contentsKey)
         contentAnimation.duration = 1
         contentAnimation.isRemovedOnCompletion = false
-        contentAnimation.values = [firstImage, secondImage, thirdImage, fourthImage, firstImage]
+        contentAnimation.values = [images.first, images.gap, images.second, images.gap, images.third, images.gap, images.fourth, images.gap, images.first]
         imageLayer.add(contentAnimation, forKey: contentsKey)
-        
+    }
+    
+    private func opacityAnimation() {
         let opacityAnimation = CAKeyframeAnimation(keyPath: opacityKey)
         opacityAnimation.duration = 1
         opacityAnimation.isRemovedOnCompletion = false
-        opacityAnimation.values = [1,0,1,0,1,0,1,0,1]
+        opacityAnimation.values = [1, 0, 1, 0, 1, 0, 1, 0, 1]
         imageLayer.add(opacityAnimation, forKey: opacityKey)
-        self.layer.addSublayer(imageLayer)
     }
     
     func timeOffset(with value: Double) {
