@@ -53,12 +53,22 @@ class MainViewController: UIViewController {
     private lazy var tableStackView = UIStackView()
     lazy var headerView = HeaderView()
     private var contentViewControllers = [ContentViewController]()
+    var isFirstConfigure = true
     var headerContentsDictionary = [Int: HeaderContent]() {
-        didSet {
-            let emptyTab = 2
-            if headerContentsDictionary.count == tabContents.count - emptyTab {
-                headerView.configureFirstContent(with: headerContentsDictionary)
+        // 컨텐츠를 새로고침 할 때 기존 데이터가 유지되도록 첫번째 세팅인지 확인합니다.
+        willSet {
+            if headerContentsDictionary.count == 4 {
+                isFirstConfigure = false
             }
+        }
+        didSet {
+            if isFirstConfigure {
+                let emptyTab = 2
+                if headerContentsDictionary.count == tabContents.count - emptyTab {
+                    headerView.configureFirstContent(with: headerContentsDictionary)
+                }
+            }
+            
         }
     }
     

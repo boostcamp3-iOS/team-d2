@@ -48,6 +48,7 @@
 		470D698E221D0F77003AEA16 /* HeaderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470D698D221D0F77003AEA16 /* HeaderImageView.swift */; };
 		470D6994221D2CBA003AEA16 /* MainViewController+HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470D6993221D2CBA003AEA16 /* MainViewController+HeaderView.swift */; };
 		472CFE54221E4703004FCFE5 /* UIView+RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472CFE53221E4703004FCFE5 /* UIView+RoundedCorner.swift */; };
+		472CFE5A221F9766004FCFE5 /* UIView+CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472CFE59221F9766004FCFE5 /* UIView+CGImage.swift */; };
 		47449B3D220D94B400B99773 /* ShapeC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B3C220D94B400B99773 /* ShapeC.swift */; };
 		47449B3F220D956500B99773 /* ShapeIce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B3E220D956500B99773 /* ShapeIce.swift */; };
 		47449B41220D96B000B99773 /* ShapeN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47449B40220D96B000B99773 /* ShapeN.swift */; };
@@ -122,6 +123,7 @@
 		470D698D221D0F77003AEA16 /* HeaderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderImageView.swift; sourceTree = "<group>"; };
 		470D6993221D2CBA003AEA16 /* MainViewController+HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+HeaderView.swift"; sourceTree = "<group>"; };
 		472CFE53221E4703004FCFE5 /* UIView+RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+RoundedCorner.swift"; sourceTree = "<group>"; };
+		472CFE59221F9766004FCFE5 /* UIView+CGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+CGImage.swift"; sourceTree = "<group>"; };
 		47449B3C220D94B400B99773 /* ShapeC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeC.swift; sourceTree = "<group>"; };
 		47449B3E220D956500B99773 /* ShapeIce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeIce.swift; sourceTree = "<group>"; };
 		47449B40220D96B000B99773 /* ShapeN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeN.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				470D6993221D2CBA003AEA16 /* MainViewController+HeaderView.swift */,
 				B85331F9221E9C590048898A /* Notification.swift */,
 				472CFE53221E4703004FCFE5 /* UIView+RoundedCorner.swift */,
+				472CFE59221F9766004FCFE5 /* UIView+CGImage.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				470D698E221D0F77003AEA16 /* HeaderImageView.swift in Sources */,
 				3B422A602216AB8400DA65D6 /* PodCastTableViewCell.swift in Sources */,
 				470D698A221D0E65003AEA16 /* HeaderContent.swift in Sources */,
+				472CFE5A221F9766004FCFE5 /* UIView+CGImage.swift in Sources */,
 				4767DEED2211556A0017AC9A /* MainViewController+Symbol.swift in Sources */,
 				3B422A5E2216A66900DA65D6 /* PodCastSearch.swift in Sources */,
 				4767DEF622128F3C0017AC9A /* HeaderView.swift in Sources */,
