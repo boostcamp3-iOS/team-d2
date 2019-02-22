@@ -26,7 +26,6 @@ class MainViewController: UIViewController {
     }
     private let genres: [Genre?] = [.startup, .webDesign, .programming, .vrAndAr, .startup, .webDesign]
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
-    private var headerViewTopAnchorConstraint: NSLayoutConstraint?
     private let menuViewHeight: CGFloat = 70
     private lazy var tabBarViewWidth: CGFloat = view.frame.width - 20
     private lazy var tabBarViewHeight: CGFloat = 30
@@ -122,8 +121,7 @@ extension MainViewController {
     
     func setHeaderViewLayout() {
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        headerViewTopAnchorConstraint = headerView.topAnchor.constraint(equalTo: menuView.bottomAnchor)
-        headerViewTopAnchorConstraint?.isActive = true
+        headerView.topAnchor.constraint(equalTo: menuView.bottomAnchor).isActive = true
         headerView.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

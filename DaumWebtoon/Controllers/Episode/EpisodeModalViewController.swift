@@ -42,8 +42,6 @@ class EpisodeModalViewController: UIViewController {
         setupEpisode()
         setupViews()
         setupAudio()
-        
-        addRecentEpisode()
     }
     
     func togglePlayPause() {
@@ -67,10 +65,7 @@ class EpisodeModalViewController: UIViewController {
     }
     
     private func setupAudio() {
-        guard let episode = self.episode else { return }
-        
         audioService.dataSource = self
-        audioService.setupAndPlayAudio(audioUrl: episode.audio)
         setupAudioTimer()
     }
     
@@ -88,11 +83,6 @@ class EpisodeModalViewController: UIViewController {
     private func dismissModal() {
         delegate?.showHeaderImageView()
         dismiss(animated: true, completion: nil)
-    }
-    
-    private func addRecentEpisode() {
-        guard let episode = self.episode else { return }
-        dbService.addRecentEpisode(with: episode)
     }
     
     // MARK :- event handling
