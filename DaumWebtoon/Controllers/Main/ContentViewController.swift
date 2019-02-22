@@ -29,6 +29,11 @@ class ContentViewController: UIViewController {
         addTableView()
         fetchBestPodCasts()
         addRefreshControl()
+        addDidFinishChangingContentOffsetNotification()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
 
@@ -38,9 +43,8 @@ extension ContentViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = view.frame
-        let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
-        tableFooterView.backgroundColor = #colorLiteral(red: 0.8705882353, green: 0.8705882353, blue: 0.8705882353, alpha: 1)
-        tableView.tableFooterView = tableFooterView
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
+        tableView.backgroundColor = .clear
         tableView.register(ChannelTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.contentInsetAdjustmentBehavior = .never
     }
@@ -73,7 +77,8 @@ extension ContentViewController {
             }
             self.tableView.reloadData()
             // MARK: - For HeaderView
-            self.delegate?.firstGenre(with: bestPodCasts.channels[0], genreId: genre)
+            let randomIndex = Int.random(in: 0..<bestPodCasts.channels.count)
+            self.delegate?.firstGenre(with: bestPodCasts.channels[randomIndex], genreId: genre)
         }
     }
     
@@ -83,7 +88,20 @@ extension ContentViewController {
         podCastsViewController.transitioningDelegate = self
         podCastsViewController.podcastId = channels[indexPath.row].id
         podCastsViewController.headerImage = selectedImage?.image
-        present(podCastsViewController, animated: true, completion: nil)
+        present(podCastsViewController, animated: true, completion: {
+            
+        })
+    }
+    
+    func addDidFinishChangingContentOffsetNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidFinishChangingContentOffset(_:)), name: .didFinishChangingContentOffset, object: nil)
+    }
+    
+    @objc func onDidFinishChangingContentOffset(_ notification: Notification) {
+        let contentOffset = tableView.contentOffset.y
+        if (contentOffset <= 0) || (MainCommon.shared.contentOffset == -tableView.contentInset.top && contentOffset > 0) {
+            tableView.setContentOffset(CGPoint(x: 0, y: MainCommon.shared.contentOffset), animated: false)
+        }
     }
 }
 
@@ -131,7 +149,7 @@ extension ContentViewController: UITableViewDelegate {
         guard shownIndexes.contains(indexPath) == false else { return }
         shownIndexes.append(indexPath)
         cell.alpha = 0
-        if indexPath.row < 20 {
+        if indexPath.row < 10 {
             UIView.animate(
                 withDuration: 0.1,
                 delay: 0.05 * Double(indexPath.row),
@@ -145,8 +163,54 @@ extension ContentViewController: UITableViewDelegate {
             }
         }
         
-        if indexPath.row == channels.count - 18 || channels.count - 18 < 0 {
+        if indexPath.row == channels.count - 1 {
             fetchBestPodCasts()
         }
+    }
+}
+
+extension ContentViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset = tableView.contentOffset.y
+        if -tableView.contentInset.top <= contentOffset,
+            contentOffset <= 0 {
+            MainCommon.shared.contentOffset = contentOffset
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
+        } else if contentOffset < -tableView.contentInset.top,
+            MainCommon.shared.contentOffset != -tableView.contentInset.top {
+            MainCommon.shared.contentOffset = -tableView.contentInset.top
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
+        } else if contentOffset > 0,
+            MainCommon.shared.contentOffset != 0 {
+            MainCommon.shared.contentOffset = 0
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
+        }
+    }
+    
+    func notifyDidFinishChangingContentOffset() {
+        let contentOffset = tableView.contentOffset.y
+        if -tableView.contentInset.top <= contentOffset,
+            contentOffset <= 0 {
+            MainCommon.shared.contentOffset = contentOffset
+            NotificationCenter.default.post(name: .didFinishChangingContentOffset, object: nil)
+        } else if contentOffset <= -tableView.contentInset.top {
+            MainCommon.shared.contentOffset = -tableView.contentInset.top
+            NotificationCenter.default.post(name: .didFinishChangingContentOffset, object: nil)
+        } else if contentOffset >= 0 {
+            MainCommon.shared.contentOffset = 0
+            NotificationCenter.default.post(name: .didFinishChangingContentOffset, object: nil)
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        notifyDidFinishChangingContentOffset()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        notifyDidFinishChangingContentOffset()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        notifyDidFinishChangingContentOffset()
     }
 }

@@ -16,8 +16,7 @@ class PodCastDetailCollectionViewCell: UICollectionReusableView {
     
     func configure(title: String?, description: String?, publisher: String?) {
         podcastTitle.text = title ?? ""
-        podcastDescription.text = description ?? ""
+        podcastDescription.text = description?.deleteHTMLTag ?? ""
         podcastPublisher.text = publisher ?? ""
     }
-    
 }

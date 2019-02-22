@@ -55,7 +55,7 @@ class PieceLayer: CAShapeLayer {
     func opacityAnimation() {
         let animation = CAKeyframeAnimation(keyPath: opacityKey)
         animation.duration = 1
-        animation.values = [1, 1, 0]
-        self.add(animation, forKey: opacityKey)
+        animation.values = [0, 0, 1, 1, 1, 1, 1, 1, 0]
+        self.add(animation, forKey: nil)
     }
 }
