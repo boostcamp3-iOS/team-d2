@@ -60,6 +60,8 @@ class PodCastsViewController: UIViewController {
             headerImageViewWidth.constant = 100.0
             headerImageViewHeight.constant = 100.0
         }
+        
+        headerImageView.roundedCorner()
     }
 
     private func setupCollectionView() {

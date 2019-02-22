@@ -76,6 +76,8 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let animatedImage = CALayer()
         animatedImage.contents = selectedImage.image?.cgImage
         animatedImage.frame = CGRect(x: 0, y: 0, width: selectedImageWidth, height: selectedImageHeight)
+        animatedImage.cornerRadius = 10
+        animatedImage.masksToBounds = true
         
         backgroundImageLayer = CALayer()
         backgroundImageLayer?.isHidden = true

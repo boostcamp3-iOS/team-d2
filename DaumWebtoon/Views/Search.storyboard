@@ -57,35 +57,36 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFD-ct-nz4">
-                                                    <rect key="frame" x="2" y="21" width="259" height="24"/>
+                                                    <rect key="frame" x="6" y="21" width="253" height="24"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="publisher" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LSN-SF-zzW">
-                                                    <rect key="frame" x="2" y="46.666666666666664" width="259" height="19.666666666666664"/>
+                                                    <rect key="frame" x="6" y="46.333333333333336" width="253" height="20.000000000000007"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XNe-xI-TXQ">
-                                                    <rect key="frame" x="263" y="-5.6666666666666643" width="80" height="100"/>
+                                                    <rect key="frame" x="265" y="4" width="76" height="80.666666666666671"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="LAX-oq-XDG"/>
-                                                        <constraint firstAttribute="height" constant="100" id="zhi-Ge-N0u"/>
+                                                        <constraint firstAttribute="height" constant="80.670000000000002" id="G5M-5J-qQ0"/>
+                                                        <constraint firstAttribute="width" constant="76" id="Onk-V3-Moa"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="rFD-ct-nz4" firstAttribute="leading" secondItem="ccT-C8-rjl" secondAttribute="leading" constant="2" id="23B-CM-Rhu"/>
+                                                <constraint firstItem="rFD-ct-nz4" firstAttribute="leading" secondItem="ccT-C8-rjl" secondAttribute="leading" constant="6" id="23B-CM-Rhu"/>
                                                 <constraint firstItem="LSN-SF-zzW" firstAttribute="trailing" secondItem="rFD-ct-nz4" secondAttribute="trailing" id="7PB-4R-Ugl"/>
-                                                <constraint firstItem="XNe-xI-TXQ" firstAttribute="leading" secondItem="rFD-ct-nz4" secondAttribute="trailing" constant="2" id="A58-8n-2aw"/>
-                                                <constraint firstItem="LSN-SF-zzW" firstAttribute="top" secondItem="rFD-ct-nz4" secondAttribute="bottom" constant="1.5" id="FN8-vW-LXc"/>
                                                 <constraint firstItem="LSN-SF-zzW" firstAttribute="leading" secondItem="rFD-ct-nz4" secondAttribute="leading" id="MxD-oz-97s"/>
+                                                <constraint firstItem="XNe-xI-TXQ" firstAttribute="leading" secondItem="rFD-ct-nz4" secondAttribute="trailing" constant="6" id="TQ7-pl-Ful"/>
+                                                <constraint firstAttribute="trailing" secondItem="XNe-xI-TXQ" secondAttribute="trailing" constant="4" id="TT9-5Y-Pat"/>
                                                 <constraint firstItem="rFD-ct-nz4" firstAttribute="top" secondItem="ccT-C8-rjl" secondAttribute="top" constant="21" id="X44-I5-enp"/>
                                                 <constraint firstAttribute="bottom" secondItem="LSN-SF-zzW" secondAttribute="bottom" constant="22.5" id="aTW-ik-OsJ"/>
+                                                <constraint firstItem="XNe-xI-TXQ" firstAttribute="top" secondItem="ccT-C8-rjl" secondAttribute="top" constant="4" id="dhX-Im-jYb"/>
+                                                <constraint firstAttribute="bottom" secondItem="XNe-xI-TXQ" secondAttribute="bottom" constant="4" id="vG8-fK-bQr"/>
                                                 <constraint firstItem="XNe-xI-TXQ" firstAttribute="centerY" secondItem="ccT-C8-rjl" secondAttribute="centerY" id="vZD-9I-XJg"/>
-                                                <constraint firstAttribute="trailing" secondItem="XNe-xI-TXQ" secondAttribute="trailing" constant="2" id="xOT-ia-vzI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -197,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbg-OC-UBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-143.19999999999999" y="69.715142428785612"/>
+            <point key="canvasLocation" x="-143.19999999999999" y="69.458128078817737"/>
         </scene>
     </scenes>
     <resources>
