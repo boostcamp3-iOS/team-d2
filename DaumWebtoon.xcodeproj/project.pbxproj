@@ -63,9 +63,11 @@
 		47BF157622017C3C0011544A /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BF157522017C3C0011544A /* SymbolView.swift */; };
 		47E55E54221B9B7600878080 /* MainViewController+ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E55E53221B9B7600878080 /* MainViewController+ContentView.swift */; };
 		47E55E56221BD28000878080 /* String+DeleteHTMLTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E55E55221BD28000878080 /* String+DeleteHTMLTag.swift */; };
+		B83D9B43221EA10000DF8CC3 /* MainCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83D9B42221EA10000DF8CC3 /* MainCommon.swift */; };
 		B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3B220ABCD000B11954 /* MainViewController.swift */; };
 		B84ECF40220ABD7D00B11954 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */; };
 		B85187562203DBCD0081F72D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85187552203DBCD0081F72D /* SplashView.swift */; };
+		B85331FA221E9C590048898A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85331F9221E9C590048898A /* Notification.swift */; };
 		B87007C62215381B00113BA8 /* BestPodCasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007C52215381B00113BA8 /* BestPodCasts.swift */; };
 		B87007CC22153B3000113BA8 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007CB22153B3000113BA8 /* Channel.swift */; };
 		B87007D022153B6A00113BA8 /* Extra.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007CF22153B6A00113BA8 /* Extra.swift */; };
@@ -73,7 +75,6 @@
 		B87007D42215405400113BA8 /* BestPodCastsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D32215405400113BA8 /* BestPodCastsAPI.swift */; };
 		B87007D6221540F300113BA8 /* BestPodCastsFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D5221540F300113BA8 /* BestPodCastsFetcher.swift */; };
 		B87007D822155A6E00113BA8 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */; };
-		B8701E7922108F12003F7217 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8701E7822108F12003F7217 /* Direction.swift */; };
 		B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */; };
 		B8ABD4A221FEACD800454AF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A021FEACD800454AF3 /* Main.storyboard */; };
 		B8ABD4A721FEACDA00454AF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8ABD4A521FEACDA00454AF3 /* LaunchScreen.storyboard */; };
@@ -136,9 +137,11 @@
 		47BF157522017C3C0011544A /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		47E55E53221B9B7600878080 /* MainViewController+ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+ContentView.swift"; sourceTree = "<group>"; };
 		47E55E55221BD28000878080 /* String+DeleteHTMLTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+DeleteHTMLTag.swift"; sourceTree = "<group>"; };
+		B83D9B42221EA10000DF8CC3 /* MainCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCommon.swift; sourceTree = "<group>"; };
 		B84ECF3B220ABCD000B11954 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		B85187552203DBCD0081F72D /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		B85331F9221E9C590048898A /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		B87007C52215381B00113BA8 /* BestPodCasts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPodCasts.swift; sourceTree = "<group>"; };
 		B87007CB22153B3000113BA8 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		B87007CF22153B6A00113BA8 /* Extra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extra.swift; sourceTree = "<group>"; };
@@ -146,7 +149,6 @@
 		B87007D32215405400113BA8 /* BestPodCastsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPodCastsAPI.swift; sourceTree = "<group>"; };
 		B87007D5221540F300113BA8 /* BestPodCastsFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BestPodCastsFetcher.swift; sourceTree = "<group>"; };
 		B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
-		B8701E7822108F12003F7217 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		B8ABD49921FEACD800454AF3 /* DaumWebtoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaumWebtoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8ABD49C21FEACD800454AF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8ABD4A121FEACD800454AF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				47E55E53221B9B7600878080 /* MainViewController+ContentView.swift */,
 				47E55E55221BD28000878080 /* String+DeleteHTMLTag.swift */,
 				470D6993221D2CBA003AEA16 /* MainViewController+HeaderView.swift */,
+				B85331F9221E9C590048898A /* Notification.swift */,
 				472CFE53221E4703004FCFE5 /* UIView+RoundedCorner.swift */,
 			);
 			path = Extension;
@@ -299,8 +302,8 @@
 			children = (
 				B84ECF3B220ABCD000B11954 /* MainViewController.swift */,
 				B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */,
-				B8701E7822108F12003F7217 /* Direction.swift */,
 				B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */,
+				B83D9B42221EA10000DF8CC3 /* MainCommon.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -499,18 +502,17 @@
 				3B40AC4D221501D1003D2CA8 /* TimeFormatExtension.swift in Sources */,
 				47449B41220D96B000B99773 /* ShapeN.swift in Sources */,
 				3BDC57D8221295F90009C115 /* SlidePanelContainerView.swift in Sources */,
+				B85331FA221E9C590048898A /* Notification.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47BF154C22002A8E0011544A /* PieceLayer.swift in Sources */,
 				47E55E54221B9B7600878080 /* MainViewController+ContentView.swift in Sources */,
 				3BDC57E22212AD000009C115 /* PodCastCollectionViewCell.swift in Sources */,
 				3BDC57E42212ADEE0009C115 /* PodCast.swift in Sources */,
-				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				B87007D822155A6E00113BA8 /* ChannelTableViewCell.swift in Sources */,
 				B87007D6221540F300113BA8 /* BestPodCastsFetcher.swift in Sources */,
 				470D6994221D2CBA003AEA16 /* MainViewController+HeaderView.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
-				B8701E7922108F12003F7217 /* Direction.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				47449B3F220D956500B99773 /* ShapeIce.swift in Sources */,
@@ -524,6 +526,7 @@
 				3B1C0FD42204201300077751 /* TabContent.swift in Sources */,
 				B85187562203DBCD0081F72D /* SplashView.swift in Sources */,
 				B87007D022153B6A00113BA8 /* Extra.swift in Sources */,
+				B83D9B43221EA10000DF8CC3 /* MainCommon.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				3B40AC5222164AA3003D2CA8 /* SearchViewController.swift in Sources */,
 				3B422A5A2216A4E300DA65D6 /* SearchPodCastsAPI.swift in Sources */,
@@ -691,13 +694,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U38RWYJ536;
+				DEVELOPMENT_TEAM = 9YDN5UGRB3;
 				INFOPLIST_FILE = "$(SRCROOT)/DaumWebtoon/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaonk.DaumWebtoon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaonkk.DaumWebtoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -709,13 +712,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U38RWYJ536;
+				DEVELOPMENT_TEAM = 9YDN5UGRB3;
 				INFOPLIST_FILE = "$(SRCROOT)/DaumWebtoon/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gaonk.DaumWebtoon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaonkk.DaumWebtoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
