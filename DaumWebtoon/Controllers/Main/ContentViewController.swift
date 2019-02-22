@@ -73,7 +73,8 @@ extension ContentViewController {
             }
             self.tableView.reloadData()
             // MARK: - For HeaderView
-            self.delegate?.firstGenre(with: bestPodCasts.channels[0], genreId: genre)
+            let randomIndex = Int.random(in: 0..<bestPodCasts.channels.count)
+            self.delegate?.firstGenre(with: bestPodCasts.channels[randomIndex], genreId: genre)
         }
     }
     
