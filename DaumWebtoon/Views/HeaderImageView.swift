@@ -22,6 +22,10 @@ class HeaderImageView: UIView {
     }
     
     func configure(with headerContentsDictionary: [Int: HeaderContent]) {
+        let gapView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
+        gapView.backgroundColor = .white
+        guard let gapImage = gapView.convertCGImage() else { return }
+        
         let genre = MainViewController.Genre.self
         let firstId = genre.webDesign.rawValue
         let secondId = genre.programming.rawValue
@@ -41,13 +45,13 @@ class HeaderImageView: UIView {
         let contentAnimation = CAKeyframeAnimation(keyPath: contentsKey)
         contentAnimation.duration = 1
         contentAnimation.isRemovedOnCompletion = false
-        contentAnimation.values = [firstImage, secondImage, thirdImage, fourthImage, firstImage]
+        contentAnimation.values = [firstImage, gapImage, secondImage, gapImage, thirdImage, gapImage, fourthImage, gapImage, firstImage]
         imageLayer.add(contentAnimation, forKey: contentsKey)
         
         let opacityAnimation = CAKeyframeAnimation(keyPath: opacityKey)
         opacityAnimation.duration = 1
         opacityAnimation.isRemovedOnCompletion = false
-        opacityAnimation.values = [1,0,1,0,1,0,1,0,1]
+        opacityAnimation.values = [1, 0, 1, 0, 1, 0, 1, 0, 1]
         imageLayer.add(opacityAnimation, forKey: opacityKey)
         self.layer.addSublayer(imageLayer)
     }
