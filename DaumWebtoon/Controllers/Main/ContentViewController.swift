@@ -90,7 +90,7 @@ extension ContentViewController {
         podCastsViewController.podcastId = channels[indexPath.row].id
         podCastsViewController.headerImage = selectedImage?.image
         present(podCastsViewController, animated: true, completion: {
-            MainCommon.shared.contentOffset = self.tableView.contentOffset.y
+            
         })
     }
     
@@ -100,8 +100,7 @@ extension ContentViewController {
     
     @objc func onDidFinishChangingContentOffset(_ notification: Notification) {
         let contentOffset = tableView.contentOffset.y
-        print(MainCommon.shared.contentOffset)
-        if (contentOffset <= 0 && contentOffset >= -tableView.contentInset.top) || (MainCommon.shared.contentOffset == -tableView.contentInset.top && contentOffset > 0) {
+        if (contentOffset <= 0) || (MainCommon.shared.contentOffset == -tableView.contentInset.top && contentOffset > 0) {
             tableView.setContentOffset(CGPoint(x: 0, y: MainCommon.shared.contentOffset), animated: false)
         }
     }
@@ -172,38 +171,47 @@ extension ContentViewController: UITableViewDelegate {
 }
 
 extension ContentViewController: UIScrollViewDelegate {
-    func notifyContentOffset(_ notification: Notification.Name, contentOffset: CGFloat) {
-        MainCommon.shared.contentOffset = contentOffset
-        NotificationCenter.default.post(name: notification, object: nil)
-    }
-    
-    func notifyChangeOfContentOffset(notification: Notification.Name) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffset = tableView.contentOffset.y
         if -tableView.contentInset.top <= contentOffset,
             contentOffset <= 0 {
-            notifyContentOffset(notification, contentOffset: contentOffset)
+            MainCommon.shared.contentOffset = contentOffset
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
         } else if contentOffset < -tableView.contentInset.top,
             MainCommon.shared.contentOffset != -tableView.contentInset.top {
-            notifyContentOffset(notification, contentOffset: -tableView.contentInset.top)
+            MainCommon.shared.contentOffset = -tableView.contentInset.top
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
         } else if contentOffset > 0,
             MainCommon.shared.contentOffset != 0 {
-            notifyContentOffset(notification, contentOffset: 0)
+            MainCommon.shared.contentOffset = 0
+            NotificationCenter.default.post(name: .didChangeContentOffset, object: nil)
         }
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        notifyChangeOfContentOffset(notification: .didChangeContentOffset)
+    func notifyDidFinishChangingContentOffset() {
+        let contentOffset = tableView.contentOffset.y
+        if -tableView.contentInset.top <= contentOffset,
+            contentOffset <= 0 {
+            MainCommon.shared.contentOffset = contentOffset
+            NotificationCenter.default.post(name: .didFinishChangingContentOffset, object: nil)
+        } else if contentOffset <= -tableView.contentInset.top {
+            MainCommon.shared.contentOffset = -tableView.contentInset.top
+            NotificationCenter.default.post(name: .didFinishChangingContentOffset, object: nil)
+        } else if contentOffset >= 0 {
+            MainCommon.shared.contentOffset = 0
+            NotificationCenter.default.post(name: .didFinishChangingContentOffset, object: nil)
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        notifyChangeOfContentOffset(notification: .didFinishChangingContentOffset)
+        notifyDidFinishChangingContentOffset()
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        notifyChangeOfContentOffset(notification: .didFinishChangingContentOffset)
+        notifyDidFinishChangingContentOffset()
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        notifyChangeOfContentOffset(notification: .didFinishChangingContentOffset)
+        notifyDidFinishChangingContentOffset()
     }
 }
