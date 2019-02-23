@@ -35,6 +35,7 @@ class MiniPlayerViewController: UIViewController {
     }
     
     private var isLoading: CGFloat = 1.0
+    private var playButtonSelected = false
     private var audioTimer : Timer?
     private let audioService = AudioService.shared
     private var episodeModalViewController: EpisodeModalViewController?
@@ -110,7 +111,7 @@ class MiniPlayerViewController: UIViewController {
     @objc func timeInterval(){
         audioService.timeInterval()
     }
-    private var playButtonSelected = false
+
     @IBAction func playPauseDidTapped(_ sender: UIButton) {
         audioService.togglePlayPause()
         

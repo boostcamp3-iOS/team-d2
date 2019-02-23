@@ -29,7 +29,6 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         fetchRecommandationPodcast()
-
         setupViews()
     }
     
@@ -64,8 +63,19 @@ class SearchViewController: UIViewController {
         podcastsTableView.dataSource = self
         podcastsTableView.delegate = self
         
+        hideMiniPlayer()
         setupBottomHalfView()
         setupGesture()
+    }
+    
+    private func hideMiniPlayer() {
+        let window = UIApplication.shared.keyWindow
+        window?.viewWithTag(100)?.isHidden = true
+    }
+    
+    private func showMiniPlayer() {
+        let window = UIApplication.shared.keyWindow
+        window?.viewWithTag(100)?.isHidden = false
     }
     
     private func setupGesture() {
@@ -147,6 +157,7 @@ class SearchViewController: UIViewController {
     
     @IBAction func backTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+        showMiniPlayer()
     }
     
     @IBAction func searchTapped(_ sender: UIButton) {
