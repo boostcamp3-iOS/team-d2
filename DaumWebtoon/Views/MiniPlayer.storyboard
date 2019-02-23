@@ -15,18 +15,18 @@
             <objects>
                 <viewController storyboardIdentifier="MiniPlayer" id="4U2-fN-830" customClass="MiniPlayerViewController" customModule="DaumWebtoon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dWz-tk-4fX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f1Q-8Y-qLW">
-                                <rect key="frame" x="12" y="8" width="64" height="64"/>
+                                <rect key="frame" x="16" y="13" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="CnK-LV-fyk"/>
-                                    <constraint firstAttribute="width" constant="64" id="Smw-ez-ELW"/>
+                                    <constraint firstAttribute="height" constant="50" id="CnK-LV-fyk"/>
+                                    <constraint firstAttribute="width" constant="50" id="Smw-ez-ELW"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGa-Mz-nhr">
-                                <rect key="frame" x="327" y="22" width="36" height="36"/>
+                                <rect key="frame" x="279" y="20" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="2bu-oU-SoU"/>
                                     <constraint firstAttribute="width" constant="36" id="Wf5-Oh-dkG"/>
@@ -37,39 +37,55 @@
                                     <action selector="playPauseDidTapped:" destination="4U2-fN-830" eventType="touchUpInside" id="VAc-b3-6O9"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWV-Yh-jb9">
-                                <rect key="frame" x="88" y="30.5" width="227" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWV-Yh-jb9">
+                                <rect key="frame" x="78" y="28.5" width="189" height="19.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Loading...." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCh-V4-Hab">
-                                <rect key="frame" x="88" y="31.5" width="227" height="17"/>
+                                <rect key="frame" x="78" y="29.5" width="189" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucv-UI-Onv">
+                                <rect key="frame" x="331" y="24" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="6Hz-yG-0Hv"/>
+                                    <constraint firstAttribute="width" constant="28" id="CwZ-Br-iFn"/>
+                                </constraints>
+                                <state key="normal" image="exit_black"/>
+                                <connections>
+                                    <action selector="exitTapped:" destination="4U2-fN-830" eventType="touchUpInside" id="gjC-OZ-amh"/>
+                                    <action selector="playPauseDidTapped:" destination="4U2-fN-830" eventType="touchUpInside" id="FDc-t2-pIw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.9514990482233503" green="0.9514990482233503" blue="0.9514990482233503" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="sGa-Mz-nhr" firstAttribute="leading" secondItem="pWV-Yh-jb9" secondAttribute="trailing" constant="12" id="5gq-va-icH"/>
-                            <constraint firstItem="wRb-2Y-o9T" firstAttribute="trailing" secondItem="sGa-Mz-nhr" secondAttribute="trailing" constant="12" id="7Hg-W1-2eA"/>
-                            <constraint firstItem="f1Q-8Y-qLW" firstAttribute="leading" secondItem="wRb-2Y-o9T" secondAttribute="leading" constant="12" id="XdN-la-4zk"/>
+                            <constraint firstItem="wRb-2Y-o9T" firstAttribute="trailing" secondItem="sGa-Mz-nhr" secondAttribute="trailing" constant="60" id="7Hg-W1-2eA"/>
+                            <constraint firstItem="ucv-UI-Onv" firstAttribute="leading" secondItem="sGa-Mz-nhr" secondAttribute="trailing" constant="16" id="DzP-8e-m03"/>
+                            <constraint firstItem="f1Q-8Y-qLW" firstAttribute="leading" secondItem="wRb-2Y-o9T" secondAttribute="leading" constant="16" id="XdN-la-4zk"/>
                             <constraint firstItem="sGa-Mz-nhr" firstAttribute="centerY" secondItem="dWz-tk-4fX" secondAttribute="centerY" id="Yh9-Ub-DE0"/>
                             <constraint firstItem="f1Q-8Y-qLW" firstAttribute="centerY" secondItem="dWz-tk-4fX" secondAttribute="centerY" id="aCW-0e-1ww"/>
                             <constraint firstItem="FCh-V4-Hab" firstAttribute="trailing" secondItem="pWV-Yh-jb9" secondAttribute="trailing" id="c6m-vQ-bMc"/>
                             <constraint firstItem="pWV-Yh-jb9" firstAttribute="leading" secondItem="f1Q-8Y-qLW" secondAttribute="trailing" constant="12" id="f2m-kO-YTI"/>
+                            <constraint firstItem="wRb-2Y-o9T" firstAttribute="trailing" secondItem="ucv-UI-Onv" secondAttribute="trailing" constant="16" id="fsh-l9-Q1O"/>
                             <constraint firstItem="FCh-V4-Hab" firstAttribute="centerY" secondItem="dWz-tk-4fX" secondAttribute="centerY" id="hVw-ck-51O"/>
                             <constraint firstItem="FCh-V4-Hab" firstAttribute="leading" secondItem="f1Q-8Y-qLW" secondAttribute="trailing" constant="12" id="mHl-hE-Tfk"/>
+                            <constraint firstItem="ucv-UI-Onv" firstAttribute="centerY" secondItem="dWz-tk-4fX" secondAttribute="centerY" id="otF-RI-ky9"/>
                             <constraint firstItem="pWV-Yh-jb9" firstAttribute="centerY" secondItem="dWz-tk-4fX" secondAttribute="centerY" id="toz-0c-mwv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wRb-2Y-o9T"/>
                     </view>
-                    <size key="freeformSize" width="375" height="80"/>
+                    <size key="freeformSize" width="375" height="76"/>
                     <connections>
                         <outlet property="episodeThumbnail" destination="f1Q-8Y-qLW" id="Fzd-D3-iOm"/>
                         <outlet property="episodeTitle" destination="pWV-Yh-jb9" id="EWi-qA-Sew"/>
                         <outlet property="loading" destination="FCh-V4-Hab" id="Cpn-hi-mHs"/>
+                        <outlet property="playPauseButton" destination="sGa-Mz-nhr" id="amg-Eh-DVK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8wb-8F-VxV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -78,6 +94,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="exit_black" width="37.5" height="37.5"/>
         <image name="pause" width="37.5" height="37.5"/>
         <image name="play" width="37.5" height="37.5"/>
     </resources>

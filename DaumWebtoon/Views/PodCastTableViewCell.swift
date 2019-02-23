@@ -15,6 +15,7 @@ class PodCastTableViewCell: UITableViewCell {
     @IBOutlet weak var podcastThumbnail: UIImageView!
     
     func configure(podcast: PodCastSearch) {
+        podcastThumbnail.roundedCorner()
         podcastTitle.text = podcast.title
         podcastPublisher.text = podcast.publisher
         

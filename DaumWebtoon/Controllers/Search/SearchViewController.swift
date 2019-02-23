@@ -13,7 +13,6 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var recommandCollectionView: UICollectionView!
     @IBOutlet weak var podcastsTableView: UITableView!
     @IBOutlet weak var halfView: UIView!
-    @IBOutlet weak var halfViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var keywordInput: UITextField!
     @IBOutlet weak var search: UIButton!
     
@@ -21,15 +20,17 @@ class SearchViewController: UIViewController {
     private let tableviewCellIdentifier = "tableviewCell"
     private var genres: [Genre]?
     private var podcasts: [PodCastSearch]?
+    private var shownIndexPaths = [IndexPath]()
     private var selectedImage: UIImageView?
     private var selectedCellOriginY: CGFloat?
+    private var bottomAnchor: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchRecommandationPodcast()
 
-        initializeViews()
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,27 +40,46 @@ class SearchViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+   
+        UIView.animate(withDuration: 0.6, animations: {
+            self.halfView.frame.origin.y -= self.view.bounds.height / 2
+            self.bottomAnchor = self.halfView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            self.bottomAnchor?.isActive = true
+        })
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewDidLayoutSubviews() {
-        halfViewHeightConstraint.constant = view.frame.size.height / 2
-    }
-
-    private func initializeViews() {
-        podcastsTableView.isHidden = true
+    private func setupViews() {
         search.layer.cornerRadius = search.frame.height / 2
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-        keywordInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
         keywordInput.delegate = self
         recommandCollectionView.dataSource = self
         recommandCollectionView.delegate = self
         podcastsTableView.dataSource = self
         podcastsTableView.delegate = self
+        
+        setupBottomHalfView()
+        setupGesture()
+    }
+    
+    private func setupGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        keywordInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+    }
+    
+    private func setupBottomHalfView() {
+        halfView.translatesAutoresizingMaskIntoConstraints = false
+        halfView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        halfView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        halfView.heightAnchor.constraint(equalToConstant: view.bounds.height / 2).isActive = true
     }
     
     private func fetchRecommandationPodcast() {
@@ -73,7 +93,6 @@ class SearchViewController: UIViewController {
     
     private func searchPodCasts(query: String?) {
         halfView.isHidden = true
-        
         SearchPodCastsService.shared.searchPodCasts(query: query) { [weak self] (podcasts) in
             guard let self = self else { return }
             
@@ -83,15 +102,31 @@ class SearchViewController: UIViewController {
         }
     }
     
+    private func hideHalfBottomView() {
+        UIView.animate(withDuration: 1.0, animations: {
+            self.bottomAnchor?.isActive = false
+            self.halfView.frame.origin.y += self.view.bounds.height / 2
+            self.bottomAnchor = self.halfView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: self.view.bounds.size.height / 2)
+            self.bottomAnchor?.isActive = true
+        })
+    }
+    
+    private func showHalfBottomView() {
+        UIView.animate(withDuration: 0.6, animations: {
+            self.bottomAnchor?.isActive = true
+            self.halfView.frame.origin.y -= self.view.bounds.height / 2
+        })
+    }
+    
     // MARK :- event handling
     @objc func keyboardWillAppear() {
         podcastsTableView.isHidden = false
-        halfView.isHidden = true
+        hideHalfBottomView()
     }
     
     @objc func keyboardDidDisappear() {
         podcastsTableView.isHidden = true
-        halfView.isHidden = false
+        showHalfBottomView()
     }
     
     @objc func dismissKeyboard() {
@@ -178,6 +213,26 @@ extension SearchViewController: UITableViewDelegate {
         podcastsViewController.podcastId = podcast.id
         podcastsViewController.headerImage = selectedImage?.image
         present(podcastsViewController, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard shownIndexPaths.contains(indexPath) == false else { return }
+        
+        shownIndexPaths.append(indexPath)
+        cell.alpha = 0
+        if indexPath.row < 10 {
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0.05 * Double(indexPath.row),
+                options: [],
+                animations: {
+                    cell.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                cell.alpha = 1
+            }
+        }
     }
 }
 

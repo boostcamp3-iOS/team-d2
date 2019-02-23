@@ -19,19 +19,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jFB-aU-D5g">
-                                <rect key="frame" x="122" y="44" width="170" height="160"/>
+                                <rect key="frame" x="107" y="0.0" width="200" height="210"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="8IS-Et-2tc"/>
-                                    <constraint firstAttribute="width" constant="170" id="HUP-CQ-Sb3"/>
+                                    <constraint firstAttribute="height" constant="210" id="8IS-Et-2tc"/>
+                                    <constraint firstAttribute="width" constant="200" id="HUP-CQ-Sb3"/>
                                 </constraints>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="j63-CK-TA9">
-                                <rect key="frame" x="12" y="234" width="390" height="628"/>
+                                <rect key="frame" x="12" y="260" width="390" height="636"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="4co-RC-DiP">
                                     <size key="itemSize" width="124" height="158"/>
                                     <size key="headerReferenceSize" width="50" height="390"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="50" height="80"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
@@ -133,12 +133,16 @@
                                         <outlet property="podcastTitle" destination="M7W-PI-neD" id="6p8-ig-pCb"/>
                                     </connections>
                                 </collectionReusableView>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="FooterCell" id="WQd-KQ-gpZ" customClass="PodCastFooterCollectionReusableView" customModule="DaumWebtoon" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="548" width="390" height="80"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V1y-tC-27m">
-                                <rect key="frame" x="12" y="56" width="24" height="24"/>
+                                <rect key="frame" x="12" y="52" width="40" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="9l4-Vp-LxJ"/>
-                                    <constraint firstAttribute="height" constant="24" id="ljI-pb-aHr"/>
+                                    <constraint firstAttribute="width" constant="40" id="9l4-Vp-LxJ"/>
+                                    <constraint firstAttribute="height" constant="30" id="ljI-pb-aHr"/>
                                 </constraints>
                                 <state key="normal" image="back"/>
                                 <connections>
@@ -146,26 +150,26 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kyI-Qm-V7U">
-                                <rect key="frame" x="0.0" y="44" width="414" height="160"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="P4z-0S-Hnn"/>
+                                    <constraint firstAttribute="height" constant="210" id="P4z-0S-Hnn"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="j63-CK-TA9" firstAttribute="top" secondItem="jFB-aU-D5g" secondAttribute="bottom" constant="50" id="0kG-rw-WkP"/>
                             <constraint firstItem="kyI-Qm-V7U" firstAttribute="leading" secondItem="PZN-Da-SLW" secondAttribute="leading" id="1FD-Kn-PxG"/>
-                            <constraint firstItem="kyI-Qm-V7U" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" id="5rD-hV-wCF"/>
-                            <constraint firstItem="PZN-Da-SLW" firstAttribute="bottom" secondItem="j63-CK-TA9" secondAttribute="bottom" id="G1F-Fq-QLy"/>
-                            <constraint firstItem="jFB-aU-D5g" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" id="IGN-Ou-Bus"/>
+                            <constraint firstItem="jFB-aU-D5g" firstAttribute="top" secondItem="Fu0-TO-5gq" secondAttribute="top" id="HAF-uC-89J"/>
                             <constraint firstItem="jFB-aU-D5g" firstAttribute="centerX" secondItem="Fu0-TO-5gq" secondAttribute="centerX" id="IX3-TC-JXo"/>
                             <constraint firstItem="j63-CK-TA9" firstAttribute="leading" secondItem="PZN-Da-SLW" secondAttribute="leading" constant="12" id="JFT-F3-hJ9"/>
                             <constraint firstItem="PZN-Da-SLW" firstAttribute="trailing" secondItem="j63-CK-TA9" secondAttribute="trailing" constant="12" id="OT3-aN-5er"/>
                             <constraint firstItem="kyI-Qm-V7U" firstAttribute="trailing" secondItem="PZN-Da-SLW" secondAttribute="trailing" id="Umc-RA-4Xu"/>
                             <constraint firstItem="kyI-Qm-V7U" firstAttribute="centerX" secondItem="Fu0-TO-5gq" secondAttribute="centerX" id="Vd3-xj-z82"/>
                             <constraint firstItem="V1y-tC-27m" firstAttribute="leading" secondItem="PZN-Da-SLW" secondAttribute="leading" constant="12" id="YG6-60-RiO"/>
-                            <constraint firstItem="V1y-tC-27m" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" constant="12" id="t3n-Qr-bUB"/>
-                            <constraint firstItem="j63-CK-TA9" firstAttribute="top" secondItem="kyI-Qm-V7U" secondAttribute="bottom" constant="30" id="vPd-a4-MDl"/>
+                            <constraint firstAttribute="bottom" secondItem="j63-CK-TA9" secondAttribute="bottom" id="aNm-sn-mCF"/>
+                            <constraint firstItem="kyI-Qm-V7U" firstAttribute="top" secondItem="Fu0-TO-5gq" secondAttribute="top" id="itc-6e-iAc"/>
+                            <constraint firstItem="V1y-tC-27m" firstAttribute="top" secondItem="PZN-Da-SLW" secondAttribute="top" constant="8" id="t3n-Qr-bUB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PZN-Da-SLW"/>
                     </view>
@@ -174,6 +178,8 @@
                         <outlet property="collectionView" destination="j63-CK-TA9" id="tea-k7-iCF"/>
                         <outlet property="headerBackgroundImage" destination="kyI-Qm-V7U" id="Doc-Vg-vlg"/>
                         <outlet property="headerImageView" destination="jFB-aU-D5g" id="Jkb-MB-h0v"/>
+                        <outlet property="headerImageViewHeight" destination="8IS-Et-2tc" id="M5y-oW-Hr4"/>
+                        <outlet property="headerImageViewWidth" destination="HUP-CQ-Sb3" id="bTk-an-asy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wr6-Yq-ulA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -315,6 +321,7 @@
                         <outlet property="episodeUpdateTime" destination="gTE-z5-NOj" id="wfN-7H-1Gk"/>
                         <outlet property="favoriteButton" destination="DWJ-pF-DCO" id="UkY-jB-dBw"/>
                         <outlet property="loading" destination="i4l-fP-gw7" id="pnp-wb-JKh"/>
+                        <outlet property="playPauseButton" destination="ghA-1N-Ex4" id="MWT-er-btD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mcp-lp-Nob" userLabel="First Responder" sceneMemberID="firstResponder"/>

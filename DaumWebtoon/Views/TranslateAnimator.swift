@@ -20,20 +20,24 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     private var containerWidth: CGFloat = 0.0
     private var containerHeight: CGFloat = 0.0
     private var selectedImageHeight: CGFloat = 0.0
+    private var selectedImageWidth: CGFloat = 0.0
+    private var heightForNorch: CGFloat = 0.0
+    private var marginForNorch: CGFloat = 0.0
+    private var margin: CGFloat = 0.0
     private var initialOrigin = CGPoint(x: 0.0, y: 0.0)
     private lazy var flightValues = [
         [
             initialOrigin,
-            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
+            CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         ],
         [
             initialOrigin,
             CGPoint(x: containerWidth / 2, y: containerHeight / 6),
-            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
+            CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         ],
         [   initialOrigin,
             CGPoint(x: containerWidth / 2, y: containerHeight / 2),
-            CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
+            CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         ]
     ]
     
@@ -55,17 +59,31 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         containerWidth = containerView.frame.width
         containerHeight = containerView.frame.height
         initialOrigin = CGPoint(x: selectedImage.frame.origin.x, y: selectedCellOriginY)
-        selectedImageHeight = 160
-    
+        if UIDevice.current.hasNotch {
+            selectedImageHeight = 210
+            selectedImageWidth = 200
+            margin = 70
+            heightForNorch = 70
+            marginForNorch = 35
+        } else {
+            selectedImageHeight = 100
+            selectedImageWidth = 100
+            margin = 30
+            heightForNorch = 0
+            marginForNorch = 0
+        }
+        
         let animatedImage = CALayer()
         animatedImage.contents = selectedImage.image?.cgImage
-        animatedImage.frame = CGRect(x: 0, y: 0, width: 170, height: selectedImageHeight)
+        animatedImage.frame = CGRect(x: 0, y: 0, width: selectedImageWidth, height: selectedImageHeight)
+        animatedImage.cornerRadius = 10
+        animatedImage.masksToBounds = true
         
         backgroundImageLayer = CALayer()
         backgroundImageLayer?.isHidden = true
         backgroundImageLayer?.contents = backgroundImage.cgImage
-        backgroundImageLayer?.frame = CGRect(x: 0, y: 0, width: 100, height: selectedImageHeight)
-        backgroundImageLayer?.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
+        backgroundImageLayer?.frame = CGRect(x: 0, y: 0, width: 100, height: selectedImageHeight + heightForNorch)
+        backgroundImageLayer?.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin - marginForNorch)
         
         containerView.addSubview(toView)
         containerView.layer.addSublayer(backgroundImageLayer ?? CALayer())
@@ -87,7 +105,7 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         animatedImage.add(flight, forKey: nil)
-        animatedImage.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - 40)
+        animatedImage.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         
         transitionContext.completeTransition(true)
         fromView.removeFromSuperview()
