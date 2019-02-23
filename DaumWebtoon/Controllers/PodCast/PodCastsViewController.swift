@@ -48,6 +48,7 @@ class PodCastsViewController: UIViewController {
         miniPlayerViewController?.view.frame = CGRect(x: 0, y: view.bounds.height - 80,
                                                      width: view.bounds.width, height: 80)
         miniPlayerViewController?.view.isHidden = true
+        miniPlayerViewController?.view?.tag = 100
         
         window?.addSubview(miniPlayerViewController?.view ?? UIView())
     }

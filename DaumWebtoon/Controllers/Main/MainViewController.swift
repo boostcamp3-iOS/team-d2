@@ -144,7 +144,6 @@ extension MainViewController {
         scrollView.addSubview(scrollContentView)
         setScrollViewLayout()
         setScrollViewProperties()
-        setupEdgeGesture()
     }
     
     func setScrollViewLayout() {
@@ -170,15 +169,7 @@ extension MainViewController {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
     }
-    
-    func setupEdgeGesture() {
-        let screenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self,
-                                                                              action: #selector(handleScreenEdgePanGesture(_:)))
-        screenEdgePanGestureRecognizer.edges = UIRectEdge.right
-        screenEdgePanGestureRecognizer.delegate = self
-        scrollView.addGestureRecognizer(screenEdgePanGestureRecognizer)
-    }
-    
+
     // MARK: Tab Bar View Methods
     func addTabBarView() {
         tabBarView.dataSource = self
@@ -221,6 +212,16 @@ extension MainViewController {
         
         view.addSubview(slidePanelBaseView)
         view.bringSubviewToFront(slidePanelBaseView)
+    }
+    
+    func hideMiniPlayer() {
+        let window = UIApplication.shared.keyWindow
+        window?.viewWithTag(100)?.isHidden = true
+    }
+    
+    func showMiniPlayer() {
+        let window = UIApplication.shared.keyWindow
+        window?.viewWithTag(100)?.isHidden = false
     }
     
     func removeSlidePanelView() {
@@ -365,38 +366,9 @@ extension MainViewController {
         UIView.animate(withDuration: 0.5) {
             self.slidePanelBaseView.frame.origin.x = 0
         }
-    }
-    
-    @objc func handleScreenEdgePanGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
-        let translation = recognizer.translation(in: view)
         
-        switch recognizer.state {
-        case .changed:
-            UIView.animate(withDuration: 0.2) {
-                self.slidePanelBaseView.center = CGPoint(x: self.slidePanelBaseView.center.x + translation.x, y: self.slidePanelBaseView.center.y)
-                recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
-            }
-        case .ended:
-            if self.slidePanelBaseView.frame.origin.x < view.frame.size.width / 2 {
-                UIView.animate(withDuration: 0.6, animations: {
-                    self.slidePanelBaseView.frame.origin.x = 0
-                    recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
-                })
-            } else {
-                UIView.animate(withDuration: 0.6, animations: {
-                    self.slidePanelBaseView.frame.origin.x = self.baseViewMaxX
-                    recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
-                }) { (success) in
-                    if success {
-                        self.removeSlidePanelView()
-                        self.setupSlidePanelView()
-                    }
-                }
-            }
-        default: print("default")
-        }
+        hideMiniPlayer()
     }
-    
 }
 
 // MARK :- SlidePanelView Delegate
@@ -406,6 +378,7 @@ extension MainViewController: SlidePanelViewDelegate {
             self.slidePanelBaseView.frame.origin.x = self.baseViewMaxX
         }) { (success) in
             if success {
+                self.showMiniPlayer()
                 self.removeSlidePanelView()
                 self.setupSlidePanelView()
             }
@@ -413,6 +386,7 @@ extension MainViewController: SlidePanelViewDelegate {
     }
     
     func panGestureDraggingEnded() {
+        showMiniPlayer()
         removeSlidePanelView()
         setupSlidePanelView()
     }
