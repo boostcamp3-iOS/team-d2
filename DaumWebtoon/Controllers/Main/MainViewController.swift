@@ -341,6 +341,14 @@ extension MainViewController {
     @objc func onDidChageContentOffset(_ notification: Notification) {
         tabBarViewCenterYAnchorConstraint?.constant = -tableViewInsetTop - MainCommon.shared.contentOffset
         tabBarViewContainer.updateConstraints()
+        let topLimit = menuViewHeight + tabBarViewHeight + UIApplication.shared.statusBarFrame.height - (scrollView.frame.height / 2)
+        guard let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant else { return }
+        updateHeaderViewAlpha(topLimit: topLimit, currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
+    }
+    
+    func updateHeaderViewAlpha(topLimit: CGFloat, currentTabBarViewCenterYConstant: CGFloat) {
+        let headerViewHeight = -topLimit
+        headerView.alpha = (currentTabBarViewCenterYConstant - topLimit) / headerViewHeight
     }
     
     @objc func searchTapped(_ sender: UIButton) {
