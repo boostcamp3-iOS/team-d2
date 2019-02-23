@@ -111,7 +111,7 @@ class MiniPlayerViewController: UIViewController {
     @objc func timeInterval(){
         audioService.timeInterval()
     }
-    
+
     @IBAction func playPauseDidTapped(_ sender: UIButton) {
         audioService.togglePlayPause()
         

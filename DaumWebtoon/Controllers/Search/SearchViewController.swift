@@ -29,7 +29,6 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         fetchRecommandationPodcast()
-        
         setupViews()
     }
     
