@@ -68,6 +68,7 @@ class EpisodeModalViewController: UIViewController {
         FetchImageService.shared.execute(imageUrl: episode.image) { [weak self] (image) in
             guard let self = self else { return }
             self.episodeImage.image = image
+            self.episodeImage.roundedCorner()
         }
     }
     
