@@ -43,6 +43,13 @@ class PodCastsViewController: UIViewController {
     private func setupMiniPlayer() {
         let window = UIApplication.shared.keyWindow
         
+        if let miniPlayerView = window?.viewWithTag(100) {
+            miniPlayerViewController = window?.rootViewController as? MiniPlayerViewController
+            miniPlayerViewController?.delegate = self
+            miniPlayerViewController?.view = miniPlayerView
+            return
+        }
+        
         miniPlayerViewController = UIStoryboard(name: "MiniPlayer", bundle: nil).instantiateViewController(withIdentifier: "MiniPlayer") as? MiniPlayerViewController
         miniPlayerViewController?.delegate = self
         miniPlayerViewController?.view.frame = CGRect(x: 0, y: view.bounds.height - 80,
@@ -106,7 +113,7 @@ extension PodCastsViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width / 3 - 4, height: collectionView.frame.size.width / 3)
+        return CGSize(width: collectionView.frame.size.width / 3 - 4, height: collectionView.frame.size.width / 3 + 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -216,6 +223,10 @@ extension PodCastsViewController: UICollectionViewDelegate {
             setupMiniPlayer()
         }
         
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = miniPlayerViewController
+        appDelegate?.window??.makeKeyAndVisible()
+        
         miniPlayerViewController?.view.isHidden = false
         miniPlayerViewController?.episode = episode
     }
@@ -223,6 +234,11 @@ extension PodCastsViewController: UICollectionViewDelegate {
 
 extension PodCastsViewController: MiniPlayerDelegate {
     func removeMiniPlayer() {
+        let window = UIApplication.shared.keyWindow
+        
         miniPlayerViewController = nil
+        miniPlayerViewController?.view = nil
+        window?.viewWithTag(100)?.removeFromSuperview()
+        window?.rootViewController = nil
     }
 }
