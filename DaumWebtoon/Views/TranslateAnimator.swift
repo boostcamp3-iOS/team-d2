@@ -36,7 +36,8 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         ],
         [   initialOrigin,
-            CGPoint(x: containerWidth / 2, y: containerHeight / 2),
+            CGPoint(x: containerWidth / 2 + 40, y: containerHeight / 2),
+            CGPoint(x: containerWidth / 2 + 20, y: containerHeight / 2 - 100),
             CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         ]
     ]
@@ -98,10 +99,10 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             flight.keyTimes = [0.0, 1.0]
         } else if selectedCellOriginY >= containerView.frame.height / 4 && selectedCellOriginY < containerView.frame.height / 2 + 100 {
             flight.values = flightValues[1].map { NSValue(cgPoint: $0) }
-            flight.keyTimes = [0.0, 0.3, 1.0]
+            flight.keyTimes = [0.0, 0.5, 1.0]
         } else {
             flight.values = flightValues[2].map { NSValue(cgPoint: $0) }
-            flight.keyTimes = [0.0, 0.2, 1.0]
+            flight.keyTimes = [0.0, 0.4, 0.6, 1.0]
         }
         
         animatedImage.add(flight, forKey: nil)
