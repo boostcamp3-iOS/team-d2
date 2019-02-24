@@ -151,14 +151,15 @@ extension ContentViewController: UITableViewDelegate {
         cell.alpha = 0
         if indexPath.row < 10 {
             UIView.animate(
-                withDuration: 0.1,
+                withDuration: 0.5,
                 delay: 0.05 * Double(indexPath.row),
                 options: [],
                 animations: {
                     cell.alpha = 1
             }, completion: nil)
         } else {
-            UIView.animate(withDuration: 0.1) {
+            UIView.animate(withDuration: 0.5
+            ) {
                 cell.alpha = 1
             }
         }
