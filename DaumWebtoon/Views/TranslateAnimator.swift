@@ -36,7 +36,8 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         ],
         [   initialOrigin,
-            CGPoint(x: containerWidth / 2, y: containerHeight / 2),
+            CGPoint(x: containerWidth / 2 + 40, y: containerHeight / 2),
+            CGPoint(x: containerWidth / 2 + 20, y: containerHeight / 2 - 100),
             CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         ]
     ]
@@ -88,23 +89,34 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.addSubview(toView)
         containerView.layer.addSublayer(backgroundImageLayer ?? CALayer())
         containerView.layer.addSublayer(animatedImage)
+
+        let groupAnimation = CAAnimationGroup()
+        groupAnimation.duration = duration
+        groupAnimation.delegate = self
+        
+        let scale = CABasicAnimation(keyPath: "transform.scale")
+        scale.fromValue = 0.0
+        scale.toValue = 1.0
+        
+        let fade = CABasicAnimation(keyPath: "opacity")
+        fade.fromValue = 0.0
+        fade.toValue = 1.0
         
         let flight = CAKeyframeAnimation(keyPath: "position")
-        flight.delegate = self
-        flight.duration = duration
-        
         if selectedCellOriginY < containerView.frame.height / 4 {
             flight.values = flightValues[0].map { NSValue(cgPoint: $0) }
             flight.keyTimes = [0.0, 1.0]
         } else if selectedCellOriginY >= containerView.frame.height / 4 && selectedCellOriginY < containerView.frame.height / 2 + 100 {
             flight.values = flightValues[1].map { NSValue(cgPoint: $0) }
-            flight.keyTimes = [0.0, 0.3, 1.0]
+            flight.keyTimes = [0.0, 0.5, 1.0]
         } else {
             flight.values = flightValues[2].map { NSValue(cgPoint: $0) }
-            flight.keyTimes = [0.0, 0.2, 1.0]
+            flight.keyTimes = [0.0, 0.4, 0.6, 1.0]
         }
         
-        animatedImage.add(flight, forKey: nil)
+        groupAnimation.animations = [scale, flight, fade]
+
+        animatedImage.add(groupAnimation, forKey: nil)
         animatedImage.position = CGPoint(x: containerWidth / 2, y: selectedImageHeight - margin)
         
         transitionContext.completeTransition(true)
