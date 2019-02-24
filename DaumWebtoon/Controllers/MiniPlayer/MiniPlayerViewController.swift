@@ -42,6 +42,7 @@ class MiniPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupPosition()
     }
 
@@ -124,9 +125,8 @@ class MiniPlayerViewController: UIViewController {
     @IBAction func exitTapped(_ sender: UIButton) {
         audioService.stopAudio()
         
-        view.removeFromSuperview()
-        dismiss(animated: true, completion: nil)
         delegate?.removeMiniPlayer()
+        dismiss(animated: true, completion: nil)
     }
 }
 
