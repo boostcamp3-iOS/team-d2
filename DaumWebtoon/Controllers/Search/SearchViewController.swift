@@ -16,8 +16,11 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var keywordInput: UITextField!
     @IBOutlet weak var search: UIButton!
     
+    var interactor: Interactor?
+    
     private let collectionCellIdentifier = "recommandCell"
     private let tableviewCellIdentifier = "tableviewCell"
+    private var isFirst = true
     private var genres: [Genre]?
     private var podcasts: [PodCastSearch]?
     private var shownIndexPaths = [IndexPath]()
@@ -41,12 +44,15 @@ class SearchViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-   
-        UIView.animate(withDuration: 0.6, animations: {
-            self.halfView.frame.origin.y -= self.view.bounds.height / 2
-            self.bottomAnchor = self.halfView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-            self.bottomAnchor?.isActive = true
-        })
+        
+        if isFirst {
+            UIView.animate(withDuration: 0.6, animations: {
+                self.halfView.frame.origin.y -= self.view.bounds.height / 2
+                self.bottomAnchor = self.halfView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+                self.bottomAnchor?.isActive = true
+            })
+            isFirst = false
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,12 +66,13 @@ class SearchViewController: UIViewController {
         keywordInput.delegate = self
         recommandCollectionView.dataSource = self
         recommandCollectionView.delegate = self
+        recommandCollectionView.collectionViewLayout = CenterAlignedCollectionViewFlowLayout()
         podcastsTableView.dataSource = self
         podcastsTableView.delegate = self
         
         hideMiniPlayer()
         setupBottomHalfView()
-        setupGesture()
+        setupGestures()
     }
     
     private func hideMiniPlayer() {
@@ -78,11 +85,15 @@ class SearchViewController: UIViewController {
         window?.viewWithTag(100)?.isHidden = false
     }
     
-    private func setupGesture() {
+    private func setupGestures() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         keywordInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        let edgeGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdgeGesture(_:)))
+        edgeGesture.edges = .left
+        view.addGestureRecognizer(edgeGesture)
     }
     
     private func setupBottomHalfView() {
@@ -129,6 +140,37 @@ class SearchViewController: UIViewController {
     }
     
     // MARK :- event handling
+    @objc func handleEdgeGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+        let percentThreshold: CGFloat = 0.3
+        
+        let translation = recognizer.translation(in: view)
+        let horizontalMovement = translation.x / view.bounds.width
+        let rightMovement = fmaxf(Float(horizontalMovement), 0.0)
+        let rightMovementPercent = fminf(rightMovement, 1.0)
+        let progress = CGFloat(rightMovementPercent)
+        
+        guard let interactor = interactor else { return }
+        
+        switch recognizer.state {
+        case .began:
+            interactor.hasStarted = true
+            dismiss(animated: true, completion: nil)
+        case .changed:
+            interactor.shouldFinish = progress > percentThreshold
+            interactor.update(progress)
+        case .cancelled:
+            interactor.hasStarted = false
+            interactor.cancel()
+        case .ended:
+            interactor.hasStarted = false
+            interactor.shouldFinish
+                ? interactor.finish()
+                : interactor.cancel()
+        default:
+            break
+        }
+    }
+    
     @objc func keyboardWillAppear() {
         podcastsTableView.isHidden = false
         hideHalfBottomView()
@@ -287,7 +329,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         recommandTitle.text = genre.name
         recommandTitle.sizeToFit()
         
-        return CGSize(width: recommandTitle.frame.width + 18, height: 28)
+        return CGSize(width: recommandTitle.frame.width + 20, height: 28)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
