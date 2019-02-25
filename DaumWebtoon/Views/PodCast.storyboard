@@ -29,52 +29,48 @@
                                 <rect key="frame" x="12" y="260" width="390" height="636"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="4co-RC-DiP">
-                                    <size key="itemSize" width="124" height="158"/>
+                                    <size key="itemSize" width="124" height="178"/>
                                     <size key="headerReferenceSize" width="50" height="390"/>
                                     <size key="footerReferenceSize" width="50" height="80"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PodCastCell" id="L2g-4F-aG0" customClass="PodCastCollectionViewCell" customModule="DaumWebtoon" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="390" width="124" height="158"/>
+                                        <rect key="frame" x="0.0" y="390" width="124" height="178"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="124" height="158"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="124" height="178"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eex-uL-ebc">
-                                                    <rect key="frame" x="0.0" y="0.0" width="124" height="116"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="124" height="124"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="eex-uL-ebc" secondAttribute="height" multiplier="30:30" id="bob-AK-Rnb"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="타이틀" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntD-qf-quZ">
-                                                    <rect key="frame" x="2" y="119" width="120" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="cuV-3O-IUk"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="길이" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8nG-Vw-vuf">
-                                                    <rect key="frame" x="2" y="137" width="22.5" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="16" id="kfo-nG-C1v"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="2" y="155" width="23" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="타이틀" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntD-qf-quZ">
+                                                    <rect key="frame" x="2" y="134" width="120" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="eex-uL-ebc" secondAttribute="trailing" id="1C9-z2-wSM"/>
-                                            <constraint firstItem="8nG-Vw-vuf" firstAttribute="top" secondItem="ntD-qf-quZ" secondAttribute="bottom" constant="2" id="9M5-k9-V4s"/>
-                                            <constraint firstAttribute="trailing" secondItem="ntD-qf-quZ" secondAttribute="trailing" constant="2" id="L5k-AO-H9S"/>
+                                            <constraint firstItem="ntD-qf-quZ" firstAttribute="leading" secondItem="L2g-4F-aG0" secondAttribute="leading" constant="2" id="62p-bA-Ucd"/>
+                                            <constraint firstItem="8nG-Vw-vuf" firstAttribute="leading" secondItem="ntD-qf-quZ" secondAttribute="leading" id="IlE-w9-x2D"/>
                                             <constraint firstItem="eex-uL-ebc" firstAttribute="top" secondItem="L2g-4F-aG0" secondAttribute="top" id="M9s-ZE-8M1"/>
+                                            <constraint firstItem="ntD-qf-quZ" firstAttribute="top" secondItem="eex-uL-ebc" secondAttribute="bottom" constant="10" id="MKD-Ce-pBa"/>
                                             <constraint firstItem="eex-uL-ebc" firstAttribute="leading" secondItem="L2g-4F-aG0" secondAttribute="leading" id="NZq-b6-Xgc"/>
-                                            <constraint firstAttribute="bottom" secondItem="8nG-Vw-vuf" secondAttribute="bottom" constant="5" id="Rob-nJ-V9Q"/>
-                                            <constraint firstItem="ntD-qf-quZ" firstAttribute="top" secondItem="eex-uL-ebc" secondAttribute="bottom" constant="3" id="WG5-6N-ISw"/>
-                                            <constraint firstItem="8nG-Vw-vuf" firstAttribute="leading" secondItem="ntD-qf-quZ" secondAttribute="leading" id="awN-WH-fer"/>
-                                            <constraint firstItem="ntD-qf-quZ" firstAttribute="leading" secondItem="L2g-4F-aG0" secondAttribute="leading" constant="2" id="use-w2-VIY"/>
+                                            <constraint firstAttribute="trailing" secondItem="ntD-qf-quZ" secondAttribute="trailing" constant="2" id="gpm-5G-gHo"/>
+                                            <constraint firstItem="8nG-Vw-vuf" firstAttribute="top" secondItem="ntD-qf-quZ" secondAttribute="bottom" constant="5" id="vVD-RB-gNi"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="podcastDuration" destination="8nG-Vw-vuf" id="fc2-4P-r5d"/>
@@ -134,7 +130,7 @@
                                     </connections>
                                 </collectionReusableView>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="FooterCell" id="WQd-KQ-gpZ" customClass="PodCastFooterCollectionReusableView" customModule="DaumWebtoon" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="548" width="390" height="80"/>
+                                    <rect key="frame" x="0.0" y="568" width="390" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
