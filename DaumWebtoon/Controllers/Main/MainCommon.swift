@@ -12,4 +12,6 @@ class MainCommon {
     static let shared = MainCommon()
     private init() { }
     var contentOffset: CGFloat = 0
+    var lastChangedGenre: MainViewController.Genre = .webDesign
+    var lastChangedGenreOffset: CGFloat = 0
 }
