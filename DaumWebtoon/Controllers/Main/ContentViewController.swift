@@ -103,6 +103,11 @@ extension ContentViewController {
         if (contentOffset <= 0) || (MainCommon.shared.contentOffset == -tableView.contentInset.top && contentOffset > 0) {
             tableView.setContentOffset(CGPoint(x: 0, y: MainCommon.shared.contentOffset), animated: false)
         }
+        if let genreRawValue = genre {
+            guard let genre = MainViewController.Genre(rawValue: genreRawValue),
+                genre == MainCommon.shared.lastChangedGenre else { return }
+            tableView.setContentOffset(CGPoint(x: 0, y: MainCommon.shared.lastChangedGenreOffset), animated: false)
+        }
     }
 }
 
@@ -191,6 +196,13 @@ extension ContentViewController: UIScrollViewDelegate {
     
     func notifyDidFinishChangingContentOffset() {
         let contentOffset = tableView.contentOffset.y
+        
+        if let genreRawValue = genre {
+            guard let genre = MainViewController.Genre(rawValue: genreRawValue) else { return }
+            MainCommon.shared.lastChangedGenre = genre
+            MainCommon.shared.lastChangedGenreOffset = tableView.contentOffset.y
+        }
+        
         if -tableView.contentInset.top <= contentOffset,
             contentOffset <= 0 {
             MainCommon.shared.contentOffset = contentOffset
