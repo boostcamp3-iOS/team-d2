@@ -66,6 +66,7 @@ class SearchViewController: UIViewController {
         keywordInput.delegate = self
         recommandCollectionView.dataSource = self
         recommandCollectionView.delegate = self
+        recommandCollectionView.collectionViewLayout = CenterAlignedCollectionViewFlowLayout()
         podcastsTableView.dataSource = self
         podcastsTableView.delegate = self
         
@@ -328,7 +329,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         recommandTitle.text = genre.name
         recommandTitle.sizeToFit()
         
-        return CGSize(width: recommandTitle.frame.width + 18, height: 28)
+        return CGSize(width: recommandTitle.frame.width + 20, height: 28)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
