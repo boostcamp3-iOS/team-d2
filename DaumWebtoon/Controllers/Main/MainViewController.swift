@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
         case vrAndAr = 139
         case startup = 157
     }
+    private let interactor = Interactor()
     private let genres: [Genre?] = [.startup, .webDesign, .programming, .vrAndAr, .startup, .webDesign]
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
     private let menuViewHeight: CGFloat = 70
@@ -363,7 +364,9 @@ extension MainViewController {
     }
     
     @objc func searchTapped(_ sender: UIButton) {
-        let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "Search")
+        guard let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "Search") as? SearchViewController else { return }
+        searchViewController.transitioningDelegate = self
+        searchViewController.interactor = interactor
         let currentContentOffset = MainCommon.shared.contentOffset
         present(searchViewController, animated: false, completion: {
             MainCommon.shared.contentOffset = currentContentOffset
@@ -498,5 +501,15 @@ extension MainViewController: TabBarDelegate {
 extension MainViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+extension MainViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissAnimator()
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
     }
 }

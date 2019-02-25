@@ -107,8 +107,8 @@
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ndf-WQ-9Lh">
                                 <rect key="frame" x="0.0" y="412" width="375" height="400"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="podcast recommandation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5x9-2j-OqP">
-                                        <rect key="frame" x="30" y="30" width="222" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="팟 캐스트 추천" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5x9-2j-OqP">
+                                        <rect key="frame" x="30" y="30" width="102" height="22"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -131,7 +131,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4L-Tg-Ihx" userLabel="UpdateRecommand Title">
-                                                            <rect key="frame" x="3" y="3" width="72" height="25"/>
+                                                            <rect key="frame" x="4" y="3" width="70" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="fnq-ta-TCI"/>
                                                             </constraints>
@@ -143,9 +143,9 @@
                                                 </view>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="v4L-Tg-Ihx" secondAttribute="trailing" constant="3" id="4lt-3V-b3i"/>
+                                                    <constraint firstAttribute="trailing" secondItem="v4L-Tg-Ihx" secondAttribute="trailing" constant="4" id="4lt-3V-b3i"/>
                                                     <constraint firstItem="v4L-Tg-Ihx" firstAttribute="centerY" secondItem="AUR-ji-Tkm" secondAttribute="centerY" id="UHa-tw-Zt5"/>
-                                                    <constraint firstItem="v4L-Tg-Ihx" firstAttribute="leading" secondItem="AUR-ji-Tkm" secondAttribute="leading" constant="3" id="pfV-2H-PAc"/>
+                                                    <constraint firstItem="v4L-Tg-Ihx" firstAttribute="leading" secondItem="AUR-ji-Tkm" secondAttribute="leading" constant="4" id="pfV-2H-PAc"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="recommandTitle" destination="v4L-Tg-Ihx" id="4p2-eJ-zd4"/>
@@ -159,8 +159,8 @@
                                     <constraint firstItem="5x9-2j-OqP" firstAttribute="top" secondItem="Ndf-WQ-9Lh" secondAttribute="top" constant="30" id="Nwn-pG-Dnb"/>
                                     <constraint firstItem="5x9-2j-OqP" firstAttribute="leading" secondItem="Ndf-WQ-9Lh" secondAttribute="leading" constant="30" id="cae-a3-7jG"/>
                                     <constraint firstItem="qbk-je-wfe" firstAttribute="top" secondItem="5x9-2j-OqP" secondAttribute="bottom" constant="15" id="gAx-Li-9Fh"/>
-                                    <constraint firstAttribute="trailing" secondItem="qbk-je-wfe" secondAttribute="trailing" constant="30" id="hd2-7V-9BL"/>
-                                    <constraint firstItem="qbk-je-wfe" firstAttribute="leading" secondItem="Ndf-WQ-9Lh" secondAttribute="leading" constant="30" id="sBh-y9-iRx"/>
+                                    <constraint firstAttribute="trailing" secondItem="qbk-je-wfe" secondAttribute="trailing" constant="25" id="hd2-7V-9BL"/>
+                                    <constraint firstItem="qbk-je-wfe" firstAttribute="leading" secondItem="Ndf-WQ-9Lh" secondAttribute="leading" constant="25" id="sBh-y9-iRx"/>
                                     <constraint firstAttribute="bottom" secondItem="qbk-je-wfe" secondAttribute="bottom" constant="25" id="upx-RL-e3t"/>
                                 </constraints>
                             </view>
