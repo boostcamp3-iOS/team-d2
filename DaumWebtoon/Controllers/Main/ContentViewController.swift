@@ -88,8 +88,9 @@ extension ContentViewController {
         podCastsViewController.transitioningDelegate = self
         podCastsViewController.podcastId = channels[indexPath.row].id
         podCastsViewController.headerImage = selectedImage?.image
+        let currentContentOffset = MainCommon.shared.contentOffset
         present(podCastsViewController, animated: true, completion: {
-            
+            MainCommon.shared.contentOffset = currentContentOffset
         })
     }
     
