@@ -88,8 +88,9 @@ extension ContentViewController {
         podCastsViewController.transitioningDelegate = self
         podCastsViewController.podcastId = channels[indexPath.row].id
         podCastsViewController.headerImage = selectedImage?.image
+        let currentContentOffset = MainCommon.shared.contentOffset
         present(podCastsViewController, animated: true, completion: {
-            
+            MainCommon.shared.contentOffset = currentContentOffset
         })
     }
     
@@ -101,6 +102,11 @@ extension ContentViewController {
         let contentOffset = tableView.contentOffset.y
         if (contentOffset <= 0) || (MainCommon.shared.contentOffset == -tableView.contentInset.top && contentOffset > 0) {
             tableView.setContentOffset(CGPoint(x: 0, y: MainCommon.shared.contentOffset), animated: false)
+        }
+        if let genreRawValue = genre {
+            guard let genre = MainViewController.Genre(rawValue: genreRawValue),
+                genre == MainCommon.shared.lastChangedGenre else { return }
+            tableView.setContentOffset(CGPoint(x: 0, y: MainCommon.shared.lastChangedGenreOffset), animated: false)
         }
     }
 }
@@ -190,6 +196,13 @@ extension ContentViewController: UIScrollViewDelegate {
     
     func notifyDidFinishChangingContentOffset() {
         let contentOffset = tableView.contentOffset.y
+        
+        if let genreRawValue = genre {
+            guard let genre = MainViewController.Genre(rawValue: genreRawValue) else { return }
+            MainCommon.shared.lastChangedGenre = genre
+            MainCommon.shared.lastChangedGenreOffset = tableView.contentOffset.y
+        }
+        
         if -tableView.contentInset.top <= contentOffset,
             contentOffset <= 0 {
             MainCommon.shared.contentOffset = contentOffset
