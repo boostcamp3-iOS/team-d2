@@ -32,6 +32,7 @@ class ChannelTableViewCell: UITableViewCell {
     }
     
     func setThumbnailImageViewLayout() {
+        thumbnailImageView.roundedCorner()
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         thumbnailImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true

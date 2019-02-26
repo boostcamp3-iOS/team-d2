@@ -9,9 +9,10 @@
 import UIKit
 import AVFoundation
 
-protocol EpisodeModalViewDelegate: class {
-    func playPauseAudio(state: Bool)
-    func showHeaderImageView()
+@objc protocol EpisodeModalViewDelegate: class {
+    @objc optional func playPauseAudio(state: Bool)
+    @objc optional func showHeaderImageView()
+    @objc optional func showPlayPauseState(isSelected: Bool)
 }
 
 class EpisodeModalViewController: UIViewController {
@@ -22,121 +23,85 @@ class EpisodeModalViewController: UIViewController {
     @IBOutlet weak var episodeTotalTime: UILabel!
     @IBOutlet weak var episodeUpdateTime: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var loading: UILabel!
+    @IBOutlet weak var playPauseButton: UIButton!
     
     weak var delegate: EpisodeModalViewDelegate?
     
     var episode: Episode?
+    var playButtonSelected = false
     
-    private let audioSession = AVAudioSession.sharedInstance()
     private let dbService = DatabaseService()
-    private let audioService = FetchAudioService.shared
+    private let audioService = AudioService.shared
     
     private var audioUrl: String?
-    private var buttonSelected = false
     private var audioTimer : Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupAudioSession()
         setupFavoriteViewState()
-        
-        initializeEpisode()
-        initializeViews()
-        
-        addRecentEpisode()
+        setupPlayPauseState()
+        setupEpisode()
+        setupViews()
+        setupAudio()
     }
     
-    private func initializeViews() {
+    private func togglePlayPause() {
+        audioService.togglePlayPause()
+    }
+    
+    private func setupPlayPauseState() {
+        playPauseButton.isSelected = playButtonSelected
+    }
+    
+    private func setupViews() {
         let gestureRecognizer = UIPanGestureRecognizer(target: self,
                                                        action: #selector(handlePanGesture(_:)))
         view.addGestureRecognizer(gestureRecognizer)
     }
     
-    private func initializeEpisode() {
+    private func setupEpisode() {
         guard let episode = self.episode else { return }
         
-        let (h,m,s) = episode.duration.secondsToHoursMinutesSeconds()
-        
-        audioUrl = episode.audio
         episodeTitle.text = episode.title
-        episodeTotalTime.text = "\(h):\(m):\(s)"
-        
-        audioService.execute(audioUrl: episode.audio) { [weak self] (status) in
-            guard let self = self else { return }
-
-            if status == AudioFetchStatus.success {
-                self.episodeProgress.maximumValue = self.audioService.getMaximumValue()
-                self.episodeProgress.minimumValue = 0
-                self.episodeProgress.value = Float(self.audioService.getCurrentValue())
-            }
-        }
-        
         FetchImageService.shared.execute(imageUrl: episode.image) { [weak self] (image) in
             guard let self = self else { return }
             self.episodeImage.image = image
+            self.episodeImage.roundedCorner()
         }
     }
     
-    private func addRecentEpisode() {
-        guard let episode = self.episode else { return }
-        dbService.addRecentEpisode(with: episode)
+    private func setupAudio() {
+        audioService.dataSource = self
+        setupAudioTimer()
     }
     
-    // MARK :- private methods
+    private func setupAudioTimer() {
+        audioTimer = Timer(timeInterval: 0.001, target: self, selector: #selector(EpisodeModalViewController.timeInterval), userInfo: nil, repeats: true)
+        RunLoop.current.add(audioTimer!, forMode: RunLoop.Mode.common)
+    }
+    
     private func setupFavoriteViewState() {
         guard let episode = self.episode else { return }
         let isFavorite = dbService.isFavoriteEpisode(of: episode)
         favoriteButton.isSelected = isFavorite
     }
-    
-    private func setupAudioSession() {
-        do {
-            try audioSession.setCategory(AVAudioSession.Category.playback,
-                                    mode: .default,
-                                    policy: .longForm,
-                                    options: [])
-            try audioSession.setActive(true, options: [])
-        } catch let error {
-            fatalError("*** Unable to set up the audio session: \(error.localizedDescription) ***")
-        }
-    }
 
-    private func makeAndFireTimer() {
-        self.audioTimer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { [weak self] (timer : Timer) in
-            guard
-                let self = self,
-                self.episodeProgress.isTracking == false else { return }
-
-            self.updateEpisodeTime(time: self.audioService.getCurrentValue())
-            self.episodeProgress.value = Float(self.audioService.getCurrentValue())
-        })
-    }
-
-    private func updateEpisodeTime(time: TimeInterval?) {
-        guard let time = time else { return }
-        episodeUpdateTime.text = time.stringFromTimeInterval()
-    }
-
-    private func invalidateTimer() {
-        audioTimer?.invalidate()
-        audioTimer = nil
-    }
-
-    private func playAudio() {
-        audioService.play()
-    }
-
-    private func pauseAudio() {
-        audioService.pause()
-    }
-    
     private func dismissModal() {
-        delegate?.showHeaderImageView()
+        delegate?.showHeaderImageView?()
         dismiss(animated: true, completion: nil)
     }
     
     // MARK :- event handling
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        audioService.progressValueChanged(seconds: sender.value)
+    }
+    
+    @objc func timeInterval(){
+        audioService.timeInterval()
+    }
+    
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let touchPoint = recognizer.location(in: view?.window)
         let translation = recognizer.translation(in: view)
@@ -167,16 +132,9 @@ class EpisodeModalViewController: UIViewController {
     }
     
     @IBAction func playPauseTapped(_ sender: UIButton) {
-        if sender.isSelected {
-            pauseAudio()
-            invalidateTimer()
-        } else {
-            playAudio()
-            makeAndFireTimer()
-        }
-        
+        togglePlayPause()
         sender.isSelected = !sender.isSelected
-        buttonSelected = !sender.isSelected
+        delegate?.showPlayPauseState?(isSelected: sender.isSelected)
     }
     
     @IBAction func likeTapped(_ sender: UIButton) {
@@ -194,5 +152,22 @@ class EpisodeModalViewController: UIViewController {
     
     @IBAction func downTapped(_ sender: UIButton) {
         dismissModal()
+    }
+}
+
+extension EpisodeModalViewController: AudioServiceDataSource {
+    func initializeTimeProgress(minimumTime: Float, maximumTime: Float) {
+        episodeProgress.minimumValue = minimumTime
+        episodeProgress.maximumValue = maximumTime
+    }
+    
+    func setTimeProgressInTimeInterval(time: Float, duration: String, currentTime: String) {
+        episodeProgress.value = time
+        episodeUpdateTime.text = currentTime
+        episodeTotalTime.text = duration
+    }
+    
+    func showLoading(alpha: CGFloat) {
+        loading.alpha = alpha
     }
 }

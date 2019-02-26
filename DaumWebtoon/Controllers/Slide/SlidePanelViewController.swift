@@ -54,10 +54,12 @@ class SlidePanelViewController: UIViewController {
     // MARK :- event handling
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: containerView)
-        print(self.view.frame.origin.x)
         switch recognizer.state {
         case .changed:
             UIView.animate(withDuration: 0.2) {
+                // MARK: - 왼쪽 슬라이드 제스처 막는 부분
+                guard self.view.frame.origin.x >= 0 else { return }
+                
                 self.view.center = CGPoint(x: self.view.center.x + translation.x, y: self.view.center.y)
                 recognizer.setTranslation(CGPoint.zero, in: self.view)
             }
@@ -89,8 +91,11 @@ class SlidePanelViewController: UIViewController {
 
 extension SlidePanelViewController: DetailEpisodeDelegate {
     func touchedEpisode(with episode: Episode) {
-        guard let episodeVC = UIStoryboard(name: "PodCast", bundle: nil).instantiateViewController(withIdentifier: "Episode") as? EpisodeModalViewController else { return }
-        episodeVC.episode = episode
-        self.present(episodeVC, animated: true, completion: nil)
+        let window = UIApplication.shared.keyWindow
+        guard let miniPlayerViewController = UIStoryboard(name: "MiniPlayer", bundle: nil).instantiateViewController(withIdentifier: "MiniPlayer") as? MiniPlayerViewController else { return }
+        miniPlayerViewController.view.frame = CGRect(x: 0, y: view.bounds.height - 80, width: view.bounds.width, height: 80)
+        miniPlayerViewController.episode = episode
+        window?.addSubview(miniPlayerViewController.view)
+        delegate?.dismiss()
     }
 }

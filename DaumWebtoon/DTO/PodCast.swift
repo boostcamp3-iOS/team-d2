@@ -14,8 +14,10 @@ struct PodCast: Codable {
     let description: String
     let publisher: String
     let episodes: [Episode]
+    let nextEpisodePubDate: Int?
 
     enum CodingKeys: String, CodingKey {
         case title, description, publisher, episodes
+        case nextEpisodePubDate = "next_episode_pub_date"
     }
 }

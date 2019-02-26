@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController {
     // MARK: - Properties
-    private let tabContents: [TabContent] = [
+    let tabContents: [TabContent] = [
         TabContent(tabColor: UIColor.blue, tabTitle: "", tabIndex: 0),
         TabContent(tabColor: UIColor.red, tabTitle: "웹디자인", tabIndex: 1),
         TabContent(tabColor: UIColor.brown, tabTitle: "프로그래밍", tabIndex: 2),
@@ -18,19 +18,21 @@ class MainViewController: UIViewController {
         TabContent(tabColor: UIColor.blue, tabTitle: "스타트업", tabIndex: 4),
         TabContent(tabColor: UIColor.red, tabTitle: "", tabIndex: 5)
     ]
-    private enum Genre: Int {
+    enum Genre: Int {
         case webDesign = 140
         case programming = 143
         case vrAndAr = 139
         case startup = 157
     }
-    private let genres: [Genre?] = [nil, .webDesign, .programming, .vrAndAr, .startup, nil]
-    private var scrollDirection: Direction?
+    private let interactor = Interactor()
+    private let genres: [Genre?] = [.startup, .webDesign, .programming, .vrAndAr, .startup, .webDesign]
     private var tabBarViewCenterYAnchorConstraint: NSLayoutConstraint?
-    private var tabBarViewTopAnchorConstraint: NSLayoutConstraint?
-    private let menuViewHeight: CGFloat = 80
+    private let menuViewHeight: CGFloat = 70
     private lazy var tabBarViewWidth: CGFloat = view.frame.width - 20
     private lazy var tabBarViewHeight: CGFloat = 30
+    private lazy var tableViewInsetTop: CGFloat = {
+        return view.frame.height / 2 - menuViewHeight - tabBarViewHeight / 2 - UIApplication.shared.statusBarFrame.height
+    }()
     private var lastContentOffset: CGFloat = 0
     private var contentOffsetInPage: CGFloat = 0
     private let slidePanelViewController = SlidePanelViewController()
@@ -51,20 +53,40 @@ class MainViewController: UIViewController {
     private lazy var menuView = UIView()
     private lazy var tableStackView = UIStackView()
     lazy var headerView = HeaderView()
+    private var contentViewControllers = [ContentViewController]()
+    var isFirstConfigure = true
+    var headerContentsDictionary = [Int: HeaderContent]() {
+        // 컨텐츠를 새로고침 할 때 기존 데이터가 유지되도록 첫번째 세팅인지 확인합니다.
+        willSet {
+            if headerContentsDictionary.count == 4 {
+                isFirstConfigure = false
+            }
+        }
+        didSet {
+            if isFirstConfigure {
+                let emptyTab = 2
+                if headerContentsDictionary.count == tabContents.count - emptyTab {
+                    headerView.configureFirstContent(with: headerContentsDictionary)
+                }
+            }
+            
+        }
+    }
     
     // MARK: Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         addScrollView()
         addMenuView()
-        addTabBarView()
         addTableStackView()
         addContentViewControllers()
+        addTabBarView()
         addHeaderView()
         addSplashView()
         setupSlidePanelView()
+        addContentOffsetNotification()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showCurrentTab(currentIndex: currentIndex)
@@ -99,8 +121,9 @@ extension MainViewController {
     // MARK: Header View Methods
     func addHeaderView() {
         view.addSubview(headerView)
+        headerView.delegate = self
         headerView.symbolView.dataSource = self
-        headerView.configureData(title: "title", with: "heart_active")
+        headerView.configure()
         setHeaderViewLayout()
         // scrollView 가 헤더뷰를 덮도록 앞으로 가져옵니다.
         view.bringSubviewToFront(scrollView)
@@ -122,7 +145,6 @@ extension MainViewController {
         scrollView.addSubview(scrollContentView)
         setScrollViewLayout()
         setScrollViewProperties()
-        setupEdgeGesture()
     }
     
     func setScrollViewLayout() {
@@ -148,15 +170,7 @@ extension MainViewController {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
     }
-    
-    func setupEdgeGesture() {
-        let screenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self,
-                                                                              action: #selector(handleScreenEdgePanGesture(_:)))
-        screenEdgePanGestureRecognizer.edges = UIRectEdge.right
-        screenEdgePanGestureRecognizer.delegate = self
-        scrollView.addGestureRecognizer(screenEdgePanGestureRecognizer)
-    }
-    
+
     // MARK: Tab Bar View Methods
     func addTabBarView() {
         tabBarView.dataSource = self
@@ -177,8 +191,7 @@ extension MainViewController {
         tabBarViewCenterYAnchorConstraint?.priority = .defaultLow
         tabBarViewCenterYAnchorConstraint?.isActive = true
         tabBarViewContainer.centerYAnchor.constraint(lessThanOrEqualTo: view.centerYAnchor).isActive = true
-        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: menuViewHeight + tabBarViewHeight).isActive = true
-        tabBarViewTopAnchorConstraint?.isActive = true
+        tabBarViewContainer.centerYAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: menuViewHeight + (tabBarViewHeight / 2)).isActive = true
     }
     
     func setTabBarViewProperties() {
@@ -200,6 +213,16 @@ extension MainViewController {
         
         view.addSubview(slidePanelBaseView)
         view.bringSubviewToFront(slidePanelBaseView)
+    }
+    
+    func hideMiniPlayer() {
+        let window = UIApplication.shared.keyWindow
+        window?.viewWithTag(100)?.isHidden = true
+    }
+    
+    func showMiniPlayer() {
+        let window = UIApplication.shared.keyWindow
+        window?.viewWithTag(100)?.isHidden = false
     }
     
     func removeSlidePanelView() {
@@ -257,7 +280,7 @@ extension MainViewController {
         menuView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        menuView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        menuView.heightAnchor.constraint(equalToConstant: menuViewHeight).isActive = true
     }
     
     func setupSearchView() {
@@ -267,9 +290,9 @@ extension MainViewController {
         menuView.addSubview(search)
         
         search.translatesAutoresizingMaskIntoConstraints = false
-        search.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        search.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        search.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -50).isActive = true
+        search.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        search.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        search.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -70).isActive = true
         search.centerYAnchor.constraint(equalTo: menuView.centerYAnchor).isActive = true
     }
     
@@ -280,9 +303,9 @@ extension MainViewController {
         menuView.addSubview(hamberger)
         
         hamberger.translatesAutoresizingMaskIntoConstraints = false
-        hamberger.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        hamberger.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        hamberger.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -10).isActive = true
+        hamberger.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        hamberger.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        hamberger.trailingAnchor.constraint(equalTo: menuView.trailingAnchor, constant: -18).isActive = true
         hamberger.centerYAnchor.constraint(equalTo: menuView.centerYAnchor).isActive = true
     }
     
@@ -296,6 +319,15 @@ extension MainViewController {
             tableStackView.addArrangedSubview(contentViewController.view)
             contentViewController.view.translatesAutoresizingMaskIntoConstraints = false
             contentViewController.view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+            contentViewController.tableView.contentInset = UIEdgeInsets(
+                top: tableViewInsetTop,
+                left: 0,
+                bottom: 0,
+                right: 0)
+                // MARK: - For HeaderView
+            contentViewController.delegate = self
+            
+            contentViewControllers.append(contentViewController)
         }
     }
     
@@ -307,48 +339,22 @@ extension MainViewController {
     
     func setTableStackViewLayout() {
         tableStackView.translatesAutoresizingMaskIntoConstraints = false
-        tableStackView.topAnchor.constraint(equalTo: tabBarViewContainer.bottomAnchor).isActive = true
-        tableStackView.bottomAnchor.constraint(equalTo: scrollContentView.bottomAnchor).isActive = true
+        tableStackView.topAnchor.constraint(equalTo: menuView.bottomAnchor, constant: tabBarViewHeight).isActive = true
+        tableStackView.bottomAnchor.constraint(equalTo: scrollContentView.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableStackView.leadingAnchor.constraint(equalTo: scrollContentView.leadingAnchor).isActive = true
         tableStackView.trailingAnchor.constraint(equalTo: scrollContentView.trailingAnchor).isActive = true
         tableStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: CGFloat(tabContents.count)).isActive = true
     }
     
-    // MARK: Pan Gesture Recognizer Methods
-    func addPanGestureRecognizer() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
-        view.addGestureRecognizer(panGestureRecognizer)
-        panGestureRecognizer.delegate = self
+    func addContentOffsetNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onDidChageContentOffset(_:)), name: .didChangeContentOffset, object: nil)
     }
     
-    @objc func didPan(_ sender: UIPanGestureRecognizer) {
-        calculateScrollDirection(sender)
-        moveTabBarViewVertically(sender)
-    }
-    
-    func calculateScrollDirection(_ sender: UIPanGestureRecognizer) {
-        let velocity = sender.velocity(in: scrollView)
-        if abs(velocity.x) > abs(velocity.y) {
-            velocity.x < 0 ? (scrollDirection = .left) : (scrollDirection = .right)
-        } else {
-            velocity.y < 0 ? (scrollDirection = .up) : (scrollDirection = .down)
-        }
-    }
-    
-    func moveTabBarViewVertically(_ sender: UIPanGestureRecognizer) {
-        guard let direction = scrollDirection,
-            let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant,
-            (direction == .up || direction == .down) else { return }
-        let topLimit = menuViewHeight + tabBarViewHeight - (scrollView.frame.height / 2)
-        if currentTabBarViewCenterYConstant >= CGFloat(0), direction == .down {
-            tabBarViewCenterYAnchorConstraint?.constant = 0
-        } else if currentTabBarViewCenterYConstant <= topLimit, direction == .up {
-            tabBarViewCenterYAnchorConstraint?.constant = topLimit
-        } else {
-            let translation = sender.translation(in: scrollView)
-            tabBarViewCenterYAnchorConstraint?.constant = currentTabBarViewCenterYConstant + translation.y
-            sender.setTranslation(CGPoint.zero, in: scrollView)
-        }
+    @objc func onDidChageContentOffset(_ notification: Notification) {
+        tabBarViewCenterYAnchorConstraint?.constant = -tableViewInsetTop - MainCommon.shared.contentOffset
+        tabBarViewContainer.updateConstraints()
+        let topLimit = menuViewHeight + tabBarViewHeight + UIApplication.shared.statusBarFrame.height - (scrollView.frame.height / 2)
+        guard let currentTabBarViewCenterYConstant = tabBarViewCenterYAnchorConstraint?.constant else { return }
         updateHeaderViewAlpha(topLimit: topLimit, currentTabBarViewCenterYConstant: currentTabBarViewCenterYConstant)
     }
     
@@ -358,46 +364,22 @@ extension MainViewController {
     }
     
     @objc func searchTapped(_ sender: UIButton) {
-        let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "Search")
-        present(searchViewController, animated: false, completion: nil)
+        guard let searchViewController = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(withIdentifier: "Search") as? SearchViewController else { return }
+        searchViewController.transitioningDelegate = self
+        searchViewController.interactor = interactor
+        let currentContentOffset = MainCommon.shared.contentOffset
+        present(searchViewController, animated: false, completion: {
+            MainCommon.shared.contentOffset = currentContentOffset
+        })
     }
     
     @objc func hambergerButtonDidTapped(_ sender: UIButton) {
         UIView.animate(withDuration: 0.5) {
             self.slidePanelBaseView.frame.origin.x = 0
         }
-    }
-    
-    @objc func handleScreenEdgePanGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
-        let translation = recognizer.translation(in: view)
         
-        switch recognizer.state {
-        case .changed:
-            UIView.animate(withDuration: 0.2) {
-                self.slidePanelBaseView.center = CGPoint(x: self.slidePanelBaseView.center.x + translation.x, y: self.slidePanelBaseView.center.y)
-                recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
-            }
-        case .ended:
-            if self.slidePanelBaseView.frame.origin.x < view.frame.size.width / 2 {
-                UIView.animate(withDuration: 0.6, animations: {
-                    self.slidePanelBaseView.frame.origin.x = 0
-                    recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
-                })
-            } else {
-                UIView.animate(withDuration: 0.6, animations: {
-                    self.slidePanelBaseView.frame.origin.x = self.baseViewMaxX
-                    recognizer.setTranslation(CGPoint.zero, in: self.slidePanelBaseView)
-                }) { (success) in
-                    if success {
-                        self.removeSlidePanelView()
-                        self.setupSlidePanelView()
-                    }
-                }
-            }
-        default: print("default")
-        }
+        hideMiniPlayer()
     }
-    
 }
 
 // MARK :- SlidePanelView Delegate
@@ -407,6 +389,7 @@ extension MainViewController: SlidePanelViewDelegate {
             self.slidePanelBaseView.frame.origin.x = self.baseViewMaxX
         }) { (success) in
             if success {
+                self.showMiniPlayer()
                 self.removeSlidePanelView()
                 self.setupSlidePanelView()
             }
@@ -414,6 +397,7 @@ extension MainViewController: SlidePanelViewDelegate {
     }
     
     func panGestureDraggingEnded() {
+        showMiniPlayer()
         removeSlidePanelView()
         setupSlidePanelView()
     }
@@ -428,7 +412,6 @@ extension MainViewController: SplashViewDelegate {
             }, completion: { [weak self] _ in
                 guard let self = self else { return }
                 self.splashView.removeFromSuperview()
-                self.addPanGestureRecognizer()
         })
     }
 }
@@ -436,6 +419,7 @@ extension MainViewController: SplashViewDelegate {
 // MARK: - Scroll View Delegate
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
         guard contentOffsetInPage >= UIScreen.main.bounds.width / 2 else { return }
         
         NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -462,8 +446,7 @@ extension MainViewController: UIScrollViewDelegate {
         slideSymbol(with: contentOffset / scrollWidth - 1)
         
         let contentOffsetInPage = contentOffset - scrollWidth * floor(contentOffset / scrollWidth)
-        if (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating),
-            let direction = scrollDirection, (direction == .left || direction == .right) {
+        if scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating {
             NSObject.cancelPreviousPerformRequests(withTarget: scrollView)
             perform(#selector(scrollViewDidEndScrollingAnimation(_:)), with: scrollView, afterDelay: 0.0)
             
@@ -518,5 +501,15 @@ extension MainViewController: TabBarDelegate {
 extension MainViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+extension MainViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissAnimator()
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
     }
 }
