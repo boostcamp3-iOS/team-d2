@@ -27,7 +27,7 @@
  - UrlSession & GCD
  - SQLite
  
- ### 데모영상
+ ### 전체 데모영상
 ![Demo1](./Images/DemoFirstPart.gif)
 ![Demo2](./Images/DemoSecondPart.gif)
 
@@ -37,3 +37,6 @@
 ![epispde](./Images/episode.png)
 ![search](./Images/search.png)
 ![slide](./Images/slide.png)
+
+### 심볼 데모영상
+![DemoSymbol](./Images/DemoSymbol.gif)
