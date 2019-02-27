@@ -28,15 +28,15 @@
  - SQLite
  
  ### 전체 데모영상
-![Demo1](./Images/DemoFirstPart.gif)
-![Demo2](./Images/DemoSecondPart.gif)
+![Demo1](./SupportFiles/DemoFirstPart.gif)
+![Demo2](./SupportFiles/DemoSecondPart.gif)
 
 ### 페이지
-![main](./Images/main.png)
-![channel](./Images/channel.png)
-![epispde](./Images/episode.png)
-![search](./Images/search.png)
-![slide](./Images/slide.png)
+![main](./SupportFiles/main.png)
+![channel](./SupportFiles/channel.png)
+![epispde](./SupportFiles/episode.png)
+![search](./SupportFiles/search.png)
+![slide](./SupportFiles/slide.png)
 
 ### 심볼 데모영상
-![DemoSymbol](./Images/DemoSymbol.gif)
+![DemoSymbol](./SupportFiles/DemoSymbol.gif)
