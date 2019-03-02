@@ -23,6 +23,7 @@
 		3B422A602216AB8400DA65D6 /* PodCastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B422A5F2216AB8400DA65D6 /* PodCastTableViewCell.swift */; };
 		3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC62220A0B9E002CEEEF /* EpisodeModalViewController.swift */; };
 		3B8FAC65220A0BF5002CEEEF /* TranslateAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */; };
+		3BB0B29F22290EA100258DE9 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B29E22290EA100258DE9 /* SearchPresenter.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
 		3BBEDB9422167B2300E0A769 /* GenreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9322167B2300E0A769 /* GenreDTO.swift */; };
 		3BBEDB9622167BD200E0A769 /* FetchGenresAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */; };
@@ -103,6 +104,7 @@
 		3B422A5F2216AB8400DA65D6 /* PodCastTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastTableViewCell.swift; sourceTree = "<group>"; };
 		3B8FAC62220A0B9E002CEEEF /* EpisodeModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeModalViewController.swift; sourceTree = "<group>"; };
 		3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateAnimator.swift; sourceTree = "<group>"; };
+		3BB0B29E22290EA100258DE9 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		3BBEDB9322167B2300E0A769 /* GenreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDTO.swift; sourceTree = "<group>"; };
 		3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGenresAPI.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				3B40AC5122164AA3003D2CA8 /* SearchViewController.swift */,
+				3BB0B29E22290EA100258DE9 /* SearchPresenter.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				B83D9B43221EA10000DF8CC3 /* MainCommon.swift in Sources */,
 				B8ABD49D21FEACD800454AF3 /* AppDelegate.swift in Sources */,
 				3B40AC5222164AA3003D2CA8 /* SearchViewController.swift in Sources */,
+				3BB0B29F22290EA100258DE9 /* SearchPresenter.swift in Sources */,
 				3B422A5A2216A4E300DA65D6 /* SearchPodCastsAPI.swift in Sources */,
 				3B8FAC65220A0BF5002CEEEF /* TranslateAnimator.swift in Sources */,
 				3BCEC387221BE44E00DD4174 /* MiniPlayerViewController.swift in Sources */,
@@ -726,7 +730,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DEVELOPMENT_TEAM = U38RWYJ536;
 				INFOPLIST_FILE = "$(SRCROOT)/DaumWebtoon/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -744,7 +748,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B3PWYBKFUK;
+				DEVELOPMENT_TEAM = U38RWYJ536;
 				INFOPLIST_FILE = "$(SRCROOT)/DaumWebtoon/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
