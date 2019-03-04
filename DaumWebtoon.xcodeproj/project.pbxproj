@@ -24,6 +24,7 @@
 		3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC62220A0B9E002CEEEF /* EpisodeModalViewController.swift */; };
 		3B8FAC65220A0BF5002CEEEF /* TranslateAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */; };
 		3BB0B29F22290EA100258DE9 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B29E22290EA100258DE9 /* SearchPresenter.swift */; };
+		3BB0B2E9222D101600258DE9 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B2E8222D101600258DE9 /* MainPresenter.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
 		3BBEDB9422167B2300E0A769 /* GenreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9322167B2300E0A769 /* GenreDTO.swift */; };
 		3BBEDB9622167BD200E0A769 /* FetchGenresAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */; };
@@ -105,6 +106,7 @@
 		3B8FAC62220A0B9E002CEEEF /* EpisodeModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeModalViewController.swift; sourceTree = "<group>"; };
 		3B8FAC64220A0BF5002CEEEF /* TranslateAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateAnimator.swift; sourceTree = "<group>"; };
 		3BB0B29E22290EA100258DE9 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		3BB0B2E8222D101600258DE9 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		3BBEDB9322167B2300E0A769 /* GenreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDTO.swift; sourceTree = "<group>"; };
 		3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGenresAPI.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				B84ECF3B220ABCD000B11954 /* MainViewController.swift */,
+				3BB0B2E8222D101600258DE9 /* MainPresenter.swift */,
 				B84ECF3F220ABD7D00B11954 /* ContentViewController.swift */,
 				B87007D722155A6E00113BA8 /* ChannelTableViewCell.swift */,
 				B83D9B42221EA10000DF8CC3 /* MainCommon.swift */,
@@ -526,6 +529,7 @@
 				3BD8415D2223D14500117EEB /* CenterAlignedCollectionViewFlowLayout.swift in Sources */,
 				B84ECF3C220ABCD000B11954 /* MainViewController.swift in Sources */,
 				B87007C62215381B00113BA8 /* BestPodCasts.swift in Sources */,
+				3BB0B2E9222D101600258DE9 /* MainPresenter.swift in Sources */,
 				B87007D222153BBD00113BA8 /* LookingFor.swift in Sources */,
 				47449B43220D974500B99773 /* ShapeHourglass.swift in Sources */,
 				3BDC57EB2212BA670009C115 /* PodCastService.swift in Sources */,
