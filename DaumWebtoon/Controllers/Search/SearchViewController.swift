@@ -20,6 +20,9 @@ class SearchViewController: UIViewController {
     
     private let collectionCellIdentifier = "recommandCell"
     private let tableviewCellIdentifier = "tableviewCell"
+    private let presenter = SearchPresenter(searchService: SearchPodCastsService.shared,
+                                            podcastService: PodCastService.shared)
+    
     private var isFirst = true
     private var genres: [Genre]?
     private var podcasts: [PodCastSearch]?
@@ -31,7 +34,9 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchRecommandationPodcast()
+        presenter.attachView(view: self)
+        presenter.fetchRecommandationPodcast()
+
         setupViews()
     }
     
@@ -45,14 +50,7 @@ class SearchViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if isFirst {
-            UIView.animate(withDuration: 0.6, animations: {
-                self.halfView.frame.origin.y -= self.view.bounds.height / 2
-                self.bottomAnchor = self.halfView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-                self.bottomAnchor?.isActive = true
-            })
-            isFirst = false
-        }
+        presenter.viewDidAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -103,27 +101,7 @@ class SearchViewController: UIViewController {
         halfView.heightAnchor.constraint(equalToConstant: view.bounds.height / 2).isActive = true
     }
     
-    private func fetchRecommandationPodcast() {
-        PodCastService.shared.fetchPodCastGenres { [weak self] (genres) in
-            guard let self = self else { return }
-            
-            self.genres = genres
-            self.recommandCollectionView.reloadData()
-        }
-    }
-    
-    private func searchPodCasts(query: String?) {
-        halfView.isHidden = true
-        SearchPodCastsService.shared.searchPodCasts(query: query) { [weak self] (podcasts) in
-            guard let self = self else { return }
-            
-            self.podcastsTableView.isHidden = false
-            self.podcasts = podcasts
-            self.podcastsTableView.reloadData()
-        }
-    }
-    
-    private func hideHalfBottomView() {
+    private func animateDownRecommandHalfBottomView() {
         UIView.animate(withDuration: 1.0, animations: {
             self.bottomAnchor?.isActive = false
             self.halfView.frame.origin.y += self.view.bounds.height / 2
@@ -132,53 +110,26 @@ class SearchViewController: UIViewController {
         })
     }
     
-    private func showHalfBottomView() {
-        UIView.animate(withDuration: 0.6, animations: {
-            self.bottomAnchor?.isActive = true
-            self.halfView.frame.origin.y -= self.view.bounds.height / 2
-        })
-    }
-    
     // MARK :- event handling
     @objc func handleEdgeGesture(_ recognizer: UIScreenEdgePanGestureRecognizer) {
-        let percentThreshold: CGFloat = 0.3
-        
         let translation = recognizer.translation(in: view)
         let horizontalMovement = translation.x / view.bounds.width
-        let rightMovement = fmaxf(Float(horizontalMovement), 0.0)
-        let rightMovementPercent = fminf(rightMovement, 1.0)
-        let progress = CGFloat(rightMovementPercent)
-        
-        guard let interactor = interactor else { return }
-        
-        switch recognizer.state {
-        case .began:
-            interactor.hasStarted = true
-            dismiss(animated: true, completion: nil)
-        case .changed:
-            interactor.shouldFinish = progress > percentThreshold
-            interactor.update(progress)
-        case .cancelled:
-            interactor.hasStarted = false
-            interactor.cancel()
-        case .ended:
-            interactor.hasStarted = false
-            interactor.shouldFinish
-                ? interactor.finish()
-                : interactor.cancel()
-        default:
-            break
-        }
+
+        presenter.calculateEdgeGestureRecognizer(horizontalMovement: horizontalMovement,
+                                                 recognizerState: recognizer.state,
+                                                 interactor: interactor)
     }
     
     @objc func keyboardWillAppear() {
-        podcastsTableView.isHidden = false
-        hideHalfBottomView()
+        showPodcastsTableView()
+        hideRecommanHalfdBottomView()
+        animateDownRecommandHalfBottomView()
     }
     
     @objc func keyboardDidDisappear() {
-        podcastsTableView.isHidden = true
-        showHalfBottomView()
+        hidePodcastsTableView()
+        showRecommandHalfBottomView()
+        animateUpRecommandHalfBottomView()
     }
     
     @objc func dismissKeyboard() {
@@ -186,30 +137,78 @@ class SearchViewController: UIViewController {
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let query = textField.text else { return }
-        
-        if query.isEmpty {
-            podcastsTableView.isHidden = true
-            halfView.isHidden = false
-            return
-        }
-        
-        searchPodCasts(query: query)
+        presenter.textFieldDidChange(query: textField.text)
     }
     
     @IBAction func backTapped(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        dismiss()
         showMiniPlayer()
     }
     
     @IBAction func searchTapped(_ sender: UIButton) {
-        guard var query = keywordInput.text, query != "" else { return }
-        
-        if query.starts(with: "#") {
-            query = String(query.suffix(query.count-1))
+        presenter.searchPodCasts(query: keywordInput.text)
+    }
+}
+
+
+// MARk :- SearchView
+extension SearchViewController: SearchView {
+    func dismiss() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func showPodcasts(podcasts: [PodCastSearch]) {
+        self.podcasts = podcasts
+        podcastsTableView.reloadData()
+    }
+    
+    func showPodcastsTableView() {
+        podcastsTableView.isHidden = false
+    }
+    
+    func hidePodcastsTableView() {
+        podcastsTableView.isHidden = true
+    }
+    
+    func showRecommandHalfBottomView() {
+        halfView.isHidden = false
+    }
+    
+    func hideRecommanHalfdBottomView() {
+        halfView.isHidden = true
+    }
+    
+    func showRecommandPodCastGenres(genres: [Genre]?) {
+        self.genres = genres
+        recommandCollectionView.reloadData()
+    }
+    
+    func showKeywordInput(keyword: String) {
+        keywordInput.text = keyword
+    }
+    
+    func animateTableViewCell(cell: UITableViewCell, row: Int) {
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.05 * Double(row),
+            options: [],
+            animations: {
+                cell.alpha = 1
+        }, completion: nil)
+    }
+    
+    func disAnimateTableViewCell(cell: UITableViewCell) {
+        UIView.animate(withDuration: 0.5) {
+            cell.alpha = 1
         }
-        
-        searchPodCasts(query: query)
+    }
+    
+    func animateUpRecommandHalfBottomView() {
+        UIView.animate(withDuration: 0.6, animations: {
+            self.halfView.frame.origin.y -= self.view.bounds.height / 2
+            self.bottomAnchor = self.halfView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            self.bottomAnchor?.isActive = true
+        })
     }
 }
 
@@ -273,19 +272,7 @@ extension SearchViewController: UITableViewDelegate {
         
         shownIndexPaths.append(indexPath)
         cell.alpha = 0
-        if indexPath.row < 10 {
-            UIView.animate(
-                withDuration: 0.5,
-                delay: 0.05 * Double(indexPath.row),
-                options: [],
-                animations: {
-                    cell.alpha = 1
-            }, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.5) {
-                cell.alpha = 1
-            }
-        }
+        presenter.calcuateTableViewRowCount(cell: cell, row: indexPath.row)
     }
 }
 
@@ -309,11 +296,7 @@ extension SearchViewController: UICollectionViewDataSource {
 
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let genre = genres?[indexPath.item] else { return }
-        
-        keywordInput.text = "#\(genre.name)"
-        
-        searchPodCasts(query: genre.name)
+        presenter.didSelectRecommandPodCast(selectedGenre: genres?[indexPath.item])
     }
 }
 
