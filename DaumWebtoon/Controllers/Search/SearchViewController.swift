@@ -58,6 +58,10 @@ class SearchViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    deinit {
+        presenter.detachView()
+    }
+    
     private func setupViews() {
         search.layer.cornerRadius = search.frame.height / 2
         

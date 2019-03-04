@@ -36,14 +36,6 @@ class SearchPresenter {
         self.podcastService = podcastService
     }
     
-    func attachView(view: SearchView) {
-        self.view = view
-    }
-    
-    func detachView() {
-        view = nil
-    }
- 
     func fetchRecommandationPodcast() {
         podcastService?.fetchPodCastGenres(completion: { [weak self] (genres) in
             guard let self = self else { return }
@@ -122,6 +114,14 @@ class SearchPresenter {
         default:
             break
         }
+    }
+    
+    func attachView(view: SearchView) {
+        self.view = view
+    }
+    
+    func detachView() {
+        view = nil
     }
     
     private func searchPodCasts(query: String) {
