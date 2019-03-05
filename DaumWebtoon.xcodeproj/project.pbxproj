@@ -27,6 +27,7 @@
 		3BB0B2E9222D101600258DE9 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B2E8222D101600258DE9 /* MainPresenter.swift */; };
 		3BB0B2EB222D4D1900258DE9 /* PodCastsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B2EA222D4D1900258DE9 /* PodCastsPresenter.swift */; };
 		3BB0B2ED222E377E00258DE9 /* EpisodeModalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B2EC222E377E00258DE9 /* EpisodeModalPresenter.swift */; };
+		3BB0B2EF222E646B00258DE9 /* MiniPlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0B2EE222E646B00258DE9 /* MiniPlayerPresenter.swift */; };
 		3BBAA6E22200207800861707 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BBAA6E12200207800861707 /* TabBar.storyboard */; };
 		3BBEDB9422167B2300E0A769 /* GenreDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9322167B2300E0A769 /* GenreDTO.swift */; };
 		3BBEDB9622167BD200E0A769 /* FetchGenresAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */; };
@@ -111,6 +112,7 @@
 		3BB0B2E8222D101600258DE9 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		3BB0B2EA222D4D1900258DE9 /* PodCastsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastsPresenter.swift; sourceTree = "<group>"; };
 		3BB0B2EC222E377E00258DE9 /* EpisodeModalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeModalPresenter.swift; sourceTree = "<group>"; };
+		3BB0B2EE222E646B00258DE9 /* MiniPlayerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerPresenter.swift; sourceTree = "<group>"; };
 		3BBAA6E12200207800861707 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		3BBEDB9322167B2300E0A769 /* GenreDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreDTO.swift; sourceTree = "<group>"; };
 		3BBEDB9522167BD200E0A769 /* FetchGenresAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchGenresAPI.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				3BCEC386221BE44E00DD4174 /* MiniPlayerViewController.swift */,
+				3BB0B2EE222E646B00258DE9 /* MiniPlayerPresenter.swift */,
 			);
 			path = MiniPlayer;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				3BD841592223BF5C00117EEB /* Interactor.swift in Sources */,
 				B87007D822155A6E00113BA8 /* ChannelTableViewCell.swift in Sources */,
 				B87007D6221540F300113BA8 /* BestPodCastsFetcher.swift in Sources */,
+				3BB0B2EF222E646B00258DE9 /* MiniPlayerPresenter.swift in Sources */,
 				470D6994221D2CBA003AEA16 /* MainViewController+HeaderView.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
 				3B8FAC63220A0B9E002CEEEF /* EpisodeModalViewController.swift in Sources */,
