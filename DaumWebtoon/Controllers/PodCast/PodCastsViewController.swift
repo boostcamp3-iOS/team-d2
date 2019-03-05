@@ -66,14 +66,6 @@ class PodCastsViewController: UIViewController {
     }
     
     private func setupViews() {
-//        if UIDevice.current.hasNotch {
-//            headerImageViewWidth.constant = 200.0
-//            headerImageViewHeight.constant = 210.0
-//        } else {
-//            headerImageViewWidth.constant = 100.0
-//            headerImageViewHeight.constant = 100.0
-//        }
-        
         headerImageView.roundedCorner()
     }
 
@@ -81,19 +73,6 @@ class PodCastsViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
     }
-    
-//    private func fetchPodCasts() {
-//        guard let podcastId = podcastId else { return }
-//        PodCastService.shared.fetchPodCasts(podcastId: podcastId, nextEpisodePubDate: nextEpisodePubDate) { [weak self] (podcast) in
-//            guard let self = self,
-//                let nextEpisodePubDate = podcast.nextEpisodePubDate else { return }
-//
-//            self.podcast = podcast
-//            self.episodes += podcast.episodes
-//            self.nextEpisodePubDate = String(nextEpisodePubDate)
-//            self.collectionView.reloadData()
-//        }
-//    }
     
     // MARK :- event handling
     @IBAction func backTapped(_ sender: UIButton) {
@@ -237,23 +216,6 @@ extension PodCastsViewController: UICollectionViewDataSource {
         
         presenter.calcuateAnimationCellRow(cell: cell, row: indexPath.row)
         presenter.paginatePodcasts(item: indexPath.item, episodeCount: episodes.count)
-//        if indexPath.row < 10 {
-//            UIView.animate(
-//                withDuration: 0.5,
-//                delay: 0.05 * Double(indexPath.row),
-//                options: [],
-//                animations: {
-//                    cell.alpha = 1
-//            }, completion: nil)
-//        } else {
-//            UIView.animate(withDuration: 0.5) {
-//                cell.alpha = 1
-//            }
-//        }
-        
-//        if indexPath.item == episodes.count - 10 || episodes.count - 10 < 0 {
-//            presenter.fetchPodCasts()
-//        }
     }
 }
 

@@ -55,10 +55,6 @@ class EpisodeModalViewController: UIViewController {
         presenter?.detachView()
     }
     
-//    private func togglePlayPause() {
-//        audioService.togglePlayPause()
-//    }
-    
     private func setupPlayPauseState() {
         playPauseButton.isSelected = playButtonSelected
     }
@@ -83,55 +79,19 @@ class EpisodeModalViewController: UIViewController {
     
     private func setupFavoriteViewState() {
         presenter?.isFavoriteEpisode(episode: episode)
-//        guard let episode = episode else { return }
-//        let isFavorite = dbService.isFavoriteEpisode(of: episode)
-//        favoriteButton.isSelected = isFavorite
     }
-
-//    private func dismissModal() {
-//        delegate?.showHeaderImageView?()
-//        dismiss(animated: true, completion: nil)
-//    }
     
     // MARK :- event handling
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         presenter?.sliderValueChanged(value: sender.value)
-//        audioService.progressValueChanged(seconds: sender.value)
     }
     
     @objc func timeInterval(){
         presenter?.timeInterval()
-//        audioService.timeInterval()
     }
     
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
         presenter?.handlePanGesture(recognizer: recognizer)
-//        let touchPoint = recognizer.location(in: view?.window)
-//        let translation = recognizer.translation(in: view)
-//
-//        var initialTouchPoint = CGPoint.zero
-//        switch recognizer.state {
-//        case .began:
-//            initialTouchPoint = touchPoint
-//        case .changed:
-//            if touchPoint.y > initialTouchPoint.y {
-//                view.center = CGPoint(x: view.center.x, y: view.center.y + translation.y)
-//                recognizer.setTranslation(CGPoint.zero, in: view)
-//            }
-//        case .ended, .cancelled:
-//            if view.frame.origin.y > view.frame.size.height / 2 {
-//                dismissModal()
-//            } else {
-//                UIView.animate(withDuration: 0.2, animations: {
-//                    self.view.frame = CGRect(x: 0,
-//                                        y: 0,
-//                                        width: self.view.frame.size.width,
-//                                        height: self.view.frame.size.height)
-//                })
-//            }
-//        case .failed, .possible:
-//            break
-//        }
     }
     
     @IBAction func playPauseTapped(_ sender: UIButton) {
@@ -143,7 +103,6 @@ class EpisodeModalViewController: UIViewController {
     @IBAction func likeTapped(_ sender: UIButton) {
         guard let episode = episode else { return }
         presenter?.manageFavoriteEpisode(episode: episode, state: sender.isSelected)
-//        dbService.manageFavoriteEpisode(with: episode, state: sender.isSelected)
         sender.isSelected = !sender.isSelected
     }
     
@@ -156,7 +115,6 @@ class EpisodeModalViewController: UIViewController {
     
     @IBAction func downTapped(_ sender: UIButton) {
         dismiss()
-//        dismissModal()
     }
 }
 

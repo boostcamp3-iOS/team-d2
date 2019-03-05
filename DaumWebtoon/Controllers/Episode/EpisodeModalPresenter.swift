@@ -75,21 +75,12 @@ class EpisodeModalPresenter {
             if touchPoint.y > initialTouchPoint.y {
                 let draggingPosition = CGPoint(x: episodeView.center.x, y: episodeView.center.y + translation.y)
                 view?.draggingTouchScreen(position: draggingPosition, recognizer: recognizer)
-//                view.center = CGPoint(x: view.center.x, y: view.center.y + translation.y)
-//                recognizer.setTranslation(CGPoint.zero, in: view)
             }
         case .ended, .cancelled:
             if episodeView.frame.origin.y > episodeView.frame.size.height / 2 {
                 view?.dismiss()
-//                dismissModal()
             } else {
                 view?.aniamteToOriginalFrame()
-//                UIView.animate(withDuration: 0.2, animations: {
-//                    self.view.frame = CGRect(x: 0,
-//                                             y: 0,
-//                                             width: self.view.frame.size.width,
-//                                             height: self.view.frame.size.height)
-//                })
             }
         case .failed, .possible:
             break

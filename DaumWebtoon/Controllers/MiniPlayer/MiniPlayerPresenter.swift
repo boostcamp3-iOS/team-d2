@@ -44,14 +44,12 @@ class MiniPlayerPresenter {
         }
         
         view?.showMiniPlayer(yPosition: y)
-//        view.frame = CGRect(x: 0, y: y, width: view.superview?.frame.width ?? 0, height: 76)
     }
     
     func fetchEpisodeThumbnail(thumbnailUrl: String) {
         FetchImageService.shared.execute(imageUrl: thumbnailUrl) { [weak self] (image) in
             guard let self = self else { return }
             self.view?.showEpisodeThumnail(thumbnailImage: image)
-//            self.episodeThumbnail.image = image
         }
     }
     
