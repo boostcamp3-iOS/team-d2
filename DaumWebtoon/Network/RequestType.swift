@@ -22,7 +22,6 @@ extension RequestType {
         dispatcher.dispatch(
             request: self.data,
             onSuccess: { (responseData: Data) in
-                
                 do {
                     let jsonDecoder = JSONDecoder()
                     let result = try jsonDecoder.decode(ResponseType.self, from: responseData)
