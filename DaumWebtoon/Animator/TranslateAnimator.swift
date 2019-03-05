@@ -95,7 +95,7 @@ class TranslateAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         groupAnimation.delegate = self
         
         let scale = CABasicAnimation(keyPath: "transform.scale")
-        scale.fromValue = 0.5
+        scale.fromValue = 0.8
         scale.toValue = 1.0
         
         let fade = CABasicAnimation(keyPath: "opacity")
