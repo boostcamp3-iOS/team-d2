@@ -191,7 +191,7 @@ extension SearchViewController: SearchView {
         keywordInput.text = keyword
     }
     
-    func animateTableViewCell(cell: UITableViewCell, row: Int) {
+    func animateAlphaWithDelayOnTableViewCell(cell: UITableViewCell, row: Int) {
         UIView.animate(
             withDuration: 0.5,
             delay: 0.05 * Double(row),
@@ -201,7 +201,7 @@ extension SearchViewController: SearchView {
         }, completion: nil)
     }
     
-    func disAnimateTableViewCell(cell: UITableViewCell) {
+    func animateAlphaOnTableViewCell(cell: UITableViewCell) {
         UIView.animate(withDuration: 0.5) {
             cell.alpha = 1
         }
@@ -276,7 +276,7 @@ extension SearchViewController: UITableViewDelegate {
         
         shownIndexPaths.append(indexPath)
         cell.alpha = 0
-        presenter.calcuateTableViewRowCount(cell: cell, row: indexPath.row)
+        presenter.calcuateAnimationCellRow(cell: cell, row: indexPath.row)
     }
 }
 

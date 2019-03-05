@@ -8,11 +8,6 @@
 
 import UIKit
 
-enum LoadingStatus: CGFloat {
-    case success = 0.0
-    case loading = 1.0
-}
-
 protocol MiniPlayerDelegate: class {
     func removeMiniPlayer()
 }
@@ -34,44 +29,37 @@ class MiniPlayerViewController: UIViewController {
         }
     }
     
-    private var isLoading: CGFloat = 1.0
     private var playButtonSelected = false
     private var audioTimer : Timer?
-    private let audioService = AudioService.shared
     private var episodeModalViewController: EpisodeModalViewController?
+    private var presenter: MiniPlayerPresenter?
+    
+    private let audioService = AudioService.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupPosition()
+        presenter = MiniPlayerPresenter(audioService: audioService, dbService: DatabaseService())
+        presenter?.attachView(view: self)
+        presenter?.calcuateDeviceHasNorch()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        setupPosition()
+        presenter?.calcuateDeviceHasNorch()
     }
     
-    private func setupPosition() {
-        var y: CGFloat = 0.0
-        if UIDevice.current.hasNotch {
-            y = UIScreen.main.bounds.height - (UIApplication.shared.statusBarFrame.size.height + 32)
-        } else {
-            y = UIScreen.main.bounds.height - (UIApplication.shared.statusBarFrame.size.height + 54)
-        }
-        
-        view.frame = CGRect(x: 0, y: y, width: view.superview?.frame.width ?? 0, height: 76)
+    deinit {
+        presenter?.detachView()
     }
     
     private func setupViews() {
         guard let episode = self.episode else { return }
+        presenter?.fetchEpisodeThumbnail(thumbnailUrl: episode.thumbnail)
         
         loading?.alpha = 1
         episodeTitle.alpha = 0
         episodeTitle.text = episode.title
-        FetchImageService.shared.execute(imageUrl: episode.thumbnail) { [weak self] (image) in
-            guard let self = self else { return }
-            self.episodeThumbnail.image = image
-        }
         
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.lightGray.cgColor
@@ -80,10 +68,8 @@ class MiniPlayerViewController: UIViewController {
     }
     
     private func setupAndPlayAudio() {
-        guard let episode = self.episode else { return }
-        
         audioService.dataSource = self
-        audioService.setupAndPlayAudio(audioUrl: episode.audio)
+        presenter?.setupAndPlayAudio(episode: episode)
     }
     
     private func setupAudioTimer() {
@@ -92,9 +78,7 @@ class MiniPlayerViewController: UIViewController {
     }
     
     private func addRecentEpisode() {
-        let dbService = DatabaseService()
-        guard let episode = self.episode else { return }
-        dbService.addRecentEpisode(with: episode)
+        presenter?.addRecentEpisode(episode: episode)
     }
     
     // MARK :- event handling
@@ -110,20 +94,15 @@ class MiniPlayerViewController: UIViewController {
     }
     
     @objc func timeInterval(){
-        audioService.timeInterval()
+        presenter?.timeInterval()
     }
 
     @IBAction func playPauseDidTapped(_ sender: UIButton) {
-        audioService.togglePlayPause()
-        
-        if isLoading == LoadingStatus.success.rawValue {
-            sender.isSelected = !sender.isSelected
-            playButtonSelected = sender.isSelected
-        }
+        presenter?.playPauseDidTapped(sender: sender)
     }
     
     @IBAction func exitTapped(_ sender: UIButton) {
-        audioService.stopAudio()
+        presenter?.stopAudio()
         
         delegate?.removeMiniPlayer()
         view.removeFromSuperview()
@@ -131,10 +110,25 @@ class MiniPlayerViewController: UIViewController {
     }
 }
 
+extension MiniPlayerViewController: MiniPlayerView {
+    func showMiniPlayer(yPosition: CGFloat) {
+        view.frame = CGRect(x: 0, y: yPosition, width: view.superview?.frame.width ?? 0, height: 76)
+    }
+    
+    func showEpisodeThumnail(thumbnailImage: UIImage) {
+        self.episodeThumbnail.image = thumbnailImage
+    }
+    
+    func showPlayButtonState(sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        playButtonSelected = sender.isSelected
+    }
+}
+
 extension MiniPlayerViewController: AudioServiceDataSource {
     func showLoading(alpha: CGFloat) {
         loading?.alpha = alpha
-        isLoading = alpha
+        presenter?.isLoading = alpha
     }
     
     func showTitle(alpha: CGFloat) {

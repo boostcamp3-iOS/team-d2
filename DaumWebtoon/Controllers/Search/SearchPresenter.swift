@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol SearchView {
+protocol SearchView: class {
     func showRecommandPodCastGenres(genres: [Genre]?)
     func showPodcastsTableView()
     func hidePodcastsTableView()
@@ -17,8 +17,8 @@ protocol SearchView {
     func showRecommandHalfBottomView()
     func hideRecommanHalfdBottomView()
     func showKeywordInput(keyword: String)
-    func animateTableViewCell(cell: UITableViewCell, row: Int)
-    func disAnimateTableViewCell(cell: UITableViewCell)
+    func animateAlphaWithDelayOnTableViewCell(cell: UITableViewCell, row: Int)
+    func animateAlphaOnTableViewCell(cell: UITableViewCell)
     func animateUpRecommandHalfBottomView()
     func dismiss()
 }
@@ -28,7 +28,7 @@ class SearchPresenter {
     private let searchService: SearchPodCastsService?
     private let podcastService: PodCastService?
     
-    private var view: SearchView?
+    private weak var view: SearchView?
     private var isFirst = true
     
     init(searchService: SearchPodCastsService, podcastService: PodCastService) {
@@ -79,11 +79,11 @@ class SearchPresenter {
         searchPodCasts(query: genre.name)
     }
     
-    func calcuateTableViewRowCount(cell: UITableViewCell, row: Int) {
+    func calcuateAnimationCellRow(cell: UITableViewCell, row: Int) {
         if row < 10 {
-            view?.animateTableViewCell(cell: cell, row: row)
+            view?.animateAlphaWithDelayOnTableViewCell(cell: cell, row: row)
         } else {
-            view?.disAnimateTableViewCell(cell: cell)
+            view?.animateAlphaOnTableViewCell(cell: cell)
         }
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol MainView {
+protocol MainView: class {
     func slideSymbolAnimation(with: CGFloat)
     func cancelPreviousPerformRequests()
     func drawTabBarColorLeftToRightWhileScrolling(x: CGFloat, currentIndex: Int)
@@ -22,10 +22,10 @@ protocol MainView {
 
 class MainPresenter {
     
-    var view: MainView?
     var currentIndex = 1
     var lastContentOffset: CGFloat = 0
     
+    private weak var view: MainView?
     private var contentOffsetInPage: CGFloat = 0
     
     private let tabCount: Int
