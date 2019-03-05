@@ -34,44 +34,43 @@ class EpisodeModalViewController: UIViewController {
     private let dbService = DatabaseService()
     private let audioService = AudioService.shared
     
+    private var presenter: EpisodeModalPresenter?
     private var audioUrl: String?
     private var audioTimer : Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter = EpisodeModalPresenter(audioService: audioService, dbService: dbService)
+        presenter?.attachView(view: self)
+        presenter?.fetchEpisodeImage(imageUrl: episode?.image)
+        
         setupFavoriteViewState()
         setupPlayPauseState()
-        setupEpisode()
         setupViews()
         setupAudio()
     }
     
-    private func togglePlayPause() {
-        audioService.togglePlayPause()
+    deinit {
+        presenter?.detachView()
     }
+    
+//    private func togglePlayPause() {
+//        audioService.togglePlayPause()
+//    }
     
     private func setupPlayPauseState() {
         playPauseButton.isSelected = playButtonSelected
     }
     
     private func setupViews() {
-        let gestureRecognizer = UIPanGestureRecognizer(target: self,
-                                                       action: #selector(handlePanGesture(_:)))
-        view.addGestureRecognizer(gestureRecognizer)
-    }
-    
-    private func setupEpisode() {
         guard let episode = self.episode else { return }
         
         episodeTitle.text = episode.title
-        FetchImageService.shared.execute(imageUrl: episode.image) { [weak self] (image) in
-            guard let self = self else { return }
-            self.episodeImage.image = image
-            self.episodeImage.roundedCorner()
-        }
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self,
+                                                         action: #selector(handlePanGesture(_:))))
     }
-    
+
     private func setupAudio() {
         audioService.dataSource = self
         setupAudioTimer()
@@ -83,63 +82,68 @@ class EpisodeModalViewController: UIViewController {
     }
     
     private func setupFavoriteViewState() {
-        guard let episode = self.episode else { return }
-        let isFavorite = dbService.isFavoriteEpisode(of: episode)
-        favoriteButton.isSelected = isFavorite
+        presenter?.isFavoriteEpisode(episode: episode)
+//        guard let episode = episode else { return }
+//        let isFavorite = dbService.isFavoriteEpisode(of: episode)
+//        favoriteButton.isSelected = isFavorite
     }
 
-    private func dismissModal() {
-        delegate?.showHeaderImageView?()
-        dismiss(animated: true, completion: nil)
-    }
+//    private func dismissModal() {
+//        delegate?.showHeaderImageView?()
+//        dismiss(animated: true, completion: nil)
+//    }
     
     // MARK :- event handling
     @IBAction func sliderValueChanged(_ sender: UISlider) {
-        audioService.progressValueChanged(seconds: sender.value)
+        presenter?.sliderValueChanged(value: sender.value)
+//        audioService.progressValueChanged(seconds: sender.value)
     }
     
     @objc func timeInterval(){
-        audioService.timeInterval()
+        presenter?.timeInterval()
+//        audioService.timeInterval()
     }
     
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        let touchPoint = recognizer.location(in: view?.window)
-        let translation = recognizer.translation(in: view)
-        
-        var initialTouchPoint = CGPoint.zero
-        switch recognizer.state {
-        case .began:
-            initialTouchPoint = touchPoint
-        case .changed:
-            if touchPoint.y > initialTouchPoint.y {
-                view.center = CGPoint(x: view.center.x, y: view.center.y + translation.y)
-                recognizer.setTranslation(CGPoint.zero, in: view)
-            }
-        case .ended, .cancelled:
-            if view.frame.origin.y > view.frame.size.height / 2 {
-                dismissModal()
-            } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame = CGRect(x: 0,
-                                        y: 0,
-                                        width: self.view.frame.size.width,
-                                        height: self.view.frame.size.height)
-                })
-            }
-        case .failed, .possible:
-            break
-        }
+        presenter?.handlePanGesture(recognizer: recognizer)
+//        let touchPoint = recognizer.location(in: view?.window)
+//        let translation = recognizer.translation(in: view)
+//
+//        var initialTouchPoint = CGPoint.zero
+//        switch recognizer.state {
+//        case .began:
+//            initialTouchPoint = touchPoint
+//        case .changed:
+//            if touchPoint.y > initialTouchPoint.y {
+//                view.center = CGPoint(x: view.center.x, y: view.center.y + translation.y)
+//                recognizer.setTranslation(CGPoint.zero, in: view)
+//            }
+//        case .ended, .cancelled:
+//            if view.frame.origin.y > view.frame.size.height / 2 {
+//                dismissModal()
+//            } else {
+//                UIView.animate(withDuration: 0.2, animations: {
+//                    self.view.frame = CGRect(x: 0,
+//                                        y: 0,
+//                                        width: self.view.frame.size.width,
+//                                        height: self.view.frame.size.height)
+//                })
+//            }
+//        case .failed, .possible:
+//            break
+//        }
     }
     
     @IBAction func playPauseTapped(_ sender: UIButton) {
-        togglePlayPause()
+        presenter?.togglePlayPause()
         sender.isSelected = !sender.isSelected
         delegate?.showPlayPauseState?(isSelected: sender.isSelected)
     }
     
     @IBAction func likeTapped(_ sender: UIButton) {
         guard let episode = episode else { return }
-        dbService.manageFavoriteEpisode(with: episode, state: sender.isSelected)
+        presenter?.manageFavoriteEpisode(episode: episode, state: sender.isSelected)
+//        dbService.manageFavoriteEpisode(with: episode, state: sender.isSelected)
         sender.isSelected = !sender.isSelected
     }
     
@@ -151,7 +155,38 @@ class EpisodeModalViewController: UIViewController {
     }
     
     @IBAction func downTapped(_ sender: UIButton) {
-        dismissModal()
+        dismiss()
+//        dismissModal()
+    }
+}
+
+extension EpisodeModalViewController: EpisodeModalView {
+    func showEpisodeImage(image: UIImage) {
+        self.episodeImage.image = image
+        self.episodeImage.roundedCorner()
+    }
+    
+    func showFavoriteState(isFavorite: Bool) {
+        favoriteButton.isSelected = isFavorite
+    }
+    
+    func draggingTouchScreen(position: CGPoint, recognizer: UIPanGestureRecognizer) {
+        view.center = position
+        recognizer.setTranslation(CGPoint.zero, in: view)
+    }
+    
+    func dismiss() {
+        delegate?.showHeaderImageView?()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func aniamteToOriginalFrame() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.view.frame = CGRect(x: 0,
+                                     y: 0,
+                                     width: self.view.frame.size.width,
+                                     height: self.view.frame.size.height)
+        })
     }
 }
 

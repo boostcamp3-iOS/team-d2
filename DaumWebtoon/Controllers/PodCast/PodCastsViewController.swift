@@ -22,10 +22,10 @@ class PodCastsViewController: UIViewController {
     
     private var podcast: PodCast?
     private var episodes: [Episode] = []
-    private var nextEpisodePubDate: String? = ""
     private var shownIndexes: [IndexPath] = []
     private var miniPlayerViewController: MiniPlayerViewController?
     
+    private let presenter = PodCastsPresenter(service: PodCastService.shared)
     private let podcastIdentifier = "PodCastCell"
     private let detailIdentifier = "DetailCell"
     private let footerIdentifier = "FooterCell"
@@ -33,11 +33,17 @@ class PodCastsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        fetchPodCasts()
+        presenter.attachView(view: self)
+        presenter.podcastId = podcastId
+        presenter.fetchPodCasts()
+        presenter.calculateDeviceHasNorch()
         
         setupMiniPlayer()
-        setupViews()
         setupCollectionView()
+    }
+    
+    deinit {
+        presenter.detachView()
     }
     
     private func setupMiniPlayer() {
@@ -60,13 +66,13 @@ class PodCastsViewController: UIViewController {
     }
     
     private func setupViews() {
-        if UIDevice.current.hasNotch {
-            headerImageViewWidth.constant = 200.0
-            headerImageViewHeight.constant = 210.0
-        } else {
-            headerImageViewWidth.constant = 100.0
-            headerImageViewHeight.constant = 100.0
-        }
+//        if UIDevice.current.hasNotch {
+//            headerImageViewWidth.constant = 200.0
+//            headerImageViewHeight.constant = 210.0
+//        } else {
+//            headerImageViewWidth.constant = 100.0
+//            headerImageViewHeight.constant = 100.0
+//        }
         
         headerImageView.roundedCorner()
     }
@@ -76,22 +82,56 @@ class PodCastsViewController: UIViewController {
         collectionView.delegate = self
     }
     
-    private func fetchPodCasts() {
-        guard let podcastId = podcastId else { return }
-        PodCastService.shared.fetchPodCasts(podcastId: podcastId, nextEpisodePubDate: nextEpisodePubDate) { [weak self] (podcast) in
-            guard let self = self,
-                let nextEpisodePubDate = podcast.nextEpisodePubDate else { return }
-            
-            self.podcast = podcast
-            self.episodes += podcast.episodes
-            self.nextEpisodePubDate = String(nextEpisodePubDate)
-            self.collectionView.reloadData()
-        }
-    }
+//    private func fetchPodCasts() {
+//        guard let podcastId = podcastId else { return }
+//        PodCastService.shared.fetchPodCasts(podcastId: podcastId, nextEpisodePubDate: nextEpisodePubDate) { [weak self] (podcast) in
+//            guard let self = self,
+//                let nextEpisodePubDate = podcast.nextEpisodePubDate else { return }
+//
+//            self.podcast = podcast
+//            self.episodes += podcast.episodes
+//            self.nextEpisodePubDate = String(nextEpisodePubDate)
+//            self.collectionView.reloadData()
+//        }
+//    }
     
     // MARK :- event handling
     @IBAction func backTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PodCastsViewController: PodCastsView {
+    func showPodcasts(podcast: PodCast) {
+        self.podcast = podcast
+        episodes += podcast.episodes
+        collectionView.reloadData()
+    }
+    
+    func showHeaderImageInNorch() {
+        headerImageViewWidth.constant = 200.0
+        headerImageViewHeight.constant = 210.0
+    }
+    
+    func showHeaderImageInNorchElse() {
+        headerImageViewWidth.constant = 100.0
+        headerImageViewHeight.constant = 100.0
+    }
+    
+    func animateAlphaWithDelayOnTableViewCell(cell: UICollectionViewCell, row: Int) {
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.05 * Double(row),
+            options: [],
+            animations: {
+                cell.alpha = 1
+        }, completion: nil)
+    }
+    
+    func animateAlphaOnTableViewCell(cell: UICollectionViewCell) {
+        UIView.animate(withDuration: 0.5) {
+            cell.alpha = 1
+        }
     }
 }
 
@@ -194,23 +234,26 @@ extension PodCastsViewController: UICollectionViewDataSource {
         guard shownIndexes.contains(indexPath) == false else { return }
         shownIndexes.append(indexPath)
         cell.alpha = 0
-        if indexPath.row < 10 {
-            UIView.animate(
-                withDuration: 0.5,
-                delay: 0.05 * Double(indexPath.row),
-                options: [],
-                animations: {
-                    cell.alpha = 1
-            }, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.5) {
-                cell.alpha = 1
-            }
-        }
         
-        if indexPath.item == episodes.count - 10 || episodes.count - 10 < 0 {
-            fetchPodCasts()
-        }
+        presenter.calcuateAnimationCellRow(cell: cell, row: indexPath.row)
+        presenter.paginatePodcasts(item: indexPath.item, episodeCount: episodes.count)
+//        if indexPath.row < 10 {
+//            UIView.animate(
+//                withDuration: 0.5,
+//                delay: 0.05 * Double(indexPath.row),
+//                options: [],
+//                animations: {
+//                    cell.alpha = 1
+//            }, completion: nil)
+//        } else {
+//            UIView.animate(withDuration: 0.5) {
+//                cell.alpha = 1
+//            }
+//        }
+        
+//        if indexPath.item == episodes.count - 10 || episodes.count - 10 < 0 {
+//            presenter.fetchPodCasts()
+//        }
     }
 }
 
