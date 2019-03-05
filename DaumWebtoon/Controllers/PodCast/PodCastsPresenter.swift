@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol PodCastsView {
+protocol PodCastsView: class {
     func showPodcasts(podcast: PodCast)
     func showHeaderImageInNorch()
     func showHeaderImageInNorchElse()
@@ -19,10 +19,11 @@ protocol PodCastsView {
 
 class PodCastsPresenter {
     
-    var view: PodCastsView?
     var podcastId: String?
     
+    private weak var view: PodCastsView?
     private var nextEpisodePubDate: String? = ""
+    
     private let service: PodCastService
     
     init(service: PodCastService) {

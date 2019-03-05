@@ -14,7 +14,7 @@ enum LoadingStatus: CGFloat {
     case loading = 1.0
 }
 
-protocol MiniPlayerView {
+protocol MiniPlayerView: class {
     func showMiniPlayer(yPosition: CGFloat)
     func showEpisodeThumnail(thumbnailImage: UIImage)
     func showPlayButtonState(sender: UIButton)
@@ -24,7 +24,7 @@ class MiniPlayerPresenter {
     
     var isLoading: CGFloat = 1.0
     
-    private var view: MiniPlayerView?
+    private weak var view: MiniPlayerView?
     
     private let audioService: AudioService
     private let dbService: DatabaseService

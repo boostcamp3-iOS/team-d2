@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol SearchView {
+protocol SearchView: class {
     func showRecommandPodCastGenres(genres: [Genre]?)
     func showPodcastsTableView()
     func hidePodcastsTableView()
@@ -28,7 +28,7 @@ class SearchPresenter {
     private let searchService: SearchPodCastsService?
     private let podcastService: PodCastService?
     
-    private var view: SearchView?
+    private weak var view: SearchView?
     private var isFirst = true
     
     init(searchService: SearchPodCastsService, podcastService: PodCastService) {

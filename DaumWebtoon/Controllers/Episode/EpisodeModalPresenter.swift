@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol EpisodeModalView {
+protocol EpisodeModalView: class {
     func showEpisodeImage(image: UIImage)
     func showFavoriteState(isFavorite: Bool)
     func draggingTouchScreen(position: CGPoint, recognizer: UIPanGestureRecognizer)
@@ -19,7 +19,7 @@ protocol EpisodeModalView {
 
 class EpisodeModalPresenter {
     
-    private var view: EpisodeModalView?
+    private weak var view: EpisodeModalView?
     
     private let audioService: AudioService
     private let dbService: DatabaseService

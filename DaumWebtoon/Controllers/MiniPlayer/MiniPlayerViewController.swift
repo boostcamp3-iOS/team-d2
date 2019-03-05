@@ -131,8 +131,8 @@ class MiniPlayerViewController: UIViewController {
 //        audioService.stopAudio()
         
         delegate?.removeMiniPlayer()
-//        view.removeFromSuperview()
-//        dismiss(animated: true, completion: nil)
+        view.removeFromSuperview()
+        dismiss(animated: true, completion: nil)
     }
 }
 
