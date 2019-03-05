@@ -2,7 +2,7 @@
 //  RequestData.swift
 //  DaumWebtoon
 //
-//  Created by Tak on 06/02/2019.
+//  Created by Tak on 12/02/2019.
 //  Copyright © 2019 Gaon Kim. All rights reserved.
 //
 
@@ -18,8 +18,7 @@ struct RequestData {
         path: String,
         method: HTTPMethod = .get,
         params: [String: Any?]? = nil,
-        headers: [String: String]? = ["Content-Type": "application/x-www-form-urlencoded"]
-        ) {
+        headers: [String: String]? = ["Content-Type": "application/x-www-form-urlencoded"]) {
         self.path = path
         self.method = method
         self.params = params

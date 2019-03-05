@@ -2,11 +2,11 @@
 //  RequestType.swift
 //  DaumWebtoon
 //
-//  Created by Tak on 06/02/2019.
+//  Created by Tak on 12/02/2019.
 //  Copyright © 2019 Gaon Kim. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol RequestType {
     associatedtype ResponseType: Codable
@@ -15,7 +15,7 @@ protocol RequestType {
 
 extension RequestType {
     func execute(
-        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.instance,
+        dispatcher: NetworkDispatcher = URLSessionNetworkDispatcher.shared,
         onSuccess: @escaping (ResponseType) -> Void,
         onError: @escaping (Error) -> Void
         ) {
@@ -23,11 +23,9 @@ extension RequestType {
             request: self.data,
             onSuccess: { (responseData: Data) in
                 do {
-                    let result1 = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: Any]
-                    print(result1)
-                    
                     let jsonDecoder = JSONDecoder()
                     let result = try jsonDecoder.decode(ResponseType.self, from: responseData)
+                    
                     DispatchQueue.main.async {
                         onSuccess(result)
                     }
@@ -41,8 +39,7 @@ extension RequestType {
                 DispatchQueue.main.async {
                     onError(error)
                 }
-        }
+            }
         )
     }
 }
-

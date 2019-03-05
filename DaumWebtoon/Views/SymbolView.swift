@@ -42,6 +42,10 @@ class SymbolView: UIView {
             let piece = PieceLayer(color: .red, path: pieceC[index])
             piece.pathAnimation(pathCtoN: pieceCtoN[index], pathN: pieceN[index], pathNtoHourglass: pieceNtoHourglass[index], pathHourglass: pieceHourglass[index], pathHourglassToIce: pieceHourglassToIce[index], pathIce: pieceIce[index], pathIceToC: pieceIceToC[index], pathAnotherC: pieceAnotherC[index])
             piece.colorAnimation()
+            // for C Shape
+            if index == 6 || index == 7 {
+                piece.opacityAnimation()
+            }
             pieces.append(piece)
             self.layer.addSublayer(piece)
         }
@@ -50,6 +54,7 @@ class SymbolView: UIView {
     private func configureRotateAnimation() {
         let animation = CABasicAnimation(keyPath: animationKey)
         animation.duration = 1
+        animation.isRemovedOnCompletion = false
         animation.fromValue = 0
         animation.toValue = CGFloat(Double.pi * 2)
         self.layer.speed = 0
